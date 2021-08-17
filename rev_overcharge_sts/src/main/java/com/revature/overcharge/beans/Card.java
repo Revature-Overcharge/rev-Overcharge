@@ -35,7 +35,7 @@ public class Card {
 
     @Column(name = "created_on")
     private long createdOn;
-    
+
     @OneToMany(mappedBy = "card")
     @JsonIgnore
     @Transient

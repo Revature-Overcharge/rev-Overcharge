@@ -9,43 +9,43 @@ import com.revature.overcharge.beans.Set;
 import com.revature.overcharge.repositories.SetRepo;
 
 @Service
-public class SetServiceImpl implements SetService{
+public class SetServiceImpl implements SetService {
 
-	@Autowired
-	SetRepo sr;
-	
-	@Override
-	public Set addSet(Set s) {
-		return sr.save(s);
-	}
+    @Autowired
+    SetRepo sr;
 
-	@Override
-	public Set getSet(int id) {
-		try {
-			return sr.findById(id).get();
-		} catch (Exception e) {
-			return null;
-		}
-	}
+    @Override
+    public Set addSet(Set s) {
+        return sr.save(s);
+    }
 
-	@Override
-	public Set updateSet(Set newSet) {
-		return sr.save(newSet);
-	}
+    @Override
+    public Set getSet(int id) {
+        try {
+            return sr.findById(id).get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-	@Override
-	public boolean deleteSet(int id) {
-		try {
-			sr.deleteById(id);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
+    @Override
+    public Set updateSet(Set newSet) {
+        return sr.save(newSet);
+    }
+
+    @Override
+    public boolean deleteSet(int id) {
+        try {
+            sr.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     @Override
     public List<Set> getSetsByCreatorId(int creatorId) {
         return sr.findByCreatorId(creatorId);
     }
-	
+
 }
