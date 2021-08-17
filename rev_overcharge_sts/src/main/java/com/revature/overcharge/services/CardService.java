@@ -2,7 +2,7 @@ package com.revature.overcharge.services;
 
 import java.util.List;
 
-import com.revature.overcharge.models.Card;
+import com.revature.overcharge.beans.Card;
 
 public interface CardService {
 

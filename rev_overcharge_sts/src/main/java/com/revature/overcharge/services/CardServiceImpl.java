@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.overcharge.models.Card;
+import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.repositories.CardRepo;
 
 @Service

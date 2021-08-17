@@ -3,7 +3,7 @@ package com.revature.overcharge.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.overcharge.models.Set;
+import com.revature.overcharge.beans.Set;
 import com.revature.overcharge.repositories.SetRepo;
 
 @Service

@@ -1,4 +1,4 @@
-package com.revature.overcharge.models;
+package com.revature.overcharge.beans;
 
 import java.util.List;
 
@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.revature.overcharge.beans.Set;
 
 @Entity
 @Table(name="cards")
@@ -19,8 +22,9 @@ public class Card {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="set_id")
-	private int setId;
+	@ManyToOne
+	@JoinColumn(name="set_id")
+	private Set set;
 	
 	@Column(name="question")
 	private String question;
@@ -31,18 +35,18 @@ public class Card {
 	@Column(name="created_on")
 	private long createdOn;
 
-	public Card(int setId, String question, String answer, long createdOn) {
+	public Card(Set set, String question, String answer, long createdOn) {
 		super();
-		this.setId = setId;
+		this.set = set;
 		this.question = question;
 		this.answer = answer;
 		this.createdOn = createdOn;
 	}
-	
-	public Card(int id, int setId, String question, String answer, long createdOn) {
+
+	public Card(int id, Set set, String question, String answer, long createdOn) {
 		super();
 		this.id = id;
-		this.setId = setId;
+		this.set = set;
 		this.question = question;
 		this.answer = answer;
 		this.createdOn = createdOn;
@@ -72,14 +76,6 @@ public class Card {
 		this.answer = answer;
 	}
 
-	public int getSetId() {
-		return setId;
-	}
-
-	public void setSetId(int setId) {
-		this.setId = setId;
-	}
-
 	public long getCreatedOn() {
 		return createdOn;
 	}
@@ -88,9 +84,17 @@ public class Card {
 		this.createdOn = createdOn;
 	}
 
+	public Set getSet() {
+		return set;
+	}
+
+	public void setSet(Set set) {
+		this.set = set;
+	}
+
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", setId=" + setId + ", question=" + question + ", answer=" + answer + ", createdOn="
+		return "Card [id=" + id + ", set=" + set + ", question=" + question + ", answer=" + answer + ", createdOn="
 				+ createdOn + "]";
 	}
 	

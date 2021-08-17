@@ -1,6 +1,6 @@
 package com.revature.overcharge.services;
 
-import com.revature.overcharge.models.Set;
+import com.revature.overcharge.beans.Set;
 
 public interface SetService {
 
