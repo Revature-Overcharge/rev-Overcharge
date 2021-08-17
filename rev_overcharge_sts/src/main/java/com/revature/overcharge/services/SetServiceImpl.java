@@ -1,5 +1,7 @@
 package com.revature.overcharge.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +42,10 @@ public class SetServiceImpl implements SetService{
 			return false;
 		}
 	}
+
+    @Override
+    public List<Set> getSetsByCreatorId(int creatorId) {
+        return sr.findByCreatorId(creatorId);
+    }
 	
 }

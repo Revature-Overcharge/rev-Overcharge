@@ -15,12 +15,12 @@ public class CardServiceImpl implements CardService {
 	CardRepo cr;
 	
 	@Override
-	public Card addFlashcard(Card c) {
+	public Card addCard(Card c) {
 		return cr.save(c);
 	}
 
 	@Override
-	public Card getFlashcard(int id) {
+	public Card getCard(int id) {
 		try {
 			return cr.findById(id).get();
 		} catch (Exception e) {
@@ -29,12 +29,12 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public Card updateFlashcard(Card newCard) {
+	public Card updateCard(Card newCard) {
 		return cr.save(newCard);
 	}
 
 	@Override
-	public boolean deleteFlashcard(int id) {
+	public boolean deleteCard(int id) {
 		try { 
 			cr.deleteById(id);
 			return true;
@@ -45,7 +45,7 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public List<Card> getFlashcardBySetId(int setId) {
+	public List<Card> getCardsBySetId(int setId) {
 		return cr.findBySetId(setId);
 	}
 

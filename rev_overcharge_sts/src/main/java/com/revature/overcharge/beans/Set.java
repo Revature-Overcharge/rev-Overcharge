@@ -12,92 +12,101 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.revature.overcharge.beans.Card;
-import com.revature.overcharge.beans.User;
+import org.springframework.data.annotation.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="sets")
+@Table(name = "sets")
 public class Set {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@ManyToOne
-	@JoinColumn(name="creator_id")
-	private User creator;
-	
-	@Column(name="title")
-	private String title;
-	
-	@Column(name="created_on")
-	private long createdOn;
-	
-	@OneToMany
-	@JoinColumn(name="set_id")
-	private List<Card> flashcards;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
+    private int id;
 
-	public Set(User creator, String title, long createdOn, List<Card> flashcards) {
-		super();
-		this.creator = creator;
-		this.title = title;
-		this.createdOn = createdOn;
-		this.flashcards = flashcards;
-	}
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private User creator;
 
-	public Set(int id, User creator, String title, long createdOn, List<Card> flashcards) {
-		super();
-		this.id = id;
-		this.creator = creator;
-		this.title = title;
-		this.createdOn = createdOn;
-		this.flashcards = flashcards;
-	}
+    private String title;
 
-	public int getId() {
-		return id;
-	}
+    @Column(name = "created_on")
+    private long createdOn;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @OneToMany(mappedBy = "set")
+    @JsonIgnore
+    @Transient
+    private List<Card> cards;
 
-	public User getCreator() {
-		return creator;
-	}
+    @OneToMany(mappedBy = "set")
+    @JsonIgnore
+    @Transient
+    private List<Rating> ratings;
+    
+    public Set() {
+        super();
+    }
 
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
+    public Set(User creator, String title, long createdOn) {
+        super();
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Set(int id, User creator, String title, long createdOn) {
+        super();
+        this.id = id;
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public long getCreatedOn() {
-		return createdOn;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setCreatedOn(long createdOn) {
-		this.createdOn = createdOn;
-	}
+    public User getCreator() {
+        return creator;
+    }
 
-	public List<Card> getFlashcards() {
-		return flashcards;
-	}
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 
-	public void setFlashcards(List<Card> flashcards) {
-		this.flashcards = flashcards;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	@Override
-	public String toString() {
-		return "Set [id=" + id + ", creator=" + creator + ", title=" + title + ", createdOn=" + createdOn
-				+ ", flashcards=" + flashcards + "]";
-	}
-	
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public long getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(long createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    @Override
+    public String toString() {
+        return "Set [id=" + id + ", creator=" + creator + ", title=" + title
+                + ", createdOn=" + createdOn + "]";
+    }
+
 }
