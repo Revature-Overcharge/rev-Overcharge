@@ -1,4 +1,4 @@
-package com.revature.overcharge;
+package com.revature.overcharge.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
