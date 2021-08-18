@@ -1,0 +1,45 @@
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Create Sets</div>
+    <div class="page__content shadow p-3 position-relative">
+      <div class="page__content-data">
+        <div class="input-group">
+          <span class="input-group-text">Topic</span>
+          <input type="text" aria-label="Topic" class="form-control">
+          <input type="text" aria-label="Answer" class="form-control">
+          <span class="input-group-text">Answer</span>
+          </div>
+        <div class="input-group">
+          <span class="input-group-text">Topic</span>
+          <input type="text" aria-label="Topic" class="form-control">
+          <input type="text" aria-label="Answer" class="form-control">
+          <span class="input-group-text">Answer</span>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">Topic</span>
+          <input type="text" aria-label="Topic" class="form-control">
+          <input type="text" aria-label="Answer" class="form-control">
+          <span class="input-group-text">Answer</span>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">Topic</span>
+          <input type="text" aria-label="Topic" class="form-control">
+          <input type="text" aria-label="Answer" class="form-control">
+          <span class="input-group-text">Answer</span>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">Topic</span>
+          <input type="text" aria-label="Topic" class="form-control">
+          <input type="text" aria-label="Answer" class="form-control">
+          <span class="input-group-text">Answer</span>
+        </div>
+        {{addsMore}}
+        <br><button style="font-size: medium;" routerLink="/library">Cancel</button>
+        <button style="font-size: medium;" (click)="fakeSuccess()">Save</button>
+        <div style="float: right;">
+        <button style="font-size: medium;" (click)= "showText()">+</button>
+        </div>
+        <b>{{save}}</b> <br>
+        (try the buttons)
+      </div>
+    </div>
+</div>

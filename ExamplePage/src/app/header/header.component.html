@@ -1,0 +1,35 @@
+<mat-toolbar style="float: right; margin:0%">
+    <mat-toolbar-row style="float: right; content:0%">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+        <div class="col-md-4" style="margin-right: 42%;">
+          <input type="search" class="form-control" id="searchBar" placeholder="Search for a Set">
+        </div> 
+        <div style="background-color: black; float: right;" >
+          <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-placement="bottom" data-bs-content="Bottom popover" [ngbPopover]="newText" triggers="mouseover:mouseout">Objectives</button>
+          </div><br><br><br><br><br><br><br>
+        
+      <div class="row mr-2">
+        <ul class="row m-0 align-items-center">
+          <li>
+            <button mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
+
+              <img src="./assets/User.png" alt="userPic" class="user-image mr-1 p-2" />
+  
+              User Name
+              <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <a mat-list-item routerLinkActive="list-item-active" routerLink="/profile"> <mat-icon>account_circle</mat-icon>User Profile </a>
+              <button mat-menu-item>
+                <mat-icon>exit_to_app</mat-icon>
+                Logout
+              </button>
+            </mat-menu>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>

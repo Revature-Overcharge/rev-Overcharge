@@ -1,0 +1,39 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">Login</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div class="page__content-data position-absolute">
+      <div class="card">
+          <h1 class="card-header">Login</h1>
+          <div class="card-body">
+              <div class="form-group">
+                  <h2><label for="username">Username</label></h2>
+                  <input type="text" class="form-control" id="username" [(ngModel)]="username" />
+                  <div  class="invalid-feedback">
+                      <div >Username is required</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <h2><label for="password">Password</label></h2>
+                  <input type="password" class="form-control" id="password" [(ngModel)]="password" />
+                  <div class="invalid-feedback">
+                      <div >Password is required</div>
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  <button (click)="login()" class="btn btn-primary" style="margin-top: 8px;">
+                      Login
+                  </button>
+                  <a routerLink="../registration" class="btn btn-link">Register</a>
+              </div>
+
+              <div class="form-group" *ngIf="invalidLogin">
+                  <div style="text-align: left; margin-top: 4px;">
+                    <h4><span id="invalidLogin" style="color: red;">Login invalid</span></h4>
+                  </div>
+                </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
