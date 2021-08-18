@@ -19,4 +19,8 @@ export class HeaderComponent implements OnInit {
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
   }
+
+  logout() {
+    console.log("Not yet Implemented");
+  }
 }
