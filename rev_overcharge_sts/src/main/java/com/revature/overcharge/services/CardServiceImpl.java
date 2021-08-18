@@ -59,8 +59,8 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> getCardsBySetId(int setId) {
-        return cr.findBySetId(setId);
+    public List<Card> getCardsByDeckId(int deckId) {
+        return cr.findByDeckId(deckId);
     }
 
 }

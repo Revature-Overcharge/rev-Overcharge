@@ -10,6 +10,6 @@ import com.revature.overcharge.beans.Card;
 @Repository
 public interface CardRepo extends CrudRepository<Card, Integer> {
 
-    List<Card> findBySetId(int setId);
+    List<Card> findByDeckId(int deckId);
 
 }

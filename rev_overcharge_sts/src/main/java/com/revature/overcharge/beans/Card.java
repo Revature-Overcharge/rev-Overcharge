@@ -26,8 +26,8 @@ public class Card {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "set_id")
-    private Set set;
+    @JoinColumn(name = "deck_id")
+    private Deck deck;
 
     private String question;
 
@@ -39,21 +39,21 @@ public class Card {
     @OneToMany(mappedBy = "card")
     @JsonIgnore
     @Transient
-    private List<FinishedCard> finishedCards;
+    private List<StudiedCard> studiedCards;
 
-    public Card(Set set, String question, String answer, long createdOn) {
+    public Card(Deck deck, String question, String answer, long createdOn) {
         super();
-        this.set = set;
+        this.deck = deck;
         this.question = question;
         this.answer = answer;
         this.createdOn = createdOn;
     }
 
-    public Card(int id, Set set, String question, String answer,
+    public Card(int id, Deck deck, String question, String answer,
             long createdOn) {
         super();
         this.id = id;
-        this.set = set;
+        this.deck = deck;
         this.question = question;
         this.answer = answer;
         this.createdOn = createdOn;
@@ -67,12 +67,12 @@ public class Card {
         this.id = id;
     }
 
-    public Set getSet() {
-        return set;
+    public Deck getDeck() {
+        return deck;
     }
 
-    public void setSet(Set set) {
-        this.set = set;
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 
     public String getQuestion() {
@@ -99,9 +99,17 @@ public class Card {
         this.createdOn = createdOn;
     }
 
+    public List<StudiedCard> getStudiedCards() {
+        return studiedCards;
+    }
+
+    public void setStudiedCards(List<StudiedCard> studiedCards) {
+        this.studiedCards = studiedCards;
+    }
+
     @Override
     public String toString() {
-        return "Card [id=" + id + ", set=" + set + ", question=" + question
+        return "Card [id=" + id + ", deck=" + deck + ", question=" + question
                 + ", answer=" + answer + ", createdOn=" + createdOn + "]";
     }
 
