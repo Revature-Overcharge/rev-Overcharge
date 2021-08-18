@@ -26,8 +26,13 @@ export class TimerComponent implements OnInit {
     format: 'HH:mm:ss'
   };
 
-  customTime = 3600;
+  hours: number;
+  minutes: number;
+  customTime: number;
+
+
   setCustomTime() {
+    this.customTime = (this.hours*3600 + this.minutes*60);
     this.config = { leftTime: this.customTime, demand: true };
   }
 
