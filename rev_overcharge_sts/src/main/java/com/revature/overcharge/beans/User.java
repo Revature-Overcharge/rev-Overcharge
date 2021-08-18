@@ -27,10 +27,9 @@ public class User {
 
     private String password;
 
-    @Column(name = "objective_points")
     private int points;
 
-    @Column(name = "last_login_on")
+    @Column(name = "last_login")
     private long lastLogin;
 
     @OneToMany(mappedBy = "creator")

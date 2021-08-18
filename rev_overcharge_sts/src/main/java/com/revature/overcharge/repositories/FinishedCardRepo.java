@@ -13,4 +13,6 @@ public interface FinishedCardRepo
 
     List<FinishedCard> findByCardId(int cardId);
 
+    FinishedCard findByUserIdAndCardId(int userId, int cardId);
+
 }

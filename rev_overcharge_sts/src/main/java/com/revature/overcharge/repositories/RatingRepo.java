@@ -12,4 +12,6 @@ public interface RatingRepo extends CrudRepository<Rating, Integer> {
 
     List<Rating> findBySetId(int setId);
 
+    Rating findByUserIdAndSetId(int userId, int setId);
+
 }
