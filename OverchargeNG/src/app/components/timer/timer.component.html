@@ -1,18 +1,49 @@
 <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2">Timer</div>
+    <div id="time_header" class="d-flex page__box p-3 mt-2">Work/Break Timer</div>
     <div class="page__content shadow p-3 position-relative">
-        <div class="page__content-data">
-          
-            <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown> <br />
-            <button (click)="cd.begin()" class="btn btn-sm btn-primary">Begin</button>
-            <button (click)="cd.pause()" class="btn btn-sm btn-primary">Pause</button>
-            <button (click)="cd.resume()" class="btn btn-sm btn-primary">Resume</button>
-            <button (click)="cd.restart()" class="btn btn-sm btn-primary">Reset</button> <br />
-            <button (click)="setCustomTime()" class="btn btn-sm btn-primary">Set Custom</button>
+        <div class="page__content-data ">
+
+<div id="timer_parent_container">
+    <div *ngIf="isShown" id="hours_mins_container">
+        <div id="hours_container">
+            <input type="number" id="hours" [(ngModel)]="hours" >
             <br />
-            <input type="number" [(ngModel)]="customTime" />
-            <label> *Input time in seconds for now </label>
-                
+            <label for="hours">Hours</label>
+        </div>
+        <div id="mins_container">
+            <input type="number" id="minutes" [(ngModel)]="minutes">
+            <br />
+            <label for="minutes">Minutes</label>
+        </div>
+        
+    </div>
+    <div id="timer_display_container">
+        <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown> <br />
+    </div>
+    
+    <div id="timer_buttons_container">
+        <div id="countdown_nav" class="btn-group">
+            <button (click)="cd.begin()" class="btn btn-sm">
+                <mat-icon>play_arrow</mat-icon>Play</button>
+            <button (click)="cd.pause()" class="btn btn-sm">
+                <mat-icon>pause</mat-icon>Pause</button>
+            <button (click)="cd.restart()" class="btn btn-sm">
+                <mat-icon>replay</mat-icon>Reset</button>
+        </div>
+        <br />
+        <div id="countdown_options" class="btn-group">
+            <button (click)="setCustomTime()" class="btn btn-sm">
+                <mat-icon>create</mat-icon>Set Timer</button>
+            <button (click)="toggleMode()" class="btn btn-sm">
+                <mat-icon>cached</mat-icon>Change Mode</button>
+            <button (click)="toggleShow()" type="checkbox" class="btn btn-sm">
+                <mat-icon>pages</mat-icon>Toggle Input</button>
+        </div>
+    </div>
+</div>
+            <!-- <input type="number" [(ngModel)]="customTime" />
+            <label> *Input time in seconds for now </label> -->
+
         </div>
     </div>
 </div>

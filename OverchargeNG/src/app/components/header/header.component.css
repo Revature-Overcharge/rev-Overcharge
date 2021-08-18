@@ -1,6 +1,8 @@
 mat-toolbar {
+  position: sticky;
   top: 0;
   z-index: 100;
+  background-color: white;
 }
 
 ul li {
@@ -17,10 +19,6 @@ button {
   font-size: 14px;
 }
 
-mat-toolbar {
-  background-color: white;
-}
-
 .user-image {
   border-radius: 50%;
   width: 50px;
@@ -34,4 +32,8 @@ mat-toolbar {
 
 ::ng-deep .mat-menu-content {
   width: 160px;
+}
+
+.flexExpand {
+  flex: 1 1 auto;
 }
