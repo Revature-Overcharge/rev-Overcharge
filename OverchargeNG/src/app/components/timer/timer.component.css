@@ -1,3 +1,7 @@
+div#time_header {
+    display: flex;
+    justify-content: center;
+}
 div#timer_parent_container {
     margin-top: 75px !important;
     padding: 25px;
