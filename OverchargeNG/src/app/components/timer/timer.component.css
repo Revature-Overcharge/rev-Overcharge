@@ -20,9 +20,11 @@ div#hours_mins_container {
 }
 div#hours_container {
     padding-right: 10px;
+    text-align: center;
 }
 div#mins_container {
     padding-left: 10px;
+    text-align: center;
 }
 div#timer_display_container {
     padding: 20px;
@@ -31,11 +33,7 @@ div#timer_display_container {
     margin: 0 auto;
 }
 div#timer_buttons_container {
-    margin: 0 auto;
-}
-div#timer_buttons_container button {
     display: flex;
-}
-div#timer_buttons_container .btn-group {
-    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
 }
