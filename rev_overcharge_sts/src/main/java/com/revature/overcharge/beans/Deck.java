@@ -35,7 +35,6 @@ public class Deck {
     private long createdOn;
 
     @OneToMany(mappedBy = "deck")
-    @JsonIgnore
     @Transient
     private List<Card> cards;
 
