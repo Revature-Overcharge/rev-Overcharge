@@ -20,9 +20,11 @@ div#hours_mins_container {
 }
 div#hours_container {
     padding-right: 10px;
+    text-align: center;
 }
 div#mins_container {
     padding-left: 10px;
+    text-align: center;
 }
 div#timer_display_container {
     padding: 20px;
