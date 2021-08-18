@@ -70,6 +70,8 @@
 			<artifactId>cucumber-junit</artifactId>
 			<version>6.10.2</version>
 		</dependency>
+		
+		
 	</dependencies>
 
 	<build>
