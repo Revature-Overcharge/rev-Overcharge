@@ -6,14 +6,14 @@ import com.revature.overcharge.beans.Card;
 
 public interface CardService {
 
-	public Card addFlashcard(Card f);
-	
-	public Card getFlashcard(int id);
-	
-	public Card updateFlashcard(Card newCard);
-	
-	public boolean deleteFlashcard(int id);
-	
-	public List<Card> getFlashcardBySetId(int setId);
-	
+    public Card addCard(Card f);
+
+    public Card getCard(int id);
+
+    public Card updateCard(Card newCard);
+
+    public boolean deleteCard(int id);
+
+    public List<Card> getCardsBySetId(int setId);
+
 }
