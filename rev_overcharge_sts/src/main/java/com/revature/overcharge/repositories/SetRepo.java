@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.revature.overcharge.beans.Set;
 
 @Repository
-public interface SetRepo extends CrudRepository<Set, Integer>{
+public interface SetRepo extends CrudRepository<Set, Integer> {
 
-	List<Set> findByCreatorId(int creatorId);
-	
+    List<Set> findByCreatorId(int creatorId);
+
 }
