@@ -19,7 +19,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { ProfileSettingsComponent } from './profileSettings/profileSettings.component';
 import { ObjectivesComponent } from './objectives/objectives.component';
-import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateSetsComponent } from './create-sets/create-sets.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { LibraryComponent } from './library/library.component';
+import { StudyComponent } from './study/study.component'
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -34,7 +38,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HeaderComponent,
     SidenavComponent,
     ProfileSettingsComponent,
-    ObjectivesComponent
+    ObjectivesComponent,
+    CreateSetsComponent,
+    LogInComponent,
+    LibraryComponent,
+    StudyComponent
   ],
   imports: [
     BrowserModule,

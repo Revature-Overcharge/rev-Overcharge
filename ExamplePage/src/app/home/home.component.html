@@ -1,8 +1,33 @@
 <div class="container-fluid page">
     <div class="d-flex page__box p-3 mt-2">Home</div>
     <div class="page__content shadow p-3 position-relative">
-      <div class="page__content-data position-absolute">
-        Home Content Goes Here
+      <div class="page__content-data">
+        <p style="float: left;"><b>Recent: </b></p> <br><hr>
+        <p style="float: right;"><b>(try clicking the sets)</b></p>
+        <div class="row row-cols-1 row-cols-md-1 g-4">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body" routerLink="/study">
+                <h5 class="card-title">First Set: </h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Last updated 17 mins ago</small>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body" routerLink="/study">
+                <h5 class="card-title">Second Set: </h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Last updated 10 mins ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

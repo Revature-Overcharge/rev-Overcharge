@@ -17,11 +17,11 @@
     margin-top: -2rem;
     background: white;
     color: black;
-    font-size: 2rem;
+    font-size: 20px;
 }
 
 .page__content-data {
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(50%, 50%, 50%);
 }

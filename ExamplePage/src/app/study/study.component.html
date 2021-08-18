@@ -1,0 +1,20 @@
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Study Time</div>
+    <div class="page__content shadow p-3 position-relative">
+      <div class="page__content-data">
+        <p style="float: left;"><b>Chosen Set Title...</b></p> 
+        <img src="../../assets/TimerWidget.png" alt="timer" style="float:right; height: 100px"> <br><br><br>
+
+        <div class="card" style="width: 45rem; text-align: center; margin: auto;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+          <button style="float: right; margin-right: 25%;" (click)="nextCard()">></button>
+          <button style="float: left; margin-left: 25%;" (click)="nextCard()"><</button><br><br>
+          <p style="margin-left: 25%;">{{card}}</p>
+      </div>
+    </div>
+  </div>

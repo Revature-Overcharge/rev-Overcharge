@@ -9,8 +9,7 @@ export class HeaderComponent implements OnInit {
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
   changeText: any;
-  newTextTest1:string = "Working?";
-  newTextTest2:string = "Progress?";
+  newText:string = "Daily and Weekly Challenges...";
 
   constructor() { }
 
@@ -20,9 +19,4 @@ export class HeaderComponent implements OnInit {
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
   }
-
-  showObj(){
-      this.newTextTest1 = "Yes";
-  }
-
 }
