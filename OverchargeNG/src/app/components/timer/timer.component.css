@@ -30,3 +30,11 @@ div#timer_display_container {
     max-width: fit-content;
     margin: 0 auto;
 }
+div#timer_buttons_container {
+    margin: auto 25%;
+}
+div#timer_buttons_container button {
+    align-items: center;
+    text-align: center;
+    border: tomato!important;
+}

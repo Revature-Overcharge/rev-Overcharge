@@ -1,7 +1,7 @@
 <div class="container-fluid page">
     <div id="time_header" class="d-flex page__box p-3 mt-2">Work/Break Timer</div>
     <div class="page__content shadow p-3 position-relative">
-        <div class="page__content-data">
+        <div class="page__content-data ">
 
 <div id="timer_parent_container">
     <div *ngIf="isShown" id="hours_mins_container">
@@ -22,17 +22,22 @@
     </div>
     
     <div id="timer_buttons_container">
+        <div id="countdown_nav" class="btn-group">
         <button (click)="cd.begin()" class="btn btn-sm">
             <mat-icon>play_arrow</mat-icon>Play</button>
         <button (click)="cd.pause()" class="btn btn-sm">
             <mat-icon>pause</mat-icon>Pause</button>
         <button (click)="cd.restart()" class="btn btn-sm">
-            <mat-icon>replay</mat-icon>Reset</button> <br />
+            <mat-icon>replay</mat-icon>Reset</button>
+        </div>
+        <div id="countdown_options" class="btn-group">
         <button (click)="setCustomTime()" class="btn btn-sm">
             <mat-icon>create</mat-icon>Set Timer</button>
+        <button (click)="toggleMode()" class="btn btn-sm">
+            <mat-icon>cached</mat-icon>Change Mode</button>
         <button (click)="toggleShow()" type="checkbox" class="btn btn-sm">
             <mat-icon>pages</mat-icon>Toggle Display</button>
-        <br />
+        </div>
     </div>
 </div>
             <!-- <input type="number" [(ngModel)]="customTime" />
