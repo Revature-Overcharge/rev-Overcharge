@@ -1,14 +1,17 @@
 <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2">Timer</div>
+    <div class="d-flex page__box p-3 mt-2">Timer **Under construction</div>
     <div class="page__content shadow p-3 position-relative">
         <div class="page__content-data">
           
             <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown> <br />
-            <button (click)="cd.begin()" class="btn btn-sm btn-primary">Begin</button>
-            <button (click)="cd.pause()" class="btn btn-sm btn-primary">Pause</button>
-            <button (click)="cd.resume()" class="btn btn-sm btn-primary">Resume</button>
-            <button (click)="cd.restart()" class="btn btn-sm btn-primary">Reset</button> <br />
-            <button (click)="setCustomTime()" class="btn btn-sm btn-primary">Set Custom</button>
+            <button (click)="cd.begin()" class="btn btn-sm">
+                <mat-icon>play_arrow</mat-icon>Play</button>
+            <button (click)="cd.pause()" class="btn btn-sm">
+                <mat-icon>pause</mat-icon>Pause</button>
+            <button (click)="cd.restart()" class="btn btn-sm">
+                <mat-icon>replay</mat-icon>Reset</button> <br />
+            <button (click)="setCustomTime()" class="btn btn-sm">
+                <mat-icon>create</mat-icon>Set Custom</button>
             <br />
             <input type="number" [(ngModel)]="customTime" />
             <label> *Input time in seconds for now </label>
