@@ -17,7 +17,7 @@ public class DeckServiceImpl implements DeckService {
 
     @Autowired
     DeckRepo dr;
-    
+
     @Autowired
     CardService cs;
 
@@ -27,9 +27,9 @@ public class DeckServiceImpl implements DeckService {
             log.warn("Deck id is invalid for add");
             return null;
         } else {
-        	for(Card c : d.getCards()) {
-        		cs.addCard(c);
-        	}
+            for (Card c : d.getCards()) {
+                cs.addCard(c);
+            }
             return dr.save(d);
         }
     }
@@ -47,10 +47,7 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-        	deleteDeck(newDeck.getId());
-            for(Card c : newDeck.getCards()) {
-        		cs.addCard(c);
-        	}
+            deleteDeck(newDeck.getId());
             return addDeck(newDeck);
         } else {
             log.warn("Deck id is invalid for update");
