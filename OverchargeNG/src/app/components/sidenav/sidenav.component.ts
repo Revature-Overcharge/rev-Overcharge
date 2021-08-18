@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
+  timerBool :boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.timerBool = false;
+  }
+
+  showTimer() {
+    if(this.timerBool == true) {
+      this.timerBool = false;
+    } else {
+      this.timerBool = true;
+    }
   }
 
 }

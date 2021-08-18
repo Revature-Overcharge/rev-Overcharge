@@ -1,6 +1,6 @@
-<div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2">Timer</div>
-    <div class="page__content shadow p-3 position-relative">
+<div class="card" style="width: 14rem;">
+   <!-- <div class="d-flex page__box p-3 mt-2">Timer</div>-->
+    <!--<div class="page__content shadow p-3 position-relative">-->
         <div class="page__content-data">
           
             <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown> <br />
@@ -13,6 +13,6 @@
             <input type="number" [(ngModel)]="customTime" />
             <label> *Input time in seconds for now </label>
                 
-        </div>
-    </div>
+        <!--</div>-->
+   <!-- </div> -->
 </div>
