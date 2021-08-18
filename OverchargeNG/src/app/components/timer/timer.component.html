@@ -1,8 +1,17 @@
-<p>timer is under construction!</p>
-
-
-<!-- Jordan's work here -->
-
-<div>
-    
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Home</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="page__content-data">
+          
+            <countdown #countdown (event)="handleEvent($event)" [config]=this.config></countdown>
+            <div>
+            <button (click)="this.countdown.pause()" class="btn btn-link btn-sm">pause</button>
+            <button (click)="this.countdown.resume()" class="btn btn-link btn-sm">resume</button>
+            <button (click)="this.countdown.stop()" class="btn btn-link btn-sm">stop</button>
+            <button (click)="this.countdown.restart()" class="btn btn-link btn-sm">restart</button>
+            </div>
+            <div class="alert alert-light">TIPS: Open console panel in chrome</div>
+                
+        </div>
+    </div>
 </div>
