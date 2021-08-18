@@ -1,21 +1,53 @@
 <div class="container-fluid page">
     <div class="d-flex page__box p-3 mt-2">Timer **Under construction</div>
     <div class="page__content shadow p-3 position-relative">
-        <div class="page__content-data">
-          
-            <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown> <br />
-            <button (click)="cd.begin()" class="btn btn-sm">
-                <mat-icon>play_arrow</mat-icon>Play</button>
+        <div class="page__content-data ">
+
+            <div class="row justify-content-center">
+                <div class="col-1">
+                    <input type="number" class="form-control" id="hours" [(ngModel)]="hours" />
+                    <label for="hours" class="input-group-text">Hours</label>
+                </div>
+                <div class="col-1">
+                    <input type="number" class="form-control" id="minutes" [(ngModel)]="minutes" />
+                    <label for="minutes" class="input-group-text">Minutes</label>
+                </div>
+            </div>
+            
+            <br />
+            <!-- <p>remind me when I've worked a certain amount of time</p>
+            <p>remind me when I've been on break for a certain amount of time.</p> -->
+
+            <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown>
+            <div class="row justify-content-center">
+                <div class="col-sm">
+                    <button (click)="cd.begin()" class="btn btn-sm">
+                    <mat-icon>play_arrow</mat-icon>
+                    Play
+                    </button>
+                </div>
+                <div class="col-sm">
             <button (click)="cd.pause()" class="btn btn-sm">
                 <mat-icon>pause</mat-icon>Pause</button>
+            </div>
+            <div class="col-sm">
             <button (click)="cd.restart()" class="btn btn-sm">
-                <mat-icon>replay</mat-icon>Reset</button> <br />
+                <mat-icon>replay</mat-icon>Reset</button> 
+            </div>
+            <div class="col-sm">
+            </div>
+            <div class="row">
+           
+            <div class="col-sm">
             <button (click)="setCustomTime()" class="btn btn-sm">
-                <mat-icon>create</mat-icon>Set Custom</button>
-            <br />
-            <input type="number" [(ngModel)]="customTime" />
-            <label> *Input time in seconds for now </label>
-                
+                <mat-icon>create</mat-icon>Set Time</button>
+            </div>
+            <div class="col-sm">
+            <button (click)="toggleMode()" class="btn btn-sm">
+                <mat-icon>cached</mat-icon>Switch Mode</button>
+            </div>
+            </div>
+
         </div>
     </div>
 </div>
