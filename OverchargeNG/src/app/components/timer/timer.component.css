@@ -27,10 +27,11 @@ div#timer_display_container {
     margin: 0 auto;
 }
 div#timer_buttons_container {
-    margin: auto 25%;
+    margin: 0 auto;
 }
 div#timer_buttons_container button {
-    align-items: center;
-    text-align: center;
-    border: tomato!important;
+    display: flex;
+}
+div#timer_buttons_container .btn-group {
+    margin: 0 auto;
 }
