@@ -2,26 +2,23 @@ package com.revature.overcharge.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+@IdClass(RatingId.class)
 @Table(name = "studied_cards")
 public class StudiedCard {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private int id;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
@@ -38,22 +35,6 @@ public class StudiedCard {
         this.user = user;
         this.card = card;
         this.studiedOn = studiedOn;
-    }
-
-    public StudiedCard(int id, User user, Card card, long studiedOn) {
-        super();
-        this.id = id;
-        this.user = user;
-        this.card = card;
-        this.studiedOn = studiedOn;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -82,8 +63,8 @@ public class StudiedCard {
 
     @Override
     public String toString() {
-        return "studiedCard [id=" + id + ", user=" + user + ", card=" + card
-                + ", studiedOn=" + studiedOn + "]";
+        return "studiedCard [user=" + user + ", card=" + card + ", studiedOn="
+                + studiedOn + "]";
     }
 
 }

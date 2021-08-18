@@ -2,26 +2,23 @@ package com.revature.overcharge.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+@IdClass(RatingId.class)
 @Table(name = "ratings")
 public class Rating {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private int id;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "deck_id")
     private Deck deck;
@@ -41,23 +38,6 @@ public class Rating {
         this.deck = deck;
         this.stars = stars;
         this.rated_on = rated_on;
-    }
-
-    public Rating(int id, User user, Deck deck, int stars, long rated_on) {
-        super();
-        this.id = id;
-        this.user = user;
-        this.deck = deck;
-        this.stars = stars;
-        this.rated_on = rated_on;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -94,8 +74,8 @@ public class Rating {
 
     @Override
     public String toString() {
-        return "Rating [id=" + id + ", user=" + user + ", deck=" + deck
-                + ", stars=" + stars + ", rated_on=" + rated_on + "]";
+        return "Rating [user=" + user + ", deck=" + deck + ", stars=" + stars
+                + ", rated_on=" + rated_on + "]";
     }
 
 }
