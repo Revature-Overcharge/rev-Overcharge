@@ -8,6 +8,7 @@ import { VirtualTimeScheduler } from 'rxjs';
   styleUrls: ['./timer.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class TimerComponent implements OnInit {
   @ViewChild('cd', { static: false }) 
   countdown!: CountdownComponent;
@@ -20,6 +21,8 @@ export class TimerComponent implements OnInit {
   hours!: number;
   minutes!: number;
   customTime!: number;
+
+  isShown: boolean = true;
 
   ngOnInit(): void {
     this.mode = this.study;
@@ -40,6 +43,11 @@ export class TimerComponent implements OnInit {
     if (e.action == 'done') {
       alert(`The ${this.mode.name} timer is over!`);
     }
+  }
+
+  toggleShow() {
+    this.isShown = !this.isShown;
+    
   }
 
   toggleMode() {

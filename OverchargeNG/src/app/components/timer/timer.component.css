@@ -3,7 +3,7 @@ div#timer_parent_container {
     padding: 25px;
     border-style: solid;
     border-color: #F26925;
-    border-radius: 15px;
+    border-radius: 5px;
     max-width: fit-content;
     margin: 0 auto;
 }
