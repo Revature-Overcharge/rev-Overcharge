@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CountdownModule } from 'ngx-countdown';
     MatIconModule,
     MatDividerModule,
     MatListModule,
-    CountdownModule
+    CountdownModule,
+    FormsModule
 
   ],
   providers: [],

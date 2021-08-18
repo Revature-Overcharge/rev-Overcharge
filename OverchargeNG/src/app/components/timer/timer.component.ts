@@ -16,24 +16,23 @@ export class TimerComponent implements OnInit {
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
-  @ViewChild('countdown', { static: false }) countdown!: CountdownComponent;
+
+  @ViewChild('cd', { static: false }) 
+  countdown!: CountdownComponent;
 
   config: CountdownConfig = {
-    leftTime: 60,
-    format: 'HH:mm:ss',
-    prettyText: (text) => {
-      return text
-        .split(':')
-        .map((v) => `<span class="item">${v}</span>`)
-        .join('');
-    },
+    leftTime: 3000,
+    demand: true,
+    format: 'HH:mm:ss'
   };
-  
+
+  customTime = 3600;
+  setCustomTime() {
+    this.config = { leftTime: this.customTime, demand: true };
+  }
 
   handleEvent(e: CountdownEvent) {
     console.log(e);
   }
-
-  constructor() { }
 
 }
