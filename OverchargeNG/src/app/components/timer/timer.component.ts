@@ -12,6 +12,7 @@ import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdo
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class TimerComponent implements OnInit {
   @ViewChild('cd', { static: false }) 
   countdown!: CountdownComponent;
@@ -19,6 +20,14 @@ export class TimerComponent implements OnInit {
   break: TimerMode = new TimerMode("Break", 10*60);
   study: TimerMode = new TimerMode("Study", 50*60);
   mode!: TimerMode;
+
+  isShown: boolean = true;
+
+  toggleShow() {
+
+    this.isShown = ! this.isShown;
+    
+    }
 
   ngOnInit(): void {
     this.mode = this.study;
