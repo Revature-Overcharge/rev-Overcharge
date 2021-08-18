@@ -2,7 +2,6 @@ package com.revature.overcharge.services;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,55 +11,42 @@ import com.revature.overcharge.repositories.CardRepo;
 @Service
 public class CardServiceImpl implements CardService {
 
-    private static final Logger log = Logger.getLogger(CardServiceImpl.class);
+	@Autowired
+	CardRepo cr;
+	
+	@Override
+	public Card addFlashcard(Card c) {
+		return cr.save(c);
+	}
 
-    @Autowired
-    CardRepo cr;
+	@Override
+	public Card getFlashcard(int id) {
+		try {
+			return cr.findById(id).get();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-    @Override
-    public Card addCard(Card c) {
-        if (cr.existsById(c.getId())) {
-            log.warn("card id is invalid for add");
-            return null;
-        } else {
-            return cr.save(c);
-        }
-    }
+	@Override
+	public Card updateFlashcard(Card newCard) {
+		return cr.save(newCard);
+	}
 
-    @Override
-    public Card getCard(int id) {
-        try {
-            return cr.findById(id).get();
-        } catch (Exception e) {
-            log.warn(e);
-            return null;
-        }
-    }
+	@Override
+	public boolean deleteFlashcard(int id) {
+		try { 
+			cr.deleteById(id);
+			return true;
+		} catch(IllegalArgumentException e) {
+			e.printStackTrace();
+			return false;	
+		}
+	}
 
-    @Override
-    public Card updateCard(Card newCard) {
-        if (cr.existsById(newCard.getId())) {
-            return cr.save(newCard);
-        } else {
-            log.warn("card id is invalid for update");
-            return null;
-        }
-    }
-
-    @Override
-    public boolean deleteCard(int id) {
-        try {
-            cr.deleteById(id);
-            return true;
-        } catch (IllegalArgumentException e) {
-            log.warn(e);
-            return false;
-        }
-    }
-
-    @Override
-    public List<Card> getCardsByDeckId(int deckId) {
-        return cr.findByDeckId(deckId);
-    }
+	@Override
+	public List<Card> getFlashcardBySetId(int setId) {
+		return cr.findBySetId(setId);
+	}
 
 }

@@ -3,50 +3,43 @@
     <div class="page__content shadow p-3 position-relative">
         <div class="page__content-data ">
 
-            <div class="row justify-content-center">
-                <div class="col-1">
-                    <input type="number" class="form-control" id="hours" [(ngModel)]="hours" />
-                    <label for="hours" class="input-group-text">Hours</label>
-                </div>
-                <div class="col-1">
-                    <input type="number" class="form-control" id="minutes" [(ngModel)]="minutes" />
-                    <label for="minutes" class="input-group-text">Minutes</label>
-                </div>
-            </div>
-            
-            <br />
-            <!-- <p>remind me when I've worked a certain amount of time</p>
-            <p>remind me when I've been on break for a certain amount of time.</p> -->
-
-            <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown>
-            <div class="row justify-content-center">
-                <div class="col-sm">
-                    <button (click)="cd.begin()" class="btn btn-sm">
-                    <mat-icon>play_arrow</mat-icon>
-                    Play
-                    </button>
-                </div>
-                <div class="col-sm">
-            <button (click)="cd.pause()" class="btn btn-sm">
-                <mat-icon>pause</mat-icon>Pause</button>
-            </div>
-            <div class="col-sm">
-            <button (click)="cd.restart()" class="btn btn-sm">
-                <mat-icon>replay</mat-icon>Reset</button> 
-            </div>
-            <div class="col-sm">
-            </div>
-            <div class="row">
-           
-            <div class="col-sm">
-            <button (click)="setCustomTime()" class="btn btn-sm">
-                <mat-icon>create</mat-icon>Set Time</button>
-            </div>
-            <div class="col-sm">
-            <button (click)="toggleMode()" class="btn btn-sm">
-                <mat-icon>cached</mat-icon>Switch Mode</button>
-            </div>
-            </div>
+<div id="timer_parent_container">
+    <div id="hours_mins_container">
+        <div id="hours_container">
+            <input type="number" id="hours" [(ngModel)]="hours" >
+            <br>
+            Hours
+        </div>
+        <div id="mins_container">
+            <input type="number" id="minutes" [(ngModel)]="minutes">
+            <br>
+            Minutes
+        </div>
+        
+    </div>
+    <div id="timer_display_container">
+        <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown> <br />
+    </div>
+    
+    <div id="timer_buttons_container">
+        <div class="btn-group">
+        <button (click)="cd.begin()" class="btn btn-sm">
+            <mat-icon>play_arrow</mat-icon>Play</button>
+        <button (click)="cd.pause()" class="btn btn-sm">
+            <mat-icon>pause</mat-icon>Pause</button>
+        <button (click)="cd.restart()" class="btn btn-sm">
+            <mat-icon>replay</mat-icon>Reset</button>
+        </div>
+        <div class="btn-group">
+        <button (click)="setCustomTime()" class="btn btn-sm">
+            <mat-icon>create</mat-icon>Set Timer</button>
+        <button (click)="toggleMode()" class="btn btn-sm">
+            <mat-icon>cached</mat-icon>Change Mode</button>
+        </div>
+    </div>
+</div>
+            <!-- <input type="number" [(ngModel)]="customTime" />
+            <label> *Input time in seconds for now </label> -->
 
         </div>
     </div>

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdown';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-timer',
@@ -15,17 +16,15 @@ export class TimerComponent implements OnInit {
   study: TimerMode = new TimerMode("Study", 50*60);
   mode!: TimerMode;
   config!: CountdownConfig;
+  
+  hours!: number;
+  minutes!: number;
+  customTime!: number;
 
   ngOnInit(): void {
     this.mode = this.study;
     this.config = this.mode.defaultConfig;
   }
-
-  
-
-  hours!: number;
-  minutes!: number;
-  customTime!: number;
 
   setCustomTime() {
     this.customTime = (this.hours*3600 + this.minutes*60);
@@ -44,11 +43,16 @@ export class TimerComponent implements OnInit {
   }
 
   toggleMode() {
-    if (this.mode.name == this.study.name) {
+    // console.log(`Timer Before Mode: ${this.mode.name}`);
+    console.log("Toggling timer mode...")
+    if (this.mode.name === this.study.name) {
       this.mode = this.break;
-    } else if (this.mode.name == this.break.name) {
+    } else if (this.mode.name === this.break.name) {
       this.mode = this.study;
     }
+    console.log(`Timer Mode: ${this.mode.name}`);
+    this.countdown.config = this.mode.defaultConfig;
+    this.countdown.restart();
   }
 
 }

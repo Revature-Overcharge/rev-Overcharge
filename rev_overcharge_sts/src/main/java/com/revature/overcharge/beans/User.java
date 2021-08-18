@@ -1,143 +1,93 @@
 package com.revature.overcharge.beans;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name="username")
+	private String username;
+	
+	@Column(name="password")
+	private String password;
+	
+	@Column(name="objective_points")
+	private int points;
+	
+	@Column(name="last_login_on")
+	private long lastLogin;
 
-    private String username;
+	public User(String username, String password, int points, long lastLogin) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.points = points;
+		this.lastLogin = lastLogin;
+	}
 
-    private String password;
+	public User(int id, String username, String password, int points, long lastLogin) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.points = points;
+		this.lastLogin = lastLogin;
+	}
 
-    private int points;
+	public int getId() {
+		return id;
+	}
 
-    @Column(name = "last_login")
-    private long lastLogin;
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    @OneToMany(mappedBy = "creator")
-    @JsonIgnore
-    @Transient
-    private List<Deck> createdDecks;
+	public String getUsername() {
+		return username;
+	}
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    @Transient
-    private List<StudiedCard> studiedCards;
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    @Transient
-    private List<Rating> ratings;
+	public String getPassword() {
+		return password;
+	}
 
-    public User() {
-        super();
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public User(String username, String password, int points, long lastLogin) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.points = points;
-        this.lastLogin = lastLogin;
-    }
+	public int getPoints() {
+		return points;
+	}
 
-    public User(int id, String username, String password, int points,
-            long lastLogin) {
-        super();
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.points = points;
-        this.lastLogin = lastLogin;
-    }
+	public void setPoints(int points) {
+		this.points = points;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public long getLastLogin() {
+		return lastLogin;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setLastLogin(long lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public long getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(long lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public List<Deck> getCreatedDecks() {
-        return createdDecks;
-    }
-
-    public void setCreatedDecks(List<Deck> createdDecks) {
-        this.createdDecks = createdDecks;
-    }
-
-    public List<StudiedCard> getStudiedCards() {
-        return studiedCards;
-    }
-
-    public void setStudiedCards(List<StudiedCard> studiedCards) {
-        this.studiedCards = studiedCards;
-    }
-
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
-
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password="
-                + password + ", points=" + points + ", lastLogin=" + lastLogin
-                + "]";
-    }
-
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", points=" + points
+				+ ", lastLogin=" + lastLogin + "]";
+	}
+	
 }

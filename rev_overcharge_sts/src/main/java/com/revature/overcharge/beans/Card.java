@@ -12,105 +12,90 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.revature.overcharge.beans.Set;
 
 @Entity
-@Table(name = "cards")
+@Table(name="cards")
 public class Card {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name="set_id")
+	private Set set;
+	
+	@Column(name="question")
+	private String question;
+	
+	@Column(name="answer")
+	private String answer;
+	
+	@Column(name="created_on")
+	private long createdOn;
 
-    @ManyToOne
-    @JoinColumn(name = "deck_id")
-    private Deck deck;
+	public Card(Set set, String question, String answer, long createdOn) {
+		super();
+		this.set = set;
+		this.question = question;
+		this.answer = answer;
+		this.createdOn = createdOn;
+	}
 
-    private String question;
+	public Card(int id, Set set, String question, String answer, long createdOn) {
+		super();
+		this.id = id;
+		this.set = set;
+		this.question = question;
+		this.answer = answer;
+		this.createdOn = createdOn;
+	}
 
-    private String answer;
+	public int getId() {
+		return id;
+	}
 
-    @Column(name = "created_on")
-    private long createdOn;
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    @OneToMany(mappedBy = "card")
-    @JsonIgnore
-    @Transient
-    private List<StudiedCard> studiedCards;
+	public String getQuestion() {
+		return question;
+	}
 
-    public Card(Deck deck, String question, String answer, long createdOn) {
-        super();
-        this.deck = deck;
-        this.question = question;
-        this.answer = answer;
-        this.createdOn = createdOn;
-    }
+	public void setQuestion(String question) {
+		this.question = question;
+	}
 
-    public Card(int id, Deck deck, String question, String answer,
-            long createdOn) {
-        super();
-        this.id = id;
-        this.deck = deck;
-        this.question = question;
-        this.answer = answer;
-        this.createdOn = createdOn;
-    }
+	public String getAnswer() {
+		return answer;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public long getCreatedOn() {
+		return createdOn;
+	}
 
-    public Deck getDeck() {
-        return deck;
-    }
+	public void setCreatedOn(long createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
+	public Set getSet() {
+		return set;
+	}
 
-    public String getQuestion() {
-        return question;
-    }
+	public void setSet(Set set) {
+		this.set = set;
+	}
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public long getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(long createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public List<StudiedCard> getStudiedCards() {
-        return studiedCards;
-    }
-
-    public void setStudiedCards(List<StudiedCard> studiedCards) {
-        this.studiedCards = studiedCards;
-    }
-
-    @Override
-    public String toString() {
-        return "Card [id=" + id + ", deck=" + deck + ", question=" + question
-                + ", answer=" + answer + ", createdOn=" + createdOn + "]";
-    }
-
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", set=" + set + ", question=" + question + ", answer=" + answer + ", createdOn="
+				+ createdOn + "]";
+	}
+	
 }
