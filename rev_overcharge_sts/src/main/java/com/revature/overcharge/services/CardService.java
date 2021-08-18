@@ -14,6 +14,6 @@ public interface CardService {
 
     public boolean deleteCard(int id);
 
-    public List<Card> getCardsBySetId(int setId);
+    public List<Card> getCardsByDeckId(int deckId);
 
 }

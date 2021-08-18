@@ -23,8 +23,8 @@ public class Rating {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "set_id")
-    private Set set;
+    @JoinColumn(name = "deck_id")
+    private Deck deck;
 
     private int stars;
 
@@ -35,19 +35,19 @@ public class Rating {
         super();
     }
 
-    public Rating(User user, Set set, int stars, long rated_on) {
+    public Rating(User user, Deck deck, int stars, long rated_on) {
         super();
         this.user = user;
-        this.set = set;
+        this.deck = deck;
         this.stars = stars;
         this.rated_on = rated_on;
     }
 
-    public Rating(int id, User user, Set set, int stars, long rated_on) {
+    public Rating(int id, User user, Deck deck, int stars, long rated_on) {
         super();
         this.id = id;
         this.user = user;
-        this.set = set;
+        this.deck = deck;
         this.stars = stars;
         this.rated_on = rated_on;
     }
@@ -68,12 +68,12 @@ public class Rating {
         this.user = user;
     }
 
-    public Set getSet() {
-        return set;
+    public Deck getDeck() {
+        return deck;
     }
 
-    public void setSet(Set set) {
-        this.set = set;
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 
     public int getStars() {
@@ -94,7 +94,7 @@ public class Rating {
 
     @Override
     public String toString() {
-        return "Rating [id=" + id + ", user=" + user + ", set=" + set
+        return "Rating [id=" + id + ", user=" + user + ", deck=" + deck
                 + ", stars=" + stars + ", rated_on=" + rated_on + "]";
     }
 

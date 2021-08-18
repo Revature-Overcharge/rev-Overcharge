@@ -35,12 +35,12 @@ public class User {
     @OneToMany(mappedBy = "creator")
     @JsonIgnore
     @Transient
-    private List<Set> createdSets;
+    private List<Deck> createdDecks;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     @Transient
-    private List<FinishedCard> finishedCards;
+    private List<StudiedCard> studiedCards;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
@@ -109,20 +109,20 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public List<Set> getCreatedSets() {
-        return createdSets;
+    public List<Deck> getCreatedDecks() {
+        return createdDecks;
     }
 
-    public void setCreatedSets(List<Set> createdSets) {
-        this.createdSets = createdSets;
+    public void setCreatedDecks(List<Deck> createdDecks) {
+        this.createdDecks = createdDecks;
     }
 
-    public List<FinishedCard> getFinishedCards() {
-        return finishedCards;
+    public List<StudiedCard> getStudiedCards() {
+        return studiedCards;
     }
 
-    public void setFinishedCards(List<FinishedCard> finishedCards) {
-        this.finishedCards = finishedCards;
+    public void setStudiedCards(List<StudiedCard> studiedCards) {
+        this.studiedCards = studiedCards;
     }
 
     public List<Rating> getRatings() {

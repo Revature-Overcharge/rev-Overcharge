@@ -17,8 +17,8 @@ import org.springframework.data.annotation.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "sets")
-public class Set {
+@Table(name = "decks")
+public class Deck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,28 +34,28 @@ public class Set {
     @Column(name = "created_on")
     private long createdOn;
 
-    @OneToMany(mappedBy = "set")
+    @OneToMany(mappedBy = "deck")
     @JsonIgnore
     @Transient
     private List<Card> cards;
 
-    @OneToMany(mappedBy = "set")
+    @OneToMany(mappedBy = "deck")
     @JsonIgnore
     @Transient
     private List<Rating> ratings;
-    
-    public Set() {
+
+    public Deck() {
         super();
     }
 
-    public Set(User creator, String title, long createdOn) {
+    public Deck(User creator, String title, long createdOn) {
         super();
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
     }
 
-    public Set(int id, User creator, String title, long createdOn) {
+    public Deck(int id, User creator, String title, long createdOn) {
         super();
         this.id = id;
         this.creator = creator;
@@ -103,9 +103,17 @@ public class Set {
         this.cards = cards;
     }
 
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public String toString() {
-        return "Set [id=" + id + ", creator=" + creator + ", title=" + title
+        return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
                 + ", createdOn=" + createdOn + "]";
     }
 

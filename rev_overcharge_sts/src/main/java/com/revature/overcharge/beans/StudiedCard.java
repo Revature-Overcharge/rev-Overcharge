@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "finished_cards")
-public class FinishedCard {
+@Table(name = "studied_cards")
+public class StudiedCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,26 +26,26 @@ public class FinishedCard {
     @JoinColumn(name = "card_id")
     private Card card;
 
-    @Column(name = "finished_on")
-    private long finishedOn;
+    @Column(name = "studied_on")
+    private long studiedOn;
 
-    public FinishedCard() {
+    public StudiedCard() {
         super();
     }
 
-    public FinishedCard(User user, Card card, long finishedOn) {
+    public StudiedCard(User user, Card card, long studiedOn) {
         super();
         this.user = user;
         this.card = card;
-        this.finishedOn = finishedOn;
+        this.studiedOn = studiedOn;
     }
 
-    public FinishedCard(int id, User user, Card card, long finishedOn) {
+    public StudiedCard(int id, User user, Card card, long studiedOn) {
         super();
         this.id = id;
         this.user = user;
         this.card = card;
-        this.finishedOn = finishedOn;
+        this.studiedOn = studiedOn;
     }
 
     public int getId() {
@@ -72,18 +72,18 @@ public class FinishedCard {
         this.card = card;
     }
 
-    public long getFinishedOn() {
-        return finishedOn;
+    public long getStudiedOn() {
+        return studiedOn;
     }
 
-    public void setFinishedOn(long finishedOn) {
-        this.finishedOn = finishedOn;
+    public void setStudiedOn(long studiedOn) {
+        this.studiedOn = studiedOn;
     }
 
     @Override
     public String toString() {
-        return "FinishedCard [id=" + id + ", user=" + user + ", card=" + card
-                + ", finishedOn=" + finishedOn + "]";
+        return "studiedCard [id=" + id + ", user=" + user + ", card=" + card
+                + ", studiedOn=" + studiedOn + "]";
     }
 
 }
