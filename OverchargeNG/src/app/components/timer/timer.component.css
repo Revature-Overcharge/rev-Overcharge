@@ -1,0 +1,28 @@
+div#timer_parent_container {
+    margin-top: 75px !important;
+    padding: 25px;
+    border-style: solid;
+    border-color: #F26925;
+    border-radius: 15px;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+div#hours_mins_container {
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+div#hours_container {
+    padding-right: 10px;
+}
+div#mins_container {
+    padding-left: 10px;
+}
+div#timer_display_container {
+    padding: 20px;
+    font-size: xx-large;
+    max-width: fit-content;
+    margin: 0 auto;
+}

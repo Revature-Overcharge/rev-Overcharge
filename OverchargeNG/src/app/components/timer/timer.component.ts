@@ -13,12 +13,16 @@ import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimerComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
   @ViewChild('cd', { static: false }) 
   countdown!: CountdownComponent;
+
+  break: TimerMode = new TimerMode("Break", 10*60);
+  study: TimerMode = new TimerMode("Study", 50*60);
+  mode!: TimerMode;
+
+  ngOnInit(): void {
+    this.mode = this.study;
+  }
 
   config: CountdownConfig = {
     leftTime: 3000,
@@ -38,6 +42,20 @@ export class TimerComponent implements OnInit {
 
   handleEvent(e: CountdownEvent) {
     console.log(e);
+    if (e.action == 'done'){
+      alert("Work Timer Complete!");
+    }
+    
   }
 
+}
+
+class TimerMode {
+  name: string;
+  defaultTime: number;
+
+  constructor(name: string, defaultTime: number) {
+    this.name = name;
+    this.defaultTime = defaultTime;
+  }
 }
