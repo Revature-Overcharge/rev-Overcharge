@@ -1,1 +1,12 @@
-<p>timer works!</p>
+
+
+<div style="margin-left: 50px">
+    <h3>Timer</h3>
+    <countdown #cd [config]="config"></countdown> <br />
+    <button (click)="cd.begin()">Begin</button>
+    <button (click)="cd.restart()">Reset</button> <br />
+    <button (click)="setCustomTime()">Set Custom</button>
+    <br>
+    <input type="number" [(ngModel)]="customTime" />
+    <label> *Input time in seconds for now </label>
+</div>
