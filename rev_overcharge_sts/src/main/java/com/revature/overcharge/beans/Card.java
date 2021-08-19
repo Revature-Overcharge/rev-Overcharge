@@ -1,5 +1,6 @@
 package com.revature.overcharge.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -41,22 +42,25 @@ public class Card {
     @Transient
     private List<StudiedCard> studiedCards;
 
-    public Card(Deck deck, String question, String answer, long createdOn) {
+    public Card() {
+        super();
+    }
+
+    public Card(Deck deck, String question, String answer) {
         super();
         this.deck = deck;
         this.question = question;
         this.answer = answer;
-        this.createdOn = createdOn;
+        createdOn = new Date().getTime();
     }
 
-    public Card(int id, Deck deck, String question, String answer,
-            long createdOn) {
+    public Card(int id, Deck deck, String question, String answer) {
         super();
         this.id = id;
         this.deck = deck;
         this.question = question;
         this.answer = answer;
-        this.createdOn = createdOn;
+        createdOn = new Date().getTime();
     }
 
     public int getId() {

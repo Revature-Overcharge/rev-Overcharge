@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.revature.overcharge.repositories")
 public class RevOverchargeStsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RevOverchargeStsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RevOverchargeStsApplication.class, args);
+    }
 
 }
