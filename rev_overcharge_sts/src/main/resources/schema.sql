@@ -1,10 +1,8 @@
--- DROP TABLE ratings;
--- DROP TABLE studied_cards;
--- DROP TABLE cards;
--- DROP TABLE decks;
--- DROP TABLE users;
-
--- DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS ratings;
+DROP TABLE IF EXISTS studied_cards;
+DROP TABLE IF EXISTS cards;
+DROP TABLE IF EXISTS decks;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id          IDENTITY,
@@ -37,7 +35,7 @@ CREATE TABLE cards (
 CREATE TABLE studied_cards (
     user_id     integer,
     card_id     integer,
-    finished_on bigint,
+    studied_on  bigint,
     PRIMARY KEY (user_id, card_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (card_id) REFERENCES cards(id)
@@ -46,6 +44,7 @@ CREATE TABLE studied_cards (
 CREATE TABLE ratings (
     user_id     integer,
     deck_id     integer,
+    stars		integer,
     rated_on    bigint,
     PRIMARY KEY (user_id, deck_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
