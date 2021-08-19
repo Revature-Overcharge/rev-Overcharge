@@ -16,23 +16,25 @@ import com.revature.overcharge.services.DeckService;
 @RestController
 public class DeckController {
 
-	@Autowired
-	DeckService ds;
+    @Autowired
+    DeckService ds;
 
-	@GetMapping(value = "/decks/{id}")
-	public Deck getDeck(@PathVariable("id") String id) {
-		return ds.getDeck(Integer.parseInt(id));
-	}
-	
-	@PostMapping(value = "/decks", consumes = "application/json", produces = "application/json")
-	public Deck addDeck(@RequestBody Deck d){
-		return ds.addDeck(d);
-	}
-	
-	@PutMapping(value = "/decks/{id}", consumes = "application/json", produces = "application/json")
-	public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
-		newDeck.setId(id);
-		return ds.updateDeck(newDeck);
-	}
-	
+    @GetMapping(value = "/decks/{id}")
+    public Deck getDeck(@PathVariable("id") String id) {
+        return ds.getDeck(Integer.parseInt(id));
+    }
+
+    @PostMapping(value = "/decks", consumes = "application/json",
+            produces = "application/json")
+    public Deck addDeck(@RequestBody Deck d) {
+        return ds.addDeck(d);
+    }
+
+    @PutMapping(value = "/decks/{id}", consumes = "application/json",
+            produces = "application/json")
+    public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
+        newDeck.setId(id);
+        return ds.updateDeck(newDeck);
+    }
+
 }
