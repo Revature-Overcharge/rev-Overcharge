@@ -27,6 +27,7 @@ public class DeckServiceImpl implements DeckService {
             log.warn("Deck id is invalid for add");
             return null;
         } else {
+            // Add cards and deck
             for (Card c : d.getCards()) {
                 cs.addCard(c);
             }
@@ -47,6 +48,7 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
+            // Delete old cards and deck before adding new cards and deck
             deleteDeck(newDeck.getId());
             return addDeck(newDeck);
         } else {
@@ -57,11 +59,15 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public boolean deleteDeck(int id) {
-        try {
+        if (dr.existsById(id)) {
+            // Delete cards and deck
+            for (Card c : cs.getCardsByDeckId(id)) {
+                cs.deleteCard(c.getId());
+            }
             dr.deleteById(id);
             return true;
-        } catch (IllegalArgumentException e) {
-            log.warn(e);
+        } else {
+            log.warn("Deck id is invalid for delete");
             return false;
         }
     }
