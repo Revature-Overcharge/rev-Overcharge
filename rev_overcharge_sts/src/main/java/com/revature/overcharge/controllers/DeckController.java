@@ -17,7 +17,6 @@ import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.services.CardService;
 import com.revature.overcharge.services.DeckService;
 
-
 @CrossOrigin
 @RestController
 public class DeckController {
@@ -31,28 +30,28 @@ public class DeckController {
     public Deck getDeck(@PathVariable("id") String id) {
         return ds.getDeck(Integer.parseInt(id));
     }
-    
+
     @GetMapping(value = "/decks")
-    public List<Deck> getAllDecks(){
-    	return ds.getAllDecks();
+    public List<Deck> getAllDecks() {
+        return ds.getAllDecks();
     }
 
     @PostMapping(value = "/decks", consumes = "application/json",
             produces = "application/json")
     public Deck addDeck(@RequestBody Deck d) {
 
-    	d.setCreatedOn(new Date().getTime());
-    	Deck saveDeck = ds.addDeck(d);
-    	int size = d.getCards().size();
-    	
-    	for (int i=0;i<size;i++) {
-    		Card card = d.getCards().get(i);
-    		card.setDeck(saveDeck);
-    		card = cs.updateCard(card);
-    	}
-    	
+        d.setCreatedOn(new Date().getTime());
+        Deck saveDeck = ds.addDeck(d);
+        int size = d.getCards().size();
+
+        for (int i = 0; i < size; i++) {
+            Card card = d.getCards().get(i);
+            card.setDeck(saveDeck);
+            card = cs.updateCard(card);
+        }
+
         return saveDeck;
-        
+
     }
 
     @PutMapping(value = "/decks/{id}", consumes = "application/json",

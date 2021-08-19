@@ -1,6 +1,5 @@
 package com.revature.overcharge.controllers;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +20,22 @@ import com.revature.overcharge.services.UserService;
 @RestController
 public class UserController {
 
-	@Autowired
-	UserService us;
-	
+    @Autowired
+    UserService us;
+
     @GetMapping(value = "/user/{id}")
     public User getUser(@PathVariable("id") String id) {
         return us.getUser(Integer.parseInt(id));
     }
-    
-	
+
     @GetMapping(value = "/user?username=")
     public User getUserByUname(@RequestParam("username") String username) {
         return us.getUserByUname(username);
     }
-    
+
     @GetMapping(value = "/user")
     public List<User> getAllUsers() {
-    	return us.getAllUsers();
+        return us.getAllUsers();
     }
 
     @PostMapping(value = "/user", consumes = "application/json",
@@ -52,11 +50,10 @@ public class UserController {
         newUser.setId(id);
         return us.updateUser(newUser);
     }
-    
+
     @DeleteMapping(value = "/user/{id}")
     public boolean deleteUser(@PathVariable int id) {
-    	return us.deleteUser(id);
+        return us.deleteUser(id);
     }
 
-	
 }
