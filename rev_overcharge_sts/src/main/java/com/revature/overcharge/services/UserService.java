@@ -6,7 +6,7 @@ public interface UserService {
 
     public User addUser(User u);
 
-    public User getUser(String username);
+    public User getUserByUname(String username);
     
     public User getUser(int id);
 
