@@ -8,4 +8,6 @@ import com.revature.overcharge.beans.User;
 @Repository
 public interface UserRepo extends CrudRepository<User, Integer> {
 
+	User getUserByUsername(String username);	
+	
 }
