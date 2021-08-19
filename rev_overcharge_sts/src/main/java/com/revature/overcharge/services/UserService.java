@@ -6,6 +6,8 @@ public interface UserService {
 
     public User addUser(User u);
 
+    public User getUser(String username);
+    
     public User getUser(int id);
 
     public User updateUser(User newUser);

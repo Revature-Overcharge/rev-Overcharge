@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,7 +9,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 //Assistant Modules
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
+import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     SidenavComponent,
     HomeComponent,
     LoginComponent,
-    TimerComponent
+    TimerComponent,
+    CardrunnerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +40,8 @@ import { FormsModule } from '@angular/forms';
     MatDividerModule,
     MatListModule,
     CountdownModule,
-    FormsModule
-
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
