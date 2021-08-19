@@ -9,6 +9,8 @@ public interface DeckService {
     public Deck addDeck(Deck d);
 
     public Deck getDeck(int id);
+    
+    public List<Deck> getAllDecks();
 
     public Deck updateDeck(Deck newDeck);
 

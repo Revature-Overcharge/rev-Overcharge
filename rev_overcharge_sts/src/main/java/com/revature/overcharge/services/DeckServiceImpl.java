@@ -44,6 +44,11 @@ public class DeckServiceImpl implements DeckService {
             return null;
         }
     }
+    
+    @Override
+    public List<Deck> getAllDecks(){
+    	return (List<Deck>) dr.findAll();
+    }
 
     @Override
     public Deck updateDeck(Deck newDeck) {
