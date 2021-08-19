@@ -13,7 +13,7 @@ export class LoginService {
   getUser(param: string): Observable<User> {
     console.log(param);
 
-    return this.http.get<User>(`http://localhost:8080/h2/username=${param}`, {responseType: "json"} );
+    return this.http.get<User>(`http://localhost:8080/user/username?username=${param}`, {responseType: "json"} );
   }
 
 
