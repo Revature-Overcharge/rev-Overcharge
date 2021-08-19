@@ -57,4 +57,11 @@ export class SidenavComponent implements OnInit {
     }
   }
 
+  isGuest() :boolean {
+    if (localStorage.getItem('username') == 'Guest') {
+      return true;
+    } else return false;
+
+  }
+
 }

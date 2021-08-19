@@ -10,9 +10,13 @@ export class HeaderComponent implements OnInit {
 
   changeText: any;
   newText:string = "Daily and Weekly Challenges...";
-  username = localStorage.getItem("username");
+  username = localStorage.getItem("username") || 'Guest';
+  responseMessage: string = '';
+  loggedIn : boolean;
 
-  constructor() { }
+  constructor() { 
+    this.loggedIn = false;
+  }
 
   ngOnInit(): void {
   }
@@ -21,9 +25,9 @@ export class HeaderComponent implements OnInit {
     this.toggleSidebarForMe.emit();
   }
 
-  responseMessage: string = ''
   logout(){
-    localStorage.removeItem("username");
+    localStorage.setItem("username", 'Guest');
+    this.loggedIn = !this.loggedIn;
     this.responseMessage = "Logging out";
     window.setTimeout(()=>{
       location.reload();
