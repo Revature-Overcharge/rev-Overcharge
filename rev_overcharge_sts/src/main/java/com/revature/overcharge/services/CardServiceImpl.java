@@ -20,7 +20,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public Card addCard(Card c) {
         if (cr.existsById(c.getId())) {
-            log.warn("card id is invalid for add");
+            log.warn("Card id is invalid for add");
             return null;
         } else {
             return cr.save(c);
@@ -42,7 +42,7 @@ public class CardServiceImpl implements CardService {
         if (cr.existsById(newCard.getId())) {
             return cr.save(newCard);
         } else {
-            log.warn("card id is invalid for update");
+            log.warn("Card id is invalid for update");
             return null;
         }
     }

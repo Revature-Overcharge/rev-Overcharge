@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.repositories.DeckRepo;
 
@@ -17,12 +18,19 @@ public class DeckServiceImpl implements DeckService {
     @Autowired
     DeckRepo dr;
 
+    @Autowired
+    CardService cs;
+
     @Override
     public Deck addDeck(Deck d) {
         if (dr.existsById(d.getId())) {
             log.warn("Deck id is invalid for add");
             return null;
         } else {
+            // Add cards and deck
+            for (Card c : d.getCards()) {
+                cs.addCard(c);
+            }
             return dr.save(d);
         }
     }
@@ -40,7 +48,9 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            return dr.save(newDeck);
+            // Delete old cards and deck before adding new cards and deck
+            deleteDeck(newDeck.getId());
+            return addDeck(newDeck);
         } else {
             log.warn("Deck id is invalid for update");
             return null;
@@ -49,11 +59,15 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public boolean deleteDeck(int id) {
-        try {
+        if (dr.existsById(id)) {
+            // Delete cards and deck
+            for (Card c : cs.getCardsByDeckId(id)) {
+                cs.deleteCard(c.getId());
+            }
             dr.deleteById(id);
             return true;
-        } catch (IllegalArgumentException e) {
-            log.warn(e);
+        } else {
+            log.warn("Deck id is invalid for delete");
             return false;
         }
     }

@@ -1,5 +1,7 @@
 package com.revature.overcharge.beans;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@IdClass(RatingId.class)
+@IdClass(StudiedCardId.class)
 @Table(name = "studied_cards")
 public class StudiedCard {
 
@@ -30,11 +32,11 @@ public class StudiedCard {
         super();
     }
 
-    public StudiedCard(User user, Card card, long studiedOn) {
+    public StudiedCard(User user, Card card) {
         super();
         this.user = user;
         this.card = card;
-        this.studiedOn = studiedOn;
+        studiedOn = new Date().getTime();
     }
 
     public User getUser() {
