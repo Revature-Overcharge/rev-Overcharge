@@ -1,5 +1,6 @@
 package com.revature.overcharge.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -51,22 +52,21 @@ public class User {
         super();
     }
 
-    public User(String username, String password, int points, long lastLogin) {
+    public User(String username, String password, int points) {
         super();
         this.username = username;
         this.password = password;
         this.points = points;
-        this.lastLogin = lastLogin;
+        lastLogin = new Date().getTime();
     }
 
-    public User(int id, String username, String password, int points,
-            long lastLogin) {
+    public User(int id, String username, String password, int points) {
         super();
         this.id = id;
         this.username = username;
         this.password = password;
         this.points = points;
-        this.lastLogin = lastLogin;
+        lastLogin = new Date().getTime();
     }
 
     public int getId() {

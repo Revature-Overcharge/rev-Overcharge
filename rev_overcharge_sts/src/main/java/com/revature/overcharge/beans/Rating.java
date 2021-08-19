@@ -1,5 +1,7 @@
 package com.revature.overcharge.beans;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,19 +27,19 @@ public class Rating {
 
     private int stars;
 
-    @Column(name = "ratedOn")
-    private long rated_on;
+    @Column(name = "rated_on")
+    private long ratedOn;
 
     public Rating() {
         super();
     }
 
-    public Rating(User user, Deck deck, int stars, long rated_on) {
+    public Rating(User user, Deck deck, int stars) {
         super();
         this.user = user;
         this.deck = deck;
         this.stars = stars;
-        this.rated_on = rated_on;
+        ratedOn = new Date().getTime();
     }
 
     public User getUser() {
@@ -64,18 +66,18 @@ public class Rating {
         this.stars = stars;
     }
 
-    public long getRated_on() {
-        return rated_on;
+    public long getRatedOn() {
+        return ratedOn;
     }
 
-    public void setRated_on(long rated_on) {
-        this.rated_on = rated_on;
+    public void setRatedOn(long ratedOn) {
+        this.ratedOn = ratedOn;
     }
 
     @Override
     public String toString() {
         return "Rating [user=" + user + ", deck=" + deck + ", stars=" + stars
-                + ", rated_on=" + rated_on + "]";
+                + ", ratedOn=" + ratedOn + "]";
     }
 
 }
