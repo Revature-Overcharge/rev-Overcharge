@@ -1,4 +1,3 @@
-
 //Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -7,11 +6,10 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LibraryComponent } from './components/library/library.component';
-
-//Assistant Modules
-import { HttpClientModule } from '@angular/common/http';
+import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 
 //Modules
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,7 +22,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
-import { CardrunnerComponent } from './components/card-runner/card-runner.component';
+
+//Services
+
+//Pipes
 
 @NgModule({
   declarations: [
