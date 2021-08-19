@@ -47,18 +47,16 @@ public class Card {
         super();
     }
 
-    public Card(Deck deck, String question, String answer) {
+    public Card(String question, String answer) {
         super();
-        this.deck = deck;
         this.question = question;
         this.answer = answer;
         createdOn = new Date().getTime();
     }
 
-    public Card(int id, Deck deck, String question, String answer) {
+    public Card(int id, String question, String answer) {
         super();
         this.id = id;
-        this.deck = deck;
         this.question = question;
         this.answer = answer;
         createdOn = new Date().getTime();

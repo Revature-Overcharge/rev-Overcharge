@@ -3,6 +3,7 @@ package com.revature.overcharge.beans;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,8 +63,16 @@ public class Deck {
         this.title = title;
         createdOn = new Date().getTime();
     }
+   
+    public Deck(User creator, String title, List<Card> cards) {
+		super();
+		this.creator = creator;
+		this.title = title;
+        this.createdOn = new Date().getTime();
+		this.cards = cards;
+	}
 
-    public int getId() {
+	public int getId() {
         return id;
     }
 
