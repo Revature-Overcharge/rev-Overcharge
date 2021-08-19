@@ -1,0 +1,1 @@
+{"version":3,"file":"fullcalendar.module.d.ts","sources":["fullcalendar.module.d.ts"],"names":[],"mappings":"AAAA;;;AACA;AACA;;;;AACA","sourcesContent":["import { PluginDef } from '@fullcalendar/core';\nexport declare class FullCalendarModule {\n    static registerPlugins(plugins: PluginDef[]): void;\n}\n"]}
