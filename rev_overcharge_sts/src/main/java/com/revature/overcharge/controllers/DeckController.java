@@ -1,5 +1,7 @@
 package com.revature.overcharge.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,11 @@ public class DeckController {
     @GetMapping(value = "/decks/{id}")
     public Deck getDeck(@PathVariable("id") String id) {
         return ds.getDeck(Integer.parseInt(id));
+    }
+    
+    @GetMapping(value = "/decks")
+    public List<Deck> getAllDecks(){
+    	return ds.getAllDecks();
     }
 
     @PostMapping(value = "/decks", consumes = "application/json",
