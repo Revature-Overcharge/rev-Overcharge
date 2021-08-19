@@ -3,18 +3,19 @@ div#time_header {
     justify-content: center;
 }
 div#timer_parent_container {
-    margin-top: 75px !important;
+    margin-top: 10px !important;
     padding: 25px;
+    background-color: #B9B9BA;
     border-style: solid;
     border-color: #F26925;
     border-radius: 5px;
-    max-width: fit-content;
+    max-width: 90%;
     margin: 0 auto;
 }
 div#hours_mins_container {
     display: flex;
     justify-content: center;
-    font-size: x-large;
+    font-size: medium;
     max-width: fit-content;
     margin: 0 auto;
 }
@@ -37,3 +38,8 @@ div#timer_buttons_container {
     justify-content: center;
     flex-direction: column;
 }
+
+div#mode_Text {
+    text-align: center;
+}
+

@@ -22,7 +22,7 @@ export class TimerComponent implements OnInit {
   minutes!: number;
   customTime!: number;
 
-  isShown: boolean = true;
+  isShown: boolean = false;
 
   ngOnInit(): void {
     this.mode = this.study;

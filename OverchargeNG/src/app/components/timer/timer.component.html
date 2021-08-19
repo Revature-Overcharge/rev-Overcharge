@@ -1,19 +1,20 @@
-<div class="container-fluid page">
-    <div id="time_header" class="d-flex page__box p-3 mt-2">Work/Break Timer</div>
-    <div class="page__content shadow p-3 position-relative">
-        <div class="page__content-data ">
+<!--<div class="container-fluid page">-->
+    <!--<div id="time_header" class="d-flex page__box p-3 mt-2">Work/Break Timer</div>-->
+    <!--<div class="page__content shadow p-3 position-relative">
+        <div class="page__content-data ">-->
 
 <div id="timer_parent_container">
-    <div *ngIf="isShown" id="hours_mins_container">
-        <div id="hours_container">
-            <input type="number" id="hours" [(ngModel)]="hours" >
-            <br />
-            <label for="hours">Hours</label>
+    <div id="mode_Text">
+        <h4>{{mode.name}}</h4>
+    </div>
+    <div *ngIf="isShown" id="hours_mins_container" class="form-row">
+        <div id="hours_container" class="col">
+            <label for="hours" style="font-weight: 600;">Hours</label>
+            <input type="number" id="hours" [(ngModel)]="hours" class="form-control">
         </div>
-        <div id="mins_container">
-            <input type="number" id="minutes" [(ngModel)]="minutes">
-            <br />
-            <label for="minutes">Minutes</label>
+        <div id="mins_container" class="col">
+            <label for="minutes" style="font-weight: 600;">Minutes</label>
+            <input type="number" id="minutes" [(ngModel)]="minutes" class="form-control">
         </div>
         
     </div>
@@ -24,7 +25,7 @@
     <div id="timer_buttons_container">
         <div id="countdown_nav" class="btn-group">
             <button (click)="cd.begin()" class="btn btn-sm">
-                <mat-icon>play_arrow</mat-icon>Play</button>
+                <mat-icon >play_arrow</mat-icon>Play</button>
             <button (click)="cd.pause()" class="btn btn-sm">
                 <mat-icon>pause</mat-icon>Pause</button>
             <button (click)="cd.restart()" class="btn btn-sm">
@@ -44,6 +45,6 @@
             <!-- <input type="number" [(ngModel)]="customTime" />
             <label> *Input time in seconds for now </label> -->
 
-        </div>
-    </div>
-</div>
+        <!--</div>
+    </div>-->
+<!--</div>-->

@@ -16,10 +16,19 @@ export class SidenavComponent implements OnInit {
   }
 
   showTimer() {
-    if(this.timerBool == true) {
-      this.timerBool = false;
+    this.timerBool = !this.timerBool;
+    let timerEl = document.getElementById("timerContainer");
+
+    if(this.timerBool == false) {
+      //here we need to grab the element from the document and set its display value to none
+      //this should get the effect that the timer still exists but is just hidden from us.
+      if(timerEl != null) {
+        timerEl.style.display = "none";
+      }
     } else {
-      this.timerBool = true;
+      if(timerEl != null) {
+        timerEl.style.display = "block";
+      }
     }
   }
 

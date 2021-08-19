@@ -20,15 +20,15 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/create">
       <mat-icon>create</mat-icon> Create Sets
     </a>
-    <a mat-list-item routerLinkActive="list-time-active" routerLink="/timer">
+    <a mat-list-item routerLinkActive="list-time-active" (click)="showTimer()">
       <mat-icon>timer</mat-icon> Timer
     </a>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/login">
       <mat-icon>login</mat-icon> Log In
     </a>
 
-    <div *ngIf=timerBool>
-      <!-- This will make the timer component act like a widget when we select the timer on the sidebar -->
+    <!-- This will make the timer component act like a widget when we select the timer on the sidebar -->
+    <div id="timerContainer" style="display: none;">
       <app-timer></app-timer>
     </div>
 
