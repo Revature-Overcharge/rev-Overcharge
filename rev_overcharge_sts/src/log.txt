@@ -1,0 +1,12 @@
+2021-08-19 10:16:54 WARN  DeckServiceImpl:42 - java.util.NoSuchElementException: No value present
+2021-08-19 10:24:13 WARN  DeckServiceImpl:43 - java.util.NoSuchElementException: No value present
+2021-08-19 11:29:20 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 11:44:48 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 11:51:33 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 11:53:56 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 11:54:01 WARN  DeckServiceImpl:43 - java.util.NoSuchElementException: No value present
+2021-08-19 12:06:39 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 12:29:38 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 12:30:39 WARN  CardServiceImpl:35 - java.util.NoSuchElementException: No value present
+2021-08-19 15:45:22 WARN  DeckServiceImpl:43 - java.util.NoSuchElementException: No value present
+2021-08-19 15:45:58 WARN  DeckServiceImpl:43 - java.util.NoSuchElementException: No value present
