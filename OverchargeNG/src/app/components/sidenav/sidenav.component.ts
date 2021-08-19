@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { TimerComponent } from '../timer/timer.component';
 
 @Component({
@@ -8,14 +7,14 @@ import { TimerComponent } from '../timer/timer.component';
   styleUrls: ['./sidenav.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidenavComponent implements OnInit, AfterViewInit, OnChanges {
+export class SidenavComponent implements OnInit {
 
   timerBool: boolean;
   
   @ViewChild('timer')
   timer!: TimerComponent;
-  @ViewChild('cd') 
-  countdown!: CountdownComponent;
+  // @ViewChild('cd') 
+  // countdown!: CountdownComponent;
   
 
   constructor() { 
@@ -24,35 +23,22 @@ export class SidenavComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit(): void { }
 
-  ngAfterViewInit(): void {
-    // this.countdown = this.timer.countdown;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.countdown = this.timer.countdown;
-    console.log("Changes",changes);
-    if (changes.timer) {
-      console.log("The timer is changing...")
-      // this.timer = changes.timer;
-    }
-  }
-
-  handleEvent(e: CountdownEvent) {
-    console.log("Sidenav: "+ e.action)
-    switch (e.action) {
-      case 'start':
-        this.countdown.begin();
-        break;
-      case 'pause':
-        this.countdown.pause();
-        break;
-      case 'restart':
-        this.countdown.restart();
-        break;
-      default:
-        break;
-    }
-  }
+  // handleEvent(e: CountdownEvent) {
+  //   console.log("Sidenav: "+ e.action)
+  //   switch (e.action) {
+  //     case 'start':
+  //       this.countdown.begin();
+  //       break;
+  //     case 'pause':
+  //       this.countdown.pause();
+  //       break;
+  //     case 'restart':
+  //       this.countdown.restart();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
   showTimer() {
     this.timerBool = !this.timerBool;
