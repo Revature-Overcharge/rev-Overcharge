@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.beans.Set;
 
 @Repository
-public interface DeckRepo extends CrudRepository<Deck, Integer> {
+public interface SetRepo extends CrudRepository<Set, Integer>{
 
-    List<Deck> findByCreatorId(int creatorId);
-
+	List<Set> findByCreatorId(int creatorId);
+	
 }

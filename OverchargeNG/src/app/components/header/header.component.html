@@ -1,0 +1,49 @@
+<mat-toolbar style="float: right; margin:0%">
+    <mat-toolbar-row style="float: right; content:0%">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+        <div class="col-md-4" style="margin-right: 42%;">
+          <input type="search" class="form-control" id="searchBar" placeholder="Search for a Set">
+        </div> 
+        <!-- <div style="background-color: black; float: right;" >
+          <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-placement="bottom" data-bs-content="Bottom popover" [ngbPopover]="newText" triggers="mouseover:mouseout">Objectives</button>
+          </div><br><br><br><br><br><br><br> -->
+        
+      <div class="row mr-2">
+        <ul class="row m-0 align-items-center">
+          <li>
+            <button id="menuBtn" mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
+
+              <!-- <img src="./assets/User.png" alt="userPic" class="user-image mr-1 p-2" /> -->
+              <mat-icon>account_circle</mat-icon>
+              User Name
+              <!-- {{user.name}} -->
+              <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <!-- To Be Implemented wiht Login Functionality -->
+              <!-- <div *ngIf="loggedIn"> -->
+                <button mat-menu-item routerLinkActive="list-item-active" routerLink="/profile"> 
+                  <mat-icon>account_circle</mat-icon>
+                  User Profile 
+                </button>
+                <button id="logout" (click)="logout()" mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
+                  <mat-icon>exit_to_app</mat-icon>
+                  Logout
+                </button>
+              <!-- </div>
+              <div *ngIf="!loggedIn"> -->
+                <button mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
+                  <mat-icon>login</mat-icon>
+                  Login
+                </button>
+              <!-- </div> -->
+            </mat-menu>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
