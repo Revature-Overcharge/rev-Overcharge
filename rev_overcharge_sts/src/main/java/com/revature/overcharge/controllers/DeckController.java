@@ -40,13 +40,14 @@ public class DeckController {
     @PostMapping(value = "/decks", consumes = "application/json",
             produces = "application/json")
     public Deck addDeck(@RequestBody Deck d) {
-
+    	
     	d.setCreatedOn(new Date().getTime());
     	Deck saveDeck = ds.addDeck(d);
     	int size = d.getCards().size();
     	
     	for (int i=0;i<size;i++) {
     		Card card = d.getCards().get(i);
+    		card.setCreatedOn(new Date().getTime());
     		card.setDeck(saveDeck);
     		card = cs.updateCard(card);
     	}
