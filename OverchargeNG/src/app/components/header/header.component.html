@@ -14,21 +14,32 @@
       <div class="row mr-2">
         <ul class="row m-0 align-items-center">
           <li>
-            <button mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
+            <button id="menuBtn" mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
 
               <!-- <img src="./assets/User.png" alt="userPic" class="user-image mr-1 p-2" /> -->
               <mat-icon>account_circle</mat-icon>
-              User Name
+              {{username}}
               <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
             </button>
+
             <mat-menu #menu="matMenu">
-              <a mat-list-item routerLinkActive="list-item-active" routerLink="/profile"> 
-                <mat-icon>account_circle</mat-icon>User Profile 
-              </a>
-              <button mat-menu-item>
-                <mat-icon>exit_to_app</mat-icon>
-                Logout
-              </button>
+              <!-- To Be Implemented wiht Login Functionality -->
+              <!-- <div *ngIf="loggedIn"> -->
+                <button mat-menu-item routerLinkActive="list-item-active" routerLink="/profile"> 
+                  <mat-icon>account_circle</mat-icon>
+                  User Profile 
+                </button>
+                <button id="logout" (click)="logout()" mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
+                  <mat-icon>exit_to_app</mat-icon>
+                  Logout
+                </button>
+              <!-- </div>
+              <div *ngIf="!loggedIn"> -->
+                <button mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
+                  <mat-icon>login</mat-icon>
+                  Login
+                </button>
+              <!-- </div> -->
             </mat-menu>
           </li>
         </ul>

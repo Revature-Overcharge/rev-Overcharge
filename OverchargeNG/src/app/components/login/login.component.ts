@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -39,14 +40,6 @@ export class LoginComponent implements OnInit {
         }
       }
     )
-  }
-
-  logout(){
-    localStorage.removeItem("username");
-    this.responseMessage = "Logging out";
-    window.setTimeout(()=>{
-      location.reload();
-   }, 1500);
   }
 
 

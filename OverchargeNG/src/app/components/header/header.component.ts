@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
 
   changeText: any;
   newText:string = "Daily and Weekly Challenges...";
+  username = localStorage.getItem("username");
 
   constructor() { }
 
@@ -18,5 +19,14 @@ export class HeaderComponent implements OnInit {
 
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
+  }
+
+  responseMessage: string = ''
+  logout(){
+    localStorage.removeItem("username");
+    this.responseMessage = "Logging out";
+    window.setTimeout(()=>{
+      location.reload();
+   }, 1500);
   }
 }

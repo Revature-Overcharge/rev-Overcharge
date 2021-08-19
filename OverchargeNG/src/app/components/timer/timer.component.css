@@ -1,0 +1,45 @@
+div#time_header {
+    display: flex;
+    justify-content: center;
+}
+div#timer_parent_container {
+    margin-top: 10px !important;
+    padding: 25px;
+    background-color: #B9B9BA;
+    border-style: solid;
+    border-color: #F26925;
+    border-radius: 5px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+div#hours_mins_container {
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+div#hours_container {
+    padding-right: 10px;
+    text-align: center;
+}
+div#mins_container {
+    padding-left: 10px;
+    text-align: center;
+}
+div#timer_display_container {
+    padding: 20px;
+    font-size: xx-large;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+div#timer_buttons_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+div#mode_Text {
+    text-align: center;
+}
+
