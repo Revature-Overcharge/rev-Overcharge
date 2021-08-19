@@ -1,0 +1,56 @@
+
+button{
+    text-align: center;
+}
+.tp-wrapper {
+    -webkit-perspective: 800px;
+            perspective: 800px;
+            
+  }
+  
+  .tp-box {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    margin: 3rem auto;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transform         : transform 1s;
+        -ms-transform         : transform 1s;
+            transform         : transform 1s;
+  }
+  .tp-box__side {
+     width: 100%;
+    height: 100%;
+    position: absolute;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  .tp-box__front {
+    background: rgb(62, 68, 77);
+    -webkit-transform : rotateY(0deg);
+    -ms-transform     : rotateY(0deg);
+    transform         : rotateY(0deg);
+  }
+  .tp-box__back {
+    background: rgb(62, 68, 77);    
+    -webkit-transform : rotateY(-180deg);
+    -ms-transform     : rotateY(-180deg);
+    transform         : rotateY(-180deg);
+  }
+
+  .cardText{
+    font-size: 20px;
+  }
