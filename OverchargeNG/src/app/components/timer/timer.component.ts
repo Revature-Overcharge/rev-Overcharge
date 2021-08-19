@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { VirtualTimeScheduler } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { VirtualTimeScheduler } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class TimerComponent implements OnInit {
+export class TimerComponent implements OnInit, OnChanges {
   @ViewChild('cd', { static: false }) 
   countdown!: CountdownComponent;
 
@@ -17,16 +17,25 @@ export class TimerComponent implements OnInit {
   study: TimerMode = new TimerMode("Study", 50*60);
   mode!: TimerMode;
   config!: CountdownConfig;
+  status: string = "Inactive";
   
   hours!: number;
   minutes!: number;
   customTime!: number;
 
-  isShown: boolean = false;
+  inputIsShown: boolean = false;
 
-  ngOnInit(): void {
+  constructor() {
     this.mode = this.study;
     this.config = this.mode.defaultConfig;
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.countdown = this.timer.countdown;
+    console.log("Changes",changes);
   }
 
   setCustomTime() {
@@ -38,16 +47,34 @@ export class TimerComponent implements OnInit {
     };
   }
 
+  // @Output() newEvent = new EventEmitter<CountdownEvent>();
+    
   handleEvent(e: CountdownEvent) {
-    console.log(e);
-    if (e.action == 'done') {
-      alert(`The ${this.mode.name} timer is over!`);
+    // console.log(e);
+    // this.newEvent.emit(e);
+
+    switch (e.action) {
+      case 'start':
+        this.status = "Active";
+        break;
+      case 'pause':
+        this.status = "Paused";
+        break;
+      case 'restart':
+        this.status = "Inactive";
+        break;
+      case 'done':
+        alert(`The ${this.mode.name} timer is over!`);
+        this.status = "Complete";
+        break;
+      default:
+        this.status = 'Error';
+        break;
     }
   }
 
-  toggleShow() {
-    this.isShown = !this.isShown;
-    
+  toggleInput() {
+    this.inputIsShown = !this.inputIsShown;
   }
 
   toggleMode() {

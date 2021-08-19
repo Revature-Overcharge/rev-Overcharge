@@ -7,7 +7,7 @@
     <div id="mode_Text">
         <h4>{{mode.name}}</h4>
     </div>
-    <div *ngIf="isShown" id="hours_mins_container" class="form-row">
+    <div *ngIf="inputIsShown" id="hours_mins_container" class="form-row">
         <div id="hours_container" class="col">
             <label for="hours" style="font-weight: 600;">Hours</label>
             <input type="number" id="hours" [(ngModel)]="hours" class="form-control">
@@ -37,7 +37,7 @@
                 <mat-icon>create</mat-icon>Set Timer</button>
             <button (click)="toggleMode()" class="btn btn-sm">
                 <mat-icon>cached</mat-icon>Change Mode</button>
-            <button (click)="toggleShow()" type="checkbox" class="btn btn-sm">
+            <button (click)="toggleInput()" type="checkbox" class="btn btn-sm">
                 <mat-icon>pages</mat-icon>Toggle Input</button>
         </div>
     </div>

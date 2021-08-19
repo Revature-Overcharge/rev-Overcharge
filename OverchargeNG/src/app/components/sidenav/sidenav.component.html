@@ -22,6 +22,9 @@
     </a>
     <a mat-list-item routerLinkActive="list-time-active" (click)="showTimer()">
       <mat-icon>timer</mat-icon> Timer
+      <span *ngIf="timerBool == true || timer.status != 'Inactive'">: {{timer.status}}</span> 
+      <!-- <countdown #cd [config]="timer.config"  class="mx-1"></countdown> -->
+      <!-- {{countdown}} -->
     </a>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/login">
       <mat-icon>login</mat-icon> Log In
@@ -29,7 +32,7 @@
 
     <!-- This will make the timer component act like a widget when we select the timer on the sidebar -->
     <div id="timerContainer" style="display: none;">
-      <app-timer></app-timer>
+      <app-timer #timer></app-timer>
     </div>
 
   </mat-nav-list>

@@ -1,18 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
+import { TimerComponent } from '../timer/timer.component';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+  styleUrls: ['./sidenav.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, AfterViewInit, OnChanges {
 
-  timerBool :boolean = false;
+  timerBool: boolean;
+  
+  @ViewChild('timer')
+  timer!: TimerComponent;
+  @ViewChild('cd') 
+  countdown!: CountdownComponent;
+  
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() { 
     this.timerBool = false;
+  }
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    // this.countdown = this.timer.countdown;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.countdown = this.timer.countdown;
+    console.log("Changes",changes);
+    if (changes.timer) {
+      console.log("The timer is changing...")
+      // this.timer = changes.timer;
+    }
+  }
+
+  handleEvent(e: CountdownEvent) {
+    console.log("Sidenav: "+ e.action)
+    switch (e.action) {
+      case 'start':
+        this.countdown.begin();
+        break;
+      case 'pause':
+        this.countdown.pause();
+        break;
+      case 'restart':
+        this.countdown.restart();
+        break;
+      default:
+        break;
+    }
   }
 
   showTimer() {
