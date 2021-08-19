@@ -58,9 +58,15 @@ public class CardServiceImpl implements CardService {
         }
     }
 
-    @Override
+	@Override
     public List<Card> getCardsByDeckId(int deckId) {
         return cr.findByDeckId(deckId);
     }
+
+	@Override
+	public List<Card> getCardBySetId(int setId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
