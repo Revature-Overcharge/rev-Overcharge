@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -28,9 +27,9 @@ public class Card {
     @Column(updatable = false)
     private int id;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deck_id")
+    @JsonIgnore
     private Deck deck;
 
     private String question;
@@ -49,18 +48,16 @@ public class Card {
         super();
     }
 
-    public Card(Deck deck, String question, String answer) {
+    public Card(String question, String answer) {
         super();
-        this.deck = deck;
         this.question = question;
         this.answer = answer;
         createdOn = new Date().getTime();
     }
 
-    public Card(int id, Deck deck, String question, String answer) {
+    public Card(int id, String question, String answer) {
         super();
         this.id = id;
-        this.deck = deck;
         this.question = question;
         this.answer = answer;
         createdOn = new Date().getTime();

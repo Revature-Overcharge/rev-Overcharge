@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "decks")
@@ -36,7 +35,6 @@ public class Deck {
     @Column(name = "created_on")
     private long createdOn;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "deck")
     @Transient
     private List<Card> cards;
@@ -62,6 +60,14 @@ public class Deck {
         this.id = id;
         this.creator = creator;
         this.title = title;
+        createdOn = new Date().getTime();
+    }
+
+    public Deck(User creator, String title, List<Card> cards) {
+        super();
+        this.creator = creator;
+        this.title = title;
+        this.cards = cards;
         createdOn = new Date().getTime();
     }
 

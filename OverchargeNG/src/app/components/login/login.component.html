@@ -1,1 +1,23 @@
-<p>login works!</p>
+
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Log in</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="page__content-data">
+
+            <div class="d-grid gap-3 col-6 mx-auto text-center">
+            <div class="form-floating mb-3">
+                <input [(ngModel)]="username" id="inputUname" type="text" class="form-control" placeholder="Username">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input [(ngModel)]="password" id="inputPass" type="password" type="password" class="form-control" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <button (click)="login()" id="loginButton" class="btn-primary btn-lg">Log in</button>
+            <button (click)="logout()" id="logoutButton" class="btn-dark btn-lg">Log out</button>
+            <br>
+            <label id="loginResult" style="color: black">{{responseMessage}}</label>
+
+        </div>
+    </div>
+</div>
