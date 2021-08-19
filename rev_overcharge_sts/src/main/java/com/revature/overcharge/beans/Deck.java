@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "decks")
@@ -35,7 +37,8 @@ public class Deck {
     @Column(name = "created_on")
     private long createdOn;
 
-    @OneToMany(mappedBy = "deck")
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deck")
     @Transient
     private List<Card> cards;
 
