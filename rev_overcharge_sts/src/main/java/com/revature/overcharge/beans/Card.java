@@ -28,6 +28,7 @@ public class Card {
 
     @ManyToOne
     @JoinColumn(name = "deck_id")
+    @JsonIgnore
     private Deck deck;
 
     private String question;
