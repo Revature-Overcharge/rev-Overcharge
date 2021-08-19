@@ -2,6 +2,7 @@ package com.revature.overcharge.services;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +58,15 @@ public class CardServiceImpl implements CardService {
         }
     }
 
-    @Override
+	@Override
     public List<Card> getCardsByDeckId(int deckId) {
         return cr.findByDeckId(deckId);
     }
+
+	@Override
+	public List<Card> getCardBySetId(int setId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
