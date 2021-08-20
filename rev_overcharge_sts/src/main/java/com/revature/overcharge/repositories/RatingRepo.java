@@ -5,16 +5,18 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.Rating;
+import com.revature.overcharge.beans.User;
 
 @Repository
 public interface RatingRepo extends CrudRepository<Rating, Integer> {
 
-    List<Rating> findByUserId(int userId);
+    List<Rating> findByUser(User user);
 
-    List<Rating> findByDeckId(int deckId);
+    List<Rating> findByDeck(Deck deck);
 
-    Rating findByUserIdAndDeckId(int userId, int deckId);
+    Rating findByUserAndDeck(User user, Deck deck);
 
     boolean deleteByUserIdAndDeckId(int userId, int deckId);
 
