@@ -17,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepo ur;
+    
+    @Autowired
+    ObjectiveService os;
 
 //    @Override
 //    public User getUserByUname(String username) {
@@ -83,6 +86,7 @@ public class UserServiceImpl implements UserService {
             User user = ur.findByUsername(u.getUsername());
             user.setLastLogin(new Date().getTime());
             ur.save(user);
+            os.loginObj(user);
             return user;
         } else {
             log.warn("Username and password are incorrect");
