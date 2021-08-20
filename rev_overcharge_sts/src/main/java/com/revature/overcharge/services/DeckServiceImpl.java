@@ -60,6 +60,7 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public boolean deleteDeck(int id) {
+        // Cards have ON DELETE CASCADE for deleted Deck
         if (dr.existsById(id)) {
             dr.deleteById(id);
             return true;
@@ -91,25 +92,11 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeckAndCards(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            deleteDeckAndCards(newDeck.getId());
+            deleteDeck(newDeck.getId());
             return addDeckAndCards(newDeck);
         } else {
             log.warn("Deck id is invalid for update");
             return null;
-        }
-    }
-
-    @Override
-    public boolean deleteDeckAndCards(int id) {
-        if (dr.existsById(id)) {
-            for (Card c : cs.getCardsByDeckId(id)) {
-                cs.deleteCard(c.getId());
-            }
-            dr.deleteById(id);
-            return true;
-        } else {
-            log.warn("Deck id is invalid for delete");
-            return false;
         }
     }
 
