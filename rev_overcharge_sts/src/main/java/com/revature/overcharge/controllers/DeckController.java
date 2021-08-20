@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,12 @@ public class DeckController {
             produces = "application/json")
     public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
         newDeck.setId(id);
-        return ds.updateDeck(newDeck);
+        return ds.updateDeckAndCards(newDeck);
+    }
+    
+    @DeleteMapping(value = "/decks/{id}")
+    public boolean deleteDeck(@PathVariable("id") String id) {
+        return ds.deleteDeck(Integer.parseInt(id));
     }
     
     // If wanting to update deck title as well as cards, expecting a more full JSON in body

@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS ratings;
 DROP TABLE IF EXISTS studied_cards;
 DROP TABLE IF EXISTS cards;
@@ -20,7 +19,7 @@ CREATE TABLE decks (
     title       varchar(255),
     created_on  bigint,
     PRIMARY KEY (id),
-    FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE SET NULL
+    FOREIGN KEY (creator_id) REFERENCES users(id)
 );
 
 CREATE TABLE cards (
@@ -30,7 +29,7 @@ CREATE TABLE cards (
     answer      varchar(255),
     created_on  bigint,
     PRIMARY KEY (id),
-    FOREIGN KEY (deck_id) REFERENCES decks(id) ON DELETE CASCADE
+    FOREIGN KEY (deck_id) REFERENCES decks(id)
 );
 
 CREATE TABLE studied_cards (
@@ -38,8 +37,8 @@ CREATE TABLE studied_cards (
     card_id     integer,
     studied_on  bigint,
     PRIMARY KEY (user_id, card_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (card_id) REFERENCES cards(id)
 );
 
 CREATE TABLE ratings (
@@ -48,6 +47,6 @@ CREATE TABLE ratings (
     stars		integer,
     rated_on    bigint,
     PRIMARY KEY (user_id, deck_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (deck_id) REFERENCES decks(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (deck_id) REFERENCES decks(id)
 );
