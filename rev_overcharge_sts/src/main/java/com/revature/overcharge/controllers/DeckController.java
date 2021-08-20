@@ -40,6 +40,7 @@ public class DeckController {
         return ds.addDeckAndCards(d);
     }
 
+    // If wanting to only update the deck title, expecting a lighter JSON in body
     @PutMapping(value = "/decks/{id}", consumes = "application/json",
             produces = "application/json")
     public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
@@ -47,6 +48,7 @@ public class DeckController {
         return ds.updateDeck(newDeck);
     }
     
+    // If wanting to update deck title as well as cards, expecting a more full JSON in body
     @PutMapping(value = "/decks/{id}/cards", consumes = "application/json",
             produces = "application/json")
     public Deck updateDeckCards(@PathVariable int id, @RequestBody Deck newDeck) {
