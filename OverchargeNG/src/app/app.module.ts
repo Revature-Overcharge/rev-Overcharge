@@ -50,7 +50,8 @@ import { FormsModule } from '@angular/forms';
     MatDividerModule,
     MatListModule,
     CountdownModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,9 @@
 package com.revature.overcharge.beans;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +15,6 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "decks")
@@ -35,10 +32,9 @@ public class Deck {
     private String title;
 
     @Column(name = "created_on")
-    private long createdOn;
+    private Long createdOn;
 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deck")
+    @OneToMany(mappedBy = "deck")
     @Transient
     private List<Card> cards;
 
@@ -51,19 +47,27 @@ public class Deck {
         super();
     }
 
-    public Deck(User creator, String title) {
+    public Deck(User creator, String title, Long createdOn) {
         super();
         this.creator = creator;
         this.title = title;
-        createdOn = new Date().getTime();
+        this.createdOn = createdOn;
     }
 
-    public Deck(int id, User creator, String title) {
+    public Deck(int id, User creator, String title, Long createdOn) {
         super();
         this.id = id;
         this.creator = creator;
         this.title = title;
-        createdOn = new Date().getTime();
+        this.createdOn = createdOn;
+    }
+
+    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
+        super();
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
     }
 
     public int getId() {
@@ -90,11 +94,11 @@ public class Deck {
         this.title = title;
     }
 
-    public long getCreatedOn() {
+    public Long getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(long createdOn) {
+    public void setCreatedOn(Long createdOn) {
         this.createdOn = createdOn;
     }
 
