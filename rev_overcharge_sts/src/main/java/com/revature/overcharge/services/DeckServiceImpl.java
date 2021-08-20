@@ -93,18 +93,39 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public Deck updateDeckAndCards(Deck newDeck) {
+        
         if (dr.existsById(newDeck.getId())) {
-        	Deck d = dr.findById(newDeck.getId()).get();
-        	d.setTitle(newDeck.getTitle());
-        	for (Card c : d.getCards()) {
-        		for (Card c2 : newDeck.getCards()) {
-        			if (c.getId() == c2.getId()) {
-        				c.setQuestion(c2.getQuestion());
-        				c.setAnswer(c2.getAnswer());
-        			}
-        		}
+            
+        	Deck dbDeck = dr.findById(newDeck.getId()).get();
+        	
+        	for (Card newCard : newDeck.getCards()) {
+        	    
+        	    if (newCard.getId() < 1) {
+
+        	        cs.addCard(newCard);
+        	        
+        	    } else {
+        	        
+        	        for (Card dbCard : dbDeck.getCards()) {
+        	            if (newCard.getId() == )
+        	            
+                        if (newCard.getId() == dbCard.getId()) {
+                            dbCard.setQuestion(newCard.getQuestion());
+                            dbCard.setAnswer(newCard.getAnswer());
+                        }
+                    }
+        	        
+        	    }
+        		
         	}
-            return updateDeck(d);
+        	
+        	Deck updatedDeck = updateDeck(dbDeck);
+        	for (Card updatedCard : updatedDeck.getCards()) {
+        	    
+        	}
+        	
+            return updatedDeck;
+            
         } else {
             log.warn("Deck id is invalid for update");
             return null;

@@ -46,18 +46,12 @@ public class Deck {
     public Deck() {
         super();
     }
-
+    
     public Deck(User creator, String title, Long createdOn) {
         super();
-        this.title = title;
-        this.createdOn = createdOn;
-    }
-    
-    public Deck(int id, User creator, String title) {
-        super();
-        this.id = id;
         this.creator = creator;
         this.title = title;
+        this.createdOn = createdOn;
     }
 
     public Deck(int id, User creator, String title, Long createdOn) {
