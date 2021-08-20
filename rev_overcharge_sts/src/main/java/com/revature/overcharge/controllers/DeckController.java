@@ -46,5 +46,12 @@ public class DeckController {
         newDeck.setId(id);
         return ds.updateDeck(newDeck);
     }
+    
+    @PutMapping(value = "/decks/{id}/cards", consumes = "application/json",
+            produces = "application/json")
+    public Deck updateDeckCards(@PathVariable int id, @RequestBody Deck newDeck) {
+        newDeck.setId(id);
+        return ds.updateDeckAndCards(newDeck);
+    }
 
 }
