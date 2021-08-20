@@ -16,7 +16,6 @@ import com.revature.overcharge.services.DeckService;
 
 @CrossOrigin
 @RestController
-
 public class CardController {
 
 	@Autowired
