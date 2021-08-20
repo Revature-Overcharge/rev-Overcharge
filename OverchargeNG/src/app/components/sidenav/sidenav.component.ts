@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { LoginService } from 'src/app/services/login/login.service';
 import { TimerComponent } from '../timer/timer.component';
 
 @Component({
@@ -17,7 +18,7 @@ export class SidenavComponent implements OnInit {
   // countdown!: CountdownComponent;
   
 
-  constructor() { 
+  constructor(private loginServ: LoginService) { 
     this.timerBool = false;
   }
 
@@ -40,7 +41,7 @@ export class SidenavComponent implements OnInit {
   //   }
   // }
 
-  showTimer() {
+  showTimer(): void {
     this.timerBool = !this.timerBool;
     let timerEl = document.getElementById("timerContainer");
 
@@ -58,10 +59,8 @@ export class SidenavComponent implements OnInit {
   }
 
   isGuest() :boolean {
-    if (localStorage.getItem('username') == 'Guest') {
-      return true;
-    } else return false;
-
+    console.log(this.loginServ.getUsername());
+    return !this.loginServ.loggedIn;
   }
 
 }

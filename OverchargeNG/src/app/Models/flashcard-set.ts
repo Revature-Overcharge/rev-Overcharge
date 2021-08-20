@@ -1,4 +1,4 @@
-export class flashcardset {
+export class FlashcardSet {
   setid: number;
   name: string;
   category: string;

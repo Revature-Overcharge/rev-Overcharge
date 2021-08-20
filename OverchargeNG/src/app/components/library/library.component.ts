@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { flashcard } from 'src/app/Models/flashcard'; 
+import { Flashcard } from 'src/app/models/flashcard'; 
 
 @Component({
   selector: 'app-library',
@@ -10,9 +10,9 @@ import { flashcard } from 'src/app/Models/flashcard';
 export class LibraryComponent implements OnInit {
 
 
-  card: flashcard = new flashcard(0, "", "");
+  card: Flashcard = new Flashcard(0, "", "");
 
-  dynamicArray: Array<flashcard> = [
+  dynamicArray: Array<Flashcard> = [
     { "id": 0, "question": "This is question 1", "answer": "This is answer 1" },
     { "id": 1, "question": "This is question 2", "answer": "This is answer 2" },
     { "id": 2, "question": "This is question 3", "answer": "This is answer 3" }
@@ -45,7 +45,7 @@ deleteRow(index: any) {
   }  
 } 
 
-open(content: any, card: flashcard, size: any) {
+open(content: any, card: Flashcard, size: any) {
   this.card = card;
 
 	this.modalService.open(content,

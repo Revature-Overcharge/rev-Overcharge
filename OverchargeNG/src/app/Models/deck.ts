@@ -1,3 +1,5 @@
+import { User } from "src/app/models/user";
+
 export class Deck {
     
     id: number;
