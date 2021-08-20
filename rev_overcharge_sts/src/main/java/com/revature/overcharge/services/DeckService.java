@@ -22,6 +22,4 @@ public interface DeckService {
 
     public Deck updateDeckAndCards(Deck newDeck);
 
-    public boolean deleteDeckAndCards(int id);
-
 }
