@@ -65,4 +65,11 @@ public class CardServiceImpl implements CardService {
         return cr.findByDeckId(deckId);
     }
 
+	@Override
+	public List<Card> getAllCards() {
+		return (List<Card>) cr.findAll();
+	}
+    
+    
+
 }

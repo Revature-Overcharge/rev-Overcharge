@@ -1,5 +1,7 @@
 package com.revature.overcharge.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,11 @@ public class CardController {
     @GetMapping(value = "/cards/{id}")
     public Card getCard(@PathVariable("id") String id) {
         return cs.getCard(Integer.parseInt(id));
+    }
+    
+    @GetMapping(value = "/cards")
+    public List<Card> getAllCards() {
+        return cs.getAllCards();
     }
 
 }
