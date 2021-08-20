@@ -1,8 +1,8 @@
+
 -- Users
 insert into users (id, username, password, points, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1629315831);
 insert into users (id, username, password, points, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 1629315706);
 insert into users (id, username, password, points, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 1629315843);
-
 insert into users (id, username, password, points, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 1629315937);
 insert into users (id, username, password, points, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 1629315680);
 insert into users (id, username, password, points, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 1629315786);
@@ -12,25 +12,24 @@ insert into users (id, username, password, points, last_login) values (9, 'vguer
 insert into users (id, username, password, points, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1629315695);
 insert into users (id, username, password, points, last_login) values (11, 'user', 'pass', 26, 1629315455);
 
+-- Decks
 insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906);
 insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843);
 insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 1629329843);
 
--- Ratings for deck 1 (DevOps) users 1,4, 5 rated on deck 1
+-- Ratings
+-- Ratings for deck 1 (DevOps) from users 1, 4, 5
 insert into ratings (user_id, deck_id, stars, rated_on) values (1, 1, 5, 1629316906);
 insert into ratings (user_id, deck_id, stars, rated_on) values (4, 1, 4, 1629317906);
 insert into ratings (user_id, deck_id, stars, rated_on) values (5, 1, 5, 1629318906);
-
--- Ratings for deck 2 (Testing) users 8,9,10 rated on deck 2
+-- Ratings for deck 2 (Testing) from users 8, 9, 10
 insert into ratings (user_id, deck_id, stars, rated_on) values (8, 2, 3, 1629329843);
 insert into ratings (user_id, deck_id, stars, rated_on) values (9, 2, 3, 1629339843);
 insert into ratings (user_id, deck_id, stars, rated_on) values (10, 2, 2, 1629349843);
-
--- Ratings for deck 3 (Spring) users 8,9,19 rated on deck 3
+-- Ratings for deck 3 (Spring) from users 8, 9, 10
 insert into ratings (user_id, deck_id, stars, rated_on) values (8, 3, 1, 1629329843);
 insert into ratings (user_id, deck_id, stars, rated_on) values (9, 3, 5, 1629339843);
 insert into ratings (user_id, deck_id, stars, rated_on) values (10, 3, 2, 1629349843);
-
 
 -- Cards
 -- DevOps: created by user 2
@@ -50,16 +49,16 @@ insert into cards (id, deck_id, question, answer, created_on) values (13, 1, 'T/
 insert into cards (id, deck_id, question, answer, created_on) values (14, 1, 'AWS VPC stands for?', 'Virtual Private Cloud', 1629315865);
 
 -- StudiedCards
--- User 4 does not want to see cards 1,2,3,4 anymore
+-- User 4 does not want to see cards 1, 2, 3, 4 anymore
 insert into studied_cards (user_id, card_id, studied_on) values (4, 1, 1629316687);
 insert into studied_cards (user_id, card_id, studied_on) values (4, 2, 1629317687);
 insert into studied_cards (user_id, card_id, studied_on) values (4, 3, 1629318687);
 insert into studied_cards (user_id, card_id, studied_on) values (4, 4, 1629319687);
-
 -- User 1 does not want to see cards 11, 12 anymore
 insert into studied_cards (user_id, card_id, studied_on) values (1, 11, 1629315991);
 insert into studied_cards (user_id, card_id, studied_on) values (1, 12, 1629318991);
 
+-- Cards
 -- Testing: created by user 3
 insert into cards (id, deck_id, question, answer, created_on) values (15, 2, 'What does BDD stand for?', 'Behavior-driven development', 1629315695);
 insert into cards (id, deck_id, question, answer, created_on) values (16, 2, 'What is step definition in Cucumber?', 'Code implementation of the feature file', 1629315633);
@@ -86,6 +85,7 @@ insert into cards (id, deck_id, question, answer, created_on) values (33, 2, 'Wh
 insert into studied_cards (user_id, card_id, studied_on) values (4, 17, 1629315814);
 insert into studied_cards (user_id, card_id, studied_on) values (4, 18, 1629316814);
 
+-- Cards
 -- Spring: created by user 3
 insert into cards (id, deck_id, question, answer, created_on) values (34, 3, 'What annotation in Spring MVC is used in REST to define the URI where resource can be accessed?', 'RequestMapping', 1629315720);
 insert into cards (id, deck_id, question, answer, created_on) values (35, 3, '_____ advice executes regardless of the means by which a join point exits (normal or exceptional return).', 'After', 1629315579);

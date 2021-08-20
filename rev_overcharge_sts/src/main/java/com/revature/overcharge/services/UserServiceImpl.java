@@ -28,8 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(User p) {
-        return ur.save(p);
+    public User addUser(User u) {
+        if (ur.existsById(u.getId())) {
+            log.warn("User id is invalid for add");
+            return null;
+        } else {
+            return ur.save(u);
+        }
     }
 
     @Override
@@ -37,6 +42,7 @@ public class UserServiceImpl implements UserService {
         try {
             return ur.findById(id).get();
         } catch (Exception e) {
+            log.warn(e);
             return null;
         }
 
@@ -49,16 +55,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(User change) {
-        return ur.save(change);
+        if (ur.existsById(change.getId())) {
+            return ur.save(change);
+        } else {
+            log.warn("User id is invalid for update");
+            return null;
+        }
     }
 
     @Override
     public boolean deleteUser(int id) {
-        try {
+        if (ur.existsById(id)) {
             ur.deleteById(id);
             return true;
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        } else {
+            log.warn("Deck id is invalid for delete");
             return false;
         }
     }

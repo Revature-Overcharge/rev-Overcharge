@@ -1,6 +1,5 @@
 package com.revature.overcharge.controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.services.CardService;
 import com.revature.overcharge.services.DeckService;
@@ -39,19 +37,7 @@ public class DeckController {
     @PostMapping(value = "/decks", consumes = "application/json",
             produces = "application/json")
     public Deck addDeck(@RequestBody Deck d) {
-
-        d.setCreatedOn(new Date().getTime());
-        Deck saveDeck = ds.addDeck(d);
-        int size = d.getCards().size();
-
-        for (int i = 0; i < size; i++) {
-            Card card = d.getCards().get(i);
-            card.setDeck(saveDeck);
-            card = cs.updateCard(card);
-        }
-
-        return saveDeck;
-
+        return ds.addDeckAndCards(d);
     }
 
     @PutMapping(value = "/decks/{id}", consumes = "application/json",

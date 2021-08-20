@@ -1,6 +1,5 @@
 package com.revature.overcharge.beans;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,10 +26,10 @@ public class User {
 
     private String password;
 
-    private int points;
+    private Integer points;
 
     @Column(name = "last_login")
-    private long lastLogin;
+    private Long lastLogin;
 
     @OneToMany(mappedBy = "creator")
     @JsonIgnore
@@ -57,21 +56,23 @@ public class User {
         this.username = username;
     }
 
-    public User(String username, String password, int points) {
+    public User(String username, String password, Integer points,
+            Long lastLogin) {
         super();
         this.username = username;
         this.password = password;
         this.points = points;
-        lastLogin = new Date().getTime();
+        this.lastLogin = lastLogin;
     }
 
-    public User(int id, String username, String password, int points) {
+    public User(int id, String username, String password, Integer points,
+            Long lastLogin) {
         super();
         this.id = id;
         this.username = username;
         this.password = password;
         this.points = points;
-        lastLogin = new Date().getTime();
+        this.lastLogin = lastLogin;
     }
 
     public int getId() {
@@ -98,19 +99,19 @@ public class User {
         this.password = password;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 
-    public long getLastLogin() {
+    public Long getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(long lastLogin) {
+    public void setLastLogin(Long lastLogin) {
         this.lastLogin = lastLogin;
     }
 

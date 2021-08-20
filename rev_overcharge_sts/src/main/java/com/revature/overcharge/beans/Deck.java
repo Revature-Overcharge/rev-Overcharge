@@ -1,6 +1,5 @@
 package com.revature.overcharge.beans;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,7 +32,7 @@ public class Deck {
     private String title;
 
     @Column(name = "created_on")
-    private long createdOn;
+    private Long createdOn;
 
     @OneToMany(mappedBy = "deck")
     @Transient
@@ -48,27 +47,27 @@ public class Deck {
         super();
     }
 
-    public Deck(User creator, String title) {
+    public Deck(User creator, String title, Long createdOn) {
         super();
         this.creator = creator;
         this.title = title;
-        createdOn = new Date().getTime();
+        this.createdOn = createdOn;
     }
 
-    public Deck(int id, User creator, String title) {
+    public Deck(int id, User creator, String title, Long createdOn) {
         super();
         this.id = id;
         this.creator = creator;
         this.title = title;
-        createdOn = new Date().getTime();
+        this.createdOn = createdOn;
     }
 
-    public Deck(User creator, String title, List<Card> cards) {
+    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
         super();
         this.creator = creator;
         this.title = title;
+        this.createdOn = createdOn;
         this.cards = cards;
-        createdOn = new Date().getTime();
     }
 
     public int getId() {
@@ -95,11 +94,11 @@ public class Deck {
         this.title = title;
     }
 
-    public long getCreatedOn() {
+    public Long getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(long createdOn) {
+    public void setCreatedOn(Long createdOn) {
         this.createdOn = createdOn;
     }
 

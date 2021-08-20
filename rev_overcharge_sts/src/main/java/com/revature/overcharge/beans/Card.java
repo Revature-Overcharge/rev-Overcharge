@@ -1,6 +1,5 @@
 package com.revature.overcharge.beans;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -37,7 +36,7 @@ public class Card {
     private String answer;
 
     @Column(name = "created_on")
-    private long createdOn;
+    private Long createdOn;
 
     @OneToMany(mappedBy = "card")
     @JsonIgnore
@@ -48,19 +47,19 @@ public class Card {
         super();
     }
 
-    public Card(String question, String answer) {
+    public Card(String question, String answer, Long createdOn) {
         super();
         this.question = question;
         this.answer = answer;
-        createdOn = new Date().getTime();
+        this.createdOn = createdOn;
     }
 
-    public Card(int id, String question, String answer) {
+    public Card(int id, String question, String answer, Long createdOn) {
         super();
         this.id = id;
         this.question = question;
         this.answer = answer;
-        createdOn = new Date().getTime();
+        this.createdOn = createdOn;
     }
 
     public int getId() {
@@ -95,11 +94,11 @@ public class Card {
         this.answer = answer;
     }
 
-    public long getCreatedOn() {
+    public Long getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(long createdOn) {
+    public void setCreatedOn(Long createdOn) {
         this.createdOn = createdOn;
     }
 
