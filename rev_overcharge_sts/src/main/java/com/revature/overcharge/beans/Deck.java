@@ -49,7 +49,6 @@ public class Deck {
 
     public Deck(User creator, String title, Long createdOn) {
         super();
-        this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
     }

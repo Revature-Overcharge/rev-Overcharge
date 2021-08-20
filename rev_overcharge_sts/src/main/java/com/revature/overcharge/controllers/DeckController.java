@@ -46,12 +46,7 @@ public class DeckController {
             produces = "application/json")
     public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
         newDeck.setId(id);
-        return ds.updateDeckAndCards(newDeck);
-    }
-    
-    @DeleteMapping(value = "/decks/{id}")
-    public boolean deleteDeck(@PathVariable("id") String id) {
-        return ds.deleteDeck(Integer.parseInt(id));
+        return ds.updateDeck(newDeck);
     }
     
     // If wanting to update deck title as well as cards, expecting a more full JSON in body
