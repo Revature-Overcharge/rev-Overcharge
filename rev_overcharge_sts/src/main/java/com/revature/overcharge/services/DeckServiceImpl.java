@@ -21,6 +21,9 @@ public class DeckServiceImpl implements DeckService {
 
     @Autowired
     CardService cs;
+    
+    @Autowired
+    ObjectiveService os;
 
     @Override
     public Deck addDeck(Deck d) {
@@ -29,6 +32,7 @@ public class DeckServiceImpl implements DeckService {
             return null;
         } else {
             d.setCreatedOn(new Date().getTime());
+            os.addDeckObj(d);
             return dr.save(d);
         }
     }

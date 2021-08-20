@@ -17,6 +17,9 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     CardRepo cr;
+    
+    @Autowired
+    ObjectiveService os;
 
     @Override
     public Card addCard(Card c) {
@@ -25,6 +28,7 @@ public class CardServiceImpl implements CardService {
             return null;
         } else {
             c.setCreatedOn(new Date().getTime());
+            os.addCardObj(c);
             return cr.save(c);
         }
     }
