@@ -6,7 +6,7 @@ import com.revature.overcharge.beans.User;
 
 public interface UserService {
 
-    public User getUserByUname(String username);
+//    public User getUserByUname(String username);
 
     public User addUser(User p);
 
@@ -17,5 +17,7 @@ public interface UserService {
     public User updateUser(User change);
 
     public boolean deleteUser(int id);
+
+    public User login(User u);
 
 }

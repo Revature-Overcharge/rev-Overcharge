@@ -18,17 +18,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepo ur;
 
-    @Override
-    public User getUserByUname(String username) {
-        if (ur.existsByUsername(username)) {
-            User user = ur.getUserByUsername(username);
-            user.setLastLogin(new Date().getTime());
-            return user;
-        } else {
-            log.warn("No user exists by that username");
-            return new User();
-        }
-    }
+//    @Override
+//    public User getUserByUname(String username) {
+//        if (ur.existsByUsername(username)) {
+//            User user = ur.getUserByUsername(username);
+//            user.setLastLogin(new Date().getTime());
+//            return user;
+//        } else {
+//            log.warn("No user exists by that username");
+//            return new User();
+//        }
+//    }
 
     @Override
     public User addUser(User u) {
@@ -74,6 +74,19 @@ public class UserServiceImpl implements UserService {
         } else {
             log.warn("Deck id is invalid for delete");
             return false;
+        }
+    }
+
+    @Override
+    public User login(User u) {
+        if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
+            User user = ur.findByUsername(u.getUsername());
+            user.setLastLogin(new Date().getTime());
+            ur.save(user);
+            return user;
+        } else {
+            log.warn("Username and password are incorrect");
+            return null;
         }
     }
 

@@ -50,12 +50,6 @@ public class User {
         super();
     }
 
-    public User(int id, String username) {
-        super();
-        this.id = id;
-        this.username = username;
-    }
-
     public User(String username, String password, Integer points,
             Long lastLogin) {
         super();
