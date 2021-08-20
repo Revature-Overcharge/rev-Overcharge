@@ -83,7 +83,6 @@ public class DeckServiceImpl implements DeckService {
         for (int i = 0; i < d.getCards().size(); i++) {
             Card card = d.getCards().get(i);
             card.setDeck(addedDeck);
-            card.setCreatedOn(new Date().getTime());
             card = cs.updateCard(card);
         }
         return addedDeck;

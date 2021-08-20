@@ -1,5 +1,6 @@
 package com.revature.overcharge.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,10 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUname(String username) {
-        try {
-            return ur.getUserByUsername(username);
-        } catch (Exception e) {
-            log.warn(e);
+        if (ur.existsByUsername(username)) {
+            User user = ur.getUserByUsername(username);
+            user.setLastLogin(new Date().getTime());
+            return user;
+        } else {
+            log.warn("No user exists by that username");
             return new User();
         }
     }
