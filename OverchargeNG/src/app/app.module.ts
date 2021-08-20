@@ -1,4 +1,3 @@
-
 //Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -6,13 +5,11 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
-import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 import { LibraryComponent } from './components/library/library.component';
-
-//Assistant Modules
-import { HttpClientModule } from '@angular/common/http';
+import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 
 //Modules
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +26,6 @@ import { FormsModule } from '@angular/forms';
 //Services
 
 //Pipes
-
 
 @NgModule({
   declarations: [
