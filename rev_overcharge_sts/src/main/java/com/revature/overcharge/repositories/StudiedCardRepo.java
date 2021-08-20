@@ -14,4 +14,6 @@ public interface StudiedCardRepo extends CrudRepository<StudiedCard, Integer> {
 
     StudiedCard findByUserIdAndCardId(int userId, int cardId);
 
+    boolean deleteByUserIdAndCardId(int userId, int cardId);
+
 }
