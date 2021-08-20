@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
             User user = ur.findByUsername(u.getUsername());
             user.setLastLogin(new Date().getTime());
             ur.save(user);
-            os.loginObj();
+            os.loginObj(user);
             return user;
         } else {
             log.warn("Username and password are incorrect");

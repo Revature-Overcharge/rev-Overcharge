@@ -5,6 +5,7 @@ import java.util.List;
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.Objective;
+import com.revature.overcharge.beans.User;
 
 public interface ObjectiveService {
 
@@ -14,6 +15,6 @@ public interface ObjectiveService {
 
     public void addDeckObj(Deck d);
 
-    public void loginObj();
+    public void loginObj(User guser);
 
 }
