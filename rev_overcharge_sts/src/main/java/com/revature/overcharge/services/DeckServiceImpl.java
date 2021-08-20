@@ -1,5 +1,6 @@
 package com.revature.overcharge.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,10 +28,7 @@ public class DeckServiceImpl implements DeckService {
             log.warn("Deck id is invalid for add");
             return null;
         } else {
-            // Add cards and deck
-            for (Card c : d.getCards()) {
-                cs.addCard(c);
-            }
+            d.setCreatedOn(new Date().getTime());
             return dr.save(d);
         }
     }
@@ -46,11 +44,14 @@ public class DeckServiceImpl implements DeckService {
     }
 
     @Override
+    public List<Deck> getAllDecks() {
+        return (List<Deck>) dr.findAll();
+    }
+
+    @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            // Delete old cards and deck before adding new cards and deck
-            deleteDeck(newDeck.getId());
-            return addDeck(newDeck);
+            return dr.save(newDeck);
         } else {
             log.warn("Deck id is invalid for update");
             return null;
@@ -60,10 +61,6 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public boolean deleteDeck(int id) {
         if (dr.existsById(id)) {
-            // Delete cards and deck
-            for (Card c : cs.getCardsByDeckId(id)) {
-                cs.deleteCard(c.getId());
-            }
             dr.deleteById(id);
             return true;
         } else {
@@ -75,6 +72,45 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public List<Deck> getDecksByCreatorId(int creatorId) {
         return dr.findByCreatorId(creatorId);
+    }
+
+    @Override
+    public Deck addDeckAndCards(Deck d) {
+        for (Card c : d.getCards()) {
+            cs.addCard(c);
+        }
+        Deck addedDeck = addDeck(d);
+        for (int i = 0; i < d.getCards().size(); i++) {
+            Card card = d.getCards().get(i);
+            card.setDeck(addedDeck);
+            card = cs.updateCard(card);
+        }
+        return addedDeck;
+    }
+
+    @Override
+    public Deck updateDeckAndCards(Deck newDeck) {
+        if (dr.existsById(newDeck.getId())) {
+            deleteDeckAndCards(newDeck.getId());
+            return addDeckAndCards(newDeck);
+        } else {
+            log.warn("Deck id is invalid for update");
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteDeckAndCards(int id) {
+        if (dr.existsById(id)) {
+            for (Card c : cs.getCardsByDeckId(id)) {
+                cs.deleteCard(c.getId());
+            }
+            dr.deleteById(id);
+            return true;
+        } else {
+            log.warn("Deck id is invalid for delete");
+            return false;
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 
 button{
     text-align: center;
+    margin: 0.25em;
+    margin-bottom: 0.5em;
 }
 .tp-wrapper {
     -webkit-perspective: 800px;
@@ -12,7 +14,7 @@ button{
     position: relative;
     width: 500px;
     height: 300px;
-    margin: 3rem auto;
+    margin: 1rem auto;
     -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
     -webkit-transform         : transform 1s;
