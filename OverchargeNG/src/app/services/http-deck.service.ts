@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Deck } from '../components/beans/Deck';
+import { Deck } from '../models/Deck';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,10 @@ export class HttpDeckService {
 
   updateDeck(deck: Deck): Observable<Deck> {
     return this.http.put<Deck>('http://localhost:8080/decks/' + deck.id, deck, { headers: this.postHeaders });
+  }
+
+  deleteDeck(id: number): Observable<boolean>{
+    return this.http.delete<boolean>('http://localhost:8080/decks/' + id);
   }
 
 }

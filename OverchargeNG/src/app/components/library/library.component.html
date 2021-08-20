@@ -6,6 +6,25 @@
             <p>library works!</p>
             <a routerLink="/cardrunner">Click Here for Card Runner</a>
 
+            <div id="deckTable">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Deck ID</th>
+                            <th scope="col">Creator</th>
+                            <th scope="col">Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="userValue" *ngFor="let deck of deckList">
+                            <td>{{deck.id}}</td>
+                            <td>{{deck.creator.username}}</td>
+                            <td>{{deck.title}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
 </div>
 </div>
 </div>

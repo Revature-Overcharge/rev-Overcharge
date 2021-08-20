@@ -22,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //Services
 
@@ -51,7 +52,8 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     CountdownModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
