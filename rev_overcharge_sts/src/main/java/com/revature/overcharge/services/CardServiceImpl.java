@@ -1,5 +1,6 @@
 package com.revature.overcharge.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,6 +24,7 @@ public class CardServiceImpl implements CardService {
             log.warn("Card id is invalid for add");
             return null;
         } else {
+            c.setCreatedOn(new Date().getTime());
             return cr.save(c);
         }
     }

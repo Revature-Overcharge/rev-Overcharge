@@ -28,6 +28,7 @@ public class DeckServiceImpl implements DeckService {
             log.warn("Deck id is invalid for add");
             return null;
         } else {
+            d.setCreatedOn(new Date().getTime());
             return dr.save(d);
         }
     }
@@ -78,7 +79,6 @@ public class DeckServiceImpl implements DeckService {
         for (Card c : d.getCards()) {
             cs.addCard(c);
         }
-        d.setCreatedOn(new Date().getTime());
         Deck addedDeck = addDeck(d);
         for (int i = 0; i < d.getCards().size(); i++) {
             Card card = d.getCards().get(i);
