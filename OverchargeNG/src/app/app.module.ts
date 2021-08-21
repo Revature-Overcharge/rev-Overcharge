@@ -60,7 +60,7 @@ import { ObjectivesService } from './services/objectives.service';
     BrowserAnimationsModule,
     NgbModule
   ],
-  providers: [ObjectivesService],
+  providers: [ObjectivesService, ObjectivesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

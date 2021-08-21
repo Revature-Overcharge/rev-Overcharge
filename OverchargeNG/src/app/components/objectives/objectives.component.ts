@@ -8,13 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class ObjectivesComponent implements OnInit {
 
   count: number = 0;
-  value: number = 0;
+  value: number;
   progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.value)
     if (this.value == 100){
       this.progressBar = "progress-bar";
     }
@@ -23,7 +22,6 @@ export class ObjectivesComponent implements OnInit {
   checkValue(){
     this.progressBar = "progress-bar progress-bar-striped progress-bar-animated";
     this.count++
-    console.log(this.count)
     switch(this.count){
       case 1:
         this.value = 25;
