@@ -10,24 +10,25 @@ public class StudiedCardId implements Serializable {
 
     private static final Logger log = Logger.getLogger(StudiedCardId.class);
 
-    private User user;
+    private int userId;
 
-    private Card card;
+    private int cardId;
 
     public StudiedCardId() {
         super();
     }
 
-    public StudiedCardId(User user, Card card) {
-        super();
-        log.info("In StudiedCardId constructor");
-        this.user = user;
-        this.card = card;
+    public int getUserId() {
+        return userId;
+    }
+
+    public int getCardId() {
+        return cardId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(card, user);
+        return Objects.hash(cardId, userId);
     }
 
     @Override
@@ -39,8 +40,7 @@ public class StudiedCardId implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         StudiedCardId other = (StudiedCardId) obj;
-        return Objects.equals(card, other.card)
-                && Objects.equals(user, other.user);
+        return cardId == other.cardId && userId == other.userId;
     }
 
 }

@@ -5,14 +5,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.overcharge.beans.CompositeRequest;
 import com.revature.overcharge.beans.StudiedCard;
+import com.revature.overcharge.beans.StudiedCardId;
 import com.revature.overcharge.services.StudiedCardService;
 
 @CrossOrigin
@@ -27,9 +28,9 @@ public class StudiedCardController {
 
     @PostMapping(value = "/studied_cards", consumes = "application/json",
             produces = "application/json")
-    public StudiedCard addStudiedCard(@RequestBody CompositeRequest compReq) {
+    public StudiedCard addStudiedCard(@RequestBody StudiedCard sc) {
         log.info("Adding studied card");
-        return scs.addStudiedCard(compReq);
+        return scs.addStudiedCard(sc);
     }
 
     @GetMapping(value = "/studied_cards")
@@ -39,7 +40,9 @@ public class StudiedCardController {
         return scs.getStudiedCards(userId, cardId);
     }
 
-//    @DeleteMapping(value = "/studied_cards/{id}")
-//    public boolean deleteStudiedCard(@PathVariable )
+    @DeleteMapping(value = "/studied_cards")
+    public boolean deleteStudiedCard(@RequestBody StudiedCardId scId) {
+        return scs.deleteStudiedCard(scId);
+    }
 
 }

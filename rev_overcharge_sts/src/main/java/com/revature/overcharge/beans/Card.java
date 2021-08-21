@@ -1,7 +1,5 @@
 package com.revature.overcharge.beans;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,11 +32,6 @@ public class Card {
 
     @Column(name = "created_on")
     private Long createdOn;
-
-    @OneToMany(mappedBy = "card")
-    @JsonIgnore
-    @Transient
-    private List<StudiedCard> studiedCards;
 
     public Card() {
         super();
@@ -100,14 +90,6 @@ public class Card {
 
     public void setCreatedOn(Long createdOn) {
         this.createdOn = createdOn;
-    }
-
-    public List<StudiedCard> getStudiedCards() {
-        return studiedCards;
-    }
-
-    public void setStudiedCards(List<StudiedCard> studiedCards) {
-        this.studiedCards = studiedCards;
     }
 
     @Override
