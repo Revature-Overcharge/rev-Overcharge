@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 import { LibraryComponent } from './components/library/library.component';
+import { ObjectivesComponent } from './components/objectives/objectives.component';
 
 //Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +23,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 //Services
+import { ObjectivesService } from './services/objectives.service';
 
 //Pipes
 
@@ -37,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     TimerComponent,
     CardrunnerComponent,
-    LibraryComponent
+    LibraryComponent,
+    ObjectivesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +57,10 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     CountdownModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
-  providers: [],
+  providers: [ObjectivesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

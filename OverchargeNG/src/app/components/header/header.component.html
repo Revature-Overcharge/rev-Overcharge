@@ -4,13 +4,17 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-        <div class="col-md-4" style="margin-right: 42%;">
+        <div class="col-md-4" style="margin-right: 45%;">
           <input type="search" class="form-control" id="searchBar" placeholder="Search for a Set">
         </div> 
-        <!-- <div style="background-color: black; float: right;" >
-          <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-placement="bottom" data-bs-content="Bottom popover" [ngbPopover]="newText" triggers="mouseover:mouseout">Objectives</button>
-          </div><br><br><br><br><br><br><br> -->
-        
+
+        <ng-template #popContent><div [innerHTML]="popoverHTML"></div></ng-template>
+
+        <div style="background-color: black; float: right;" >
+          <button type="button" class="btn btn-outline-secondary mr-2" popoverTitle="Objectives" [ngbPopover]="popContent">Objectives</button>
+          </div><br>
+
+
       <div class="row mr-2">
         <ul class="row m-0 align-items-center">
           <li>

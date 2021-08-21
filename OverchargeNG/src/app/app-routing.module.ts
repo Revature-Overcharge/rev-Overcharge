@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 import { LibraryComponent } from './components/library/library.component';
+import { ObjectivesComponent } from './components/objectives/objectives.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'timer', component: TimerComponent},
   {path: 'login', component: LoginComponent},
   {path: 'library', component: LibraryComponent},
-  {path: 'cardrunner', component: CardrunnerComponent }
+  {path: 'cardrunner', component: CardrunnerComponent },
+  {path: 'objectives', component: ObjectivesComponent }
 ];
 
 @NgModule({
