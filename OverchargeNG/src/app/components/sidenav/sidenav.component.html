@@ -26,7 +26,8 @@
       <!-- <countdown #cd [config]="timer.config"  class="mx-1"></countdown> -->
       <!-- {{countdown}} -->
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/login">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/login" 
+        *ngIf="isGuest()">
       <mat-icon>login</mat-icon> Log In
     </a>
 

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -10,17 +12,26 @@ export class HeaderComponent implements OnInit {
 
   changeText: any;
   newText:string = "Daily and Weekly Challenges...";
+  responseMessage: string = '';
+  loggedIn : boolean;
 
-  constructor() { }
+  constructor(private loginServ: LoginService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  toggleSidebar() {
+  toggleSidebar(): void {
     this.toggleSidebarForMe.emit();
   }
 
-  logout() {
-    console.log("Not yet Implemented");
+  getUsername(): string {
+    this.loggedIn = this.loginServ.loggedIn;
+    return this.loginServ.getUsername();
+  }
+
+  logout(): void {
+    this.loggedIn = !this.loggedIn;
+    this.loginServ.setUsername('Guest');
+    this.responseMessage = "Logging out";
+    this.router.navigateByUrl("/login");
   }
 }
