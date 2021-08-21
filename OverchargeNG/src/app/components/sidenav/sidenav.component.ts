@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { LoginService } from 'src/app/services/login/login.service';
+import { LoginService } from 'src/app/services/login.service';
 import { TimerComponent } from '../timer/timer.component';
 
 @Component({
