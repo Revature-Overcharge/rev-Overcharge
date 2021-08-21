@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
+import { Deck } from 'src/app/models/Deck';
+import { HttpDeckService } from 'src/app/services/http-deck.service';
+=======
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { flashcard } from 'src/app/Models/flashcard'; 
+>>>>>>> 417c05c991b9f3726d2de0468dd94460754a0c0c
 
 @Component({
   selector: 'app-library',
@@ -9,8 +14,28 @@ import { flashcard } from 'src/app/Models/flashcard';
 })
 export class LibraryComponent implements OnInit {
 
+<<<<<<< HEAD
+  constructor(private deckHttp: HttpDeckService) { }
+
+  ngOnInit(): void {
+    this.displayAllDecks();
+  }
+
+  deckList: Deck[] = [];
+
+  displayAllDecks() {
+    this.deckHttp.getAllDecks().subscribe(
+      (response) => {
+        console.log(response);
+        this.deckList = response;
+      }
+    );
+    console.log(this.deckList);
+  }
+=======
 
   card: flashcard = new flashcard(0, "", "");
+>>>>>>> 417c05c991b9f3726d2de0468dd94460754a0c0c
 
   dynamicArray: Array<flashcard> = [
     { "id": 0, "question": "This is question 1", "answer": "This is answer 1" },
