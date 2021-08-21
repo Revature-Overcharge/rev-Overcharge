@@ -8,10 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
+
 @Entity
 @IdClass(StudiedCardId.class)
 @Table(name = "studied_cards")
 public class StudiedCard {
+
+    private static final Logger log = Logger.getLogger(StudiedCard.class);
 
     @Id
     @ManyToOne
@@ -32,6 +36,7 @@ public class StudiedCard {
 
     public StudiedCard(User user, Card card, Long studiedOn) {
         super();
+        log.info("In StudiedCard constructor");
         this.user = user;
         this.card = card;
         this.studiedOn = studiedOn;

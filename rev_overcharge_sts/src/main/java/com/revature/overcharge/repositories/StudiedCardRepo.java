@@ -12,7 +12,9 @@ public interface StudiedCardRepo extends CrudRepository<StudiedCard, Integer> {
 
     List<StudiedCard> findByCardId(int cardId);
 
-    StudiedCard findByUserIdAndCardId(int userId, int cardId);
+    List<StudiedCard> findByUserIdAndCardId(int userId, int cardId);
+    
+    boolean existsByUserIdAndCardId(int userId, int cardId);
 
     boolean deleteByUserIdAndCardId(int userId, int cardId);
 
