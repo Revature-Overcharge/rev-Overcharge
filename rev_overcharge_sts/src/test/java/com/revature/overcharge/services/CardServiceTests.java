@@ -1,6 +1,8 @@
 package com.revature.overcharge.services;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 
@@ -9,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.revature.overcharge.beans.Card;
 
 import com.revature.overcharge.beans.Card;
 
@@ -29,6 +34,12 @@ public class CardServiceTests {
 
     @Test
     void addCardTest() {
+        Card newCard1 = new Card(null, null, null);
+        assertNotNull(cs.addCard(newCard1));
+        Card newCard = new Card(1, null, null, null);
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.addCard(newCard);
+        });
 		Card card = new Card("question", "answer", 87687687L);
 
 		card = cs.addCard(card);

@@ -22,8 +22,13 @@ public class CardController {
     CardService cs;
 
     @GetMapping(value = "/cards/{id}")
-    public Card getCard(@PathVariable("id") String id) {
-        return cs.getCard(Integer.parseInt(id));
+    public Card getCard(@PathVariable("id") int id) {
+        return cs.getCard(id);
+    }
+
+    @GetMapping(value = "/decks/{id}/cards")
+    public List<Card> getCardsByDeckId(@PathVariable("id") int id) {
+        return cs.getCardsByDeckId(id);
     }
 
     @PostMapping(value = "/cards", consumes = "application/json",
@@ -35,4 +40,5 @@ public class CardController {
     public List<Card> getAllCards() {
         return cs.getAllCards();
     }
+
 }

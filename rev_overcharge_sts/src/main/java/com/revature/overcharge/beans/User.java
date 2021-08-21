@@ -40,11 +40,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     @Transient
-    private List<StudiedCard> studiedCards;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    @Transient
     private List<Rating> ratings;
 
     public User() {
@@ -116,14 +111,6 @@ public class User {
 
     public void setCreatedDecks(List<Deck> createdDecks) {
         this.createdDecks = createdDecks;
-    }
-
-    public List<StudiedCard> getStudiedCards() {
-        return studiedCards;
-    }
-
-    public void setStudiedCards(List<StudiedCard> studiedCards) {
-        this.studiedCards = studiedCards;
     }
 
     public List<Rating> getRatings() {
