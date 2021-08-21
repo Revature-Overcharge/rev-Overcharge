@@ -22,10 +22,15 @@ public class CardController {
     public Card getCard(@PathVariable("id") String id) {
         return cs.getCard(Integer.parseInt(id));
     }
-    
+
     @GetMapping(value = "/decks/{id}/cards")
-    public List<Card> getCardsByDeckId(@PathVariable("id") String id){
+    public List<Card> getCardsByDeckId(@PathVariable("id") String id) {
         return cs.getCardsByDeckId(Integer.parseInt(id));
+    }
+
+    @GetMapping(value = "/cards")
+    public List<Card> getAllCards() {
+        return cs.getAllCards();
     }
 
 }
