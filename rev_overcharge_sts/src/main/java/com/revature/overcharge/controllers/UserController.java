@@ -26,7 +26,13 @@ public class UserController {
     public User getUser(@PathVariable("id") String id) {
         return us.getUser(Integer.parseInt(id));
     }
-
+    
+	
+//    @GetMapping(value = "/user/username")
+//    public User getUserByUname(@RequestParam("username") String username) {
+//        return us.getUserByUname(username);
+//    }
+    
 //    @GetMapping(value = "/user?username=")
 //    public User getUserByUname(@RequestParam("username") String username) {
 //        return us.getUserByUname(username);
