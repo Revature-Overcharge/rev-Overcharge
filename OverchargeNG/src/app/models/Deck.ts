@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { User } from "src/app/models/user";
 
 export class Deck {
     
@@ -14,3 +14,18 @@ export class Deck {
      this.createdOn = createdOn; 
   }
 }
+
+//TODO Suart's team
+//Why are the fields different?
+// export class flashcardset {
+//   setid: number;
+//   name: string;
+//   category: string;
+  
+//   constructor(setid: number, category: string, name: string){
+//     this.setid = setid;
+//     this.name = name;
+//     this.category  = category;
+     
+//   }
+// }

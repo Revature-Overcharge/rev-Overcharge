@@ -16,6 +16,7 @@ public interface CardService {
 
     public List<Card> getCardsByDeckId(int deckId);
 
-	public List<Card> getAllCards();
+    public List<Card> getAllCards();
+
 
 }

@@ -28,4 +28,8 @@ public class CardController {
         return cs.getAllCards();
     }
 
+    @GetMapping(value = "/cards")
+    public List<Card> getAllCards() {
+        return cs.getAllCards();
+    }
 }

@@ -18,14 +18,13 @@
 
               <!-- <img src="./assets/User.png" alt="userPic" class="user-image mr-1 p-2" /> -->
               <mat-icon>account_circle</mat-icon>
-              User Name
-              <!-- {{user.name}} -->
+              {{ getUsername() }}
               <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
             </button>
 
             <mat-menu #menu="matMenu">
               <!-- To Be Implemented wiht Login Functionality -->
-              <!-- <div *ngIf="loggedIn"> -->
+              <div *ngIf="loggedIn">
                 <button mat-menu-item routerLinkActive="list-item-active" routerLink="/profile"> 
                   <mat-icon>account_circle</mat-icon>
                   User Profile 
@@ -34,13 +33,13 @@
                   <mat-icon>exit_to_app</mat-icon>
                   Logout
                 </button>
-              <!-- </div>
-              <div *ngIf="!loggedIn"> -->
+              </div>
+              <div *ngIf="!loggedIn">
                 <button mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
                   <mat-icon>login</mat-icon>
                   Login
                 </button>
-              <!-- </div> -->
+              </div>
             </mat-menu>
           </li>
         </ul>

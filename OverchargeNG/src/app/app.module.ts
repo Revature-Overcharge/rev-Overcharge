@@ -1,4 +1,3 @@
-
 //Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -6,10 +5,11 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
-import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 import { LibraryComponent } from './components/library/library.component';
+import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 
 //Modules
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,7 +27,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //Services
 
 //Pipes
-
 
 @NgModule({
   declarations: [
@@ -53,11 +52,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CountdownModule,
     FormsModule,
     BrowserAnimationsModule,
-<<<<<<< HEAD
-    HttpClientModule
-=======
+    HttpClientModule,
     NgbModule
->>>>>>> 417c05c991b9f3726d2de0468dd94460754a0c0c
   ],
   providers: [],
   bootstrap: [AppComponent]
