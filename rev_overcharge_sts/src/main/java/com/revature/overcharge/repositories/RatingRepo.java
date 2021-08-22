@@ -6,9 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.overcharge.beans.Rating;
+import com.revature.overcharge.beans.RatingId;
 
 @Repository
-public interface RatingRepo extends CrudRepository<Rating, Integer> {
+public interface RatingRepo extends CrudRepository<Rating, RatingId> {
 
     List<Rating> findByUserId(int userId);
 

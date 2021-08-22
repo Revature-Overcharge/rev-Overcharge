@@ -51,7 +51,9 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            return dr.save(newDeck);
+        	 Deck d = dr.findById(newDeck.getId()).get();
+        	 d.setTitle(newDeck.getTitle());
+        	 return dr.save(d);
         } else {
             log.warn("Deck id is invalid for update");
             return null;
@@ -60,6 +62,7 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public boolean deleteDeck(int id) {
+        // Cards have ON DELETE CASCADE for deleted Deck
         if (dr.existsById(id)) {
             dr.deleteById(id);
             return true;
@@ -91,25 +94,20 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeckAndCards(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            deleteDeckAndCards(newDeck.getId());
-            return addDeckAndCards(newDeck);
+        	Deck d = dr.findById(newDeck.getId()).get();
+        	d.setTitle(newDeck.getTitle());
+        	for (Card c : d.getCards()) {
+        		for (Card c2 : newDeck.getCards()) {
+        			if (c.getId() == c2.getId()) {
+        				c.setQuestion(c2.getQuestion());
+        				c.setAnswer(c2.getAnswer());
+        			}
+        		}
+        	}
+            return updateDeck(d);
         } else {
             log.warn("Deck id is invalid for update");
             return null;
-        }
-    }
-
-    @Override
-    public boolean deleteDeckAndCards(int id) {
-        if (dr.existsById(id)) {
-            for (Card c : cs.getCardsByDeckId(id)) {
-                cs.deleteCard(c.getId());
-            }
-            dr.deleteById(id);
-            return true;
-        } else {
-            log.warn("Deck id is invalid for delete");
-            return false;
         }
     }
 

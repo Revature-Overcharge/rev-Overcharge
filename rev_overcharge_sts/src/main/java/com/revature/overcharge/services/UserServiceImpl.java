@@ -18,18 +18,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepo ur;
 
-//    @Override
-//    public User getUserByUname(String username) {
-//        if (ur.existsByUsername(username)) {
-//            User user = ur.getUserByUsername(username);
-//            user.setLastLogin(new Date().getTime());
-//            return user;
-//        } else {
-//            log.warn("No user exists by that username");
-//            return new User();
-//        }
-//    }
-
     @Override
     public User addUser(User u) {
         if (ur.existsById(u.getId())) {
@@ -79,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(User u) {
+    	System.out.println(u);
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
             user.setLastLogin(new Date().getTime());

@@ -23,14 +23,9 @@ public class UserController {
     UserService us;
 
     @GetMapping(value = "/users/{id}")
-    public User getUser(@PathVariable("id") String id) {
-        return us.getUser(Integer.parseInt(id));
+    public User getUser(@PathVariable("id") int id) {
+        return us.getUser(id);
     }
-
-//    @GetMapping(value = "/user?username=")
-//    public User getUserByUname(@RequestParam("username") String username) {
-//        return us.getUserByUname(username);
-//    }
 
     @GetMapping(value = "/users")
     public List<User> getAllUsers() {
