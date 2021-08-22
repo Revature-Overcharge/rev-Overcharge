@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { TimerComponent } from '../timer/timer.component';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +20,11 @@ export class SidenavComponent implements OnInit {
   sw1: boolean = false;
   sw2: boolean = false;
   sw3: boolean = false;
-  modalRef: any;
+  id: any;
+ 
+ 
+
+  
   
   @ViewChild('timer')
   timer!: TimerComponent;
@@ -28,11 +32,19 @@ export class SidenavComponent implements OnInit {
   // countdown!: CountdownComponent;
   
 
-  constructor(private loginServ: LoginService, private modalService: NgbModal) { 
+  constructor(private loginServ: LoginService, private modalService: NgbModal, private cd: ChangeDetectorRef) { 
     this.timerBool = false;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.log();
+    this.id = setInterval(() => {
+      this.log(); 
+    }, 1000);
+   }
+   log(){
+    this.cd.detectChanges();
+   }
 
   // handleEvent(e: CountdownEvent) {
   //   console.log("Sidenav: "+ e.action)
@@ -68,6 +80,8 @@ export class SidenavComponent implements OnInit {
     }
   }
 
+
+
   isGuest() :boolean {
     console.log(this.loginServ.getUsername());
     return !this.loginServ.loggedIn;
@@ -75,7 +89,7 @@ export class SidenavComponent implements OnInit {
 
   open(content:any) {
 
-    this.modalRef = this.modalService.open(content,
+    this.modalService.open(content,
   {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -130,6 +144,8 @@ export class SidenavComponent implements OnInit {
         this.sw1 = false;
         this.sw2 = false;
       })
+
+
 
 
 
