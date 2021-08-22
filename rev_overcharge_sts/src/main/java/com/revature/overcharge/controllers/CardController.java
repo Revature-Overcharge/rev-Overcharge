@@ -36,6 +36,7 @@ public class CardController {
     public Card addCard(@RequestBody Card c) {
         return cs.addCard(c);
     }
+
     @GetMapping(value = "/cards")
     public List<Card> getAllCards() {
         return cs.getAllCards();
