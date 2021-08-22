@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit {
           this.sw1 = false;
           this.sw2 = true;
           this.sw3 = false;
-          this.loggedIn = this.loginServ.loggedIn;
+          
           window.setTimeout(() => {
             this.modalService.dismissAll();
             this.sw1 = false;

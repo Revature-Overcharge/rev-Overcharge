@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { TimerComponent } from '../timer/timer.component';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +20,10 @@ export class SidenavComponent implements OnInit {
   sw1: boolean = false;
   sw2: boolean = false;
   sw3: boolean = false;
+  id: any;
+ 
+ 
+
   
   
   @ViewChild('timer')
@@ -32,7 +36,15 @@ export class SidenavComponent implements OnInit {
     this.timerBool = false;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.log();
+    this.id = setInterval(() => {
+      this.log(); 
+    }, 1000);
+   }
+   log(){
+    this.cd.detectChanges();
+   }
 
   // handleEvent(e: CountdownEvent) {
   //   console.log("Sidenav: "+ e.action)
@@ -118,7 +130,6 @@ export class SidenavComponent implements OnInit {
             this.sw1 = false;
             this.sw2 = false;
             this.sw3 = false;
-            this.cd.detectChanges();
            }, 1200);
         } else {
           console.log("Invalid login...");
