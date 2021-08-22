@@ -16,10 +16,11 @@ export class SidenavComponent implements OnInit {
   closeResult = '';
   username: string = '';
   password: string = '';
-  responseMessage: string = '';
   user: any;
   sw1: boolean = false;
   sw2: boolean = false;
+  sw3: boolean = false;
+  modalRef: any;
   
   @ViewChild('timer')
   timer!: TimerComponent;
@@ -74,7 +75,7 @@ export class SidenavComponent implements OnInit {
 
   open(content:any) {
 
-    this.modalService.open(content,
+    this.modalRef = this.modalService.open(content,
   {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -97,6 +98,7 @@ export class SidenavComponent implements OnInit {
   login() {
 
     console.log(this.username);
+    console.log(this.password);
 
     let loginAttempt = new User(this.username, this.password);
     this.loginServ.login(loginAttempt).subscribe(
@@ -106,38 +108,49 @@ export class SidenavComponent implements OnInit {
 
           this.loginServ.setUsername(this.user.username);
           console.log("logged in: ", this.user.username);
+          this.sw1 = false;
           this.sw2 = true;
-          // window.setTimeout(() => {
-          //   location.reload();
-          // }, 1500);
+          this.sw3 = false;
+          window.setTimeout(() => {
+            this.modalService.dismissAll();
+            this.sw1 = false;
+            this.sw2 = false;
+            this.sw3 = false;
+           }, 1200);
         } else {
           console.log("Invalid login...");
           this.sw1 = true;
+          this.sw2 = false;
+          this.sw3 = false;
         }
       },
       (error) => {
         console.log("Login Error...");
+        this.sw3 = true;
+        this.sw1 = false;
+        this.sw2 = false;
       })
 
 
 
-         if(this.user.username == this.username && this.user.password == this.password) {
-          console.log("Success! Logging in...");
-          this.responseMessage = "Success! Logging in...";
-          localStorage.setItem("username", this.user.username);
-          window.setTimeout(()=>{
-            location.reload();
-         }, 1500);
+      //    if(this.user.username == this.username && this.user.password == this.password) {
+      //     console.log("Success! Logging in...");
+      //     this.responseMessage = "Success! Logging in...";
+      //     localStorage.setItem("username", this.user.username);
+      //     window.setTimeout(()=>{
+      //       location.reload();
+      //    }, 1500);
 
-         }else {  
-           console.log("Incorrect credentials");
-           this.responseMessage = "Incorrect credentials";
-        }
-      }
+      //    }else {  
+      //      console.log("Incorrect credentials");
+      //      this.responseMessage = "Incorrect credentials";
+      //   }
+      // }
 
 
      
 
+}
 }
 
 
