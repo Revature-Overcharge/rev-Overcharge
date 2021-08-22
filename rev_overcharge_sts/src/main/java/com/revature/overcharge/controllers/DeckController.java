@@ -49,7 +49,7 @@ public class DeckController {
     @DeleteMapping(value = "/decks/{id}")
     public boolean deleteDeck(@PathVariable("id") int id) {
         return ds.deleteDeck(id);
-    
+    }
     // If wanting to update deck title as well as cards, expecting a more full JSON in body
     @PutMapping(value = "/decks/{id}/cards", consumes = "application/json",
             produces = "application/json")
