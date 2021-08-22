@@ -26,8 +26,7 @@
       <!-- <countdown #cd [config]="timer.config"  class="mx-1"></countdown> -->
       <!-- {{countdown}} -->
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/login" 
-        *ngIf="isGuest()">
+    <a mat-list-item (click) = "open(content)" *ngIf="isGuest()">
       <mat-icon>login</mat-icon> Log In
     </a>
 
@@ -37,3 +36,41 @@
     </div>
 
   </mat-nav-list>
+
+  <ng-template #content let-modal>
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            aria-label="Close" (click)=
+                            "modal.dismiss('Cross click')">
+            
+                        <span aria-hidden="true">
+                            X
+                        </span>
+                    </button>
+                </div>
+                <div class="container-fluid page">
+                  <div class="d-flex page__box p-3 mt-2">Log in</div>
+                  <div class="shadow p-3">
+                      <div class="page__content-data">
+              
+                          <div class="d-grid gap-3 col-6 mx-auto text-center" id="box">
+                          <div class="form-floating mb-3">
+                              <input [(ngModel)]="username" id="inputUname" type="text" class="form-control" placeholder="Username">
+                              <label for="floatingInput" class="blk">Username</label>
+                          </div>
+                          <div class="form-floating">
+                              <input [(ngModel)]="password" id="inputPass" type="password" type="password" class="form-control" placeholder="Password">
+                              <label for="floatingPassword" class="blk">Password</label>
+                          </div>
+                          <button (click)="login()" id="loginButton" class="btn-secondary btn-lg">Log in</button>
+                          <br>
+                          <label *ngIf="sw1" id="loginResult" style="color: black">Incorrect credentials</label>
+                          <label *ngIf="sw2" id="loginResult" style="color: black">Success! Logging in...</label>
+                          </div>
+              
+                      </div>
+                  </div>
+              </div>
+</ng-template>
+
+
