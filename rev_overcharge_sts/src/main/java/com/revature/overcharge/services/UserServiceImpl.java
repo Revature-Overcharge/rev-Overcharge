@@ -1,6 +1,8 @@
 package com.revature.overcharge.services;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -74,14 +76,17 @@ public class UserServiceImpl implements UserService {
         System.out.println(u);
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
-            user.setLastLogin(new Date().getTime());
-            ur.save(user);
             os.loginObj(user);
+
+        	user.setLastLogin(new Date().getTime());
+            ur.save(user);
             return user;
         } else {
             log.warn("Username and password are incorrect");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
+    
+    
 
 }
