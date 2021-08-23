@@ -11,27 +11,8 @@ import { Card } from 'src/app/models/card';
 })
 export class LibraryComponent implements OnInit {
 
-  //TODO Sean, your merge conflict didn't resolve. 
-  //    This is the new code:
-  
-  // constructor(private deckHttp: HttpDeckService) { }
-  //
-  // ngOnInit(): void {
-  //   this.displayAllDecks();
-  // }
-  // deckList: Deck[] = [];
-  //
-  // displayAllDecks() {
-  //   this.deckHttp.getAllDecks().subscribe(
-  //     (response) => {
-  //       console.log(response);
-  //       this.deckList = response;
-  //     }
-  //   );
-  //   console.log(this.deckList);
-  // }
 
-
+  deckList: Deck[] = [];
   card: Card = new Card(0, "", "", 0);
 
   dynamicArray: Array<Card> = [
@@ -42,13 +23,14 @@ export class LibraryComponent implements OnInit {
   newDynamic: any = {};  
   ngOnInit(): void {  
       this.newDynamic = {title1: "", title2: ""};  
-      this.dynamicArray.push(this.newDynamic);  
+      this.dynamicArray.push(this.newDynamic); 
+      this.displayAllDecks(); 
   } 
 
 
 closeResult = '';
 
-constructor(private modalService: NgbModal) {}
+constructor(private modalService: NgbModal, private deckHttp: HttpDeckService) {}
 
 
 addRow() {    
@@ -66,6 +48,16 @@ deleteRow(index: any) {
       return true;  
   }  
 } 
+
+  displayAllDecks() {
+    this.deckHttp.getAllDecks().subscribe(
+      (response) => {
+        console.log(response);
+        this.deckList = response;
+      }
+    );
+    console.log(this.deckList);
+  }
 
 open(content: any, card: Card, size: any) {
   this.card = card;

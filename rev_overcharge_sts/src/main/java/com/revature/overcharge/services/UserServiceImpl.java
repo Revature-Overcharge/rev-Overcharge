@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(User u) {
+    	System.out.println(u);
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
             user.setLastLogin(new Date().getTime());

@@ -38,11 +38,6 @@ public class Deck {
     @Transient
     private List<Card> cards;
 
-    @OneToMany(mappedBy = "deck")
-    @JsonIgnore
-    @Transient
-    private List<Rating> ratings;
-
     public Deck() {
         super();
     }
@@ -116,13 +111,6 @@ public class Deck {
         this.cards = cards;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
 
     @Override
     public String toString() {
