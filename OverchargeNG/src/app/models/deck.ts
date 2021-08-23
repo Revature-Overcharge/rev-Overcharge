@@ -1,4 +1,5 @@
 import { User } from "src/app/models/user";
+import { Card } from "./card";
 
 export class Deck {
     
@@ -6,12 +7,14 @@ export class Deck {
     creator: User;
     title: string;
     createdOn: number;
+    cards: Array<Card>;
 
-   constructor(id: number, creator: User, title: string, createdOn: number){
+   constructor(id: number, creator: User, title: string, createdOn: number, cards: Array<Card>){
      this.id = id;
      this.creator = creator;
      this.title = title; 
      this.createdOn = createdOn; 
+     this.cards = cards;
   }
 }
 
