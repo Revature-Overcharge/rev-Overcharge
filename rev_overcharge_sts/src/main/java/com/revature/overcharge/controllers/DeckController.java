@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.overcharge.beans.Deck;
-import com.revature.overcharge.services.CardService;
 import com.revature.overcharge.services.DeckService;
 
 @CrossOrigin
@@ -22,18 +21,6 @@ public class DeckController {
 
     @Autowired
     DeckService ds;
-    @Autowired
-    CardService cs;
-
-    @GetMapping(value = "/decks/{id}")
-    public Deck getDeck(@PathVariable("id") String id) {
-        return ds.getDeck(Integer.parseInt(id));
-    }
-
-    @GetMapping(value = "/decks")
-    public List<Deck> getAllDecks() {
-        return ds.getAllDecks();
-    }
 
     @PostMapping(value = "/decks", consumes = "application/json",
             produces = "application/json")
@@ -41,16 +28,38 @@ public class DeckController {
         return ds.addDeckAndCards(d);
     }
 
+    @GetMapping(value = "/decks/{id}")
+    public Deck getDeck(@PathVariable("id") int id) {
+        return ds.getDeck(id);
+    }
+
+    @GetMapping(value = "/decks")
+    public List<Deck> getAllDecks() {
+        return ds.getAllDecks();
+    }
+
+    // If wanting to only update the deck title, expecting a lighter JSON in
+    // body
     @PutMapping(value = "/decks/{id}", consumes = "application/json",
             produces = "application/json")
     public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
         newDeck.setId(id);
+        return ds.updateDeck(newDeck);
+    }
+
+    // If wanting to update deck title as well as cards, expecting a more full
+    // JSON in body
+    @PutMapping(value = "/decks/{id}/cards", consumes = "application/json",
+            produces = "application/json")
+    public Deck updateDeckAndCards(@PathVariable int id,
+            @RequestBody Deck newDeck) {
+        newDeck.setId(id);
         return ds.updateDeckAndCards(newDeck);
     }
-    
+
     @DeleteMapping(value = "/decks/{id}")
-    public boolean deleteDeck(@PathVariable("id") String id) {
-        return ds.deleteDeck(Integer.parseInt(id));
+    public boolean deleteDeck(@PathVariable("id") int id) {
+        return ds.deleteDeck(id);
     }
 
 }

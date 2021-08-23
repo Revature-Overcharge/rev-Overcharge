@@ -18,5 +18,4 @@ public interface CardService {
 
     public List<Card> getAllCards();
 
-
 }

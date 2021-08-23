@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
           this.loginServ.setUsername(user.username);
           console.log("logged in: ", user.username);
           this.router.navigateByUrl("/home");
+          window.localStorage.setItem("userID",String(user.user_id));
           // window.setTimeout(() => {
           //   location.reload();
           // }, 1500);

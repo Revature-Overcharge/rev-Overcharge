@@ -56,3 +56,13 @@ button{
   .cardText{
     font-size: 20px;
   }
+
+  #ratingcontainer{
+    margin: auto;
+    
+    position: relative;
+    text-align: center;
+    top: 50%;
+    width: 30%;  
+    margin-top: 50px;
+  }
