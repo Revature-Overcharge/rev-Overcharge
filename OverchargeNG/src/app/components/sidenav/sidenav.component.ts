@@ -16,7 +16,7 @@ export class SidenavComponent implements OnInit {
   closeResult = '';
   username: string = '';
   password: string = '';
-  user: any;
+  user: User = new User(0,'','',0,0);
   sw1: boolean = false;
   sw2: boolean = false;
   sw3: boolean = false;
@@ -114,15 +114,18 @@ export class SidenavComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
-    let loginAttempt = new User(this.username, this.password);
+    let loginAttempt = new User(0,this.username, this.password,0,0);
     this.loginServ.login(loginAttempt).subscribe(
       (response) => {
         if (response) {
           this.user = response;
+          console.log("Response : " + JSON.stringify(this.user.id));
 
           this.loginServ.setUsername(this.user.username);
           console.log("logged in: ", this.user.username);
-          this.sw1 = false;
+          window.localStorage.setItem("userID",String(response.id));
+          console.log("User Id saved : " + JSON.stringify(response.id));
+          this.sw1 = false
           this.sw2 = true;
           this.sw3 = false;
           window.setTimeout(() => {
