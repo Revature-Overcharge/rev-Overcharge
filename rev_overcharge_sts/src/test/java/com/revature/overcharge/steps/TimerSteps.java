@@ -1,10 +1,20 @@
 package com.revature.overcharge.steps;
 
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+
+import com.revature.overcharge.runners.TimerRunner;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class TimerSteps {
+	
+	final static Logger log = Logger.getLogger(TimerSteps.class);
+	
+	public static WebDriver driver = TimerRunner.driver;
+//	public static PageFrame genericPage = TimerRunner.genericPage;
 
 	@Given("User is logged in")
 	public void user_is_logged_in() {
