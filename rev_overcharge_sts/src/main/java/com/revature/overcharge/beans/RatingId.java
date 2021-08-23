@@ -3,39 +3,59 @@ package com.revature.overcharge.beans;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.apache.log4j.Logger;
+
 @SuppressWarnings("serial")
 public class RatingId implements Serializable {
+	
+	private static final Logger log = Logger.getLogger(RatingId.class);
 
-    private User user;
+    private int userId;
 
-    private Deck deck;
+    private int deckId;
 
-    public RatingId() {
-        super();
-    }
+	public RatingId() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public RatingId(User user, Deck deck) {
-        super();
-        this.user = user;
-        this.deck = deck;
-    }
+	public RatingId(int userId, int deckId) {
+		super();
+		this.userId = userId;
+		this.deckId = deckId;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(deck, user);
-    }
+	public int getUserId() {
+		return userId;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        RatingId other = (RatingId) obj;
-        return Objects.equals(deck, other.deck)
-                && Objects.equals(user, other.user);
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getDeckId() {
+		return deckId;
+	}
+
+	public void setDeckId(int deckId) {
+		this.deckId = deckId;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(deckId, userId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RatingId other = (RatingId) obj;
+		return deckId == other.deckId && userId == other.userId;
+	}
 
 }
