@@ -19,59 +19,59 @@ public class Rating {
     @Column(name = "deck_id")
     private int deckId;
 
-    private int stars;
+    private Integer stars;
 
     @Column(name = "rated_on")
     private Long ratedOn;
 
-	public Rating() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public Rating() {
+        super();
+    }
 
-	public Rating(int userId, int deckId, int stars, Long ratedOn) {
-		super();
-		this.userId = userId;
-		this.deckId = deckId;
-		this.stars = stars;
-		this.ratedOn = ratedOn;
-	}
-	
-	public int getUserId() {
-		return userId;
-	}
+    public Rating(int userId, int deckId, Integer stars, Long ratedOn) {
+        super();
+        this.userId = userId;
+        this.deckId = deckId;
+        this.stars = stars;
+        this.ratedOn = ratedOn;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public int getDeckId() {
-		return deckId;
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	public void setDeckId(int deckId) {
-		this.deckId = deckId;
-	}
+    public int getDeckId() {
+        return deckId;
+    }
 
-	public int getStars() {
-		return stars;
-	}
+    public void setDeckId(int deckId) {
+        this.deckId = deckId;
+    }
 
-	public void setStars(int stars) {
-		this.stars = stars;
-	}
+    public Integer getStars() {
+        return stars;
+    }
 
-	public Long getRatedOn() {
-		return ratedOn;
-	}
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
 
-	public void setRatedOn(Long ratedOn) {
-		this.ratedOn = ratedOn;
-	}
+    public Long getRatedOn() {
+        return ratedOn;
+    }
 
-	@Override
-	public String toString() {
-		return "Rating [userId=" + userId + ", deckId=" + deckId + ", stars=" + stars + ", ratedOn=" + ratedOn + "]";
-	}
+    public void setRatedOn(Long ratedOn) {
+        this.ratedOn = ratedOn;
+    }
+
+    @Override
+    public String toString() {
+        return "Rating [userId=" + userId + ", deckId=" + deckId + ", stars="
+                + stars + ", ratedOn=" + ratedOn + "]";
+    }
 
 }

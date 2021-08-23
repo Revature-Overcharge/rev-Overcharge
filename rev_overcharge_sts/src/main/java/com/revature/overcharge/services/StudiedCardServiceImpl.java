@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.StudiedCardId;
@@ -30,7 +32,7 @@ public class StudiedCardServiceImpl implements StudiedCardService {
     public StudiedCard addStudiedCard(StudiedCard sc) {
         if (scr.existsByUserIdAndCardId(sc.getUserId(), sc.getCardId())) {
             log.warn("This card is already marked as studied by this user");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             sc.setStudiedOn(new Date().getTime());
             log.info(sc.toString());
@@ -59,8 +61,8 @@ public class StudiedCardServiceImpl implements StudiedCardService {
             scr.deleteById(scId);
             return true;
         } else {
-            log.warn("userId and cardId are invalid for delete");
-            return false;
+            log.warn("User id and card id are invalid for delete");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 

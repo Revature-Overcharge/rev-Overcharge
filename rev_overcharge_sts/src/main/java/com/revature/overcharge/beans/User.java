@@ -24,7 +24,6 @@ public class User {
 
     private String username;
 
-    
     private String password;
 
     private Integer points;
@@ -36,7 +35,6 @@ public class User {
     @JsonIgnore
     @Transient
     private List<Deck> createdDecks;
-
 
     public User() {
         super();
@@ -108,7 +106,6 @@ public class User {
     public void setCreatedDecks(List<Deck> createdDecks) {
         this.createdDecks = createdDecks;
     }
-
 
     @Override
     public String toString() {
