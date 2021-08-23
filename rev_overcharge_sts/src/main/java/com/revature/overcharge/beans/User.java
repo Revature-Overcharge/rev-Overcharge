@@ -1,5 +1,6 @@
 package com.revature.overcharge.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -38,7 +39,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Transient
-    private List<Objective> objectives;
+    private List<Objective> objectives = new ArrayList<Objective>();
 
     public User() {
         super();

@@ -35,6 +35,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     	long midnight = getMidnight();
         if (midnight >= user.getLastLogin()) {
         	user.setPoints(user.getPoints() + 10);
+        	user.getObjectives().add(new Objective("Daily Login", 10, 1, 1));
         } 
     }
     

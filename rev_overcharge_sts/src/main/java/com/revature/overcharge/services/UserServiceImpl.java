@@ -77,7 +77,6 @@ public class UserServiceImpl implements UserService {
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
             os.loginObj(user);
-
         	user.setLastLogin(new Date().getTime());
             ur.save(user);
             return user;
