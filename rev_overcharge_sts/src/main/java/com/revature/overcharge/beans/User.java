@@ -36,6 +36,10 @@ public class User {
     @Transient
     private List<Deck> createdDecks;
 
+    @OneToMany(mappedBy = "user")
+    @Transient
+    private List<Objective> objectives;
+
     public User() {
         super();
     }
@@ -57,6 +61,17 @@ public class User {
         this.password = password;
         this.points = points;
         this.lastLogin = lastLogin;
+    }
+
+    public User(int id, String username, String password, Integer points,
+            Long lastLogin, List<Objective> objectives) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.points = points;
+        this.lastLogin = lastLogin;
+        this.objectives = objectives;
     }
 
     public int getId() {
@@ -105,6 +120,14 @@ public class User {
 
     public void setCreatedDecks(List<Deck> createdDecks) {
         this.createdDecks = createdDecks;
+    }
+
+    public List<Objective> getObjectives() {
+        return objectives;
+    }
+
+    public void setObjectives(List<Objective> objectives) {
+        this.objectives = objectives;
     }
 
     @Override
