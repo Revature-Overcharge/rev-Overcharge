@@ -71,11 +71,19 @@ export class CreateDeckComponent implements OnInit {
   createDeck() {
     this.getUser();
     console.log(this.user);
-    this.deckHttp.addDeck(this.deck).subscribe(
-      (response) => {
-        console.log(response);
-      }
-    )
+    if(this.title == ''){
+      alert("Please give your deck a title");
+    }
+    else if(this.user == null){
+      alert("Please log in before creating a deck");
+    } 
+    else {
+      this.deckHttp.addDeck(this.deck).subscribe(
+        (response) => {
+          console.log(response);
+        }
+      )
+    }
   }
 
   getUser(){
