@@ -80,7 +80,12 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public List<Deck> getDecksByCreatorId(int creatorId) {
-        return dr.findByCreatorId(creatorId);
+        if (dr.existsByCreatorId(creatorId)) {
+            return dr.getByCreatorId(creatorId);
+        } else {
+            log.warn("No deck found for given creator id");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
