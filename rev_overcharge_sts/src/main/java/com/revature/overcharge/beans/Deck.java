@@ -14,8 +14,6 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "decks")
 public class Deck {
@@ -38,32 +36,22 @@ public class Deck {
     @Transient
     private List<Card> cards;
 
-    @OneToMany(mappedBy = "deck")
-    @JsonIgnore
-    @Transient
-    private List<Rating> ratings;
-
     public Deck() {
         super();
     }
 
-    public Deck(User creator, String title, Long createdOn) {
-        super();
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-    }
-
-    public Deck(int id, User creator, String title, Long createdOn) {
-        super();
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-    }
-
     public Deck(User creator, String title, Long createdOn, List<Card> cards) {
         super();
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
+    }
+
+    public Deck(int id, User creator, String title, Long createdOn,
+            List<Card> cards) {
+        super();
+        this.id = id;
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
@@ -108,14 +96,6 @@ public class Deck {
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
-    }
-
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
     }
 
     @Override

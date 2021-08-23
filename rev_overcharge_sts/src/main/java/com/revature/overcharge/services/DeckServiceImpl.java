@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
@@ -29,7 +31,7 @@ public class DeckServiceImpl implements DeckService {
     public Deck addDeck(Deck d) {
         if (dr.existsById(d.getId())) {
             log.warn("Deck id is invalid for add");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             d.setCreatedOn(new Date().getTime());
             os.addDeckObj(d);
@@ -39,11 +41,11 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public Deck getDeck(int id) {
-        try {
+        if (dr.existsById(id)) {
             return dr.findById(id).get();
-        } catch (Exception e) {
-            log.warn(e);
-            return null;
+        } else {
+            log.warn("Deck id is not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -55,21 +57,24 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            return dr.save(newDeck);
+            Deck d = dr.findById(newDeck.getId()).get();
+            d.setTitle(newDeck.getTitle());
+            return dr.save(d);
         } else {
             log.warn("Deck id is invalid for update");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
     public boolean deleteDeck(int id) {
+        // Cards have ON DELETE CASCADE for deleted Deck
         if (dr.existsById(id)) {
             dr.deleteById(id);
             return true;
         } else {
             log.warn("Deck id is invalid for delete");
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -80,40 +85,40 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public Deck addDeckAndCards(Deck d) {
-        for (Card c : d.getCards()) {
-            cs.addCard(c);
+        if (dr.existsById(d.getId())) {
+            log.warn("Deck id is invalid for add");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        } else {
+            for (Card c : d.getCards()) {
+                cs.addCard(c);
+            }
+            Deck addedDeck = addDeck(d);
+            for (int i = 0; i < d.getCards().size(); i++) {
+                Card card = d.getCards().get(i);
+                card.setDeck(addedDeck);
+                card = cs.updateCard(card);
+            }
+            return addedDeck;
         }
-        Deck addedDeck = addDeck(d);
-        for (int i = 0; i < d.getCards().size(); i++) {
-            Card card = d.getCards().get(i);
-            card.setDeck(addedDeck);
-            card = cs.updateCard(card);
-        }
-        return addedDeck;
     }
 
     @Override
     public Deck updateDeckAndCards(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            deleteDeckAndCards(newDeck.getId());
-            return addDeckAndCards(newDeck);
+            Deck d = dr.findById(newDeck.getId()).get();
+            d.setTitle(newDeck.getTitle());
+            for (Card c : d.getCards()) {
+                for (Card c2 : newDeck.getCards()) {
+                    if (c.getId() == c2.getId()) {
+                        c.setQuestion(c2.getQuestion());
+                        c.setAnswer(c2.getAnswer());
+                    }
+                }
+            }
+            return updateDeck(d);
         } else {
             log.warn("Deck id is invalid for update");
-            return null;
-        }
-    }
-
-    @Override
-    public boolean deleteDeckAndCards(int id) {
-        if (dr.existsById(id)) {
-            for (Card c : cs.getCardsByDeckId(id)) {
-                cs.deleteCard(c.getId());
-            }
-            dr.deleteById(id);
-            return true;
-        } else {
-            log.warn("Deck id is invalid for delete");
-            return false;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 

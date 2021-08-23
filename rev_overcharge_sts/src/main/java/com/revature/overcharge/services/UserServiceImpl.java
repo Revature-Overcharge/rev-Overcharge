@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.User;
 import com.revature.overcharge.repositories.UserRepo;
@@ -21,23 +23,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     ObjectiveService os;
 
-//    @Override
-//    public User getUserByUname(String username) {
-//        if (ur.existsByUsername(username)) {
-//            User user = ur.getUserByUsername(username);
-//            user.setLastLogin(new Date().getTime());
-//            return user;
-//        } else {
-//            log.warn("No user exists by that username");
-//            return new User();
-//        }
-//    }
-
     @Override
     public User addUser(User u) {
         if (ur.existsById(u.getId())) {
             log.warn("User id is invalid for add");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             return ur.save(u);
         }
@@ -45,13 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(int id) {
-        try {
+        if (ur.existsById(id)) {
             return ur.findById(id).get();
-        } catch (Exception e) {
-            log.warn(e);
-            return null;
+        } else {
+            log.warn("User id is not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @Override
@@ -65,7 +54,7 @@ public class UserServiceImpl implements UserService {
             return ur.save(change);
         } else {
             log.warn("User id is invalid for update");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -76,12 +65,13 @@ public class UserServiceImpl implements UserService {
             return true;
         } else {
             log.warn("Deck id is invalid for delete");
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
     public User login(User u) {
+        System.out.println(u);
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
             user.setLastLogin(new Date().getTime());
@@ -90,7 +80,7 @@ public class UserServiceImpl implements UserService {
             return user;
         } else {
             log.warn("Username and password are incorrect");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 

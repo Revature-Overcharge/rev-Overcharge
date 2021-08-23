@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 import { TimerComponent } from '../timer/timer.component';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-sidenav',
@@ -10,6 +13,18 @@ import { TimerComponent } from '../timer/timer.component';
 export class SidenavComponent implements OnInit {
 
   timerBool: boolean;
+  closeResult = '';
+  username: string = '';
+  password: string = '';
+  user: any;
+  sw1: boolean = false;
+  sw2: boolean = false;
+  sw3: boolean = false;
+  id: any;
+ 
+ 
+
+  
   
   @ViewChild('timer')
   timer!: TimerComponent;
@@ -17,11 +32,19 @@ export class SidenavComponent implements OnInit {
   // countdown!: CountdownComponent;
   
 
-  constructor() { 
+  constructor(private loginServ: LoginService, private modalService: NgbModal, private cd: ChangeDetectorRef) { 
     this.timerBool = false;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.log();
+    this.id = setInterval(() => {
+      this.log(); 
+    }, 1000);
+   }
+   log(){
+    this.cd.detectChanges();
+   }
 
   // handleEvent(e: CountdownEvent) {
   //   console.log("Sidenav: "+ e.action)
@@ -40,7 +63,7 @@ export class SidenavComponent implements OnInit {
   //   }
   // }
 
-  showTimer() {
+  showTimer(): void {
     this.timerBool = !this.timerBool;
     let timerEl = document.getElementById("timerContainer");
 
@@ -57,4 +80,93 @@ export class SidenavComponent implements OnInit {
     }
   }
 
+
+
+  isGuest() :boolean {
+    console.log(this.loginServ.getUsername());
+    return !this.loginServ.loggedIn;
+  }
+
+  open(content:any) {
+
+    this.modalService.open(content,
+  {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    this.closeResult =
+      `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+    } else {
+    return `with: ${reason}`;
+    }
+  }
+
+  login() {
+
+    console.log(this.username);
+    console.log(this.password);
+
+    let loginAttempt = new User(this.username, this.password);
+    this.loginServ.login(loginAttempt).subscribe(
+      (response) => {
+        if (response) {
+          this.user = response;
+
+          this.loginServ.setUsername(this.user.username);
+          console.log("logged in: ", this.user.username);
+          this.sw1 = false;
+          this.sw2 = true;
+          this.sw3 = false;
+          window.setTimeout(() => {
+            this.modalService.dismissAll();
+            this.sw1 = false;
+            this.sw2 = false;
+            this.sw3 = false;
+           }, 1200);
+        } else {
+          console.log("Invalid login...");
+          this.sw1 = true;
+          this.sw2 = false;
+          this.sw3 = false;
+        }
+      },
+      (error) => {
+        console.log("Login Error...");
+        this.sw3 = true;
+        this.sw1 = false;
+        this.sw2 = false;
+      })
+
+
+
+
+
+      //    if(this.user.username == this.username && this.user.password == this.password) {
+      //     console.log("Success! Logging in...");
+      //     this.responseMessage = "Success! Logging in...";
+      //     localStorage.setItem("username", this.user.username);
+      //     window.setTimeout(()=>{
+      //       location.reload();
+      //    }, 1500);
+
+      //    }else {  
+      //      console.log("Incorrect credentials");
+      //      this.responseMessage = "Incorrect credentials";
+      //   }
+      // }
+
+
+     
+
 }
+}
+
+
