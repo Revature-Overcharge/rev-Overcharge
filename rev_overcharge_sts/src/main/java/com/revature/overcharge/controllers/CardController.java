@@ -1,9 +1,13 @@
 package com.revature.overcharge.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.overcharge.beans.Card;
@@ -16,9 +20,25 @@ public class CardController {
     @Autowired
     CardService cs;
 
+    @PostMapping(value = "/cards", consumes = "application/json",
+            produces = "application/json")
+    public Card addCard(@RequestBody Card c) {
+        return cs.addCard(c);
+    }
+
     @GetMapping(value = "/cards/{id}")
-    public Card getCard(@PathVariable("id") String id) {
-        return cs.getCard(Integer.parseInt(id));
+    public Card getCard(@PathVariable("id") int id) {
+        return cs.getCard(id);
+    }
+
+    @GetMapping(value = "/cards")
+    public List<Card> getAllCards() {
+        return cs.getAllCards();
+    }
+
+    @GetMapping(value = "/decks/{id}/cards")
+    public List<Card> getCardsByDeckId(@PathVariable("id") int id) {
+        return cs.getCardsByDeckId(id);
     }
 
 }

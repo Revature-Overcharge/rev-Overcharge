@@ -18,32 +18,68 @@
 
               <!-- <img src="./assets/User.png" alt="userPic" class="user-image mr-1 p-2" /> -->
               <mat-icon>account_circle</mat-icon>
-              User Name
-              <!-- {{user.name}} -->
+              {{ getUsername() }}
               <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
             </button>
 
             <mat-menu #menu="matMenu">
               <!-- To Be Implemented wiht Login Functionality -->
-              <!-- <div *ngIf="loggedIn"> -->
+              <div *ngIf="loggedIn">
                 <button mat-menu-item routerLinkActive="list-item-active" routerLink="/profile"> 
                   <mat-icon>account_circle</mat-icon>
                   User Profile 
                 </button>
-                <button id="logout" (click)="logout()" mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
+                <button id="logout" (click)="logout(); open(content)" mat-menu-item>
                   <mat-icon>exit_to_app</mat-icon>
                   Logout
                 </button>
-              <!-- </div>
-              <div *ngIf="!loggedIn"> -->
-                <button mat-menu-item routerLinkActive="list-item-active" routerLink="/login">
+              </div>
+              <div *ngIf="!loggedIn">
+                <button mat-menu-item (click) = "open(content)">
                   <mat-icon>login</mat-icon>
                   Login
                 </button>
-              <!-- </div> -->
+              </div>
             </mat-menu>
           </li>
         </ul>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
+
+  <ng-template #content let-modal>
+    <div class="modal-header" id="modal">
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+
+            <span aria-hidden="true">
+                X
+            </span>
+        </button>
+    </div>
+    <div class="container-fluid page">
+      <div class="d-flex page__box p-3 mt-2">Log in</div>
+      <div class="shadow p-3">
+          <div class="page__content-data">
+  
+              <div class="d-grid gap-3 col-6 mx-auto text-center" id="box">
+              <div class="form-floating mb-3">
+                  <input [(ngModel)]="username" id="inputUname" type="text" class="form-control">
+                  <label for="floatingInput" style="color: black" class="blk">Username</label>
+              </div>
+              <div class="form-floating">
+                  <input [(ngModel)]="password" id="inputPass" type="password" type="password" class="form-control">
+                  <label for="floatingPassword"  style="color: black" class="blk">Password</label>
+              </div>
+              <button (click)="login()" id="loginButton" style="background-color: gray;" class="btn-secondary btn-lg">Log in</button>
+              <br>
+              <label *ngIf="sw1" style="color: black">Incorrect credentials</label>
+              <label *ngIf="sw2" style="color: black">Success! Logging in...</label>
+              <label *ngIf="sw3" style="color: black">Login Error....</label>
+              </div>
+  
+          </div>
+      </div>
+  </div>
+</ng-template>
