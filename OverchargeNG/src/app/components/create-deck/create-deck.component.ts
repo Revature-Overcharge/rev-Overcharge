@@ -3,6 +3,7 @@ import { Card } from 'src/app/models/card';
 import { Deck } from 'src/app/models/deck';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
+import { HttpUserService } from 'src/app/services/http-user.service';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -12,11 +13,12 @@ import { User } from 'src/app/models/user';
 })
 export class CreateDeckComponent implements OnInit {
 
-  constructor(private modalService: NgbModal, private deckHttp: HttpDeckService) { }
+  constructor(private modalService: NgbModal, private deckHttp: HttpDeckService, private userHttp: HttpUserService) { }
 
   ngOnInit(): void {  
       this.newDynamic = {title1: "", title2: ""};  
       this.dynamicArray.push(this.newDynamic);
+      this.getUser();
   }
 
   title = '';
@@ -25,7 +27,8 @@ export class CreateDeckComponent implements OnInit {
   card: Card = new Card(0, "", "", 0);
   newDynamic: any = {};  
   dynamicArray: Array<Card> = []; 
-  deck: Deck = new Deck(0, new User("mclapston0","kGex8fqXt8", 1, 89, 1629315831000),this.title, 0, []);
+  user: User;
+  deck: Deck;
 
   addRow() {    
     this.newDynamic = {title1: "", title2: ""};  
@@ -66,9 +69,20 @@ export class CreateDeckComponent implements OnInit {
   }
 
   createDeck() {
+    this.getUser();
+    console.log(this.user);
     this.deckHttp.addDeck(this.deck).subscribe(
       (response) => {
         console.log(response);
+      }
+    )
+  }
+
+  getUser(){
+    this.userHttp.getUserById(Number(localStorage.getItem("userID"))).subscribe(
+      (response) => {
+        this.user = response;
+        this.deck = new Deck(0, this.user,this.title, 0, this.dynamicArray);
       }
     )
   }

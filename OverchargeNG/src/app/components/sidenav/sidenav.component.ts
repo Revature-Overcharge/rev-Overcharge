@@ -21,7 +21,7 @@ export class SidenavComponent implements OnInit {
   sw2: boolean = false;
   sw3: boolean = false;
   id: any;
- 
+  responseMessage: string = '';
  
 
   
@@ -119,7 +119,8 @@ export class SidenavComponent implements OnInit {
       (response) => {
         if (response) {
           this.user = response;
-
+          console.log(this.user);
+          localStorage.setItem("userID", this.user.id);
           this.loginServ.setUsername(this.user.username);
           console.log("logged in: ", this.user.username);
           this.sw1 = false;
@@ -165,8 +166,7 @@ export class SidenavComponent implements OnInit {
 
 
      
-
-}
+    }
 }
 
 
