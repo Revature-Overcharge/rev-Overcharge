@@ -24,7 +24,6 @@ public class User {
 
     private String username;
 
-    
     private String password;
 
     private Integer points;
@@ -36,11 +35,6 @@ public class User {
     @JsonIgnore
     @Transient
     private List<Deck> createdDecks;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    @Transient
-    private List<Rating> ratings;
 
     public User() {
         super();
@@ -111,14 +105,6 @@ public class User {
 
     public void setCreatedDecks(List<Deck> createdDecks) {
         this.createdDecks = createdDecks;
-    }
-
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
     }
 
     @Override

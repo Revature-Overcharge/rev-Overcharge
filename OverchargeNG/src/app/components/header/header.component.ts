@@ -70,10 +70,8 @@ export class HeaderComponent implements OnInit {
   }
 
   login() {
-
     console.log(this.username);
     console.log(this.password);
-
     let loginAttempt = new User(this.username, this.password);
     this.loginServ.login(loginAttempt).subscribe(
       (response) => {
@@ -85,6 +83,7 @@ export class HeaderComponent implements OnInit {
           this.sw1 = false;
           this.sw2 = true;
           this.sw3 = false;
+          
           window.setTimeout(() => {
             this.modalService.dismissAll();
             this.sw1 = false;
