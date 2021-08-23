@@ -20,6 +20,12 @@ public class CardController {
     @Autowired
     CardService cs;
 
+    @PostMapping(value = "/cards", consumes = "application/json",
+            produces = "application/json")
+    public Card addCard(@RequestBody Card c) {
+        return cs.addCard(c);
+    }
+
     @GetMapping(value = "/cards/{id}")
     public Card getCard(@PathVariable("id") int id) {
         return cs.getCard(id);
@@ -28,12 +34,6 @@ public class CardController {
     @GetMapping(value = "/cards")
     public List<Card> getAllCards() {
         return cs.getAllCards();
-    }
-
-    @PostMapping(value = "/cards", consumes = "application/json",
-            produces = "application/json")
-    public Card addCard(@RequestBody Card c) {
-        return cs.addCard(c);
     }
 
     @GetMapping(value = "/decks/{id}/cards")

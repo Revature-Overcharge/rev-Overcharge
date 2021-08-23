@@ -16,22 +16,27 @@ import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.RatingId;
 import com.revature.overcharge.services.RatingService;
 
-
 @CrossOrigin
 @RestController
 public class RatingController {
 
-    private static final Logger log = Logger
-            .getLogger(StudiedCardController.class);
+    private static final Logger log = Logger.getLogger(RatingController.class);
 
     @Autowired
     RatingService rs;
 
+//    @PostMapping(value = "/ratings", consumes = "application/json",
+//            produces = "application/json")
+//    public Rating addRating(@RequestBody Rating r) {
+//        log.info("Adding Rating");
+//        return rs.addRating(r);
+//    }
+
     @PostMapping(value = "/ratings", consumes = "application/json",
             produces = "application/json")
-    public Rating addRating(@RequestBody Rating r) {
-        log.info("Adding Rating");
-        return rs.addRating(r);
+    public Rating saveRating(@RequestBody Rating r) {
+        log.info("Saving Rating");
+        return rs.saveRating(r);
     }
 
     @GetMapping(value = "/ratings")
@@ -45,5 +50,5 @@ public class RatingController {
     public boolean deleteRating(@RequestBody RatingId rId) {
         return rs.deleteRating(rId);
     }
-	
+
 }

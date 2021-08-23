@@ -5,39 +5,43 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.RatingId;
-
 import com.revature.overcharge.repositories.RatingRepo;
 
 @Service
 public class RatingServiceImpl implements RatingService {
 
-	private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
+    private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
 
-	@Autowired
-	RatingRepo rr;
-	@Autowired
-	UserService us;
-	@Autowired
-	DeckService ds;
-	
-	@Override
-	public Rating addRating(Rating r) {
-        if (rr.existsByUserIdAndDeckId(r.getUserId(), r.getDeckId())) {
-            log.warn("This Deck is already Rated");
-            return null;
-        } else {
-            r.setRatedOn(new Date().getTime());
-            log.info(r.toString());
-            return rr.save(r);
-        }
-	}
-	
-	@Override
-	public List<Rating> getRatings(Integer userId, Integer deckId) {
+    @Autowired
+    RatingRepo rr;
+
+//    @Override
+//    public Rating addRating(Rating r) {
+//        if (rr.existsByUserIdAndDeckId(r.getUserId(), r.getDeckId())) {
+//            log.warn("This deck is already rated by this user");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        } else {
+//            r.setRatedOn(new Date().getTime());
+//            log.info(r.toString());
+//            return rr.save(r);
+//        }
+//    }
+
+    @Override
+    public Rating saveRating(Rating r) {
+        r.setRatedOn(new Date().getTime());
+        log.info(r.toString());
+        return rr.save(r);
+    }
+
+    @Override
+    public List<Rating> getRatings(Integer userId, Integer deckId) {
         if (userId != null) {
             if (deckId != null) {
                 return rr.getByUserIdAndDeckId(userId, deckId);
@@ -49,19 +53,17 @@ public class RatingServiceImpl implements RatingService {
         } else {
             return (List<Rating>) rr.findAll();
         }
-	}
-	
-	@Override
-	public boolean deleteRating(RatingId rId) {
+    }
+
+    @Override
+    public boolean deleteRating(RatingId rId) {
         if (rr.existsById(rId)) {
             rr.deleteById(rId);
             return true;
         } else {
             log.warn("userId and cardId are invalid for delete");
-            return false;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
-	
-	
-}
 
+}
