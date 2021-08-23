@@ -12,9 +12,14 @@ import { Card } from 'src/app/models/card';
 export class LibraryComponent implements OnInit {
 
 
+  //the deck list shall be populated from all of the decks in the database
   deckList: Deck[] = [];
   card: Card = new Card(0, "", "", 0);
+  curUser: any;
+  canEdit: boolean;
+  curDeck: Deck;
 
+  //this array should be populated by the deck that is selected
   dynamicArray: Array<Card> = [
     { "id": 0, "question": "This is question 1", "answer": "This is answer 1", "createdOn": 0 },
     { "id": 1, "question": "This is question 2", "answer": "This is answer 2", "createdOn": 0 },
@@ -22,9 +27,11 @@ export class LibraryComponent implements OnInit {
   ]; 
   newDynamic: any = {};  
   ngOnInit(): void {  
-      this.newDynamic = {title1: "", title2: ""};  
-      this.dynamicArray.push(this.newDynamic); 
+      //this.newDynamic = {title1: "", title2: ""};
+      //this.dynamicArray.push(this.newDynamic); 
       this.displayAllDecks(); 
+      this.curUser = localStorage.getItem("username");
+      console.log(this.curUser);
   } 
 
 
@@ -34,7 +41,10 @@ constructor(private modalService: NgbModal, private deckHttp: HttpDeckService) {
 
 
 addRow() {    
-  this.newDynamic = {title1: "", title2: ""};  
+  this.newDynamic = (this.curDeck.cards.length++, '', '', 0);
+  //this.newDynamic = {'id': this.curDeck.cards.length++, 'question':'', 'answer':'', 'createdOn':0}; 
+  //this.card.id = this.curDeck.cards.length++;
+  //this.newDynamic = this.card;
   this.dynamicArray.push(this.newDynamic);    
   console.log(this.dynamicArray);  
   return true;  
@@ -59,8 +69,11 @@ deleteRow(index: any) {
     console.log(this.deckList);
   }
 
-open(content: any, card: Card, size: any) {
+open(content: any, card: Card, size: any, deck: Deck) {
   this.card = card;
+  //Added a cards array to the deck object so I can grab it to display here
+  this.dynamicArray = deck.cards;
+  this.curDeck = deck;
 
 	this.modalService.open(content,
 {ariaLabelledBy: 'modal-basic-title', size: size}).result.then((result) => {
@@ -79,5 +92,12 @@ private getDismissReason(reason: any): string {
 	} else {
 	return `with: ${reason}`;
 	}
+}
+
+saveDeck(deckArray: Array<Card>) {
+  //This is where we will take the cards from the modal and save them to the db.
+  this.curDeck.cards = deckArray;
+  console.log("The deck has been updated");
+  this.deckHttp.updateDeck(this.curDeck).subscribe();
 }
 }

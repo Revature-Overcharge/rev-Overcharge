@@ -6,10 +6,29 @@
             <p>library works!</p>
             <a routerLink="/cardrunner">Click Here for Card Runner</a>
 
-            <button class="btn btn-lg btn-outline-primary"
+            <!--<button class="btn btn-lg btn-outline-primary"
             (click)="open(content, card, 'lg')">
             add/edit cards
-            </button>
+            </button>-->
+            <div class="table-bordered">
+              <table>
+                <tr>
+                  <th>Deck Title</th>
+                  <th>Deck Author</th>
+                  <th>Edit Deck</th>
+                </tr>
+                <tr *ngFor="let deck of deckList">
+                  <td>{{deck.title}}</td>
+                  <td>{{deck.creator.username}}</td>
+                  <td *ngIf="curUser == deck.creator.username">
+                    <button class="btn btn-lg btn-outline-primary"
+                    (click)="open(content, card, 'lg', deck)">
+                    add/edit cards
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
 
             <ng-template #content let-modal>
                 <div class="modal-header">
@@ -56,9 +75,11 @@
                     </table>    
                   </div> 
                   <div class="modal-footer">
+                    <!-- This is where we need to save the cards, on click we should loop through the added cards and save them to the 
+                    DB -->
                     <button type="button"
                         class="btn btn-outline-dark"
-                        (click)="modal.close('Save click')">
+                        (click)="modal.close(saveDeck(dynamicArray))">
                         Save
                     </button>
                 </div> 
