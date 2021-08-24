@@ -18,6 +18,12 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
     @Autowired
     private DeckService ds;
+    
+    @Autowired
+    private UserService us;
+    
+    private long WEEK_START_TIME = 1_627_887_600_000L + 10_800_000;
+    private int WEEKLY_MS = 604_800_000;
 
     @Override
     public List<Objective> getAllObjectivesForUser(String id) {
@@ -75,5 +81,42 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         Date d1 = c.getTime();
         return d1.getTime();
     }
+
+	@Override
+	public void createADeckWeekly(Deck d) {
+		User u = us.getUser(d.getCreator().getId());
+		d.setCreator(u);
+		
+		long createdTime = d.getCreatedOn();
+		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
+		long endWeekTime = startWeekTime + WEEKLY_MS;
+		
+		List<Deck> decks = ds.getDecksByCreatorId(u.getId());
+		
+		int qualifiedDecks = 0;
+
+		for (Deck deck : decks) {
+			if (deck.getCreatedOn() >= startWeekTime && deck.getCreatedOn() <= endWeekTime) {
+				qualifiedDecks++;
+			}
+		}
+		
+		if (qualifiedDecks == 1) {
+			u.setPoints(u.getPoints() + 100);
+			u.getObjectives().add(new Objective("Create a Set", 100, 1, 1));
+		}
+
+		us.updateUser(u);
+	}
+	
+	private long getWeekStart(long startTime, long currentTime) {
+		while (startTime <= currentTime) {
+			startTime += WEEKLY_MS;
+			if (startTime > currentTime) {
+				return startTime -= WEEKLY_MS;
+			}
+		}
+		return startTime;
+	}
 
 }
