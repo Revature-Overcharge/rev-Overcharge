@@ -91,11 +91,21 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
 		long endWeekTime = startWeekTime + WEEKLY_SEC;
 		
-		if (createdTime >= startWeekTime && createdTime <= endWeekTime) {
+		List<Deck> decks = ds.getDecksByCreatorId(u.getId());
+		
+		int qualifiedDecks = 0;
+
+		for (Deck deck : decks) {
+			if (deck.getCreatedOn() >= startWeekTime && deck.getCreatedOn() <= endWeekTime) {
+				qualifiedDecks++;
+			}
+		}
+		
+		if (qualifiedDecks == 1) {
 			u.setPoints(u.getPoints() + 100);
 			u.getObjectives().add(new Objective("Create a Set", 100, 1, 1));
 		}
-		
+
 		us.updateUser(u);
 	}
 	
