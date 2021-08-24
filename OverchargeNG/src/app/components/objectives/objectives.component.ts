@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ObjectivesService } from 'src/app/services/objectives.service';
 
 @Component({
   selector: 'app-objectives',
@@ -7,39 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ObjectivesComponent implements OnInit {
 
-  count: number = 0;
   value: number;
   progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
 
-  constructor() { }
+  constructor(private objData: ObjectivesService) { }
 
   ngOnInit(): void {
-    if (this.value == 100){
-      this.progressBar = "progress-bar";
-    }
+    this.objData.checkComplete();
   }
 
   checkValue(){
-    this.progressBar = "progress-bar progress-bar-striped progress-bar-animated";
-    this.count++
-    switch(this.count){
-      case 1:
-        this.value = 25;
-        break;
-      case 2:
-        this.value = 50;
-        break;
-      case 3: 
-        this.value = 75;
-        break;
-      case 4:
-        this.value = 100;
-        this.progressBar = "progress-bar";
-        break;
-      case 5:
-        this.count = 0;
-        this.value = 0;
-    }
-
+    this.objData.checkValue();
+    this.value = this.objData.getValue();
+    this.progressBar = this.objData.getProgressBar();
   }
 }

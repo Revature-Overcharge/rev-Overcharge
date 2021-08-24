@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ObjectivesService } from 'src/app/services/objectives.service';
 
 @Component({
@@ -32,8 +32,7 @@ export class HeaderComponent implements OnInit {
   }
   
   updateValue(){
-    console.log(this.value);
-    console.log(this.progressBar);
+ 
     this.value = this.objData.getValue();
     this.progressBar = this.objData.getProgressBar();
   }
