@@ -3,7 +3,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LibraryComponent } from './components/library/library.component';
 import { CardrunnerComponent } from './components/card-runner/card-runner.component';
@@ -34,7 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     SidenavComponent,
     HomeComponent,
-    LoginComponent,
+    
     TimerComponent,
     CardrunnerComponent,
     LibraryComponent

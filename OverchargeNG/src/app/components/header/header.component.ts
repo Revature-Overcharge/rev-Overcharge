@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
   login() {
     console.log(this.username);
     console.log(this.password);
-    let loginAttempt = new User(this.username, this.password);
+    let loginAttempt = new User(0,this.username, this.password,0,0);
     this.loginServ.login(loginAttempt).subscribe(
       (response) => {
         if (response) {
