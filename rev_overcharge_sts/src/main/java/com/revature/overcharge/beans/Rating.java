@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,14 +12,12 @@ import javax.persistence.Table;
 public class Rating {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private int userId;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "deck_id")
-    private Deck deck;
+    @Column(name = "deck_id")
+    private int deckId;
 
     private Integer stars;
 
@@ -32,28 +28,28 @@ public class Rating {
         super();
     }
 
-    public Rating(User user, Deck deck, Integer stars, Long ratedOn) {
+    public Rating(int userId, int deckId, Integer stars, Long ratedOn) {
         super();
-        this.user = user;
-        this.deck = deck;
+        this.userId = userId;
+        this.deckId = deckId;
         this.stars = stars;
         this.ratedOn = ratedOn;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public Deck getDeck() {
-        return deck;
+    public int getDeckId() {
+        return deckId;
     }
 
-    public void setDeck(Deck deck) {
-        this.deck = deck;
+    public void setDeckId(int deckId) {
+        this.deckId = deckId;
     }
 
     public Integer getStars() {
@@ -74,8 +70,8 @@ public class Rating {
 
     @Override
     public String toString() {
-        return "Rating [user=" + user + ", deck=" + deck + ", stars=" + stars
-                + ", ratedOn=" + ratedOn + "]";
+        return "Rating [userId=" + userId + ", deckId=" + deckId + ", stars="
+                + stars + ", ratedOn=" + ratedOn + "]";
     }
 
 }
