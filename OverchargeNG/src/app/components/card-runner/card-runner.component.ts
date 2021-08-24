@@ -6,7 +6,7 @@ import { CardService } from 'src/app/services/card.service';
 import { Card } from 'src/app/models/card';
 import { Rating } from 'src/app/models/rating';
 import { RatingService } from 'src/app/services/rating.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cardrunner',
   templateUrl: './card-runner.component.html',
@@ -25,7 +25,7 @@ import { RatingService } from 'src/app/services/rating.service';
   ]
 })
 export class CardrunnerComponent implements OnInit {
-  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService) { }
+  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService, private router:Router) { }
 Cards: Card[] = [];
 CurrentCard: Card = new Card(1,'','',1);
 rating:Rating = new Rating(0,0,0,0);
@@ -38,25 +38,64 @@ public next: String = 'Next Question';
 public unfinished: boolean = true;
 public rate: boolean =false;
 public finished:boolean = false;
+public array:StudiedCard[] = [];
 
 public question:string = '';
 public answer:string = '';
+
+
   ngOnInit(): void {
     this.cshttp.getCardsByDeckId(1).subscribe(
-      (Response)=>{
+      (Response1)=>{
 
-       for(let card of Response){
-          
-          this.Cards.push(new Card(card.id,card.question,card.answer,card.createdOn));
-         
-          
-        }
+        this.Cards= Response1;
+        console.log("Response1 : " + Response1);
+        console.log("Cards : " + this.Cards);
         this.question = this.Cards[this.crnt].question;
         this.answer = this.Cards[this.crnt].answer;
         this.CurrentCard = this.Cards[this.crnt];
 
+    
+        this.schttp.getStudiedCardsByUser(11).subscribe(
+          (Response2)=>{
+            this.array = Response2;
+
+        let index:number = 0;    
+        for(let card of this.Cards){
+
+          for(let i:number =0;i<this.array.length;i++){
+
+           console.log("card.id : "+card.id + " this.array[i].cardId : " +this.array[i].cardId);
+
+           if(card.id == this.array[i].cardId){
+             delete this.Cards[index];
+             break;
+           }
+          }
+index++;
+        }
+        const filteredCards = this.Cards.filter(el => {
+          return el != null;
+        });
+
+        this.Cards = filteredCards;
+        
+
+        
+          }
+        )
       }
-    )
+      )
+
+
+     
+        
+  
+       
+      
+      
+
+     
   }
 
   public preprogress: number = 1/this.Cards.length*100;
@@ -92,6 +131,7 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
       this.crnt = this.crnt + 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
       this.progress =  String(this.preprogress) + "%";
+
       
       if(this.crnt== this.Cards.length -1){
         this.next = 'Finish Set';
@@ -126,11 +166,6 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
 
 
   }
-
-  markMastered(){
-    alert("AUUUGGHHHHHHH!!!");
-  }
-
 
   
   userRating:number = 0;
@@ -203,6 +238,8 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
         console.log("Rating response : " + JSON.stringify(Response));
       }
     )
+
+    this.router.navigate(['/','library']);
   }
 
   markAsMastered(){
@@ -246,25 +283,11 @@ this.studied_card.userId = userid;
 
     }
     else{
+
       this.unfinished = false;
-      let i:number = 1;
-      this.rshttp.getRatings().subscribe(
-        (Response)=>{
-          for(let rating of Response){
-            if(rating.deckId == this.deck_id  && rating.userId == userid){
-
-              i= 0;
-
-            }
-
-          }
-        }
-      )
-
-      if(i){this.rate = true;}
-      else{this.finished = true}
-    }
-
-
-  }
+   
+          
+          this.rate = true;
+       
+}}
 }
