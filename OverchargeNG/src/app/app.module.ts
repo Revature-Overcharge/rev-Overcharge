@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateDeckComponent } from './components/create-deck/create-deck.component';
 
 //Services
 
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     
     TimerComponent,
     CardrunnerComponent,
-    LibraryComponent
+    LibraryComponent,
+    CreateDeckComponent
   ],
   imports: [
     BrowserModule,

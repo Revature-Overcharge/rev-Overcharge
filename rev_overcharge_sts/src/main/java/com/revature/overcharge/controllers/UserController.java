@@ -22,6 +22,12 @@ public class UserController {
     @Autowired
     UserService us;
 
+    @PostMapping(value = "/users", consumes = "application/json",
+            produces = "application/json")
+    public User addUser(@RequestBody User u) {
+        return us.addUser(u);
+    }
+
     @GetMapping(value = "/users/{id}")
     public User getUser(@PathVariable("id") int id) {
         return us.getUser(id);
@@ -30,12 +36,6 @@ public class UserController {
     @GetMapping(value = "/users")
     public List<User> getAllUsers() {
         return us.getAllUsers();
-    }
-
-    @PostMapping(value = "/users", consumes = "application/json",
-            produces = "application/json")
-    public User addUser(@RequestBody User u) {
-        return us.addUser(u);
     }
 
     @PutMapping(value = "/users/{id}", consumes = "application/json",
