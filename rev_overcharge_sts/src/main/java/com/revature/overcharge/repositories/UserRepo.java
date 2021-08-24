@@ -8,8 +8,8 @@ import com.revature.overcharge.beans.User;
 @Repository
 public interface UserRepo extends CrudRepository<User, Integer> {
 
-	User findByUsername(String username);	
+	public User findByUsername(String username);	
 	
-    boolean existsByUsernameAndPassword(String username, String password);
+    public boolean existsByUsernameAndPassword(String username, String password);
 
 }

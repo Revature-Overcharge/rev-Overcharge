@@ -30,8 +30,9 @@ public class CardServiceImpl implements CardService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             c.setCreatedOn(new Date().getTime());
+            c = cr.save(c);
             os.addCardObj(c);
-            return cr.save(c);
+            return c;
         }
     }
 

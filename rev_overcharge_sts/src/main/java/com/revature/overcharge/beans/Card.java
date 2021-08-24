@@ -32,8 +32,6 @@ public class Card {
 
     @Column(name = "created_on")
     private Long createdOn;
-    
-    private Boolean objectiveMet;
 
     public Card() {
         super();
