@@ -3,6 +3,7 @@ package com.revature.overcharge.steps;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+import com.revature.overcharge.pages.TimerWidget;
 import com.revature.overcharge.runners.TimerRunner;
 
 import io.cucumber.java.en.Given;
@@ -14,19 +15,19 @@ public class TimerSteps {
 	final static Logger log = Logger.getLogger(TimerSteps.class);
 	
 	public static WebDriver driver = TimerRunner.driver;
-//	public static PageFrame genericPage = TimerRunner.genericPage;
+	public static TimerWidget timer = TimerRunner.timer;
 
 	@Given("User is logged in")
 	public void user_is_logged_in() {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		timer.logoutBtn.isDisplayed();
 	}
 
 	@Given("Timer is not visible")
 	@Then("Timer is not visible")
 	public void timer_is_not_visible() {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.timerContainer.getCssValue("display").equals("none");
 	}
 
 	@When("User clicks toggle visibility button")
@@ -39,7 +40,7 @@ public class TimerSteps {
 	@Then("Timer is visible")
 	public void timer_is_visible() {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		timer.timerContainer.getCssValue("display").equals("block");
 	}
 
 	@When("User clicks start button")
