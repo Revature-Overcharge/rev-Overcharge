@@ -16,5 +16,7 @@ public interface ObjectiveService {
     public void addDeckObj(Deck d);
 
     public void loginObj(User user);
+    
+    public void createADeckWeekly(Deck d);
 
 }

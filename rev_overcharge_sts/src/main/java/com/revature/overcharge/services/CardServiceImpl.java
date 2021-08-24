@@ -31,7 +31,7 @@ public class CardServiceImpl implements CardService {
         } else {
             c.setCreatedOn(new Date().getTime());
             c = cr.save(c);
-            os.addCardObj(c);
+//            os.addCardObj(c);
             return c;
         }
     }
