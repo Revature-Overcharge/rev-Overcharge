@@ -22,25 +22,20 @@ public class UserController {
     @Autowired
     UserService us;
 
-    @GetMapping(value = "/users/{id}")
-    public User getUser(@PathVariable("id") String id) {
-        return us.getUser(Integer.parseInt(id));
-    }
-
-//    @GetMapping(value = "/user?username=")
-//    public User getUserByUname(@RequestParam("username") String username) {
-//        return us.getUserByUname(username);
-//    }
-
-    @GetMapping(value = "/users")
-    public List<User> getAllUsers() {
-        return us.getAllUsers();
-    }
-
     @PostMapping(value = "/users", consumes = "application/json",
             produces = "application/json")
     public User addUser(@RequestBody User u) {
         return us.addUser(u);
+    }
+
+    @GetMapping(value = "/users/{id}")
+    public User getUser(@PathVariable("id") int id) {
+        return us.getUser(id);
+    }
+
+    @GetMapping(value = "/users")
+    public List<User> getAllUsers() {
+        return us.getAllUsers();
     }
 
     @PutMapping(value = "/users/{id}", consumes = "application/json",

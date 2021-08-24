@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.repositories.CardRepo;
@@ -25,7 +27,7 @@ public class CardServiceImpl implements CardService {
     public Card addCard(Card c) {
         if (cr.existsById(c.getId())) {
             log.warn("Card id is invalid for add");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             c.setCreatedOn(new Date().getTime());
             os.addCardObj(c);
@@ -35,11 +37,11 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Card getCard(int id) {
-        try {
+        if (cr.existsById(id)) {
             return cr.findById(id).get();
-        } catch (Exception e) {
-            log.warn(e);
-            return null;
+        } else {
+            log.warn("Card id is not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -49,24 +51,35 @@ public class CardServiceImpl implements CardService {
             return cr.save(newCard);
         } else {
             log.warn("Card id is invalid for update");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
     public boolean deleteCard(int id) {
-        try {
+        if (cr.existsById(id)) {
             cr.deleteById(id);
             return true;
-        } catch (IllegalArgumentException e) {
-            log.warn(e);
-            return false;
+        } else {
+            log.warn("Card id is invalid for delete");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
     public List<Card> getCardsByDeckId(int deckId) {
-        return cr.findByDeckId(deckId);
+        if (cr.existsByDeckId(deckId)) {
+            return cr.findByDeckId(deckId);
+        } else {
+            log.warn("There are no cards for the given deck id");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @Override
+    public List<Card> getAllCards() {
+        return (List<Card>) cr.findAll();
     }
 
 }

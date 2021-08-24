@@ -4,6 +4,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+<<<<<<< HEAD
+=======
+*/log.txt
+
+>>>>>>> origin
 ### STS ###
 .apt_generated
 .classpath
@@ -32,5 +37,9 @@ build/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 ### log4j ###
 */log.txt
+=======
+*/log.txt
+>>>>>>> origin

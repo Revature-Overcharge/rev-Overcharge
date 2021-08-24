@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,14 +12,12 @@ import javax.persistence.Table;
 public class StudiedCard {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private int userId;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "card_id")
-    private Card card;
+    @Column(name = "card_id")
+    private int cardId;
 
     @Column(name = "studied_on")
     private Long studiedOn;
@@ -30,27 +26,27 @@ public class StudiedCard {
         super();
     }
 
-    public StudiedCard(User user, Card card, Long studiedOn) {
+    public StudiedCard(int userId, int cardId, Long studiedOn) {
         super();
-        this.user = user;
-        this.card = card;
+        this.userId = userId;
+        this.cardId = cardId;
         this.studiedOn = studiedOn;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public Card getCard() {
-        return card;
+    public int getCardId() {
+        return cardId;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public Long getStudiedOn() {
@@ -63,8 +59,8 @@ public class StudiedCard {
 
     @Override
     public String toString() {
-        return "studiedCard [user=" + user + ", card=" + card + ", studiedOn="
-                + studiedOn + "]";
+        return "StudiedCard [userId=" + userId + ", cardId=" + cardId
+                + ", studiedOn=" + studiedOn + "]";
     }
 
 }
