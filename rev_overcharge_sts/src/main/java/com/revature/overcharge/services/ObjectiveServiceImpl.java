@@ -22,8 +22,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Autowired
     private UserService us;
     
-    long WEEK_START_TIME = 1627887600000L;
-    int WEEKLY_SEC = 604800000;
+    private long WEEK_START_TIME = 1_627_887_600_000L + 10_800_000;
+    private int WEEKLY_MS = 604_800_000;
 
     @Override
     public List<Objective> getAllObjectivesForUser(String id) {
@@ -89,7 +89,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		
 		long createdTime = d.getCreatedOn();
 		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
-		long endWeekTime = startWeekTime + WEEKLY_SEC;
+		long endWeekTime = startWeekTime + WEEKLY_MS;
 		
 		List<Deck> decks = ds.getDecksByCreatorId(u.getId());
 		
@@ -111,9 +111,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	
 	private long getWeekStart(long startTime, long currentTime) {
 		while (startTime <= currentTime) {
-			startTime += WEEKLY_SEC;
+			startTime += WEEKLY_MS;
 			if (startTime > currentTime) {
-				return startTime -= WEEKLY_SEC;
+				return startTime -= WEEKLY_MS;
 			}
 		}
 		return startTime;
