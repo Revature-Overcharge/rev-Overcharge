@@ -4,6 +4,8 @@ import { StudiedCard } from 'src/app/models/studied-card';
 import { StudiedcardService } from 'src/app/services/studiedcard.service';
 import { CardService } from 'src/app/services/card.service';
 import { Card } from 'src/app/models/card';
+import { Rating } from 'src/app/models/rating';
+import { RatingService } from 'src/app/services/rating.service';
 
 @Component({
   selector: 'app-cardrunner',
@@ -23,15 +25,19 @@ import { Card } from 'src/app/models/card';
   ]
 })
 export class CardrunnerComponent implements OnInit {
-  constructor(private schttp:StudiedcardService, private cshttp:CardService) { }
+  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService) { }
 Cards: Card[] = [];
 CurrentCard: Card = new Card(1,'','',1);
+rating:Rating = new Rating(0,0,0,0);
+deck_id:number = 2;
+
 public crnt: number = 0;
 
 
 public next: String = 'Next Question';
 public unfinished: boolean = true;
 public rate: boolean =false;
+public finished:boolean = false;
 
 public question:string = '';
 public answer:string = '';
@@ -61,7 +67,7 @@ public progress:string = this.preprogress + '%';
 
 
 
-studied_card:StudiedCard = new StudiedCard(1,2,2,2);
+studied_card:StudiedCard = new StudiedCard(1,2,2);
 
 
  
@@ -182,21 +188,31 @@ studied_card:StudiedCard = new StudiedCard(1,2,2,2);
       }}
  
   submitRating(){
+    let userid: number = 0;
+    userid = Number(window.localStorage.getItem("userID"));
+    console.log("userID taken from storage : " + userid);
+    this.rating.userId = userid;
+    this.rating.deckId = this.deck_id;
+    this.rating.stars = this.userRating;
 
+    console.log("Rating sent to be aded : " + JSON.stringify(this.rating));
+
+
+    this.rshttp.addRating(this.rating).subscribe(
+      (Response)=>{
+        console.log("Rating response : " + JSON.stringify(Response));
+      }
+    )
   }
 
   markAsMastered(){
 
-    
-// let temp:any = window.localStorage.getItem('user');
-
-// temp = JSON.parse(temp);
-// this.studied_card.user_id = temp.id;
+  
 let userid: number = 0;
 userid = Number(window.localStorage.getItem("userID"));
 
-this.studied_card.card_id = this.CurrentCard.id;
-this.studied_card.user_id = userid;
+this.studied_card.cardId = this.CurrentCard.id;
+this.studied_card.userId = userid;
 
 
 
@@ -231,7 +247,22 @@ this.studied_card.user_id = userid;
     }
     else{
       this.unfinished = false;
-      this.rate = true;
+      let i:number = 1;
+      this.rshttp.getRatings().subscribe(
+        (Response)=>{
+          for(let rating of Response){
+            if(rating.deckId == this.deck_id  && rating.userId == userid){
+
+              i= 0;
+
+            }
+
+          }
+        }
+      )
+
+      if(i){this.rate = true;}
+      else{this.finished = true}
     }
 
 

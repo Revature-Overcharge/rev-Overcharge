@@ -1,14 +1,18 @@
 export class User {
-    user_id: number;
+    id: number;
     username: string;
     password: string;
     objective_points: number;
     last_login_on: number;
    
+<<<<<<< HEAD
+    constructor(username: string, password: string, id?: number, objective_points?: number, last_login_on?: number){
+=======
   
    
-    constructor(username: string, password: string, user_id?: number, objective_points?: number, last_login_on?: number){
-        this.user_id = user_id || -1;
+    constructor(id: number,username: string, password: string,  objective_points: number, last_login_on: number){
+>>>>>>> 4a9d3b5aa71482545e54b02a461cbdedf0a49dcd
+        this.id = id || -1;
         this.username = username;
         this.password  = password;
         this.objective_points = objective_points || 0;
