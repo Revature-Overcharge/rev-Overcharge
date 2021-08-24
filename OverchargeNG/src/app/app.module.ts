@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LibraryComponent } from './components/library/library.component';
+import { ObjectivesComponent } from './components/objectives/objectives.component';
 import { CardrunnerComponent } from './components/card-runner/card-runner.component';
 
 //Modules
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Services
+import { ObjectivesService } from './services/objectives.service';
 
 //Pipes
 
@@ -37,7 +39,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     TimerComponent,
     CardrunnerComponent,
-    LibraryComponent
+    LibraryComponent,
+    ObjectivesComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [ObjectivesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

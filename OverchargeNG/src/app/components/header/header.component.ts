@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ObjectivesService } from 'src/app/services/objectives.service';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -10,8 +11,11 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
+  value: number;
+  progressBar: string;
   changeText: any;
   newText:string = "Daily and Weekly Challenges...";
   responseMessage: string = '';
@@ -25,9 +29,15 @@ export class HeaderComponent implements OnInit {
   sw3: boolean = false;
   modalRef: any;
 
-  constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal) { }
+  constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal, private objData: ObjectivesService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.updateValue();
+
+    if (this.value == 100){
+      this.progressBar = "progress-bar";
+    }
+  }
 
   toggleSidebar(): void {
     this.toggleSidebarForMe.emit();
@@ -42,6 +52,12 @@ export class HeaderComponent implements OnInit {
     this.loggedIn = !this.loggedIn;
     this.loginServ.setUsername('Guest');
     this.responseMessage = "Logging out";
+  }
+  
+  updateValue(){
+ 
+    this.value = this.objData.getValue();
+    this.progressBar = this.objData.getProgressBar();
   }
 
   
