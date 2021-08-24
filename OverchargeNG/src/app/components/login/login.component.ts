@@ -39,9 +39,6 @@ export class LoginComponent implements OnInit {
         } else {
           console.log("Invalid login...");
         }
-      },
-      (error) => {
-        console.log("Login Error...");
       }
 
         //  const user = response;

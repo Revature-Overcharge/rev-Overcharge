@@ -26,10 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User u) {
         if (ur.existsById(u.getId())) {
+            return ur.save(u);
+        } else {
             log.warn("User id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        } else {
-            return ur.save(u);
+
         }
     }
 

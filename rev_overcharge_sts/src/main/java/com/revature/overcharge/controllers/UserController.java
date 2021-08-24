@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.overcharge.beans.User;
 import com.revature.overcharge.services.UserService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 public class UserController {
 
@@ -29,6 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{id}")
+
     public User getUser(@PathVariable("id") int id) {
         return us.getUser(id);
     }
@@ -49,7 +50,7 @@ public class UserController {
     public boolean deleteUser(@PathVariable int id) {
         return us.deleteUser(id);
     }
-
+    
     @PostMapping(value = "/login", consumes = "application/json",
             produces = "application/json")
     public User login(@RequestBody User u) {
