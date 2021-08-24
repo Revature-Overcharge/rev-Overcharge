@@ -30,6 +30,7 @@ Cards: Card[] = [];
 CurrentCard: Card = new Card(1,'','',1);
 rating:Rating = new Rating(0,0,0,0);
 deck_id:number = 2;
+text:string = 'RingTingBing';
 
 public crnt: number = 0;
 
@@ -127,6 +128,7 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
       this.question = this.Cards[this.crnt + 1].question;
       this.answer = this.Cards[this.crnt + 1].answer;
       this.CurrentCard = this.Cards[this.crnt + 1];
+      this.text = '';
 
       this.crnt = this.crnt + 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
@@ -155,6 +157,7 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
       this.answer = this.Cards[this.crnt - 1].answer;
       this.CurrentCard = this.Cards[this.crnt - 1];
 
+      this.text = '';
       this.crnt = this.crnt - 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
       this.progress =  String(this.preprogress) + "%";
@@ -271,10 +274,12 @@ this.studied_card.userId = userid;
       this.question = this.Cards[this.crnt + 1].question;
       this.answer = this.Cards[this.crnt + 1].answer;
       this.CurrentCard = this.Cards[this.crnt + 1];
+      this.text = '';
 
       this.crnt = this.crnt + 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
       this.progress =  String(this.preprogress) + "%";
+      
       
       if(this.crnt== this.Cards.length -1){
         this.next = 'Finish Set';

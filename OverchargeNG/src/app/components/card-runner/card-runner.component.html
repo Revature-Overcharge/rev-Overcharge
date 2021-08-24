@@ -60,7 +60,7 @@
 		<button (click)="nextQuestion()" type="button" class="btn btn-lg btn-primary">{{next}}</button>      
 		<button (click)="markAsMastered()" type="button" class="btn btn-lg btn-primary">Mark as Mastered</button>
 		<div class="form-floating">
-			<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+			<textarea class="form-control" placeholder="Enter your answer here" id="floatingTextarea2" style="height: 100px" [(ngModel)] = "text"></textarea>
 			<label for="floatingTextarea2" style="font-size:smaller;">Answer</label>
 
 		</div>
