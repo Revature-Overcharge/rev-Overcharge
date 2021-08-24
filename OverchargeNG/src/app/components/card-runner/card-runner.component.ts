@@ -30,7 +30,7 @@ Cards: Card[] = [];
 CurrentCard: Card = new Card(1,'','',1);
 rating:Rating = new Rating(0,0,0,0);
 deck_id:number = 2;
-text:string = 'RingTingBing';
+text:string = '';
 
 public crnt: number = 0;
 
