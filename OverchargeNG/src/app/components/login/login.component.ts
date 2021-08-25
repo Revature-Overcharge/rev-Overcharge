@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { HttpUserService } from 'src/app/services/http-user.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
 
     console.log(this.username);
 
-    let loginAttempt = new User(this.username, this.password);
+    let loginAttempt = new User(0 , this.username, this.password, 0 , 100);
     this.loginServ.login(loginAttempt).subscribe(
       (response) => {
         if (response) {

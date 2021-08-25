@@ -16,8 +16,25 @@ export class HeaderComponent implements OnInit {
 
   value: number;
   progressBar: string;
-  changeText: any;
-  newText:string = "Daily and Weekly Challenges...";
+  dailyObj = this.objData.loginObj;
+  nameObj = this.dailyObj.name;
+  pointsObj = this.dailyObj.pointsToAward;
+
+  nameObj2 = this.objData.dailyObj2.name;
+  pointsObj2 = this.objData.dailyObj2.pointsToAward;
+
+  nameObj3 = this.objData.dailyObj3.name;
+  pointsObj3 = this.objData.dailyObj3.pointsToAward;
+
+  nameObj4 = this.objData.weeklyObj.name;
+  pointsObj4 = this.objData.weeklyObj.pointsToAward;
+
+  nameObj5 = this.objData.weeklyObj2.name;
+  pointsObj5 = this.objData.weeklyObj2.pointsToAward;
+
+  nameObj6 = this.objData.weeklyObj3.name;
+  pointsObj6 = this.objData.weeklyObj3.pointsToAward;
+
   responseMessage: string = '';
   loggedIn : boolean;
   closeResult = '';
