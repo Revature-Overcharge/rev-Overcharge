@@ -1,5 +1,6 @@
 package com.revature.overcharge.runners;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -22,6 +23,15 @@ public abstract class Runner {
 		
 		driver = chromeSetup(filePath+"/chromedriver.exe");
 //		driver = firefoxSetup(filePath+"/file name.exe");
+	}
+	
+	@After
+	public static void waitAfter() {
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@AfterClass

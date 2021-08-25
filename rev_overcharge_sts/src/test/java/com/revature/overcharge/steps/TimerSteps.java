@@ -1,16 +1,15 @@
 package com.revature.overcharge.steps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Logger;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 import com.revature.overcharge.pages.TimerWidget;
 import com.revature.overcharge.runners.TimerRunner;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,135 +20,119 @@ public class TimerSteps {
 	
 	public static WebDriver driver = TimerRunner.driver;
 	public static TimerWidget timer = TimerRunner.timer;
-	
-	@Given("User is on any page")
-	public void user_is_on_any_page() {
-		driver.get(timer.url);
-	}
-	
-	@Given("User is logged in")
-	public void user_is_logged_in() {
-		assertTrue(timer.logoutBtn.isDisplayed());
-	}
 
-	@Given("Timer is not visible")
-	@Then("Timer is not visible")
-	public void timer_is_not_visible() {
-	    assertEquals("none",timer.timerContainer.getCssValue("display"));
-	}
+    @Given("^User has navigated to the website$")
+    public void user_has_navigated_to_the_website() throws Throwable {
+    	driver.get(timer.url);
+    }
+    
+    @Given("^User shows Timer$")
+    public void user_shows_timer() throws Throwable {
+    	timer.timerLink.click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @Given("^Timer visibility is \"([^\"]*)\"$")
+    public void timer_visibility_is_something(String visibility) throws Throwable {
+    	String css = "";
+    	switch (visibility) {
+		case "On":
+			css = "block";
+			break;
+		case "Off":
+			css = "none";
+			timer.timerLink.click();
+	    	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			break;
+    	}
+    	assertEquals(css,timer.timerContainer.getCssValue("display"));
+    }
 
-	@When("User clicks toggle visibility button")
-	public void user_clicks_toggle_visibility_button() {
-	    timer.timerLink.click();
-	}
-	
-	@Given("Timer is visible")
-	@Then("Timer is visible")
-	public void timer_is_visible() {
-		assertEquals("block", timer.timerContainer.getCssValue("display"));
-	}
+    @When("^User clicks \"([^\"]*)\"$")
+    public void user_clicks_something(String button) throws Throwable {
+    	switch (button) {
+		case "Timer":
+			timer.timerLink.click();
+			break;
+		case "Play":
+			timer.playTimer.click();
+			break;
+		case "Pause":
+			timer.pauseTimer.click();
+			break;
+		case "Reset":
+			timer.resetTimer.click();
+			break;
+		case "Change Mode":
+			timer.modeToggle.click();
+			break;
+		case "Display Input":
+			timer.inputToggle.click();
+			break;
+    	}
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
 
-	@When("User clicks start button")
-	public void user_clicks_start_button() {
-	    timer.playTimer.click();
-	}
+    @When("^Timer display is \"([^\"]*)\"$")
+    public void timer_display_is_something(String display) throws Throwable {
+    	assertEquals(display, timer.display.getText());
+    }
 
-	@Then("Timer starts counting down")
-	public void timer_starts_counting_down() {
-		assertEquals("Active", timer.status.getText());
-	}
+    @Then("^Timer toggles visibility to \"([^\"]*)\"$")
+    public void timer_toggles_visibility_to_something(String visibility) throws Throwable {
+    	String css = "";
+    	switch (visibility) {
+		case "On":
+			css = "block";
+			break;
+		case "Off":
+			css = "none";
+			break;
+    	}
+    	assertEquals(css,timer.timerContainer.getCssValue("display"));
+    }
 
-	@Given("Timer is active")
-	public void timer_is_active() {
-		assertEquals("Active", timer.status.getText());
-	}
+    @Then("^Timer status is \"([^\"]*)\"$")
+    public void timer_status_is_something(String status) throws Throwable {
+    	assertEquals(status, timer.status.getText());
+    }
 
-	@When("User clicks pause button")
-	public void user_clicks_pause_button() {
-	    timer.pauseTimer.click();
-	}
+    @Then("^Timer mode changes to \"([^\"]*)\"$")
+    public void timer_mode_changes_to_something(String mode) throws Throwable {
+        assertEquals(mode, timer.mode.getText());
+    }
 
-	@Then("Timer activity is paused")
-	public void timer_activity_is_paused() {
-	    assertEquals("Paused", timer.status.getText());
-	}
+    @Then("^Timer is set to (.+)$")
+    public void timer_is_set_to(String newTime) throws Throwable {
+    	assertEquals(newTime, timer.display.getText());
+    }
 
-	@Given("Timer is not at initial value")
-	public void timer_is_not_at_initial_value() {
-	    assertNotEquals("Inactive", timer.status.getText());
-	}
-
-	@When("User clicks reset button")
-	public void user_clicks_reset_button() {
-	    timer.resetTimer.click();
-	}
-
-	@Then("Timer is reset to initial value")
-	public void timer_is_reset_to_initial_value() {
-	    assertEquals("Inactive", timer.status.getText());
-	}
-
-	@When("Timer cycle is complete")
-	public void timer_cycle_is_complete() {
-	    assertEquals("00:00:00", timer.display.getText());
-	}
-
-	@Then("Timer is complete")
-	public void timer_is_complete() {
-	    assertEquals("Complete", timer.status.getText());
-	}
-
-	@Given("Timer is on Study Mode")
-	@Then("Timer is on Study Mode")
-	public void timer_is_on_study_mode() {
-	    assertEquals("Study", timer.mode.getText());
-	}
-
-	@When("User clicks toggle mode button")
-	public void user_clicks_toggle_mode_button() {
-	    timer.modeToggle.click();
-	}
-	
-	@Given("Timer is on Break Mode")
-	@Then("Timer is on Break Mode")
-	public void timer_is_on_break_mode() {
-	    assertEquals("Break", timer.mode.getText());
-	}
-
-	@Given("Timer input is not visible")
-	@Then("Timer input is not visible")
-	public void timer_input_is_not_visible() {
-	    assertFalse(timer.inputContainer.isDisplayed());
-	}
-
-	@When("User clicks toggle input button")
-	public void user_clicks_toggle_input_button() {
-	    timer.inputToggle.click();
-	}
-	
-	@Given("Timer input is visible")
-	@Then("Timer input is visible")
-	public void timer_input_is_visible() {
-	    assertTrue(timer.inputContainer.isDisplayed());
-	}
-
-	@When("User inputs {int} hours")
-	public void user_inputs_hours(String str) {
-	    timer.hoursInput.sendKeys(str);
-	}
-
-	@When("User inputs {int} minutes")
-	public void user_inputs_minutes(String str) {
-		timer.minInput.sendKeys(str);
-	}
-
-	@When("User clicks set timer button")
-	public void user_clicks_set_timer_button() {
+    @And("^User inputs (.+) and (.+)$")
+    public void user_inputs_and(String hours, String minutes) throws Throwable {
+    	timer.hoursInput.sendKeys(hours);
+    	timer.minInput.sendKeys(minutes);
 	    timer.setTimer.click();
-	}
+	    try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
 
-	@Then("Timer initial value is {int}")
-	public void timer_initial_value_is(String str) {
-		assertEquals(str, timer.display.getText());
-	}
+    @And("^Timer mode is \"([^\"]*)\"$")
+    public void timer_mode_is_something(String mode) {
+    	assertEquals(mode, timer.mode.getText());
+    }
 }

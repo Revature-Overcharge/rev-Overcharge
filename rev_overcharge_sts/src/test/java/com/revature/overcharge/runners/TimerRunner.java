@@ -21,6 +21,5 @@ public class TimerRunner extends Runner {
 		// Make sure that super setup is also running...?
 		timer = new TimerWidget(driver);
 	}
-	
 }
 
