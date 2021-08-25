@@ -34,7 +34,9 @@ deck_id:number = 2;
 text:string = '';
 creator_id:number=0;
 user_id:number = 0;
-
+number_mastered = 0;
+number_total = 0;
+count = 0;
 
 
 public crnt: number = 0;
@@ -61,13 +63,14 @@ public answer:string = '';
         this.question = this.Cards[this.crnt].question;
         this.answer = this.Cards[this.crnt].answer;
         this.CurrentCard = this.Cards[this.crnt];
+        this.number_total = this.Cards.length;
 
     
         this.schttp.getStudiedCardsByUser(11).subscribe(
           (Response2)=>{
             this.array = Response2;
 
-        let index:number = 0;    
+        let index:number = 0;
         console.log("Length before filtering : " + this.Cards.length)
         outer :for(let card of this.Cards){
 
@@ -75,6 +78,7 @@ public answer:string = '';
 
 
            if(card.id === this.array[i].cardId){
+             this.count++;
              console.log("deletion should occur");
              delete this.Cards[index];
           
@@ -85,7 +89,7 @@ index++;
         const filteredCards = this.Cards.filter(el => {
           return el != null;
         });
-
+        this.number_mastered = this.count;
         this.Cards = filteredCards;
         console.log("Length after filtering : " + this.Cards.length)
         
