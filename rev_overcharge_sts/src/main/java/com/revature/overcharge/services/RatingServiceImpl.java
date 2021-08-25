@@ -21,18 +21,6 @@ public class RatingServiceImpl implements RatingService {
     @Autowired
     RatingRepo rr;
 
-//    @Override
-//    public Rating addRating(Rating r) {
-//        if (rr.existsByUserIdAndDeckId(r.getUserId(), r.getDeckId())) {
-//            log.warn("This deck is already rated by this user");
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        } else {
-//            r.setRatedOn(new Date().getTime());
-//            log.info(r.toString());
-//            return rr.save(r);
-//        }
-//    }
-
     @Override
     public Rating saveRating(Rating r) {
         r.setRatedOn(new Date().getTime());
