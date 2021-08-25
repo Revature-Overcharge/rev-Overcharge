@@ -7,6 +7,7 @@ import { Card } from 'src/app/models/card';
 import { Rating } from 'src/app/models/rating';
 import { RatingService } from 'src/app/services/rating.service';
 import { Router } from '@angular/router';
+import { HttpDeckService } from 'src/app/services/http-deck.service';
 @Component({
   selector: 'app-cardrunner',
   templateUrl: './card-runner.component.html',
@@ -25,12 +26,16 @@ import { Router } from '@angular/router';
   ]
 })
 export class CardrunnerComponent implements OnInit {
-  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService, private router:Router) { }
+  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router) { }
 Cards: Card[] = [];
 CurrentCard: Card = new Card(1,'','',1);
 rating:Rating = new Rating(0,0,0,0);
 deck_id:number = 2;
 text:string = '';
+creator_id:number=0;
+user_id:number = 0;
+
+
 
 public crnt: number = 0;
 
@@ -46,12 +51,13 @@ public answer:string = '';
 
 
   ngOnInit(): void {
-    this.cshttp.getCardsByDeckId(1).subscribe(
+    this.user_id = Number(window.localStorage.getItem("userID"));
+
+    this.dshttp.getDeckById(1).subscribe(
       (Response1)=>{
 
-        this.Cards= Response1;
-        console.log("Response1 : " + Response1);
-        console.log("Cards : " + this.Cards);
+        this.creator_id = Response1.creator.id;
+        this.Cards= Response1.cards;
         this.question = this.Cards[this.crnt].question;
         this.answer = this.Cards[this.crnt].answer;
         this.CurrentCard = this.Cards[this.crnt];
@@ -62,15 +68,16 @@ public answer:string = '';
             this.array = Response2;
 
         let index:number = 0;    
-        for(let card of this.Cards){
+        console.log("Length before filtering : " + this.Cards.length)
+        outer :for(let card of this.Cards){
 
           for(let i:number =0;i<this.array.length;i++){
 
-           console.log("card.id : "+card.id + " this.array[i].cardId : " +this.array[i].cardId);
 
-           if(card.id == this.array[i].cardId){
+           if(card.id === this.array[i].cardId){
+             console.log("deletion should occur");
              delete this.Cards[index];
-             break;
+          
            }
           }
 index++;
@@ -80,6 +87,7 @@ index++;
         });
 
         this.Cards = filteredCards;
+        console.log("Length after filtering : " + this.Cards.length)
         
 
         
@@ -143,7 +151,9 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
     }
     else{
       this.unfinished = false;
-      this.rate = true;
+
+      if(this.creator_id ==this.user_id){this.finished = true;}
+      else{this.rate = true;}
     }
 
   }
