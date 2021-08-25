@@ -30,16 +30,24 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public List<Rating> getRatings(Integer userId, Integer deckId) {
+        List<Rating> ratings;
         if (userId != null) {
             if (deckId != null) {
-                return rr.getByUserIdAndDeckId(userId, deckId);
+                ratings = rr.getByUserIdAndDeckId(userId, deckId);
             } else {
-                return rr.getByUserId(userId);
+                log.info("Getting by user id");
+                ratings = rr.getByUserId(userId);
             }
         } else if (deckId != null) {
-            return rr.getByDeckId(deckId);
+            ratings = rr.getByDeckId(deckId);
         } else {
-            return (List<Rating>) rr.findAll();
+            ratings = (List<Rating>) rr.findAll();
+        }
+        if (!ratings.isEmpty()) {
+            return ratings;
+        } else {
+            log.warn("User id and/or deck id are not found on any ratings in database");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -49,8 +57,8 @@ public class RatingServiceImpl implements RatingService {
             rr.deleteById(rId);
             return true;
         } else {
-            log.warn("userId and cardId are invalid for delete");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            log.warn("User id and deck id are not found on any ratings in database");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
