@@ -85,15 +85,11 @@ public class DeckServiceImpl implements DeckService {
             log.warn("Deck id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
-            for (Card c : d.getCards()) {
-                cs.addCard(c);
-            }
             Deck addedDeck = addDeck(d);
-            for (int i = 0; i < d.getCards().size(); i++) {
-                Card card = d.getCards().get(i);
-                card.setDeck(addedDeck);
-                card = cs.updateCard(card);
+            for (Card c : d.getCards()) {
+                cs.addCard(addedDeck.getId(), c);
             }
+            addedDeck = getDeck(addedDeck.getId());
             return addedDeck;
         }
     }
