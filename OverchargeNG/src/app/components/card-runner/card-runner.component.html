@@ -19,13 +19,18 @@
 </head>
 <div class="container-fluid page">
     <div id="time_header" class="d-flex page__box p-3 mt-2">Cards</div>
+
 	<div class="page__content shadow p-3 position-relative">
+
+		<div>
+			You've mastered {{number_mastered}} cards of the {{number_total}} cards in this deck
+		</div>
 		<div class="progress">
 			<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width:  {{progress}}"  aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
 
 		<div *ngIf="finished"><h2>You're all done with this set. Great work!</h2>
-			<button type="button" class="btn btn-primary" >Return to Library</button>
+			<button type="button" class="btn btn-primary" (click)="returnToLibrary()">Return to Library</button>
 		</div>
 
 		<div *ngIf="rate" id="ratingcontainer">
