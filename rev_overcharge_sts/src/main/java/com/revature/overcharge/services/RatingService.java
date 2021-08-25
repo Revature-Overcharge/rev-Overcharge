@@ -18,5 +18,7 @@ public interface RatingService {
     public List<Rating> getAllRatings();
     
     public List<Rating> getRatingsByDeckId(int deckId);
+    
+    public Rating updateRating(Rating r);
 
 }

@@ -29,7 +29,9 @@ public interface ObjectiveService {
 	
 	public void markTwoStudiedDeck(StudiedCard sc);
 	
-	public void markFiveCardsDaily(StudiedCard sc);
+	public List<StudiedCard> markFiveCardsDaily(StudiedCard sc);
+	
+	public void rateADeckDaily(Rating r);
 	
 
 }

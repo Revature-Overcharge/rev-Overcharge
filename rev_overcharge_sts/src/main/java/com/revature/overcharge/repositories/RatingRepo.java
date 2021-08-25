@@ -20,7 +20,7 @@ public interface RatingRepo extends CrudRepository<Rating, RatingId> {
     public List<Rating> getByDeckId(int deckId);
     
     public List<Rating> findByDeckId(int deckId);
-
+    
     /*
      * List<Rating> findByUserId(int userId);
      * 
