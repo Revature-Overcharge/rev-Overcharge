@@ -97,12 +97,17 @@ public class DeckServiceImpl implements DeckService {
             for (Card c : d.getCards()) {
                 cs.addCard(c);
             }
+
             Deck addedDeck = addDeck(d);
             for (int i = 0; i < d.getCards().size(); i++) {
                 Card card = d.getCards().get(i);
                 card.setDeck(addedDeck);
                 card = cs.updateCard(card);
             }
+            
+            os.createADeckWeekly(addedDeck);
+            // Testing to see if the objective has printed out
+            System.out.println(d.getCreator().getObjectives());
             return addedDeck;
         }
     }

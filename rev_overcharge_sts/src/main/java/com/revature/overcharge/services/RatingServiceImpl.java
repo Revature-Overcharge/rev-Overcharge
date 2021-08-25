@@ -20,6 +20,9 @@ public class RatingServiceImpl implements RatingService {
 
     @Autowired
     RatingRepo rr;
+    
+    @Autowired
+    ObjectiveService os;
 
 //    @Override
 //    public Rating addRating(Rating r) {
@@ -37,7 +40,10 @@ public class RatingServiceImpl implements RatingService {
     public Rating saveRating(Rating r) {
         r.setRatedOn(new Date().getTime());
         log.info(r.toString());
-        return rr.save(r);
+        r = rr.save(r);
+        os.rateADeckDaily(r);
+        os.set5StarDeckWeeklyFromRating(r);
+        return r;
     }
 
     @Override
@@ -65,5 +71,20 @@ public class RatingServiceImpl implements RatingService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
+
+	@Override
+	public List<Rating> getAllRatings() {
+		return (List<Rating>) rr.findAll();
+	}
+
+	@Override
+	public List<Rating> getRatingsByDeckId(int deckId) {
+		return (List<Rating>) rr.findByDeckId(deckId);
+	}
+
+	@Override
+	public Rating updateRating(Rating r) {
+		return rr.save(r);
+	}
 
 }

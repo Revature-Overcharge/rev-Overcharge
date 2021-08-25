@@ -27,6 +27,9 @@ public class StudiedCardServiceImpl implements StudiedCardService {
 
     @Autowired
     CardService cs;
+    
+    @Autowired
+    ObjectiveService os;
 
     @Override
     public StudiedCard addStudiedCard(StudiedCard sc) {
@@ -36,7 +39,9 @@ public class StudiedCardServiceImpl implements StudiedCardService {
         } else {
             sc.setStudiedOn(new Date().getTime());
             log.info(sc.toString());
-            return scr.save(sc);
+            sc = scr.save(sc);
+            os.markTwoStudiedDeck(sc);
+            return sc;
         }
     }
 
@@ -65,5 +70,15 @@ public class StudiedCardServiceImpl implements StudiedCardService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+	@Override
+	public List<StudiedCard> getStudiedCardsByUser(Integer userId) {
+		return scr.getByUserId(userId);
+	}
+
+	@Override
+	public StudiedCard updateCard(StudiedCard sc) {
+		return scr.save(sc);
+	}
 
 }
