@@ -25,7 +25,7 @@
 		</div>
 
 		<div *ngIf="finished"><h2>You're all done with this set. Great work!</h2>
-			<button type="button" class="btn btn-primary" >Return to Library</button>
+			<button type="button" class="btn btn-primary" (click)="returnToLibrary()">Return to Library</button>
 		</div>
 
 		<div *ngIf="rate" id="ratingcontainer">

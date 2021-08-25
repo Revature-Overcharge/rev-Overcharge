@@ -305,4 +305,8 @@ this.studied_card.userId = userid;
           this.rate = true;
        
 }}
+
+returnToLibrary(){
+  this.router.navigate(['/','library']);
+}
 }
