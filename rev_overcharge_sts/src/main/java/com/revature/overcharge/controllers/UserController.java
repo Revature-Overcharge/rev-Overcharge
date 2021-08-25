@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.overcharge.beans.User;
 import com.revature.overcharge.services.UserService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 public class UserController {
 

@@ -4,7 +4,10 @@ import { StudiedCard } from 'src/app/models/studied-card';
 import { StudiedcardService } from 'src/app/services/studiedcard.service';
 import { CardService } from 'src/app/services/card.service';
 import { Card } from 'src/app/models/card';
-
+import { Rating } from 'src/app/models/rating';
+import { RatingService } from 'src/app/services/rating.service';
+import { Router } from '@angular/router';
+import { HttpDeckService } from 'src/app/services/http-deck.service';
 @Component({
   selector: 'app-cardrunner',
   templateUrl: './card-runner.component.html',
@@ -23,34 +26,89 @@ import { Card } from 'src/app/models/card';
   ]
 })
 export class CardrunnerComponent implements OnInit {
-  constructor(private schttp:StudiedcardService, private cshttp:CardService) { }
+  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router) { }
 Cards: Card[] = [];
 CurrentCard: Card = new Card(1,'','',1);
+rating:Rating = new Rating(0,0,0,0);
+deck_id:number = 2;
+text:string = '';
+creator_id:number=0;
+user_id:number = 0;
+number_mastered = 0;
+number_total = 0;
+count = 0;
+
+
 public crnt: number = 0;
 
 
 public next: String = 'Next Question';
 public unfinished: boolean = true;
 public rate: boolean =false;
+public finished:boolean = false;
+public array:StudiedCard[] = [];
 
 public question:string = '';
 public answer:string = '';
-  ngOnInit(): void {
-    this.cshttp.getCardsByDeckId(1).subscribe(
-      (Response)=>{
 
-       for(let card of Response){
-          
-          this.Cards.push(new Card(card.id,card.question,card.answer,card.createdOn));
-         
-          
-        }
+
+  ngOnInit(): void {
+    this.user_id = Number(window.localStorage.getItem("userID"));
+
+    this.dshttp.getDeckById(1).subscribe(
+      (Response1)=>{
+
+        this.creator_id = Response1.creator.id;
+        this.Cards= Response1.cards;
         this.question = this.Cards[this.crnt].question;
         this.answer = this.Cards[this.crnt].answer;
         this.CurrentCard = this.Cards[this.crnt];
+        this.number_total = this.Cards.length;
 
+    
+        this.schttp.getStudiedCardsByUser(11).subscribe(
+          (Response2)=>{
+            this.array = Response2;
+
+        let index:number = 0;
+        console.log("Length before filtering : " + this.Cards.length)
+        outer :for(let card of this.Cards){
+
+          for(let i:number =0;i<this.array.length;i++){
+
+
+           if(card.id === this.array[i].cardId){
+             this.count++;
+             console.log("deletion should occur");
+             delete this.Cards[index];
+          
+           }
+          }
+index++;
+        }
+        const filteredCards = this.Cards.filter(el => {
+          return el != null;
+        });
+        this.number_mastered = this.count;
+        this.Cards = filteredCards;
+        console.log("Length after filtering : " + this.Cards.length)
+        
+
+        
+          }
+        )
       }
-    )
+      )
+
+
+     
+        
+  
+       
+      
+      
+
+     
   }
 
   public preprogress: number = 1/this.Cards.length*100;
@@ -61,7 +119,7 @@ public progress:string = this.preprogress + '%';
 
 
 
-studied_card:StudiedCard = new StudiedCard(1,2,2,2);
+studied_card:StudiedCard = new StudiedCard(1,2,2);
 
 
  
@@ -82,10 +140,12 @@ studied_card:StudiedCard = new StudiedCard(1,2,2,2);
       this.question = this.Cards[this.crnt + 1].question;
       this.answer = this.Cards[this.crnt + 1].answer;
       this.CurrentCard = this.Cards[this.crnt + 1];
+      this.text = '';
 
       this.crnt = this.crnt + 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
       this.progress =  String(this.preprogress) + "%";
+
       
       if(this.crnt== this.Cards.length -1){
         this.next = 'Finish Set';
@@ -95,7 +155,9 @@ studied_card:StudiedCard = new StudiedCard(1,2,2,2);
     }
     else{
       this.unfinished = false;
-      this.rate = true;
+
+      if(this.creator_id ==this.user_id){this.finished = true;}
+      else{this.rate = true;}
     }
 
   }
@@ -109,6 +171,7 @@ studied_card:StudiedCard = new StudiedCard(1,2,2,2);
       this.answer = this.Cards[this.crnt - 1].answer;
       this.CurrentCard = this.Cards[this.crnt - 1];
 
+      this.text = '';
       this.crnt = this.crnt - 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
       this.progress =  String(this.preprogress) + "%";
@@ -120,11 +183,6 @@ studied_card:StudiedCard = new StudiedCard(1,2,2,2);
 
 
   }
-
-  markMastered(){
-    alert("AUUUGGHHHHHHH!!!");
-  }
-
 
   
   userRating:number = 0;
@@ -182,21 +240,33 @@ studied_card:StudiedCard = new StudiedCard(1,2,2,2);
       }}
  
   submitRating(){
+    let userid: number = 0;
+    userid = Number(window.localStorage.getItem("userID"));
+    console.log("userID taken from storage : " + userid);
+    this.rating.userId = userid;
+    this.rating.deckId = this.deck_id;
+    this.rating.stars = this.userRating;
 
+    console.log("Rating sent to be aded : " + JSON.stringify(this.rating));
+
+
+    this.rshttp.addRating(this.rating).subscribe(
+      (Response)=>{
+        console.log("Rating response : " + JSON.stringify(Response));
+      }
+    )
+
+    this.router.navigate(['/','library']);
   }
 
   markAsMastered(){
 
-    
-// let temp:any = window.localStorage.getItem('user');
-
-// temp = JSON.parse(temp);
-// this.studied_card.user_id = temp.id;
+  
 let userid: number = 0;
 userid = Number(window.localStorage.getItem("userID"));
 
-this.studied_card.card_id = this.CurrentCard.id;
-this.studied_card.user_id = userid;
+this.studied_card.cardId = this.CurrentCard.id;
+this.studied_card.userId = userid;
 
 
 
@@ -218,10 +288,12 @@ this.studied_card.user_id = userid;
       this.question = this.Cards[this.crnt + 1].question;
       this.answer = this.Cards[this.crnt + 1].answer;
       this.CurrentCard = this.Cards[this.crnt + 1];
+      this.text = '';
 
       this.crnt = this.crnt + 1;
       this.preprogress = Math.round((this.crnt+1)/this.Cards.length*100);
       this.progress =  String(this.preprogress) + "%";
+      
       
       if(this.crnt== this.Cards.length -1){
         this.next = 'Finish Set';
@@ -230,10 +302,15 @@ this.studied_card.user_id = userid;
 
     }
     else{
+
       this.unfinished = false;
-      this.rate = true;
-    }
+   
+          
+          this.rate = true;
+       
+}}
 
-
-  }
+returnToLibrary(){
+  this.router.navigate(['/','library']);
+}
 }
