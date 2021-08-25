@@ -12,5 +12,9 @@ public interface StudiedCardService {
     public List<StudiedCard> getStudiedCards(Integer userId, Integer cardId);
 
     public boolean deleteStudiedCard(StudiedCardId scId);
+    
+    public List<StudiedCard> getStudiedCardsByUser(Integer userId);
+
+	public StudiedCard updateCard(StudiedCard sc);
 
 }

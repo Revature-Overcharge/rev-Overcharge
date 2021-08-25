@@ -6,6 +6,7 @@ import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.Objective;
 import com.revature.overcharge.beans.Rating;
+import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.User;
 
 public interface ObjectiveService {
@@ -25,5 +26,8 @@ public interface ObjectiveService {
 
     // Determine if deck has 5 star via rating route
 	public void set5StarDeckWeeklyFromRating(Rating r);
+	
+	public void markTwoStudiedDeck(StudiedCard sc);
+	
 
 }

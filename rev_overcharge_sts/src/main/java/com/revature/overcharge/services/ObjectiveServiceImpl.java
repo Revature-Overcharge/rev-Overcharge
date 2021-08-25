@@ -14,6 +14,7 @@ import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.Objective;
 import com.revature.overcharge.beans.Rating;
+import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.User;
 
 @Service
@@ -27,6 +28,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 	@Autowired
 	RatingService rs;
+
+	@Autowired
+	StudiedCardService scs;
 
 	private long WEEK_START_TIME = 1_627_898_400_000L;
 	private int WEEKLY_MS = 604_800_000;
@@ -145,16 +149,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 //		us.updateUser(u);
 	}
 
-	private long getWeekStart(long startTime, long currentTime) {
-		while (startTime <= currentTime) {
-			startTime += WEEKLY_MS;
-			if (startTime > currentTime) {
-				return startTime -= WEEKLY_MS;
-			}
-		}
-		return startTime;
-	}
-
 	@Override
 	public void set5StarDeckWeeklyFromRating(Rating r) {
 		Deck d = ds.getDeck(r.getDeckId());
@@ -164,20 +158,76 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
 		long endWeekTime = startWeekTime + WEEKLY_MS;
 		int match = 0;
-		
+
 		List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
-		
+
 		for (Rating rating : ratings) {
-			if ((rating.getRatedOn() >= startWeekTime && rating.getRatedOn() <= endWeekTime) && (rating.getStars() == 5)) {
+			if ((rating.getRatedOn() >= startWeekTime && rating.getRatedOn() <= endWeekTime)
+					&& (rating.getStars() == 5)) {
 				match++;
 			}
 		}
-		
+
 		if (match == 1) {
 			u.setPoints(u.getPoints() + 300);
 		}
-		
+
 		us.updateUser(u);
+	}
+
+	// Not tested yet, but 70% sure works.
+	@Override
+	public void markTwoStudiedDeck(StudiedCard sc) {
+		User u = us.getUser(sc.getUserId());
+		List<Deck> allDecks = ds.getAllDecks();
+		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
+
+		System.out.println(userStudiedCards);
+
+		long currentTime = new Date().getTime();
+		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+		long endWeekTime = startWeekTime + WEEKLY_MS;
+
+		int deckCompleted = 0;
+
+		for (Deck d : allDecks) {
+			int cardMatch = 0;
+			for (Card c : d.getCards()) {
+				studiedCardLoop: for (StudiedCard scard : userStudiedCards) {
+					if ((scard.getCardId() == c.getId())
+							&& (scard.getStudiedOn() >= startWeekTime && scard.getStudiedOn() <= endWeekTime)) {
+						cardMatch++;
+						break studiedCardLoop;
+					}
+				}
+			}
+			if (cardMatch == d.getCards().size()) {
+				deckCompleted++;
+			}
+		}
+
+		if (deckCompleted == 1) {
+			u.setPoints(u.getPoints() + 300);
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 1, 2));
+			sc.setStudiedOn(sc.getStudiedOn() + WEEKLY_MS);
+			scs.updateCard(sc);
+		} else if (deckCompleted < 2) {
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
+		}
+		
+		System.out.println(u.getObjectives());
+		us.updateUser(u);
+
+	}
+
+	private long getWeekStart(long startTime, long currentTime) {
+		while (startTime <= currentTime) {
+			startTime += WEEKLY_MS;
+			if (startTime > currentTime) {
+				return startTime -= WEEKLY_MS;
+			}
+		}
+		return startTime;
 	}
 
 }

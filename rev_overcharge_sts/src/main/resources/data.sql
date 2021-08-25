@@ -55,8 +55,23 @@ insert into studied_cards (user_id, card_id, studied_on) values (4, 2, 162931768
 insert into studied_cards (user_id, card_id, studied_on) values (4, 3, 1629318687000);
 insert into studied_cards (user_id, card_id, studied_on) values (4, 4, 1629319687000);
 -- User 1 does not want to see cards 11, 12 anymore
-insert into studied_cards (user_id, card_id, studied_on) values (1, 11, 1629315991000);
-insert into studied_cards (user_id, card_id, studied_on) values (1, 12, 1629318991000);
+-- insert into studied_cards (user_id, card_id, studied_on) values (1, 11, 1629315991000);
+-- insert into studied_cards (user_id, card_id, studied_on) values (1, 12, 1629318991000);
+
+
+insert into studied_cards (user_id, card_id, studied_on) values (1, 1, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 2, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 3, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 4, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 5, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 6, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 7, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 8, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 9, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 10, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 11, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 12, 1629935035000);
+insert into studied_cards (user_id, card_id, studied_on) values (1, 13, 1629935035000);
 
 -- Cards
 -- Testing: created by user 3
