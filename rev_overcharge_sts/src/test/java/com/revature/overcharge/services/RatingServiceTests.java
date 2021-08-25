@@ -3,6 +3,8 @@ package com.revature.overcharge.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,54 +18,76 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.RatingId;
 
-@SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
+@SpringBootTest(
+        classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
 public class RatingServiceTests {
 
-	@Autowired
-	public RatingService rs;
+    @Autowired
+    public RatingService rs;
 
-	@Test
-	void saveRatingTestPass() {
-		Rating ratingObj1 = new Rating(1, 1, 1, null);
-		ratingObj1 = rs.saveRating(ratingObj1);
-		Rating ratingObj2 = new Rating(1, 1, 1, null);
-		ratingObj2 = rs.saveRating(ratingObj2);
-		assertEquals(ratingObj1.getStars(), ratingObj2.getStars());
-		ratingObj1 = rs.saveRating(new Rating(1, 1, 5, null));
-		assertNotEquals(ratingObj1.getStars(), ratingObj2.getStars());
-	}
+    @Test
+    void saveRatingAddPass() {
+        // This rating doesn't exist yet in the database
+        Rating ratingToAdd = new Rating(2, 1, 1, null);
+        String rToAddStr = ratingToAdd.toString();
 
-	@Test
-	void getRatingsTestPass() {
-		Rating ratingObj = new Rating(1, 1, 1, null);
-		List<Rating> ratingObjList = new ArrayList<Rating>();
-		ratingObjList.add(rs.saveRating(ratingObj));
-		assertEquals(ratingObjList, rs.getRatings(1, 1));	
-	}
+        Rating addedRating = rs.saveRating(ratingToAdd);
+        assertNotNull(addedRating.getRatedOn());
 
-	@Test
-	void getRatingsTestFail() {
-		Rating ratingObj1 = new Rating(1, 1, 1, null);
-		rs.saveRating(ratingObj1);
-		Rating ratingObj2 = new Rating(1, 1, 5, null);
-		List<Rating> ratingObjList = new ArrayList<Rating>();
-		ratingObjList.add(ratingObj1);
-		ratingObjList.add(ratingObj2);
-		assertNotEquals(ratingObjList, rs.getRatings(1, 1));	
-	}
+        addedRating.setRatedOn(null);
+        assertEquals(rToAddStr, addedRating.toString());
+    }
 
-	@Test
-	void deleteRatingTestPass() {
-		RatingId ratingIdObj = new RatingId(1, 1);
-		assertEquals(true, rs.deleteRating(ratingIdObj));
-	}
+    @Test
+    void saveRatingUpdatePass() {
+        // This rating already exists in the database
+        Rating ratingToUpdate = rs.getRatings(1, 1).get(0);
+        ratingToUpdate.setRatedOn(null);
+        String rToUpdateStr = ratingToUpdate.toString();
 
-	@Test
-	void deleteRatingTestFail() {
-		RatingId ratingIdObj = new RatingId();
-		assertThrows(ResponseStatusException.class, () -> {
-			rs.deleteRating(ratingIdObj);
+        ratingToUpdate.setStars(1);
+        Rating updatedRating = rs.saveRating(ratingToUpdate);
+        assertNotNull(updatedRating.getRatedOn());
+
+        updatedRating.setRatedOn(null);
+        assertNotEquals(rToUpdateStr, updatedRating.toString());
+    }
+
+    @Test
+    void getRatingsByUserIdAndDeckIdPass() {
+        Rating ratingObj = new Rating(2, 1, 1, null);
+        List<Rating> ratingObjList = new ArrayList<>();
+        ratingObjList.add(rs.saveRating(ratingObj));
+        assertEquals(ratingObjList, rs.getRatings(2, 1));
+    }
+
+    @Test
+    void getRatingsByUserIdPass() {
+        assertEquals(2, rs.getRatings(8, null).size());
+    }
+
+    @Test
+    void getRatingsByDeckIdPass() {
+        assertEquals(3, rs.getRatings(null, 2).size());
+    }
+
+    @Test
+    void getAllRatingsPass() {
+        assertEquals(9, rs.getRatings(null, null).size());
+    }
+
+    @Test
+    void deleteRatingTestPass() {
+        RatingId ratingIdObj = new RatingId(1, 1);
+        assertTrue(rs.deleteRating(ratingIdObj));
+    }
+
+    @Test
+    void deleteRatingTestFail() {
+        RatingId ratingIdObj = new RatingId(2, 2);
+        assertThrows(ResponseStatusException.class, () -> {
+            rs.deleteRating(ratingIdObj);
         });
-	}
+    }
 }
