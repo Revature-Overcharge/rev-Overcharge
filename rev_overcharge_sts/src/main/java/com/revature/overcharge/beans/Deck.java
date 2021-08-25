@@ -18,90 +18,88 @@ import org.springframework.data.annotation.Transient;
 @Table(name = "decks")
 public class Deck {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "creator_id")
-    private User creator;
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User creator;
 
-    private String title;
+	private String title;
 
-    @Column(name = "created_on")
-    private Long createdOn;
+	@Column(name = "created_on")
+	private Long createdOn;
 
-    @OneToMany(mappedBy = "deck")
-    @Transient
-    private List<Card> cards;
+	@OneToMany(mappedBy = "deck")
+	@Transient
+	private List<Card> cards;
 
-    public Deck() {
-        super();
-    }
+	public Deck() {
+		super();
+	}
 
-    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
-        super();
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-        this.cards = cards;
-    }
+	public Deck(User creator, String title, Long createdOn, List<Card> cards) {
+		super();
+		this.creator = creator;
+		this.title = title;
+		this.createdOn = createdOn;
+		this.cards = cards;
+	}
 
-    public Deck(int id, User creator, String title, Long createdOn,
-            List<Card> cards) {
-        super();
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-        this.cards = cards;
-    }
+	public Deck(int id, User creator, String title, Long createdOn, List<Card> cards) {
+		super();
+		this.id = id;
+		this.creator = creator;
+		this.title = title;
+		this.createdOn = createdOn;
+		this.cards = cards;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public User getCreator() {
-        return creator;
-    }
+	public User getCreator() {
+		return creator;
+	}
 
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public Long getCreatedOn() {
-        return createdOn;
-    }
+	public Long getCreatedOn() {
+		return createdOn;
+	}
 
-    public void setCreatedOn(Long createdOn) {
-        this.createdOn = createdOn;
-    }
+	public void setCreatedOn(Long createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public List<Card> getCards() {
-        return cards;
-    }
+	public List<Card> getCards() {
+		return cards;
+	}
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
 
-    @Override
-    public String toString() {
-        return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
-                + ", createdOn=" + createdOn + "]";
-    }
+	@Override
+	public String toString() {
+		return "Deck [id=" + id + ", creator=" + creator + ", title=" + title + ", createdOn=" + createdOn + "]";
+	}
 
 }
