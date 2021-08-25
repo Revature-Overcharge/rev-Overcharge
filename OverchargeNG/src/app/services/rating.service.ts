@@ -20,4 +20,9 @@ export class RatingService {
     return this.http.get<Rating[]>(`http://localhost:8080/ratings`);
 
   }
+
+  getRatingsByIds(user_id:number,deck_id:number): Observable<Rating[]>{
+    return this.http.get<Rating[]>(`http://localhost:8080/ratings?userId=` + user_id+ '&deckId=' + deck_id);
+
+  }
 }
