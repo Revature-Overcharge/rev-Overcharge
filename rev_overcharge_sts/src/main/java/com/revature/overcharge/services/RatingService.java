@@ -14,5 +14,9 @@ public interface RatingService {
     public List<Rating> getRatings(Integer userId, Integer deckId);
 
     public boolean deleteRating(RatingId rId);
+    
+    public List<Rating> getAllRatings();
+    
+    public List<Rating> getRatingsByDeckId(int deckId);
 
 }
