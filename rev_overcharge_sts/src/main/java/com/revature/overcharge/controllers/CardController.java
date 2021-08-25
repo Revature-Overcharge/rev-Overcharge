@@ -20,10 +20,10 @@ public class CardController {
     @Autowired
     CardService cs;
 
-    @PostMapping(value = "/cards", consumes = "application/json",
+    @PostMapping(value = "/decks/{id}/cards", consumes = "application/json",
             produces = "application/json")
-    public Card addCard(@RequestBody Card c) {
-        return cs.addCard(c);
+    public Card addCard(@PathVariable("id") int deckId, @RequestBody Card c) {
+        return cs.addCard(deckId, c);
     }
 
     @GetMapping(value = "/cards/{id}")

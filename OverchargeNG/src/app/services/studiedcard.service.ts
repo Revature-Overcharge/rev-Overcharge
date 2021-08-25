@@ -18,7 +18,7 @@ export class StudiedcardService {
   }
 
   getStudiedCardsByUser(user_id: number):Observable<StudiedCard[]>{
-    return this.http.get<StudiedCard[]>('http://localhost:8080/studied');
+    return this.http.get<StudiedCard[]>('http://localhost:8080/studied_cards?userId='+user_id);
 
   }
 

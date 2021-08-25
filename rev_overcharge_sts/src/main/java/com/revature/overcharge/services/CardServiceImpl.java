@@ -21,14 +21,19 @@ public class CardServiceImpl implements CardService {
     CardRepo cr;
     
     @Autowired
+<<<<<<< HEAD
     ObjectiveService os;
+=======
+    DeckService ds;
+>>>>>>> 5dff55695e74189111f3a8d88583c9047b6849b3
 
     @Override
-    public Card addCard(Card c) {
+    public Card addCard(int deckId, Card c) {
         if (cr.existsById(c.getId())) {
             log.warn("Card id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
+            c.setDeck(ds.getDeck(deckId));
             c.setCreatedOn(new Date().getTime());
             os.addCardObj(c);
             return cr.save(c);
