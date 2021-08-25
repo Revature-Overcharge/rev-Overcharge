@@ -3,6 +3,7 @@ import { Deck } from 'src/app/models/deck';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
+import { CardService } from 'src/app/services/card.service';
 
 @Component({
   selector: 'app-library',
@@ -17,18 +18,13 @@ export class LibraryComponent implements OnInit {
   card: Card = new Card(0, "", "", 0);
   curUser: any;
   curDeck: Deck;
+  addedCards: Card[] = [];
+  deletedCards: number[] = [];
 
   //this array should be populated by the deck that is selected
-  dynamicArray: Card[]= [
-    //{ "id": 0, "question": "This is question 1", "answer": "This is answer 1", "createdOn": 0 },
-   //{ "id": 1, "question": "This is question 2", "answer": "This is answer 2", "createdOn": 0 },
-   // { "id": 2, "question": "This is question 3", "answer": "This is answer 3", "createdOn": 0 }
-  ]; 
+  dynamicArray: Card[]= []; 
   newDynamic: any;
-  ngOnInit(): void {  
-      //this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
-      //this.newDynamic = this.card;
-      //this.dynamicArray.push(this.newDynamic); 
+  ngOnInit(): void {   
       this.displayAllDecks(); 
       this.curUser = localStorage.getItem("username");
       console.log(this.curUser);
@@ -37,14 +33,11 @@ export class LibraryComponent implements OnInit {
 
 closeResult = '';
 
-constructor(private modalService: NgbModal, private deckHttp: HttpDeckService) {}
+constructor(private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService) {}
 
 
 addRow() {    
-  //this.newDynamic = {};
   this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
-  //this.card.id = this.curDeck.cards.length++;
-  //this.newDynamic = this.card;
   this.dynamicArray.push(this.newDynamic);    
   console.log(this.dynamicArray);  
   return true;  
@@ -53,8 +46,11 @@ addRow() {
 deleteRow(index: any) {  
   if(this.dynamicArray.length ==1) {    
       return false;  
-  } else {  
-      this.dynamicArray.splice(index, 1);    
+  } else {
+    if(this.dynamicArray[index].id != 0) {
+      this.deletedCards.push(this.dynamicArray[index].id); 
+    }
+      this.dynamicArray.splice(index, 1);
       return true;  
   }  
 } 
@@ -74,6 +70,8 @@ open(content: any, card: Card, size: any, deck: Deck) {
   //Added a cards array to the deck object so I can grab it to display here
   this.dynamicArray = deck.cards;
   this.curDeck = deck;
+  //clear the deleted cards array when you open up the modal
+  this.deletedCards = [];
 
 	this.modalService.open(content,
 {ariaLabelledBy: 'modal-basic-title', size: size}).result.then((result) => {
@@ -95,15 +93,18 @@ private getDismissReason(reason: any): string {
 }
 
 saveDeck(deckArray: Array<Card>) {
-  //okay I will not be doing the update deck and cards. Instead I will be adding the cards and deleting the cards in a loop
-  //since the update deck and cards doesn't work with updating the card list.
+  this.addedCards = [];
   for (let i = 0; i < this.curDeck.cards.length; i++) {
-    //i need an added cards list and a deleted cards list
-    //for the deleted cards list, when I click on the trash can the id should be saved somewhere in a list or array, then I can just loop through those ID's and 
-    //delete each one
-    //for the added cards list I can just take the items which don't have ID's and put them in a list or an array, and then add them to the corresponding
-    //deck in the loop.
+    if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
+      this.addedCards.push(this.curDeck.cards[i]);
+    }
   }
-
+  for(let i = 0; i < this.addedCards.length; i++){
+    let newCard = new Card(0, this.addedCards[i].question, this.addedCards[i].answer, 0);
+    this.cardService.addCard(this.curDeck.id, newCard).subscribe();
+  }
+  for(let i = 0; i < this.deletedCards.length; i++) {
+    this.cardService.deleteCard(this.deletedCards[i]).subscribe();
+  }
 }
 }
