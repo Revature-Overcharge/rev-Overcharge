@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/com/revature/overcharge/features/Timer.feature",
-			glue = {"com.revature.steps", "LoginSteps"})
+			glue = {"com.revature.overcharge.steps", "TimerSteps"})
 public class TimerRunner extends Runner {
 
 	//TODO Add specific pages to the specific runner if needed.

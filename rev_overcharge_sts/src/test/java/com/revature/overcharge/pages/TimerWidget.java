@@ -13,7 +13,11 @@ public class TimerWidget extends PageFrame {
 	public WebElement mode;
 	@FindBy(id = "timerContainer")
 	public WebElement timerContainer;
+	@FindBy(tagName = "countdown")
+	public WebElement display;
 	
+	@FindBy(id = "hours_mins_container")
+	public WebElement inputContainer;
 	@FindBy(id = "hours")
 	public WebElement hoursInput;
 	@FindBy(id = "minutes")

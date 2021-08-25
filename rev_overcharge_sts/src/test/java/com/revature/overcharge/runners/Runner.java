@@ -2,10 +2,14 @@ package com.revature.overcharge.runners;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import io.cucumber.junit.Cucumber;
+
+@RunWith(Cucumber.class)
 public abstract class Runner {
 	
 	public static WebDriver driver;
@@ -14,10 +18,10 @@ public abstract class Runner {
 	@BeforeClass
 	public static void setup() {
 		//TODO Ensure the correct setup
-		String filePath = "your driver file path";
+		String filePath = "C:/Users/jehup/Desktop/Revature Desktop";
 		
-		driver = chromeSetup(filePath);
-//		driver = firefoxSetup(filePath);
+		driver = chromeSetup(filePath+"/chromedriver.exe");
+//		driver = firefoxSetup(filePath+"/file name.exe");
 	}
 	
 	@AfterClass

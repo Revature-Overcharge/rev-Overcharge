@@ -1,5 +1,10 @@
 package com.revature.overcharge.steps;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
@@ -16,154 +21,135 @@ public class TimerSteps {
 	
 	public static WebDriver driver = TimerRunner.driver;
 	public static TimerWidget timer = TimerRunner.timer;
-
+	
+	@Given("User is on any page")
+	public void user_is_on_any_page() {
+		driver.get(timer.url);
+	}
+	
 	@Given("User is logged in")
 	public void user_is_logged_in() {
-	    // Write code here that turns the phrase above into concrete actions
-		timer.logoutBtn.isDisplayed();
+		assertTrue(timer.logoutBtn.isDisplayed());
 	}
 
 	@Given("Timer is not visible")
 	@Then("Timer is not visible")
 	public void timer_is_not_visible() {
-	    // Write code here that turns the phrase above into concrete actions
-	    timer.timerContainer.getCssValue("display").equals("none");
+	    assertEquals("none",timer.timerContainer.getCssValue("display"));
 	}
 
 	@When("User clicks toggle visibility button")
 	public void user_clicks_toggle_visibility_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.timerLink.click();
 	}
 	
 	@Given("Timer is visible")
 	@Then("Timer is visible")
 	public void timer_is_visible() {
-	    // Write code here that turns the phrase above into concrete actions
-		timer.timerContainer.getCssValue("display").equals("block");
+		assertEquals("block", timer.timerContainer.getCssValue("display"));
 	}
 
 	@When("User clicks start button")
 	public void user_clicks_start_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.playTimer.click();
 	}
 
 	@Then("Timer starts counting down")
 	public void timer_starts_counting_down() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		assertEquals("Active", timer.status.getText());
 	}
 
 	@Given("Timer is active")
 	public void timer_is_active() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		assertEquals("Active", timer.status.getText());
 	}
 
 	@When("User clicks pause button")
 	public void user_clicks_pause_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.pauseTimer.click();
 	}
 
 	@Then("Timer activity is paused")
 	public void timer_activity_is_paused() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals("Paused", timer.status.getText());
 	}
 
 	@Given("Timer is not at initial value")
 	public void timer_is_not_at_initial_value() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertNotEquals("Inactive", timer.status.getText());
 	}
 
 	@When("User clicks reset button")
 	public void user_clicks_reset_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.resetTimer.click();
 	}
 
 	@Then("Timer is reset to initial value")
 	public void timer_is_reset_to_initial_value() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals("Inactive", timer.status.getText());
 	}
 
 	@When("Timer cycle is complete")
 	public void timer_cycle_is_complete() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals("00:00:00", timer.display.getText());
 	}
 
-	@Then("Modal pops up to notify User")
-	public void modal_pops_up_to_notify_user() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@Then("Timer is complete")
+	public void timer_is_complete() {
+	    assertEquals("Complete", timer.status.getText());
 	}
 
 	@Given("Timer is on Study Mode")
 	@Then("Timer is on Study Mode")
 	public void timer_is_on_study_mode() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals("Study", timer.mode.getText());
 	}
 
 	@When("User clicks toggle mode button")
 	public void user_clicks_toggle_mode_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.modeToggle.click();
 	}
 	
 	@Given("Timer is on Break Mode")
 	@Then("Timer is on Break Mode")
 	public void timer_is_on_break_mode() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals("Break", timer.mode.getText());
 	}
 
 	@Given("Timer input is not visible")
 	@Then("Timer input is not visible")
 	public void timer_input_is_not_visible() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertFalse(timer.inputContainer.isDisplayed());
 	}
 
 	@When("User clicks toggle input button")
 	public void user_clicks_toggle_input_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.inputToggle.click();
 	}
 	
 	@Given("Timer input is visible")
 	@Then("Timer input is visible")
 	public void timer_input_is_visible() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertTrue(timer.inputContainer.isDisplayed());
 	}
 
 	@When("User inputs {int} hours")
-	public void user_inputs_hours(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public void user_inputs_hours(String str) {
+	    timer.hoursInput.sendKeys(str);
 	}
 
 	@When("User inputs {int} minutes")
-	public void user_inputs_minutes(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public void user_inputs_minutes(String str) {
+		timer.minInput.sendKeys(str);
 	}
 
 	@When("User clicks set timer button")
 	public void user_clicks_set_timer_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    timer.setTimer.click();
 	}
 
 	@Then("Timer initial value is {int}")
-	public void timer_initial_value_is(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public void timer_initial_value_is(String str) {
+		assertEquals(str, timer.display.getText());
 	}
 }

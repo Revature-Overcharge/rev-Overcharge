@@ -3,6 +3,7 @@ Feature: Timer
 # All buzzer functionality is a stretch goal.
 
 Background:
+	Given User is on any page
   Given User is logged in
 
 Scenario: User toggles timer visibility on
@@ -35,7 +36,8 @@ Scenario: User resets timer
 Scenario: Timer reaches 0
   Given Timer is active
   When Timer cycle is complete
-  Then Modal pops up to notify User
+  Then Timer is complete
+  #And Modal pops up to notify User #Needs to be rewritten as a modal?
   #And Buzzer noise plays
 
 Scenario: User selects break timer
@@ -67,9 +69,9 @@ Scenario Outline: User sets custom time
 
 	Examples: 
 	| hours | minutes | newTime |
-	| 23 | 59 | 86340 |
-	| 0 | 1 | 60 |
-	| 2 | 15 | 8100 |
+	| "23" | "59" | "23:59:00" |
+	| "0" | "1" | "00:01:00" |
+	| "2" | "15" | "02:15:00" |
 
 #Scenario: Timer Buzzer is turned off
 #    Given Timer Buzzer is active
