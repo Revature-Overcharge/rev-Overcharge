@@ -26,17 +26,11 @@ public class RatingServiceTests {
 	@Test
 	void saveRatingTestPass() {
 		Rating ratingObj1 = new Rating(1, 1, 1, null);
-		rs.saveRating(ratingObj1);
+		ratingObj1 = rs.saveRating(ratingObj1);
 		Rating ratingObj2 = new Rating(1, 1, 1, null);
-		rs.saveRating(ratingObj2);
+		ratingObj2 = rs.saveRating(ratingObj2);
 		assertEquals(ratingObj1.getStars(), ratingObj2.getStars());
-	}
-	@Test
-	void saveRatingTestFail() {
-		Rating ratingObj1 = new Rating(1, 1, 1, null);
-		rs.saveRating(ratingObj1);
-		Rating ratingObj2 = new Rating(1, 1, 5, null);
-		rs.saveRating(ratingObj2);
+		ratingObj1 = rs.saveRating(new Rating(1, 1, 5, null));
 		assertNotEquals(ratingObj1.getStars(), ratingObj2.getStars());
 	}
 
