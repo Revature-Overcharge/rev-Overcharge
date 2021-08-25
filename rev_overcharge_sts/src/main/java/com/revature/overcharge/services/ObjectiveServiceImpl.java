@@ -175,7 +175,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		us.updateUser(u);
 	}
 
-	// Not tested yet, but 70% sure works.
 	@Override
 	public void markTwoStudiedDeck(StudiedCard sc) {
 		User u = us.getUser(sc.getUserId());
