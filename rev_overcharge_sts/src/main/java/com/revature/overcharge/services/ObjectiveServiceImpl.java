@@ -34,6 +34,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 	private long WEEK_START_TIME = 1_627_898_400_000L;
 	private int WEEKLY_MS = 604_800_000;
+	private int DAILY_MS = 86_400_000;
 
 	@Override
 	public List<Objective> getAllObjectivesForUser(String id) {
@@ -177,6 +178,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 	@Override
 	public void markTwoStudiedDeck(StudiedCard sc) {
+		markFiveCardsDaily(sc);
 		User u = us.getUser(sc.getUserId());
 		List<Deck> allDecks = ds.getAllDecks();
 		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
@@ -218,6 +220,32 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		us.updateUser(u);
 
 	}
+	
+	@Override
+	public void markFiveCardsDaily(StudiedCard sc) {
+		User u = us.getUser(sc.getUserId());
+		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
+		long midnight = getMidnight();
+		
+		int studiedCardCount = 0;
+
+		for (StudiedCard scard : userStudiedCards) {
+			if (scard.getStudiedOn() >= midnight && scard.getStudiedOn() <= midnight + DAILY_MS) {
+				studiedCardCount++;
+			}
+		}
+		
+		if (studiedCardCount >= 5) {
+			u.setPoints(u.getPoints() + 50);
+			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
+		} else {
+			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
+		}
+		
+		System.out.println(u.getObjectives());
+
+		us.updateUser(u);
+	}
 
 	private long getWeekStart(long startTime, long currentTime) {
 		while (startTime <= currentTime) {
@@ -228,5 +256,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		}
 		return startTime;
 	}
+
+	
 
 }

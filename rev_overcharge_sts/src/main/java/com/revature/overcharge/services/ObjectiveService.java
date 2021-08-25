@@ -29,5 +29,7 @@ public interface ObjectiveService {
 	
 	public void markTwoStudiedDeck(StudiedCard sc);
 	
+	public void markFiveCardsDaily(StudiedCard sc);
+	
 
 }
