@@ -16,18 +16,18 @@ export class LibraryComponent implements OnInit {
   deckList: Deck[] = [];
   card: Card = new Card(0, "", "", 0);
   curUser: any;
-  canEdit: boolean;
   curDeck: Deck;
 
   //this array should be populated by the deck that is selected
-  dynamicArray: Array<Card> = [
-    { "id": 0, "question": "This is question 1", "answer": "This is answer 1", "createdOn": 0 },
-    { "id": 1, "question": "This is question 2", "answer": "This is answer 2", "createdOn": 0 },
-    { "id": 2, "question": "This is question 3", "answer": "This is answer 3", "createdOn": 0 }
+  dynamicArray: Card[]= [
+    //{ "id": 0, "question": "This is question 1", "answer": "This is answer 1", "createdOn": 0 },
+   //{ "id": 1, "question": "This is question 2", "answer": "This is answer 2", "createdOn": 0 },
+   // { "id": 2, "question": "This is question 3", "answer": "This is answer 3", "createdOn": 0 }
   ]; 
-  newDynamic: any = {};  
+  newDynamic: any;
   ngOnInit(): void {  
-      //this.newDynamic = {title1: "", title2: ""};
+      //this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
+      //this.newDynamic = this.card;
       //this.dynamicArray.push(this.newDynamic); 
       this.displayAllDecks(); 
       this.curUser = localStorage.getItem("username");
@@ -41,8 +41,8 @@ constructor(private modalService: NgbModal, private deckHttp: HttpDeckService) {
 
 
 addRow() {    
-  this.newDynamic = (this.curDeck.cards.length++, '', '', 0);
-  //this.newDynamic = {'id': this.curDeck.cards.length++, 'question':'', 'answer':'', 'createdOn':0}; 
+  //this.newDynamic = {};
+  this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
   //this.card.id = this.curDeck.cards.length++;
   //this.newDynamic = this.card;
   this.dynamicArray.push(this.newDynamic);    
@@ -95,9 +95,15 @@ private getDismissReason(reason: any): string {
 }
 
 saveDeck(deckArray: Array<Card>) {
-  //This is where we will take the cards from the modal and save them to the db.
-  this.curDeck.cards = deckArray;
-  console.log("The deck has been updated");
-  this.deckHttp.updateDeck(this.curDeck).subscribe();
+  //okay I will not be doing the update deck and cards. Instead I will be adding the cards and deleting the cards in a loop
+  //since the update deck and cards doesn't work with updating the card list.
+  for (let i = 0; i < this.curDeck.cards.length; i++) {
+    //i need an added cards list and a deleted cards list
+    //for the deleted cards list, when I click on the trash can the id should be saved somewhere in a list or array, then I can just loop through those ID's and 
+    //delete each one
+    //for the added cards list I can just take the items which don't have ID's and put them in a list or an array, and then add them to the corresponding
+    //deck in the loop.
+  }
+
 }
 }

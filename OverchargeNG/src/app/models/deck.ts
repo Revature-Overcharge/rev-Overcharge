@@ -7,9 +7,9 @@ export class Deck {
     creator: User;
     title: string;
     createdOn: number;
-    cards: Card[];
+    cards: Array<Card>;
 
-   constructor(id: number, creator: User, title: string, createdOn: number, cards: Card[]){
+   constructor(id: number, creator: User, title: string, createdOn: number, cards: Array<Card>){
      this.id = id;
      this.creator = creator;
      this.title = title; 
