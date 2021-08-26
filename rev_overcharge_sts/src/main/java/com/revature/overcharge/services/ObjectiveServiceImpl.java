@@ -84,15 +84,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		}
 	}
 
-	private long getMidnight() {
-		Calendar c = new GregorianCalendar();
-		c.set(Calendar.HOUR_OF_DAY, 0);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-		Date d1 = c.getTime();
-		return d1.getTime();
-	}
-
 	@Override
 	public void createADeckWeekly(User u) {
 		u = us.getUser(u.getId());
@@ -294,6 +285,26 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		System.out.println(u.getObjectives());
 
 	}
+
+	@Override
+	public User getAllObjectives(User u) {
+		get5StarDeckWeekly(u);
+		// this also checks to see if they marked 5 studied cards in that day
+		markTwoStudiedDeck(u);
+		rateADeckDaily(u);
+		createADeckWeekly(u);
+		
+		return u;
+	}
+	
+	private long getMidnight() {
+		Calendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		Date d1 = c.getTime();
+		return d1.getTime();
+	}
 	
 	private long getWeekStart(long startTime, long currentTime) {
 		while (startTime <= currentTime) {
@@ -310,17 +321,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			sc.setStudiedOn(sc.getStudiedOn() - DAILY_MS);
 			scs.updateCard(sc);
 		}
-	}
-
-	@Override
-	public User getAllObjectives(User u) {
-		get5StarDeckWeekly(u);
-		// this also checks to see if they marked 5 studied cards in that day
-		markTwoStudiedDeck(u);
-		rateADeckDaily(u);
-		createADeckWeekly(u);
-		
-		return u;
 	}
 
 }
