@@ -197,7 +197,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		} else if (deckCompleted < 2) {
 			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
 		} else {
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 0, 2));
 		}
 
 		System.out.println(u.getObjectives());
@@ -221,7 +221,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 		if (studiedCardCount == 5) {
 			u.setPoints(u.getPoints() + 50);
-			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
+			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, 5, 5));
 		} else if (studiedCardCount > 5) {
 			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
 		} else {
@@ -254,7 +254,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
 		} else {
 			u.getObjectives().add(new Objective("Rate a Deck", 20, matchRating, 1));
-
 		}
 
 		us.updateUser(u);
