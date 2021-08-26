@@ -2,9 +2,12 @@ package com.revature.overcharge.steps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
+
 import org.apache.log4j.Logger;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.revature.overcharge.pages.TimerWidget;
 import com.revature.overcharge.runners.TimerRunner;
@@ -19,6 +22,7 @@ public class TimerSteps {
 	final static Logger log = Logger.getLogger(TimerSteps.class);
 	
 	public static WebDriver driver = TimerRunner.driver;
+	public static WebDriverWait wait = new WebDriverWait(driver, 10);
 	public static TimerWidget timer = TimerRunner.timer;
 
     @Given("^User has navigated to the website$")
@@ -29,11 +33,7 @@ public class TimerSteps {
     @Given("^User shows Timer$")
     public void user_shows_timer() throws Throwable {
     	timer.timerLink.click();
-    	try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    	wait.withTimeout(Duration.ofSeconds(1));
     }
     
     @Given("^Timer visibility is \"([^\"]*)\"$")
@@ -46,11 +46,7 @@ public class TimerSteps {
 		case "Off":
 			css = "none";
 			timer.timerLink.click();
-	    	try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			wait.withTimeout(Duration.ofSeconds(1));
 			break;
     	}
     	assertEquals(css,timer.timerContainer.getCssValue("display"));
@@ -66,9 +62,11 @@ public class TimerSteps {
 			timer.playTimer.click();
 			break;
 		case "Pause":
+			timer.playTimer.click();
 			timer.pauseTimer.click();
 			break;
 		case "Reset":
+			timer.playTimer.click();
 			timer.resetTimer.click();
 			break;
 		case "Change Mode":
@@ -78,16 +76,17 @@ public class TimerSteps {
 			timer.inputToggle.click();
 			break;
     	}
-    	try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    	wait.withTimeout(Duration.ofSeconds(1));
     }
 
     @When("^Timer display is \"([^\"]*)\"$")
     public void timer_display_is_something(String display) throws Throwable {
-    	assertEquals(display, timer.display.getText());
+    	user_clicks_something("Display Input");
+    	user_inputs_and("0", "1");
+    	user_clicks_something("Play");
+    	wait.withTimeout(Duration.ofMinutes(1)).until(
+    			ExpectedConditions.attributeToBe(timer.display, "innerText", display));
+    	
     }
 
     @Then("^Timer toggles visibility to \"([^\"]*)\"$")
@@ -106,7 +105,7 @@ public class TimerSteps {
 
     @Then("^Timer status is \"([^\"]*)\"$")
     public void timer_status_is_something(String status) throws Throwable {
-    	assertEquals(status, timer.status.getText());
+    	assertEquals(": "+status, timer.status.getText());
     }
 
     @Then("^Timer mode changes to \"([^\"]*)\"$")
@@ -124,11 +123,7 @@ public class TimerSteps {
     	timer.hoursInput.sendKeys(hours);
     	timer.minInput.sendKeys(minutes);
 	    timer.setTimer.click();
-	    try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	    wait.withTimeout(Duration.ofSeconds(1));
     }
 
     @And("^Timer mode is \"([^\"]*)\"$")
