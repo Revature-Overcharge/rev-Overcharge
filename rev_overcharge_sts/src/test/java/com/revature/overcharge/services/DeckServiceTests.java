@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.User;
+import com.revature.overcharge.repositories.CardRepo;
 import com.revature.overcharge.repositories.DeckRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
@@ -26,6 +27,8 @@ public class DeckServiceTests {
 	public DeckService ds;
 	@MockBean
 	DeckRepo dr;
+	@MockBean
+	CardRepo cr;
 
 	@Test
 	void addDeckTest() {
@@ -169,6 +172,17 @@ public class DeckServiceTests {
 		dList = ds.getDecksByCreatorId(creator.getId());
 		
 		Assertions.assertNotNull(dList);
+	}
+	
+	@Test
+	void addDeckandCardsTest() {
+		User creator = new User(11, null, null, null, null);
+		List<Card> cards = new ArrayList<Card>();
+		cards.add(new Card("whats your name", "my name is ahmed", null));
+		cards.add(new Card("EUGH", "BLAUGH", null));
+		Deck deck = new Deck(creator, "new deck2", null, cards);
+		
+		deck = ds.addDeckAndCards(deck);
 	}
 
 }
