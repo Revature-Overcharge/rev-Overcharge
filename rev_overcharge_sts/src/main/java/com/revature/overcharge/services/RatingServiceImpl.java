@@ -41,8 +41,6 @@ public class RatingServiceImpl implements RatingService {
         r.setRatedOn(new Date().getTime());
         log.info(r.toString());
         r = rr.save(r);
-        os.rateADeckDaily(r);
-        os.set5StarDeckWeeklyFromRating(r);
         return r;
     }
 
@@ -85,6 +83,11 @@ public class RatingServiceImpl implements RatingService {
 	@Override
 	public Rating updateRating(Rating r) {
 		return rr.save(r);
+	}
+
+	@Override
+	public List<Rating> getRatingByUserId(int userId) {
+		return rr.getByUserId(userId);
 	}
 
 }
