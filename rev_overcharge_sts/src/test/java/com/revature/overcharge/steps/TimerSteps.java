@@ -33,7 +33,7 @@ public class TimerSteps {
     @Given("^User shows Timer$")
     public void user_shows_timer() throws Throwable {
     	timer.timerLink.click();
-    	wait.withTimeout(Duration.ofSeconds(1));
+    	wait.withTimeout(Duration.ofSeconds(2));
     }
     
     @Given("^Timer visibility is \"([^\"]*)\"$")
@@ -109,13 +109,13 @@ public class TimerSteps {
     }
 
     @Then("^Timer mode changes to \"([^\"]*)\"$")
-    public void timer_mode_changes_to_something(String mode) throws Throwable {
-        assertEquals(mode, timer.mode.getText());
+    public void timer_mode_changes_to_something(String finalMode) throws Throwable {
+    	ExpectedConditions.attributeToBe(timer.mode, "innerText", finalMode);
     }
 
     @Then("^Timer is set to (.+)$")
     public void timer_is_set_to(String newTime) throws Throwable {
-    	assertEquals(newTime, timer.display.getText());
+    	ExpectedConditions.attributeToBe(timer.display, "innerText", newTime);
     }
 
     @And("^User inputs (.+) and (.+)$")
@@ -127,7 +127,9 @@ public class TimerSteps {
     }
 
     @And("^Timer mode is \"([^\"]*)\"$")
-    public void timer_mode_is_something(String mode) {
-    	assertEquals(mode, timer.mode.getText());
+    public void timer_mode_is_something(String initMode) throws Throwable {    	
+    	if (initMode == "Break") user_clicks_something("Change Mode");
+    	ExpectedConditions.attributeToBe(timer.mode, "innerText", initMode);
+    	wait.withTimeout(Duration.ofSeconds(1));
     }
 }
