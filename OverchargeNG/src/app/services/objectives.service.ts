@@ -37,9 +37,9 @@ export class ObjectivesService {
   randomDailyObj(){
     let dailyObj = [
     {name:"Rank a Set", pointsToAward: "10", progressCount:"0", countForGoal:"1"},
-    {name:"Create a Set", pointsToAward: "50", progressCount:"0", countForGoal:"1"},
     {name:"Create 5 Sets", pointsToAward: "150", progressCount:"0", countForGoal:"5"},
-    {name:"Create 5 Cards", pointsToAward: "5", progressCount:"0", countForGoal:"5"},
+    {name:"Create 3 Cards", pointsToAward: "50", progressCount:"0", countForGoal:"3"},
+    {name:"Create 5 Cards", pointsToAward: "150", progressCount:"0", countForGoal:"5"},
     {name:"Create 10 Cards", pointsToAward: "100", progressCount:"0", countForGoal:"10"}
   ]
   let myDailyList = dailyObj[Math.floor(Math.random() * 5)]
@@ -49,12 +49,13 @@ export class ObjectivesService {
 
   randomWeeklyObj(){
     let weeklyObj = [
+    {name:"Create a Set", pointsToAward: "300", progressCount:"0", countForGoal:"1"},
     {name:"Master 50 Cards", pointsToAward: "50", progressCount:"0", countForGoal:"50"},
     {name:"Create 25 Sets", pointsToAward: "250", progressCount:"0", countForGoal:"25"},
     {name:"Create 25 Cards", pointsToAward: "100", progressCount:"0", countForGoal:"25"},
     {name:"Create 50 Cards", pointsToAward: "250", progressCount:"0", countForGoal:"50"}
   ]
-  let myWeeklyList = weeklyObj[Math.floor(Math.random() * 4)]
+  let myWeeklyList = weeklyObj[Math.floor(Math.random() * 5)]
 
     return myWeeklyList;
   }
