@@ -13,27 +13,27 @@ export class HttpDeckService {
   private postHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   getAllDecks(): Observable<Deck[]> {
-    return this.http.get<Deck[]> ('http://localhost:8080/decks');
+    return this.http.get<Deck[]> ('http://localhost:8081/decks');
   }
 
   getDeckById(id: number): Observable<Deck> {
-    return this.http.get<Deck> ('http://localhost:8080/decks/' + id);
+    return this.http.get<Deck> ('http://localhost:8081/decks/' + id);
   }
 
   getDeckByTitle(title: string): Observable<Deck> {
-    return this.http.get<Deck> ('http://localhost:8080/decks/title?' + title);
+    return this.http.get<Deck> ('http://localhost:8081/decks/title?' + title);
   }
 
   addDeck(deck: any): Observable<Deck> {
-    return this.http.post<Deck>('http://localhost:8080/decks/', deck, { headers: this.postHeaders });
+    return this.http.post<Deck>('http://localhost:8081/decks/', deck, { headers: this.postHeaders });
   }
 
   updateDeck(deck: Deck): Observable<Deck> {
-    return this.http.put<Deck>('http://localhost:8080/decks/' + deck.id, deck, { headers: this.postHeaders });
+    return this.http.put<Deck>('http://localhost:8081/decks/' + deck.id, deck, { headers: this.postHeaders });
   }
 
   deleteDeck(id: number): Observable<boolean>{
-    return this.http.delete<boolean>('http://localhost:8080/decks/' + id);
+    return this.http.delete<boolean>('http://localhost:8081/decks/' + id);
   }
 
 }

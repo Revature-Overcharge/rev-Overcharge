@@ -12,6 +12,6 @@ export class CardService {
 
 
   getCardsByDeckId(id: number): Observable<Card[]>{
-    return this.http.get<Card[]>('http://localhost:8080/decks/' + id + '/cards');
+    return this.http.get<Card[]>('http://localhost:8081/decks/' + id + '/cards');
   }
 }
