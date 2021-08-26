@@ -39,11 +39,11 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	@Override
 	public List<Objective> getAllObjectivesForUser(int id) {
 		User u = us.getUser(id);
-//		get5StarDeckWeekly(u);
-//		getMarkFiveCardsDaily(u);
-//		getMarkTwoStudiedDeck(u);
-//		getRateADeckDaily(u);
-//		getCreateADeckWeekly(u);
+		get5StarDeckWeekly(u);
+		getMarkFiveCardsDaily(u);
+		getMarkTwoStudiedDeck(u);
+		getRateADeckDaily(u);
+		getCreateADeckWeekly(u);
 		return u.getObjectives();
 	}
 
@@ -122,7 +122,64 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 		us.updateUser(u);
 	}
+	
+	@Override
+	public void getCreateADeckWeekly(User u) {
+		
+		long createdTime = new Date().getTime();
+		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
+		long endWeekTime = startWeekTime + WEEKLY_MS;
 
+		List<Deck> decks = new ArrayList<Deck>();
+
+		try {
+			decks = ds.getDecksByCreatorId(u.getId());
+		} catch (ResponseStatusException e) {
+			u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
+			return;
+		}
+		int qualifiedDecks = 0;
+
+		for (Deck deck : decks) {
+			if (deck.getCreatedOn() >= startWeekTime && deck.getCreatedOn() <= endWeekTime) {
+				qualifiedDecks++;
+			}
+		}
+
+		if (qualifiedDecks == 1) {
+			u.getObjectives().add(new Objective("Create a Deck", 100, 1, 1));
+		} else {
+			u.getObjectives().add(new Objective("Create a Deck", 100, qualifiedDecks, 1));
+		}
+	}
+
+	@Override
+	public void set5StarDeckWeekly(Rating r) {
+		Deck d = ds.getDeck(r.getDeckId());
+		User u = us.getUser(d.getCreator().getId());
+
+		long currentTime = new Date().getTime();
+		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+		long endWeekTime = startWeekTime + WEEKLY_MS;
+		int match = 0;
+
+		List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
+
+		for (Rating rating : ratings) {
+			if ((rating.getRatedOn() >= startWeekTime && rating.getRatedOn() <= endWeekTime)
+					&& (rating.getStars() == 5)) {
+				match++;
+			}
+		}
+
+		// if get one 5 star rating 
+		if (match == 1) {
+			u.setPoints(u.getPoints() + 300);
+		}
+
+		us.updateUser(u);
+	}
+	
 	@Override
 	public void get5StarDeckWeekly(User u) {
 		u = us.getUser(u.getId());
@@ -162,32 +219,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		us.updateUser(u);
 	}
 	
-	@Override
-	public void set5StarDeckWeeklyFromRating(Rating r) {
-		Deck d = ds.getDeck(r.getDeckId());
-		User u = us.getUser(d.getCreator().getId());
-
-		long currentTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
-		int match = 0;
-
-		List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
-
-		for (Rating rating : ratings) {
-			if ((rating.getRatedOn() >= startWeekTime && rating.getRatedOn() <= endWeekTime)
-					&& (rating.getStars() == 5)) {
-				match++;
-			}
-		}
-
-		// if get one 5 star rating 
-		if (match == 1) {
-			u.setPoints(u.getPoints() + 300);
-		}
-
-		us.updateUser(u);
-	}
 
 	@Override
 	public void setMarkTwoStudiedDeck(int userId) {
@@ -230,6 +261,43 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		us.updateUser(u);
 
 	}
+	
+	@Override
+	public void getMarkTwoStudiedDeck(User u) {
+		List<Deck> allDecks = ds.getAllDecks();
+		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
+
+		long currentTime = new Date().getTime();
+		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+		long endWeekTime = startWeekTime + WEEKLY_MS;
+
+		int deckCompleted = 0;
+
+		for (Deck d : allDecks) {
+			int cardMatch = 0;
+			for (Card c : d.getCards()) {
+				studiedCardLoop: for (StudiedCard scard : userStudiedCards) {
+					if ((scard.getCardId() == c.getId())
+							&& (scard.getStudiedOn() >= startWeekTime && scard.getStudiedOn() <= endWeekTime)) {
+						cardMatch++;
+						break studiedCardLoop;
+					}
+				}
+			}
+			if (cardMatch == d.getCards().size()) {
+				deckCompleted++;
+			}
+		}
+
+		if (deckCompleted == 1) {
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 1, 2));
+		} else if (deckCompleted < 2) {
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
+		} else {
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 0, 2));
+		}
+
+	}
 
 	@Override
 	public void setMarkFiveCardsDaily(int userId) {
@@ -254,6 +322,26 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 		us.updateUser(u);
 
+	}
+	
+	@Override
+	public void getMarkFiveCardsDaily(User u) {
+		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
+		long midnight = getMidnight();
+
+		int studiedCardCount = 0;
+
+		for (StudiedCard scard : userStudiedCards) {
+			if (scard.getStudiedOn() >= midnight && scard.getStudiedOn() <= midnight + DAILY_MS) {
+				studiedCardCount++;
+			}
+		}
+
+		if (studiedCardCount == 5) {
+			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, 5, 5));
+		}  else {
+			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
+		}		
 	}
 
 	@Override
@@ -283,6 +371,30 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		us.updateUser(u);
 
 	}
+	
+	@Override
+	public void getRateADeckDaily(User u) {
+		List<Rating> userRatings = rs.getRatingByUserId(u.getId());
+
+		long midnight = getMidnight();
+
+		int matchRating = 0;
+
+		for (Rating r : userRatings) {
+			if (r.getRatedOn() >= midnight && r.getRatedOn() <= midnight + DAILY_MS) {
+				matchRating++;
+			}
+		}
+
+		if (matchRating == 0) {
+			u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
+		} else if (matchRating == 1) {
+			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
+		} else {
+			u.getObjectives().add(new Objective("Rate a Deck", 20, matchRating, 1));
+		}
+
+	}
 
 	private long getMidnight() {
 		Calendar c = new GregorianCalendar();
@@ -302,6 +414,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		}
 		return startTime;
 	}
+
+	
+
+	
 
 
 }
