@@ -104,7 +104,7 @@ public class DeckServiceImpl implements DeckService {
                 card.setDeck(addedDeck);
                 card = cs.updateCard(card);
             }
-            
+            os.setCreateADeckWeekly(d.getCreator().getId());
             return addedDeck;
         }
     }

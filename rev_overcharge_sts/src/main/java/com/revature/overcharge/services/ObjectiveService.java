@@ -19,15 +19,17 @@ public interface ObjectiveService {
 
     public void loginObj(User user);
     
-    public void createADeckWeekly(User u);
+    public void setCreateADeckWeekly(int userId);
     
-    public void get5StarDeckWeekly(User u);
-
-	public void markTwoStudiedDeck(User u);
+	public void setMarkTwoStudiedDeck(int userId);
 	
-	public void markFiveCardsDaily(User u);
+	public void get5StarDeckWeekly(User user);
 	
-	public void rateADeckDaily(User u);
+	public void set5StarDeckWeeklyFromRating(Rating r);
+	
+	public void setMarkFiveCardsDaily(int userId);
+	
+	public void setRateADeckDaily(int userId);
 		
 
 }
