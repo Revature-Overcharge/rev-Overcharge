@@ -37,6 +37,7 @@ public class DeckServiceTests {
 		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new page", null, card));
 		deck = ds.addDeck(deck);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		System.out.println(deck);
 				
 		Assertions.assertNotEquals(0, deck.getId());
@@ -78,6 +79,12 @@ public class DeckServiceTests {
         assertFalse(true);
     }
 =======
+=======
+
+		Assertions.assertEquals(1, deck.getId());
+	}
+
+>>>>>>> e12a4483eb61cb0f12273243ffef9c1f237aae43
 	@Test
 	void getDeckTest() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -123,6 +130,11 @@ public class DeckServiceTests {
 //	void getDecksByCreatorIdTest() {
 //		assertFalse(true);
 //	}
+<<<<<<< HEAD
 >>>>>>> d1c1fc77c87d5bc36f76d63940be424a5a73a1ad
 
 }
+=======
+
+}
+>>>>>>> e12a4483eb61cb0f12273243ffef9c1f237aae43

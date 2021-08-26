@@ -1,11 +1,15 @@
 package com.revature.overcharge.runners;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.junit.Cucumber;
 
@@ -22,6 +26,13 @@ public abstract class Runner {
 		
 		driver = chromeSetup(filePath+"/chromedriver.exe");
 //		driver = firefoxSetup(filePath+"/file name.exe");
+		
+		
+	}
+	
+	@Before
+	public static void beforeTest() {
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@AfterClass
