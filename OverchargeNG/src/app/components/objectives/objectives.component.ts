@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 import { ObjectivesService } from 'src/app/services/objectives.service';
 
@@ -11,6 +12,7 @@ export class ObjectivesComponent implements OnInit {
 
   userPointCount: number;
   value: number;
+  value1:number;
   progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
 
   dailyObj = this.objData.loginObj;
@@ -32,10 +34,18 @@ export class ObjectivesComponent implements OnInit {
   nameObj6 = this.objData.weeklyObj3.name;
   pointsObj6 = this.objData.weeklyObj3.pointsToAward;
 
+  objectivesList: User;
+
   constructor(private objData: ObjectivesService, private user: LoginService) { }
 
   ngOnInit(): void {
     this.objData.checkComplete();
+
+    this.objData.getObjectives().subscribe((response) => {
+      console.log(response);
+      this.objectivesList = response;
+    }
+  );
 
     if (this.user.getUsername() == 'Guest'){
       this.userPointCount = 0;
@@ -62,6 +72,7 @@ export class ObjectivesComponent implements OnInit {
   checkValue(){
     this.objData.checkValue();
     this.value = this.objData.getValue();
+    this.value1 = this.objData.value1;
     this.progressBar = this.objData.getProgressBar();
   }
 }

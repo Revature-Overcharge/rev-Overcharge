@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -6,10 +8,11 @@ import { Injectable } from '@angular/core';
 
 export class ObjectivesService {
 
-  constructor() { }
+  constructor( private http: HttpClient) { }
 
   count: number = 0;
   value: number;
+  value1:number = 50;
   progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
 
   loginObj = {name:"Login", pointsToAward: "10", progressCount:"0", countForGoal:"1"};
@@ -36,7 +39,7 @@ export class ObjectivesService {
 
   randomDailyObj(){
     let dailyObj = [
-    {name:"Rank a Set", pointsToAward: "10", progressCount:"0", countForGoal:"1"},
+    {name:"Rank a Set", pointsToAward: "10", progressCount:"1", countForGoal:"1"},
     {name:"Create 5 Sets", pointsToAward: "150", progressCount:"0", countForGoal:"5"},
     {name:"Create 3 Cards", pointsToAward: "50", progressCount:"0", countForGoal:"3"},
     {name:"Create 5 Cards", pointsToAward: "150", progressCount:"0", countForGoal:"5"},
@@ -66,7 +69,7 @@ export class ObjectivesService {
 
     switch(this.count){
       case 1:
-        this.value = 25;
+        this.value = 100;
         break;
       case 2:
         this.value = 50;
@@ -82,5 +85,9 @@ export class ObjectivesService {
         this.count = 0;
         this.value = 0;
     }
+  }
+
+  getObjectives(){
+    return this.http.get<User>('http://localhost:8080/users/' + localStorage.getItem("userID") + '/objectives');
   }
 }
