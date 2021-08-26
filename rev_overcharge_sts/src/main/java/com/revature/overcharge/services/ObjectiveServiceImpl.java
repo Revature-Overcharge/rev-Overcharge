@@ -99,8 +99,13 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
 		long endWeekTime = startWeekTime + WEEKLY_MS;
 
-		List<Deck> decks = ds.getDecksByCreatorId(u.getId());
+		List<Deck> decks = new ArrayList<Deck>();
 
+		try {
+			decks = ds.getDecksByCreatorId(u.getId());
+		} catch (ResponseStatusException e) {
+			return;
+		}
 		int qualifiedDecks = 0;
 
 		for (Deck deck : decks) {
