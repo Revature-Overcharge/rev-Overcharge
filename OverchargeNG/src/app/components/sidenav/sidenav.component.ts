@@ -119,11 +119,6 @@ export class SidenavComponent implements OnInit {
       (response) => {
         if (response) {
           this.user = response;
-<<<<<<< HEAD
-          console.log(this.user);
-          localStorage.setItem("userID", JSON.stringify(this.user.id));
-=======
->>>>>>> 17b85d389a953fd07982d40de21c43577c1bce4d
           console.log("Response : " + JSON.stringify(this.user.id));
 
           this.loginServ.setUsername(this.user.username);
