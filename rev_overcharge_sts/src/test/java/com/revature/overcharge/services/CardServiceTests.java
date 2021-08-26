@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.StudiedCard;
+import com.revature.overcharge.beans.User;
 import com.revature.overcharge.repositories.CardRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
@@ -35,6 +36,8 @@ public class CardServiceTests {
 		// Card(int id, Deck deck, String question, String answer, Long createdOn)
 		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
 
+		card = cs.addCard(1, card);
+		
 		Assertions.assertEquals("whats your name", card.getQuestion());
 	}
 
@@ -50,12 +53,13 @@ public class CardServiceTests {
 
 	@Test
 	void updateCardTest() {
-		Deck deck = new Deck();
-//		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
-		Card card = new Card("whats your lastName", "my name is Elhewazy", null);
 
-		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your lastName", "my name is Elhewazy", null));
-//		card = cs.updateCard(card);
+//		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
+		Card card = new Card(1, null, "whats your lastNameAH", "my name is Elhewazy", null);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		Mockito.when(cr.save(card)).thenReturn(new Card(1, null, "whats your lastName", "my name is Elhewazy", null));
+		card = cs.updateCard(card);
 		Assertions.assertEquals("whats your lastName", card.getQuestion());
 		Assertions.assertEquals("my name is Elhewazy", card.getAnswer());
 	}
@@ -65,14 +69,14 @@ public class CardServiceTests {
 		Deck deck = new Deck();
 //		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
 		Card card = new Card(1, deck, "whats your name", "my name is ahmed", null);
+		Mockito.when(cr.existsByDeckId(card.getId())).thenReturn(true);
 		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
 		// Card(int id, Deck deck, String question, String answer, Long
 		// createdOn)(card);
-		card = cs.addCard(0, card);
+		card = cs.addCard(1, card);
 		// card = new Card(1, deck, "whats your name", "my name is ahmed", null);
 
 		Assertions.assertEquals(1, card.getId());
-
 	}
 
 	@Test
