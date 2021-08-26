@@ -134,22 +134,24 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		try {
 			decks = ds.getDecksByCreatorId(u.getId());
 		} catch (ResponseStatusException e) {
+			u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, 0, 1));
 			return;
 		}
 
 		List<Rating> ratings = rs.getAllRatings();
 
-		deckLoop: for (Deck d : decks) {
+		for (Deck d : decks) {
 			for (Rating r : ratings) {
 				if (d.getId() == r.getDeckId()) {
 					if ((r.getRatedOn() >= startWeekTime && r.getRatedOn() <= endWeekTime) && (r.getStars() == 5)) {
 //						u.setPoints(u.getPoints() + 300);
 						u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, 1, 1));
-						break deckLoop;
+						return;
 					}
 				}
 			}
 		}
+		u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, 0, 1));
 //		us.updateUser(u);
 	}
 
@@ -185,6 +187,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		List<StudiedCard> studiedCards = markFiveCardsDaily(u);
 		
 		if (studiedCards == null) {
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 0, 2));
 			return;
 		}
 
@@ -224,6 +227,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			resetDates(studiedCards);
 //			scs.updateCard(sc);
 		} else if (deckCompleted < 2) {
+			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
+		} else {
 			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
 		}
 
