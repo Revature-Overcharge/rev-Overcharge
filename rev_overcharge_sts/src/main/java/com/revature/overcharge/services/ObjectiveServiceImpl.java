@@ -94,11 +94,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	}
 
 	@Override
-	public void createADeckWeekly(Deck d) {
-		User u = us.getUser(d.getCreator().getId());
-		d.setCreator(u);
+	public void createADeckWeekly(User u) {
+		u = us.getUser(u.getId());
 
-		long createdTime = d.getCreatedOn();
+		long createdTime = new Date().getTime();
 		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
 		long endWeekTime = startWeekTime + WEEKLY_MS;
 
@@ -169,7 +168,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			}
 		}
 
-		// if get one 5 star rating 
+		// if get one 5 star rating
 		if (match == 1) {
 			u.setPoints(u.getPoints() + 300);
 		}
@@ -178,13 +177,15 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	}
 
 	@Override
-	public void markTwoStudiedDeck(StudiedCard sc) {
+	public void markTwoStudiedDeck(User u) {
 		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
-		if (markFiveCardsDaily(sc) != null) {
-			studiedCards = markFiveCardsDaily(sc);
-		}
 		
-		User u = us.getUser(sc.getUserId());
+		if (markFiveCardsDaily(u) != null) {
+			studiedCards = markFiveCardsDaily(u);
+		}
+
+		// not sure if this line is needed
+		u = us.getUser(u.getId());
 		List<Deck> allDecks = ds.getAllDecks();
 		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
 
@@ -215,25 +216,26 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			u.setPoints(u.getPoints() + 300);
 			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 1, 2));
 			// This is to prevent from counting again
-			studiedCards.add(sc);
+//			studiedCards.add(sc);
 			resetDates(studiedCards);
-			scs.updateCard(sc);
+//			scs.updateCard(sc);
 		} else if (deckCompleted < 2) {
 			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
 		}
-		
+
 		System.out.println(u.getObjectives());
 		resetDates(studiedCards);
 		us.updateUser(u);
 
 	}
-	
+
 	@Override
-	public List<StudiedCard> markFiveCardsDaily(StudiedCard sc) {
-		User u = us.getUser(sc.getUserId());
+	public List<StudiedCard> markFiveCardsDaily(User u) {
+		// again, not sure if this is redundant
+		u = us.getUser(u.getId());
 		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
 		long midnight = getMidnight();
-		
+
 		int studiedCardCount = 0;
 		List<StudiedCard> processedCards = new ArrayList<StudiedCard>();
 
@@ -243,26 +245,56 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 				studiedCardCount++;
 			}
 		}
-		
+
 		if (studiedCardCount >= 5) {
 			u.setPoints(u.getPoints() + 50);
 			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
 		} else {
 			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
 		}
-		
+
 		System.out.println(u.getObjectives());
 
 		us.updateUser(u);
-		
+
 		if (studiedCardCount >= 5) {
 			return processedCards;
 		} else {
 			return null;
 		}
 	}
-	
 
+	@Override
+	public void rateADeckDaily(User u) {
+		u = us.getUser(u.getId());
+		List<Rating> userRatings = rs.getRatingByUserId(u.getId());
+		
+		long midnight = getMidnight();
+		
+		int matchRating = 0;
+		
+		for (Rating r : userRatings) {
+			if (r.getRatedOn() >= midnight && r.getRatedOn() <= midnight + DAILY_MS) {
+				matchRating++;
+			}
+		}
+		
+		if (matchRating == 0) {
+			u.setPoints(u.getPoints() + 20);
+			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
+		} else if (matchRating == 1) {
+			u.setPoints(u.getPoints() + 20);
+			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
+		} else {
+			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
+
+		}
+		
+		us.updateUser(u);
+		System.out.println(u.getObjectives());
+
+	}
+	
 	private long getWeekStart(long startTime, long currentTime) {
 		while (startTime <= currentTime) {
 			startTime += WEEKLY_MS;
@@ -272,7 +304,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		}
 		return startTime;
 	}
-	
+
 	private void resetDates(List<StudiedCard> cards) {
 		for (StudiedCard sc : cards) {
 			sc.setStudiedOn(sc.getStudiedOn() - DAILY_MS);
@@ -281,17 +313,14 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	}
 
 	@Override
-	public void rateADeckDaily(Rating r) {
-		User u = us.getUser(r.getUserId());
-		u.setPoints(u.getPoints() + 50);
-		u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
-		r.setRatedOn(r.getRatedOn() - DAILY_MS);
-		rs.updateRating(r);
-		us.updateUser(u);
-		System.out.println(u.getObjectives());
+	public User getAllObjectives(User u) {
+		get5StarDeckWeekly(u);
+		// this also checks to see if they marked 5 studied cards in that day
+		markTwoStudiedDeck(u);
+		rateADeckDaily(u);
+		createADeckWeekly(u);
 		
+		return u;
 	}
-
-	
 
 }

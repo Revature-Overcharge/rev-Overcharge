@@ -19,19 +19,21 @@ public interface ObjectiveService {
 
     public void loginObj(User user);
     
-    public void createADeckWeekly(Deck d);
+    public void createADeckWeekly(User u);
     
     // Show if user completed the 5star object on login
     public void get5StarDeckWeekly(User u);
 
     // Determine if deck has 5 star via rating route
 	public void set5StarDeckWeeklyFromRating(Rating r);
+		
+	public void markTwoStudiedDeck(User u);
 	
-	public void markTwoStudiedDeck(StudiedCard sc);
+	public List<StudiedCard> markFiveCardsDaily(User u);
 	
-	public List<StudiedCard> markFiveCardsDaily(StudiedCard sc);
+	public void rateADeckDaily(User u);
 	
-	public void rateADeckDaily(Rating r);
+	public User getAllObjectives(User u);
 	
 
 }

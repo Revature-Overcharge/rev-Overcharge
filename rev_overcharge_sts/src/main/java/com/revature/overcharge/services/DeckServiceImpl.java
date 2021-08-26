@@ -105,9 +105,6 @@ public class DeckServiceImpl implements DeckService {
                 card = cs.updateCard(card);
             }
             
-            os.createADeckWeekly(addedDeck);
-            // Testing to see if the objective has printed out
-            System.out.println(d.getCreator().getObjectives());
             return addedDeck;
         }
     }

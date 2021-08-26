@@ -21,4 +21,5 @@ public interface RatingService {
     
     public Rating updateRating(Rating r);
 
+    public List<Rating> getRatingByUserId(int userId);
 }
