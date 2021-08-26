@@ -13,7 +13,7 @@ export class CardService {
   private postHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   getCardsByDeckId(id: number): Observable<Card[]>{
-    return this.http.get<Card[]>('http://localhost:8080/decks/' + id + '/cards');
+    return this.http.get<Card[]>('http://localhost:8081/decks/' + id + '/cards');
   }
 
   addCard(id: number, card: Card): Observable<Card>{
