@@ -36,55 +36,10 @@ public class DeckServiceTests {
 		// Deck(int id, User creator, String title, Long createdOn, List<Card> cards)
 		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new page", null, card));
 		deck = ds.addDeck(deck);
-<<<<<<< HEAD
-<<<<<<< HEAD
-		System.out.println(deck);
-				
-		Assertions.assertNotEquals(0, deck.getId());
-		Assertions.assertEquals("test deck", deck.getTitle());
-    }
-
-    @Test
-    void getDeckTest() {
-		Deck deck = new Deck(1, null, "test deck", 982374983L, null);
-		Optional<Deck> optionI = Optional.of(deck);
-	
-			
-		Assertions.assertEquals(1, optionI.get().getId());
-    }
-
-    @Test
-    void updateDeckTest() {
-		Deck deck = new Deck(1, null, "test deck", 982374983L, null);
-		
-		deck = ds.updateDeck(deck);
-=======
-
->>>>>>> d1c1fc77c87d5bc36f76d63940be424a5a73a1ad
-		Assertions.assertEquals(1, deck.getId());
-	}
-
-<<<<<<< HEAD
-    @Test
-    void deleteDeckTest() {
-		Deck deck = new Deck(null, "test deck", 982374983L, null);
-		deck = ds.addDeck(deck);
-		
-		boolean ret = ds.deleteDeck(deck.getId());
-		Assertions.assertTrue(ret);
-    }
-
-    @Test
-    void getDecksByCreatorIdTest() {
-        assertFalse(true);
-    }
-=======
-=======
 
 		Assertions.assertEquals(1, deck.getId());
 	}
 
->>>>>>> e12a4483eb61cb0f12273243ffef9c1f237aae43
 	@Test
 	void getDeckTest() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -130,11 +85,5 @@ public class DeckServiceTests {
 //	void getDecksByCreatorIdTest() {
 //		assertFalse(true);
 //	}
-<<<<<<< HEAD
->>>>>>> d1c1fc77c87d5bc36f76d63940be424a5a73a1ad
 
 }
-=======
-
-}
->>>>>>> e12a4483eb61cb0f12273243ffef9c1f237aae43

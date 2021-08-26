@@ -86,10 +86,5 @@ public class CardServiceTests {
 		cr.delete(card);
 
 	}
-<<<<<<< HEAD
-
-}
-=======
->>>>>>> e12a4483eb61cb0f12273243ffef9c1f237aae43
 
 }
