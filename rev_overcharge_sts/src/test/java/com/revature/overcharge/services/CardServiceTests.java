@@ -35,14 +35,14 @@ public class CardServiceTests {
     @Test
     void addCardTest() {
         Card newCard1 = new Card(null, null, null);
-        assertNotNull(cs.addCard(newCard1));
+        assertNotNull(cs.addCard(0, newCard1));
         Card newCard = new Card(1, null, null, null);
         assertThrows(ResponseStatusException.class, () -> {
-            cs.addCard(newCard);
+            cs.addCard(0, newCard);
         });
 		Card card = new Card("question", "answer", 87687687L);
 
-		card = cs.addCard(card);
+		card = cs.addCard(0, card);
 		System.out.println(card);
 				
 		Assertions.assertNotEquals(0, card.getId());
@@ -70,7 +70,7 @@ public class CardServiceTests {
     @Test
     void deleteCardTest() {
 		Card card = new Card("question", "answer", 987987L);
-		card = cs.addCard(card);
+		card = cs.addCard(0, card);
 		
 		boolean ret = cs.deleteCard(card.getId());
 		Assertions.assertTrue(ret);
@@ -82,3 +82,4 @@ public class CardServiceTests {
     }
 
 }
+
