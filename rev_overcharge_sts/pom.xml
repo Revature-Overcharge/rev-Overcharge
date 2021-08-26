@@ -15,7 +15,10 @@
 	<name>rev_overcharge_sts</name>
 	<description>Revature Project 3 for 210607 Reston Batch</description>
 	<properties>
-		<java.version>1.8</java.version>
+		 <java.version>1.8</java.version>
+		 <sonar.organization>revature-overcharge</sonar.organization>
+  		 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		 <skipTests>true</skipTests>
 	</properties>
 	<dependencies>
 		<dependency>

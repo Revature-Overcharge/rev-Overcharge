@@ -42,16 +42,23 @@ public class StudiedCardServiceImpl implements StudiedCardService {
 
     @Override
     public List<StudiedCard> getStudiedCards(Integer userId, Integer cardId) {
+        List<StudiedCard> studiedCards;
         if (userId != null) {
             if (cardId != null) {
-                return scr.getByUserIdAndCardId(userId, cardId);
+                studiedCards = scr.getByUserIdAndCardId(userId, cardId);
             } else {
-                return scr.getByUserId(userId);
+                studiedCards = scr.getByUserId(userId);
             }
         } else if (cardId != null) {
-            return scr.getByCardId(cardId);
+            studiedCards = scr.getByCardId(cardId);
         } else {
-            return (List<StudiedCard>) scr.findAll();
+            studiedCards = (List<StudiedCard>) scr.findAll();
+        }
+        if (!studiedCards.isEmpty()) {
+            return studiedCards;
+        } else {
+            log.warn("User id and/or card id are not found on any ratings in database");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 

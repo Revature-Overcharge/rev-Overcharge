@@ -61,15 +61,36 @@ public class RatingServiceTests {
         ratingObjList.add(rs.saveRating(ratingObj));
         assertEquals(ratingObjList, rs.getRatings(2, 1));
     }
+    
+    @Test
+    void getRatingsByUserIdAndDeckIdFail() {
+        assertThrows(ResponseStatusException.class, () -> {
+            rs.getRatings(100, 100);
+        });
+    }
 
     @Test
     void getRatingsByUserIdPass() {
         assertEquals(2, rs.getRatings(8, null).size());
     }
+    
+    @Test
+    void getRatingsByUserIdFail() {
+        assertThrows(ResponseStatusException.class, () -> {
+            rs.getRatings(100, null);
+        });
+    }
 
     @Test
     void getRatingsByDeckIdPass() {
         assertEquals(3, rs.getRatings(null, 2).size());
+    }
+    
+    @Test
+    void getRatingsByDeckIdFail() {
+        assertThrows(ResponseStatusException.class, () -> {
+            rs.getRatings(null, 100);
+        });
     }
 
     @Test

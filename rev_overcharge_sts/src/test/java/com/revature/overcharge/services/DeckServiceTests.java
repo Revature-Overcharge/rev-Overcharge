@@ -23,7 +23,7 @@ public class DeckServiceTests {
     public DeckService ds;
 
     @Test
-    void addDeckTest() {
+    void addDeckTestPass() {
 		Deck deck = new Deck(null, "test deck", 982374983L, null);
 
 		deck = ds.addDeck(deck);
@@ -35,7 +35,7 @@ public class DeckServiceTests {
 
     @Test
     void getDeckTest() {
-		Deck deck = new Deck(1, null, "test deck", 982374983L);
+		Deck deck = new Deck(1, null, "test deck", 982374983L, null);
 		Optional<Deck> optionI = Optional.of(deck);
 	
 			
@@ -44,7 +44,7 @@ public class DeckServiceTests {
 
     @Test
     void updateDeckTest() {
-		Deck deck = new Deck(1, null, "test deck", 982374983L);
+		Deck deck = new Deck(1, null, "test deck", 982374983L, null);
 		
 		deck = ds.updateDeck(deck);
 		Assertions.assertEquals(1, deck.getId());
@@ -53,7 +53,7 @@ public class DeckServiceTests {
 
     @Test
     void deleteDeckTest() {
-		Deck deck = new Deck(null, "test deck", 982374983L);
+		Deck deck = new Deck(null, "test deck", 982374983L, null);
 		deck = ds.addDeck(deck);
 		
 		boolean ret = ds.deleteDeck(deck.getId());
