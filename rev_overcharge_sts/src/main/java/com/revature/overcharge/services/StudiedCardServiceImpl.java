@@ -40,6 +40,8 @@ public class StudiedCardServiceImpl implements StudiedCardService {
             sc.setStudiedOn(new Date().getTime());
             log.info(sc.toString());
             sc = scr.save(sc);
+            os.setMarkFiveCardsDaily(sc.getUserId());
+            os.setMarkTwoStudiedDeck(sc.getUserId());
             return sc;
         }
     }
