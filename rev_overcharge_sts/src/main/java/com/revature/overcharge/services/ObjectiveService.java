@@ -11,7 +11,7 @@ import com.revature.overcharge.beans.User;
 
 public interface ObjectiveService {
 
-    public List<Objective> getAllObjectivesForUser(int id);
+    public User getAllObjectivesForUser(int id);
 
     public void addCardObj(Card c);
 

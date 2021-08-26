@@ -37,14 +37,14 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	private int DAILY_MS = 86_400_000;
 
 	@Override
-	public List<Objective> getAllObjectivesForUser(int id) {
+	public User getAllObjectivesForUser(int id) {
 		User u = us.getUser(id);
 		get5StarDeckWeekly(u);
 		getMarkFiveCardsDaily(u);
 		getMarkTwoStudiedDeck(u);
 		getRateADeckDaily(u);
 		getCreateADeckWeekly(u);
-		return u.getObjectives();
+		return u;
 	}
 
 	@Override
