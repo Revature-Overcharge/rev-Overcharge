@@ -68,7 +68,7 @@ public class CardServiceTests {
 		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
 		// Card(int id, Deck deck, String question, String answer, Long
 		// createdOn)(card);
-		card = cs.addCard(card);
+		card = cs.addCard(0, card);
 		// card = new Card(1, deck, "whats your name", "my name is ahmed", null);
 
 		Assertions.assertEquals(1, card.getId());
