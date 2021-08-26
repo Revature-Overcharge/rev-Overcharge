@@ -21,7 +21,7 @@ public class ObjectiveController {
     @GetMapping(value = "/users/{id}/objectives")
     public List<Objective> getAllObjectivesForUser(
             @PathVariable("id") String id) {
-        return os.getAllObjectivesForUser(id);
+        return os.getAllObjectivesForUser(Integer.parseInt(id));
     }
 
 }

@@ -11,7 +11,7 @@ import com.revature.overcharge.beans.User;
 
 public interface ObjectiveService {
 
-    public List<Objective> getAllObjectivesForUser(String id);
+    public List<Objective> getAllObjectivesForUser(int id);
 
     public void addCardObj(Card c);
 
@@ -32,8 +32,6 @@ public interface ObjectiveService {
 	public List<StudiedCard> markFiveCardsDaily(User u);
 	
 	public void rateADeckDaily(User u);
-	
-	public User getAllObjectives(User u);
-	
+		
 
 }

@@ -37,8 +37,15 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 	private int DAILY_MS = 86_400_000;
 
 	@Override
-	public List<Objective> getAllObjectivesForUser(String id) {
-		return null;
+	public List<Objective> getAllObjectivesForUser(int id) {
+		User u = us.getUser(id);
+		get5StarDeckWeekly(u);
+		// this also checks to see if they marked 5 studied cards in that day
+		markTwoStudiedDeck(u);
+		rateADeckDaily(u);
+		createADeckWeekly(u);
+		
+		return u.getObjectives();
 	}
 
 	@Override
@@ -284,17 +291,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		us.updateUser(u);
 		System.out.println(u.getObjectives());
 
-	}
-
-	@Override
-	public User getAllObjectives(User u) {
-		get5StarDeckWeekly(u);
-		// this also checks to see if they marked 5 studied cards in that day
-		markTwoStudiedDeck(u);
-		rateADeckDaily(u);
-		createADeckWeekly(u);
-		
-		return u;
 	}
 	
 	private long getMidnight() {
