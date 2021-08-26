@@ -44,7 +44,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		getMarkTwoStudiedDeck(u);
 		getRateADeckDaily(u);
 		getCreateADeckWeekly(u);
-		return u.getObjectives();
+		return u;
 	}
 
 	@Override
