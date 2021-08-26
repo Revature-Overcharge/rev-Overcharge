@@ -32,6 +32,10 @@ export class HttpDeckService {
     return this.http.put<Deck>('http://localhost:8080/decks/' + deck.id, deck, { headers: this.postHeaders });
   }
 
+  updateDeckAndCards(deck: Deck): Observable<Deck> {
+    return this.http.put<Deck>('http://localhost:8080/decks/' + deck.id + '/cards', deck, { headers: this.postHeaders });
+  }
+
   deleteDeck(id: number): Observable<boolean>{
     return this.http.delete<boolean>('http://localhost:8080/decks/' + id);
   }
