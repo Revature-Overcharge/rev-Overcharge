@@ -64,8 +64,8 @@ export class TimerComponent implements OnInit, OnChanges {
         this.status = "Inactive";
         break;
       case 'done':
-        alert(`The ${this.mode.name} timer is over!`);
         this.status = "Complete";
+        alert(`The ${this.mode.name} timer is over!`);
         break;
       default:
         this.status = 'Error';
