@@ -104,6 +104,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		try {
 			decks = ds.getDecksByCreatorId(u.getId());
 		} catch (ResponseStatusException e) {
+			u.getObjectives().add(new Objective("Create a Set", 100, 0, 1));
 			return;
 		}
 		int qualifiedDecks = 0;
@@ -118,7 +119,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			u.setPoints(u.getPoints() + 100);
 			u.getObjectives().add(new Objective("Create a Set", 100, 1, 1));
 		}
-
+		
 		us.updateUser(u);
 	}
 
