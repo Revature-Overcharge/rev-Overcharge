@@ -182,10 +182,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 	@Override
 	public void markTwoStudiedDeck(User u) {
-		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
+		List<StudiedCard> studiedCards = markFiveCardsDaily(u);
 		
-		if (markFiveCardsDaily(u) != null) {
-			studiedCards = markFiveCardsDaily(u);
+		if (studiedCards == null) {
+			return;
 		}
 
 		// not sure if this line is needed
