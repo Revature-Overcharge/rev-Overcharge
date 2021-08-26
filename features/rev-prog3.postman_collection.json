@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "4551246b-1181-4d54-9dbc-519f0371fcc2",
+		"name": "rev-prog3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Deck",
+			"item": [
+				{
+					"name": "addDeck",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"creator\":{\"id\": \"2\",\r\n        \"username\": \"snassey1\",\r\n        \"password\": \"CwQOZeX\",\r\n        \"points\": \"68\",\r\n        \"lastLogin\": 1629315706000},\r\n    \"title\":\"new geck\",\r\n    \"createdOn\":\"1629315906000\",\r\n    \"cards\":[{}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/decks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"decks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDeck",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"creator\": {\r\n        \"id\": 2,\r\n        \"username\": \"snassey1\",\r\n        \"password\": \"CwQOZeX\",\r\n        \"points\": 68,\r\n        \"lastLogin\": 1629315706000\r\n    },\r\n    \"title\": \"DevOps\",\r\n    \"createdOn\": 1629315906000,\r\n    \"cards\": [\r\n        {\r\n            \"id\": 1,\r\n            \"question\": \"A _______ is the term used for a Jenkins build workflow that you configure for a project.\",\r\n            \"answer\": \"Job\",\r\n            \"createdOn\": 1629315687000\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"question\": \"A ______ defines when a Jenkins will begin a build.\",\r\n            \"answer\": \"Build configurations\",\r\n            \"createdOn\": 1629315931000\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"question\": \"For EC2, which instance state will completely remove the instance and its backing store?\",\r\n            \"answer\": \"Terminate\",\r\n            \"createdOn\": 1629315775000\r\n        },\r\n        {\r\n            \"id\": 4,\r\n            \"question\": \"What are advantages of DevOps?\",\r\n            \"answer\": \"Faster code delivery\",\r\n            \"createdOn\": 1629315794000\r\n        },\r\n        {\r\n            \"id\": 5,\r\n            \"question\": \"What does the AWS S3 service provide?\",\r\n            \"answer\": \"Persistent storage\",\r\n            \"createdOn\": 1629315613000\r\n        },\r\n        {\r\n            \"id\": 6,\r\n            \"question\": \"What does the acronym AMI mean?\",\r\n            \"answer\": \"Amazon Machine Image\",\r\n            \"createdOn\": 1629315840000\r\n        },\r\n        {\r\n            \"id\": 7,\r\n            \"question\": \"What is the default location of your local repository?\",\r\n            \"answer\": \"userhome/.m2/repository\",\r\n            \"createdOn\": 1629315549000\r\n        },\r\n        {\r\n            \"id\": 8,\r\n            \"question\": \"What is Maven?\",\r\n            \"answer\": \" A build automation and project management tool\",\r\n            \"createdOn\": 1629315825000\r\n        },\r\n        {\r\n            \"id\": 9,\r\n            \"question\": \"POM stands for:\",\r\n            \"answer\": \"Project Object Model\",\r\n            \"createdOn\": 1629315697000\r\n        },\r\n        {\r\n            \"id\": 10,\r\n            \"question\": \"Which AWS service creates a virtual machine in the cloud?\",\r\n            \"answer\": \"EC2\",\r\n            \"createdOn\": 1629315596000\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"question\": \"Which AWS service provides DNS translation?\",\r\n            \"answer\": \"Route 53\",\r\n            \"createdOn\": 1629315991000\r\n        },\r\n        {\r\n            \"id\": 12,\r\n            \"question\": \"Which service is a type of storage container for data in AWS?\",\r\n            \"answer\": \"S3\",\r\n            \"createdOn\": 1629315671000\r\n        },\r\n        {\r\n            \"id\": 13,\r\n            \"question\": \"T/F: Stopping an instance will delete the instance and disassociate any data storage volumes and delete them as well.\",\r\n            \"answer\": \"False\",\r\n            \"createdOn\": 1629315966000\r\n        },\r\n        {\r\n            \"id\": 14,\r\n            \"question\": \"AWS VPC stands for?\",\r\n            \"answer\": \"Virtual Private Cloud\",\r\n            \"createdOn\": 1629315865000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/decks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDeck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/decks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getALLDecks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080//decks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"",
+								"decks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "addCared",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n \"cards\":{ \"question\":\"what is java\",\r\n    \"answer\":\"is program language\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/decks/1/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"decks",
+								"1",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cards/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCardById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cards/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
