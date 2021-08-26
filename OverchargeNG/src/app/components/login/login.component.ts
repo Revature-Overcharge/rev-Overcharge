@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { HttpUserService } from 'src/app/services/http-user.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -29,6 +28,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         if (response) {
           const user = response;
+          console.log("response");
 
           this.loginServ.setUsername(user.username);
           console.log("logged in: ", user.username);
@@ -63,6 +63,5 @@ export class LoginComponent implements OnInit {
       // }
     )
   }
-
 
 }

@@ -1,9 +1,13 @@
+import { ObjectivesComponent } from "../components/objectives/objectives.component";
+import { Objective } from "./objective";
+
 export class User {
     id: number;
     username: string;
     password: string;
     objective_points: number;
     last_login_on: number;
+    objectives: Objective[];
    
   
    

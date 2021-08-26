@@ -37,6 +37,4 @@ export class LoginService {
     }
     localStorage.setItem("username", username);
   }
-
-
 }

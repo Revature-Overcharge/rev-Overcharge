@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
 
   responseMessage: string = '';
   loggedIn : boolean;
+  loginPoints: boolean;
   closeResult = '';
   username: string = '';
   password: string = '';
@@ -110,6 +111,16 @@ export class HeaderComponent implements OnInit {
       (response) => {
         if (response) {
           this.user = response;
+          console.log(this.user);
+
+          if(this.user.objectives.length != 0){
+            this.loginPoints = true;
+          }
+
+          if (this.user.username == "user"){
+            this.loginPoints = true;
+            console.log(this.loginPoints) 
+          }
 
           this.loginServ.setUsername(this.user.username);
           console.log("logged in: ", this.user.username);
