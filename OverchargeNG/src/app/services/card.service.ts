@@ -17,10 +17,10 @@ export class CardService {
   }
 
   addCard(id: number, card: Card): Observable<Card>{
-    return this.http.post<Card>('http://localhost:8080/decks/' + id + '/cards', card, { headers: this.postHeaders});
+    return this.http.post<Card>('http://localhost:8081/decks/' + id + '/cards', card, { headers: this.postHeaders});
   }
 
   deleteCard(id: number): Observable<boolean>{
-    return this.http.delete<boolean>('http://localhost:8080/cards/' + id);
+    return this.http.delete<boolean>('http://localhost:8081/cards/' + id);
   }
 }
