@@ -44,6 +44,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		getCreateADeckWeekly(u);
 		get5StarDeckWeekly(u);
 		getMarkTwoStudiedDeck(u);
+		System.out.println(u);
 		return u;
 	}
 
@@ -193,7 +194,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		try {
 			decks = ds.getDecksByCreatorId(u.getId());
 		} catch (ResponseStatusException e) {
-			u.getObjectives().add(new Objective("5 Star Rating for Deck", 300, 0, 1));
+			u.getObjectives().add(new Objective("Get 5 Star Rating", 300, 0, 1));
 			return;
 		}
 
@@ -211,13 +212,12 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		}
 		if (matchedDeck == 1) {
 //			u.setPoints(u.getPoints() + 300);
-			u.getObjectives().add(new Objective("5 Star Rating for Deck", 300, 100, 1));
+			u.getObjectives().add(new Objective("Get 5 Star Rating", 300, 100, 1));
 		} else if (matchedDeck > 1) {
-			u.getObjectives().add(new Objective("5 Star Rating for Deck", 300, (matchedDeck / 1 * 100), 1));
+			u.getObjectives().add(new Objective("Get 5 Star Rating", 300, (matchedDeck / 1 * 100), 1));
 		} else {
-			u.getObjectives().add(new Objective("5 Star Rating for Deck", 300, 0, 1));
+			u.getObjectives().add(new Objective("Get 5 Star Rating", 300, 0, 1));
 		}
-		us.updateUser(u);
 	}
 
 	@Override
@@ -329,7 +329,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
 		long midnight = getMidnight();
 
-		int studiedCardCount = 0;
+		double studiedCardCount = 0;
 
 		for (StudiedCard scard : userStudiedCards) {
 			if (scard.getStudiedOn() >= midnight && scard.getStudiedOn() <= midnight + DAILY_MS) {
@@ -337,11 +337,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 			}
 		}
 
-		if (studiedCardCount == 5) {
-			u.getObjectives().add(new Objective("Master 5 cards", 50, 100, 5));
-		} else {
-			u.getObjectives().add(new Objective("Master 5 cards", 50, (studiedCardCount / 5 * 100), 5));
-		}
+		u.getObjectives().add(new Objective("Master 5 cards", 50, (int) (studiedCardCount / 5 * 100), 5));
 	}
 
 	@Override

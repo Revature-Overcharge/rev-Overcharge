@@ -36,7 +36,7 @@
       <!-- <countdown #cd [config]="timer.config"  class="mx-1"></countdown> -->
       <!-- {{countdown}} -->
     </a>
-    <a *ngIf="isGuest()" mat-list-item (click) = "open(content)">
+    <a *ngIf="isGuest()" mat-list-item (click) = "open(content)" routerLink="/library">
       <mat-icon>login</mat-icon> Log In
     </a>
 
