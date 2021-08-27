@@ -1,7 +1,10 @@
 package com.revature.overcharge.services;
 
+import static org.junit.Assert.assertThrows;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.StudiedCard;
+import com.revature.overcharge.beans.User;
 import com.revature.overcharge.repositories.CardRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
@@ -35,56 +40,104 @@ public class CardServiceTests {
 		// Card(int id, Deck deck, String question, String answer, Long createdOn)
 		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
 
+		card = cs.addCard(1, card);
+		
 		Assertions.assertEquals("whats your name", card.getQuestion());
+	}
+	
+	@Test
+	void addCardFailure() {
+		Deck deck = new Deck();
+		Card card = new Card("whats your name", "my name is ahmed", null);
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.addCard(1, card);
+        });
 	}
 
 	@Test
 	void getCardTest() {
 		Deck deck = new Deck();
-		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
-		Card card = new Card("whats your name", "my name is ahmed", null);
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
 
-		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		Mockito.when(cr.findById(card.getId())).thenReturn(Optional.of(card));;
+		
+		cs.getCard(card.getId());
+		
 		Assertions.assertEquals("my name is ahmed", card.getAnswer());
+	}
+	
+	@Test
+	void getCardFailure() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.getCard(card.getId());
+        });
 	}
 
 	@Test
 	void updateCardTest() {
-		Deck deck = new Deck();
-//		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
-		Card card = new Card("whats your lastName", "my name is Elhewazy", null);
 
-		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your lastName", "my name is Elhewazy", null));
-//		card = cs.updateCard(card);
+//		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
+		Card card = new Card(1, null, "whats your lastNameAH", "my name is Elhewazy", null);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		Mockito.when(cr.save(card)).thenReturn(new Card(1, null, "whats your lastName", "my name is Elhewazy", null));
+		card = cs.updateCard(card);
 		Assertions.assertEquals("whats your lastName", card.getQuestion());
 		Assertions.assertEquals("my name is Elhewazy", card.getAnswer());
 	}
-
+	
 	@Test
-	void getCardsByDeckIdTest() {
-		Deck deck = new Deck();
-//		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
-		Card card = new Card(1, deck, "whats your name", "my name is ahmed", null);
-		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
-		// Card(int id, Deck deck, String question, String answer, Long
-		// createdOn)(card);
-		card = cs.addCard(0, card);
-		// card = new Card(1, deck, "whats your name", "my name is ahmed", null);
-
-		Assertions.assertEquals(1, card.getId());
-
+	void updateCardFailure() {
+		Card card = new Card(1, null, "whats your lastNameAH", "my name is Elhewazy", null);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.updateCard(card);
+        });
 	}
 
 	@Test
 	void deleteCardTest() {
-
 		Deck deck = new Deck();
-		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
 
-		Card card = new Card("whats your name", "my name is ahmed", null);
-		cr.save(card);
-		cr.delete(card);
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		
+		Assertions.assertEquals(cs.deleteCard(card.getId()), true);
+	}
+	
+	@Test
+	void deleteCardFailure() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
 
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.deleteCard(card.getId());
+        });
+	}
+	
+	@Test
+	void getAllCardsTest() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+		List<Card> cList = new ArrayList<Card>();
+		cList.add(card);
+		
+		Mockito.when(cr.findAll()).thenReturn(cList);
+		
+		Assertions.assertNotNull(cList);
 	}
 
 }
