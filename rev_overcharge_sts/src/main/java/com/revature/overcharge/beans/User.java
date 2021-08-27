@@ -17,101 +17,108 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private int id;
 
-    private String username;
+	private String username;
 
-    private String password;
+	private String password;
 
-    private Integer points;
+	private Integer points;
 
-    @Column(name = "last_login")
-    private Long lastLogin;
+	@Column(name = "last_login")
+	private Long lastLogin;
 
-    @OneToMany(mappedBy = "creator")
-    @JsonIgnore
-    @Transient
-    private List<Deck> createdDecks;
+	@OneToMany(mappedBy = "creator")
+	@JsonIgnore
+	@Transient
+	private List<Deck> createdDecks;
 
-    public User() {
-        super();
-    }
+	public User() {
+		super();
+	}
 
-    public User(String username, String password, Integer points,
-            Long lastLogin) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.points = points;
-        this.lastLogin = lastLogin;
-    }
+	public User(String username, String password, Integer points, Long lastLogin) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.points = points;
+		this.lastLogin = lastLogin;
+	}
 
-    public User(int id, String username, String password, Integer points,
-            Long lastLogin) {
-        super();
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.points = points;
-        this.lastLogin = lastLogin;
-    }
+	public User(int id, String username, String password, Integer points, Long lastLogin) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.points = points;
+		this.lastLogin = lastLogin;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public User(int id, String username, String password, Integer points, Long lastLogin, List<Deck> createdDecks) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.points = points;
+		this.lastLogin = lastLogin;
+		this.createdDecks = createdDecks;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public Integer getPoints() {
-        return points;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
+	public Integer getPoints() {
+		return points;
+	}
 
-    public Long getLastLogin() {
-        return lastLogin;
-    }
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
 
-    public void setLastLogin(Long lastLogin) {
-        this.lastLogin = lastLogin;
-    }
+	public Long getLastLogin() {
+		return lastLogin;
+	}
 
-    public List<Deck> getCreatedDecks() {
-        return createdDecks;
-    }
+	public void setLastLogin(Long lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 
-    public void setCreatedDecks(List<Deck> createdDecks) {
-        this.createdDecks = createdDecks;
-    }
+	public List<Deck> getCreatedDecks() {
+		return createdDecks;
+	}
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password="
-                + password + ", points=" + points + ", lastLogin=" + lastLogin
-                + "]";
-    }
+	public void setCreatedDecks(List<Deck> createdDecks) {
+		this.createdDecks = createdDecks;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", points=" + points
+				+ ", lastLogin=" + lastLogin + "]";
+	}
 
 }

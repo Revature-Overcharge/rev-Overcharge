@@ -5,28 +5,26 @@
     <mat-divider></mat-divider>
     <h2 matSubheader class="mt-2">APPLICATIONS</h2>
   
-    <a id="home" mat-list-item routerLinkActive="list-item-active" routerLink = "/home">
+    <a id="homeNavLink" mat-list-item routerLinkActive="list-item-active" routerLink = "/home">
       <mat-icon>home</mat-icon> Home
     </a>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink = "/library">
+    <a id="libararyNavLink" mat-list-item routerLinkActive="list-item-active" routerLink = "/library">
       <mat-icon>book</mat-icon> Library
     </a>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/objectives">
+    <a id="objectivesNavLink" mat-list-item routerLinkActive="list-item-active" routerLink="/objectives">
       <mat-icon>check_circle</mat-icon> Objectives
     </a>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/create">
+    <a id="createNavLink" mat-list-item routerLinkActive="list-item-active" routerLink="/create">
       <mat-icon>create</mat-icon> Create Sets
     </a>
-    <a mat-list-item routerLinkActive="list-time-active" (click)="showTimer()">
+    <a id="timerNavLink" mat-list-item routerLinkActive="list-time-active" (click)="showTimer()">
       <mat-icon>timer</mat-icon> Timer
-      <span *ngIf="timerBool == true || timer.status != 'Inactive'">: {{timer.status}}</span> 
-      <!-- <countdown #cd [config]="timer.config"  class="mx-1"></countdown> -->
-      <!-- {{countdown}} -->
+      <span id="timerStatus" *ngIf="timerBool == true || timer.status != 'Inactive'">: {{timer.status}}</span>
     </a>
-    <a *ngIf="isGuest()" mat-list-item (click) = "open(content)">
+    <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click) = "open(content)">
       <mat-icon>login</mat-icon> Log In
     </a>
 
