@@ -3,6 +3,7 @@
     <div class="page__content shadow p-3 position-relative">
       <div class="page__content-data">
         <div *ngIf="!loggedIn" style="text-align: center; margin-top: 100px;"><b>Login to See Objectives and Get Some Points!</b></div>
+
       <div *ngIf="loggedIn">
         <div>
             <div style="float: right;">
@@ -13,11 +14,11 @@
           <!-- The errors are from the interpolation in the progress bar stuff, but it still works fine-->
           <div *ngFor="let obj of objList.slice(0,2)">
             <li> {{obj.name}} <p style="float: right; margin: 0px;">+{{obj.pointsToAward}} points</p> </li>
-                <div class="progress" *ngIf="obj.progressCount<100">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+                <div class="progress" *ngIf="obj.progressPercent<100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressPercent}}%"></div>
                   </div>
-                  <div class="progress" *ngIf="obj.progressCount>=100">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+                  <div class="progress" *ngIf="obj.progressPercent>=100">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressPercent}}%"></div>
                   </div>
             </div>
         </ul>
@@ -28,15 +29,16 @@
         <ul>
           <div *ngFor="let obj of objList.slice(2,5)">
             <li> {{obj.name}} <p style="float: right; margin: 0px;">+{{obj.pointsToAward}} points</p> </li>
-                <div class="progress" *ngIf="obj.progressCount<100">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+                <div class="progress" *ngIf="obj.progressPercent<100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressPercent}}%"></div>
                   </div>
-                  <div class="progress" *ngIf="obj.progressCount>=100">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+                  <div class="progress" *ngIf="obj.progressPercent>=100">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressPercent}}%"></div>
                   </div>
             </div>
         </ul>
         </div>
+        
       </div>
       </div>
     </div>
