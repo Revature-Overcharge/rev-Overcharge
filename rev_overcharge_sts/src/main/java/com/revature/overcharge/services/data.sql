@@ -1,3 +1,4 @@
+
 -- Users
 insert into users (id, username, password, points, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1629315831);
 insert into users (id, username, password, points, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 1629315706);

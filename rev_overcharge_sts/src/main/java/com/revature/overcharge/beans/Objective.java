@@ -6,7 +6,7 @@ public class Objective {
 
     private int pointsToAward;
 
-    private int progressCount;
+    private int progressPercent;
 
     private int countForGoal;
 
@@ -14,12 +14,12 @@ public class Objective {
         super();
     }
 
-    public Objective(String name, int pointsToAward, int progressCount,
+    public Objective(String name, int pointsToAward, int progressPercent,
             int countForGoal) {
         super();
         this.name = name;
         this.pointsToAward = pointsToAward;
-        this.progressCount = progressCount;
+        this.progressPercent = progressPercent;
         this.countForGoal = countForGoal;
     }
 
@@ -39,12 +39,12 @@ public class Objective {
         this.pointsToAward = pointsToAward;
     }
 
-    public int getProgressCount() {
-        return progressCount;
+    public int getprogressPercent() {
+        return progressPercent;
     }
 
-    public void setProgressCount(int progressCount) {
-        this.progressCount = progressCount;
+    public void setprogressPercent(int progressPercent) {
+        this.progressPercent = progressPercent;
     }
 
     public int getCountForGoal() {
@@ -58,7 +58,7 @@ public class Objective {
     @Override
     public String toString() {
         return "Objective [name=" + name + ", pointsToAward=" + pointsToAward
-                + ", progressCount=" + progressCount + ", countForGoal="
+                + ", progressPercent=" + progressPercent + ", countForGoal="
                 + countForGoal + "]";
     }
 
