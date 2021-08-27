@@ -15,3 +15,7 @@ mat-drawer-container {
 mat-drawer {
     background: #474C55;
 }
+
+* {
+    font-family: 'Futura Std', 'Futura', sans-serif;
+}
