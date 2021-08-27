@@ -40,10 +40,10 @@
 			<span [ngClass] = "class2"(click)="ratingStars(2)"></span>  
 			<span [ngClass] = "class3" (click)="ratingStars(3)" id="3stars"></span>  
 			<span [ngClass] = "class4"(click)="ratingStars(4)"></span>  
-			<span [ngClass] = "class5"(click)="ratingStars(5)"></span>  
+			<span id="star5" [ngClass] = "class5"(click)="ratingStars(5)"></span>  
 		
 		  </div>
-		  <button type="button" class="btn btn-primary" (click)="submitRating()">Submit Rating</button>
+		  <button id="submitrating" type="button" class="btn btn-primary" (click)="submitRating()">Submit Rating</button>
 		</div>
 		<div class="tp-wrapper" *ngIf="unfinished">
 			<div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
@@ -63,9 +63,9 @@
 		</div>
 
 		<div *ngIf="unfinished">
-		<button (click)="prevQuestion()" type="button" class="btn btn-lg btn-primary" id="previous">Previous Question</button> 
-		<button (click)="nextQuestion()" type="button" class="btn btn-lg btn-primary" id="next">{{next}}</button>      
-		<button (click)="markAsMastered()" type="button" class="btn btn-lg btn-primary" id="mastered">Mark as Mastered</button>
+		<button id="prevquestion" (click)="prevQuestion()" type="button" class="btn btn-lg btn-primary">Previous Question</button> 
+		<button id="nextquestion" (click)="nextQuestion()" type="button" class="btn btn-lg btn-primary">{{next}}</button>      
+		<button id="mastered" (click)="markAsMastered()" type="button" class="btn btn-lg btn-primary">Mark as Mastered</button>
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="Enter your answer here" id="floatingTextarea2" style="height: 100px" [(ngModel)] = "text"></textarea>
 			<label for="floatingTextarea2" style="font-size:smaller;">Answer</label>
