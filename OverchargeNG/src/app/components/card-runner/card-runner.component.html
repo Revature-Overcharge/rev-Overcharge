@@ -30,7 +30,7 @@
 		</div>
 
 		<div *ngIf="finished"><h2>You're all done with this set. Great work!</h2>
-			<button type="button" class="btn btn-primary" (click)="returnToLibrary()">Return to Library</button>
+			<button type="button" class="btn btn-primary" (click)="returnToLibrary()" id="return">Return to Library</button>
 		</div>
 
 		<div *ngIf="rate" id="ratingcontainer">
@@ -38,7 +38,7 @@
 			<h2>Rate This Set!</h2>
 			<span [ngClass] = "class" (click)="ratingStars(1)"></span>  
 			<span [ngClass] = "class2"(click)="ratingStars(2)"></span>  
-			<span [ngClass] = "class3" (click)="ratingStars(3)"></span>  
+			<span [ngClass] = "class3" (click)="ratingStars(3)" id="3stars"></span>  
 			<span [ngClass] = "class4"(click)="ratingStars(4)"></span>  
 			<span [ngClass] = "class5"(click)="ratingStars(5)"></span>  
 		
@@ -63,9 +63,9 @@
 		</div>
 
 		<div *ngIf="unfinished">
-		<button (click)="prevQuestion()" type="button" class="btn btn-lg btn-primary">Previous Question</button> 
-		<button (click)="nextQuestion()" type="button" class="btn btn-lg btn-primary">{{next}}</button>      
-		<button (click)="markAsMastered()" type="button" class="btn btn-lg btn-primary">Mark as Mastered</button>
+		<button (click)="prevQuestion()" type="button" class="btn btn-lg btn-primary" id="previoud">Previous Question</button> 
+		<button (click)="nextQuestion()" type="button" class="btn btn-lg btn-primary" id="next">{{next}}</button>      
+		<button (click)="markAsMastered()" type="button" class="btn btn-lg btn-primary" id="mastered">Mark as Mastered</button>
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="Enter your answer here" id="floatingTextarea2" style="height: 100px" [(ngModel)] = "text"></textarea>
 			<label for="floatingTextarea2" style="font-size:smaller;">Answer</label>
