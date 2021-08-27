@@ -7,11 +7,11 @@
                     (click)="open(content, card, 'lg')">
                     Add/Edit Cards
                 </button>
-                <button  id="createdeck" class="btn btn-lg btn-outline-primary"
+                <button id="create-button" class="btn btn-lg btn-outline-primary"
                     (click)="createDeck()">
                     Create Deck
                 </button>
-
+                <br><br>
                 <div class="form-floating mb-3">
                     <input  id="decktitle" [(ngModel)]="title" type="text" class="form-control" id="floatingInputValue" placeholder="Java Basics">
                     <label for="floatingInput">Deck Title</label>

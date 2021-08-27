@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class SeleniumRunner {
+public class SeleniumCardTraversalRunner {
 
 	public static void main(String[] args) throws InterruptedException {
 
@@ -19,14 +19,17 @@ public class SeleniumRunner {
 		System.setProperty("webdriver.chrome.driver", driverPath);
 
 		WebDriver driver = new ChromeDriver();
-
-		createDeckAutomation(driver);
-		masterDeckAutomation(driver);
-		logInAutomation(driver);
+		
+		//Traverses Cards
+		cardTraversalAutomation1(driver);
+		//Marks them as Mastered
+		cardTraversalAutomation2(driver);
+		//Log out and Login
+		cardTraversalAutomation3(driver);
 
 	}
 
-	private static void createDeckAutomation(WebDriver driver) throws InterruptedException {
+	private static void cardTraversalAutomation1(WebDriver driver) throws InterruptedException {
 		driver.get("http://localhost:4200/home");
 
 		WebElement login = driver.findElement(By.id("loginNavLink"));
@@ -105,7 +108,7 @@ public class SeleniumRunner {
 
 	}
 
-	private static void masterDeckAutomation(WebDriver driver) throws InterruptedException {
+	private static void cardTraversalAutomation2(WebDriver driver) throws InterruptedException {
 		driver.get("http://localhost:4200/home");
 
 		WebElement login = driver.findElement(By.id("loginNavLink"));
@@ -190,7 +193,7 @@ public class SeleniumRunner {
 
 	}
 
-	private static void logInAutomation(WebDriver driver) throws InterruptedException {
+	private static void cardTraversalAutomation3(WebDriver driver) throws InterruptedException {
 		driver.get("http://localhost:4200/home");
 
 		WebElement login = driver.findElement(By.id("loginNavLink"));

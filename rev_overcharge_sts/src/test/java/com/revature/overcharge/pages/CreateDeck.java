@@ -24,6 +24,9 @@ public class CreateDeck {
 	@FindBy(id = "createNavLink")
 	public WebElement createset;
 	
+//	@FindBy(id = "decktitle")
+//	public WebElement decktitle;
+	
 	@FindBy(id = "floatingInputValue")
 	public WebElement floatingInputValue;
 	
@@ -42,8 +45,11 @@ public class CreateDeck {
 	@FindBy(id = "savebutton")
 	public WebElement savebutton;
 	
-	@FindBy(id = "createdeck")
+	@FindBy(id = "create-button")
 	public WebElement createdeck;
+	
+
+
 	
 	@FindBy(id = "libararyNavLink")
 	public WebElement library;
