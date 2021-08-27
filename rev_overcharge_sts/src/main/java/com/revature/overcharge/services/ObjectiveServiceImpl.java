@@ -20,404 +20,456 @@ import com.revature.overcharge.beans.User;
 @Service
 public class ObjectiveServiceImpl implements ObjectiveService {
 
-	@Autowired
-	private DeckService ds;
+    @Autowired
+    private DeckService ds;
 
-	@Autowired
-	private UserService us;
+    @Autowired
+    private UserService us;
 
-	@Autowired
-	RatingService rs;
+    @Autowired
+    RatingService rs;
 
-	@Autowired
-	StudiedCardService scs;
+    @Autowired
+    StudiedCardService scs;
 
-	private long WEEK_START_TIME = 1_627_898_400_000L;
-	private int WEEKLY_MS = 604_800_000;
-	private int DAILY_MS = 86_400_000;
+    private long WEEK_START_TIME = 1_627_898_400_000L;
+    private int WEEKLY_MS = 604_800_000;
+    private int DAILY_MS = 86_400_000;
 
-	@Override
-	public User getAllObjectivesForUser(int id) {
-		User u = us.getUser(id);
-		get5StarDeckWeekly(u);
-		getMarkFiveCardsDaily(u);
-		getMarkTwoStudiedDeck(u);
-		getRateADeckDaily(u);
-		getCreateADeckWeekly(u);
-		return u;
-	}
+    @Override
+    public User getAllObjectivesForUser(int id) {
+        User u = us.getUser(id);
+        getAdd4CardsDaily(u);
+        getRateADeckDaily(u);
+        getMarkFiveCardsDaily(u);
+        getCreateADeckWeekly(u);
+        getMarkAllCardsInDeckStudiedWeekly(u);
+        get5StarDeckWeekly(u);
+        return u;
+    }
 
-	@Override
-	public void addCardObj(Card c) {
-		String name = "Daily Create 3 Cards";
-		int pointsToAward = 50;
-		int cardsPastMidnight = 0;
-		int countForGoal = 3;
+    @Override
+    public void setAdd4CardsDaily(int deckId, Card c) {
+        String name = "Create 4 Cards";
+        int pointsToAward = 50;
+        int progressPercentage = 0;
+        double countForGoal = 4;
 
-		long midnight = getMidnight();
+        long midnight = getMidnight();
 
-		User creator = c.getDeck().getCreator();
-		List<Deck> decks = ds.getDecksByCreatorId(creator.getId());
+        User creator = ds.getDeck(deckId).getCreator();
+        List<Deck> decks = ds.getDecksByCreatorId(creator.getId());
 
-		for (Deck deck : decks) {
-			List<Card> cards = deck.getCards();
-			for (Card card : cards) {
-				if (card.getCreatedOn() > midnight) {
-					cardsPastMidnight++;
-				}
-			}
-		}
-		if (cardsPastMidnight == countForGoal) {
-			creator.setPoints(creator.getPoints() + pointsToAward);
-			creator.getObjectives().add(new Objective(name, pointsToAward, cardsPastMidnight, countForGoal));
-		}
-	}
+        for (Deck deck : decks) {
+            List<Card> cards = deck.getCards();
+            for (Card card : cards) {
+                if (card.getCreatedOn() > midnight) {
+                    progressPercentage += (int) 100 / countForGoal;
+                }
+            }
+        }
+        if (progressPercentage == 100) {
+            creator.setPoints(creator.getPoints() + pointsToAward);
+            us.updateUser(creator);
+        }
+    }
 
-	@Override
-	public void addDeckObj(Deck d) {
-//        int creatorId = d.getCreator().getId();
-//        User creator = us.getById()
-//        List<Deck> decks = u.getCreatedDecks();
-	}
+    @Override
+    public void getAdd4CardsDaily(User u) {
+        String name = "Create 4 Cards";
+        int pointsToAward = 50;
+        double progressPercentage = 0;
+        int countForGoal = 4;
 
-	@Override
-	public void loginObj(User user) {
-		long midnight = getMidnight();
-		if (midnight >= user.getLastLogin()) {
-			user.setPoints(user.getPoints() + 10);
-			user.getObjectives().add(new Objective("Daily Login", 10, 1, 1));
-		}
-	}
+        long midnight = getMidnight();
 
-	@Override
-	public void setCreateADeckWeekly(int userId) {
-		User u = us.getUser(userId);
+        List<Deck> decks = ds.getDecksByCreatorId(u.getId());
 
-		long createdTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
+        for (Deck deck : decks) {
+            List<Card> cards = deck.getCards();
+            for (Card card : cards) {
+                if (card.getCreatedOn() > midnight) {
+                    progressPercentage += 100 / countForGoal;
+                }
+            }
+        }
+        if (progressPercentage > 100) {
+            u.getObjectives()
+                    .add(new Objective(name, pointsToAward, 100, countForGoal));
+        } else {
+            u.getObjectives().add(new Objective(name, pointsToAward,
+                    (int) progressPercentage, countForGoal));
+        }
 
-		List<Deck> decks = new ArrayList<Deck>();
+    }
 
-		try {
-			decks = ds.getDecksByCreatorId(u.getId());
-		} catch (ResponseStatusException e) {
-			u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
-			return;
-		}
-		int qualifiedDecks = 0;
+    @Override
+    public void loginObj(User user) {
+        long midnight = getMidnight();
+        if (midnight >= user.getLastLogin()) {
+            user.setPoints(user.getPoints() + 10);
+            user.getObjectives().add(new Objective("Daily Login", 10, 1, 1));
+        }
+    }
 
-		for (Deck deck : decks) {
-			if (deck.getCreatedOn() >= startWeekTime && deck.getCreatedOn() <= endWeekTime) {
-				qualifiedDecks++;
-			}
-		}
+    @Override
+    public void setCreateADeckWeekly(int userId) {
+        User u = us.getUser(userId);
 
-		if (qualifiedDecks == 1) {
-			u.setPoints(u.getPoints() + 100);
-			u.getObjectives().add(new Objective("Create a Deck", 100, 1, 1));
-		} else {
-			u.getObjectives().add(new Objective("Create a Deck", 100, qualifiedDecks, 1));
-		}
+        long createdTime = new Date().getTime();
+        long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
+        long endWeekTime = startWeekTime + WEEKLY_MS;
 
-		us.updateUser(u);
-	}
-	
-	@Override
-	public void getCreateADeckWeekly(User u) {
-		
-		long createdTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
+        List<Deck> decks = new ArrayList<Deck>();
 
-		List<Deck> decks = new ArrayList<Deck>();
+        try {
+            decks = ds.getDecksByCreatorId(u.getId());
+        } catch (ResponseStatusException e) {
+            u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
+            return;
+        }
+        int qualifiedDecks = 0;
 
-		try {
-			decks = ds.getDecksByCreatorId(u.getId());
-		} catch (ResponseStatusException e) {
-			u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
-			return;
-		}
-		int qualifiedDecks = 0;
+        for (Deck deck : decks) {
+            if (deck.getCreatedOn() >= startWeekTime
+                    && deck.getCreatedOn() <= endWeekTime) {
+                qualifiedDecks++;
+            }
+        }
 
-		for (Deck deck : decks) {
-			if (deck.getCreatedOn() >= startWeekTime && deck.getCreatedOn() <= endWeekTime) {
-				qualifiedDecks++;
-			}
-		}
+        if (qualifiedDecks == 1) {
+            u.setPoints(u.getPoints() + 100);
+            u.getObjectives().add(new Objective("Create a Deck", 100, 1, 1));
+        } else {
+            u.getObjectives().add(
+                    new Objective("Create a Deck", 100, qualifiedDecks, 1));
+        }
 
-		if (qualifiedDecks == 1) {
-			u.getObjectives().add(new Objective("Create a Deck", 100, 1, 1));
-		} else {
-			u.getObjectives().add(new Objective("Create a Deck", 100, qualifiedDecks, 1));
-		}
-	}
+        us.updateUser(u);
+    }
 
-	@Override
-	public void set5StarDeckWeekly(Rating r) {
-		Deck d = ds.getDeck(r.getDeckId());
-		User u = us.getUser(d.getCreator().getId());
+    @Override
+    public void getCreateADeckWeekly(User u) {
 
-		long currentTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
-		int match = 0;
+        long createdTime = new Date().getTime();
+        long startWeekTime = getWeekStart(WEEK_START_TIME, createdTime);
+        long endWeekTime = startWeekTime + WEEKLY_MS;
 
-		List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
+        List<Deck> decks = new ArrayList<Deck>();
 
-		for (Rating rating : ratings) {
-			if ((rating.getRatedOn() >= startWeekTime && rating.getRatedOn() <= endWeekTime)
-					&& (rating.getStars() == 5)) {
-				match++;
-			}
-		}
+        try {
+            decks = ds.getDecksByCreatorId(u.getId());
+        } catch (ResponseStatusException e) {
+            u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
+            return;
+        }
+        int qualifiedDecks = 0;
 
-		// if get one 5 star rating 
-		if (match == 1) {
-			u.setPoints(u.getPoints() + 300);
-		}
+        for (Deck deck : decks) {
+            if (deck.getCreatedOn() >= startWeekTime
+                    && deck.getCreatedOn() <= endWeekTime) {
+                qualifiedDecks++;
+            }
+        }
 
-		us.updateUser(u);
-	}
-	
-	@Override
-	public void get5StarDeckWeekly(User u) {
-		u = us.getUser(u.getId());
-		long currentTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
+        if (qualifiedDecks == 1) {
+            u.getObjectives().add(new Objective("Create a Deck", 100, 1, 1));
+        } else {
+            u.getObjectives().add(
+                    new Objective("Create a Deck", 100, qualifiedDecks, 1));
+        }
+    }
 
-		List<Deck> decks = new ArrayList<Deck>();
+    @Override
+    public void set5StarDeckWeekly(Rating r) {
+        Deck d = ds.getDeck(r.getDeckId());
+        User u = us.getUser(d.getCreator().getId());
 
-		try {
-			decks = ds.getDecksByCreatorId(u.getId());
-		} catch (ResponseStatusException e) {
-			u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, 0, 1));
-			return;
-		}
+        long currentTime = new Date().getTime();
+        long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+        long endWeekTime = startWeekTime + WEEKLY_MS;
+        int match = 0;
 
-		List<Rating> ratings = rs.getAllRatings();
-		int matchedDeck = 0;
+        List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
 
-		for (Deck d : decks) {
-			for (Rating r : ratings) {
-				if (d.getId() == r.getDeckId()) {
-					if ((r.getRatedOn() >= startWeekTime && r.getRatedOn() <= endWeekTime) && (r.getStars() == 5)) {
-						matchedDeck++;
-					}
-				}
-			}
-		}
-		if (matchedDeck == 1) {
+        for (Rating rating : ratings) {
+            if ((rating.getRatedOn() >= startWeekTime
+                    && rating.getRatedOn() <= endWeekTime)
+                    && (rating.getStars() == 5)) {
+                match++;
+            }
+        }
+
+        // if get one 5 star rating
+        if (match == 1) {
+            u.setPoints(u.getPoints() + 300);
+        }
+
+        us.updateUser(u);
+    }
+
+    @Override
+    public void get5StarDeckWeekly(User u) {
+        u = us.getUser(u.getId());
+        long currentTime = new Date().getTime();
+        long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+        long endWeekTime = startWeekTime + WEEKLY_MS;
+
+        List<Deck> decks = new ArrayList<Deck>();
+
+        try {
+            decks = ds.getDecksByCreatorId(u.getId());
+        } catch (ResponseStatusException e) {
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, 0, 1));
+            return;
+        }
+
+        List<Rating> ratings = rs.getAllRatings();
+        int matchedDeck = 0;
+
+        for (Deck d : decks) {
+            for (Rating r : ratings) {
+                if (d.getId() == r.getDeckId()) {
+                    if ((r.getRatedOn() >= startWeekTime
+                            && r.getRatedOn() <= endWeekTime)
+                            && (r.getStars() == 5)) {
+                        matchedDeck++;
+                    }
+                }
+            }
+        }
+        if (matchedDeck == 1) {
 //			u.setPoints(u.getPoints() + 300);
-			u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, 1, 1));
-		} else if (matchedDeck > 1) {
-			u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, matchedDeck, 1));
-		} else {
-			u.getObjectives().add(new Objective("Get a Five Star Rating on a Deck", 300, 0, 1));
-		}
-		us.updateUser(u);
-	}
-	
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, 1, 1));
+        } else if (matchedDeck > 1) {
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, matchedDeck, 1));
+        } else {
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, 0, 1));
+        }
+        us.updateUser(u);
+    }
 
-	@Override
-	public void setMarkTwoStudiedDeck(int userId) {
-		User u = us.getUser(userId);
-		List<Deck> allDecks = ds.getAllDecks();
-		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
+    @Override
+    public void setMarkAllCardsInDeckStudiedWeekly(int userId) {
+        User u = us.getUser(userId);
+        List<Deck> allDecks = ds.getAllDecks();
+        List<StudiedCard> userStudiedCards = scs
+                .getStudiedCardsByUser(u.getId());
 
-		long currentTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
+        long currentTime = new Date().getTime();
+        long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+        long endWeekTime = startWeekTime + WEEKLY_MS;
 
-		int deckCompleted = 0;
+        int deckCompleted = 0;
 
-		for (Deck d : allDecks) {
-			int cardMatch = 0;
-			for (Card c : d.getCards()) {
-				studiedCardLoop: for (StudiedCard scard : userStudiedCards) {
-					if ((scard.getCardId() == c.getId())
-							&& (scard.getStudiedOn() >= startWeekTime && scard.getStudiedOn() <= endWeekTime)) {
-						cardMatch++;
-						break studiedCardLoop;
-					}
-				}
-			}
-			if (cardMatch == d.getCards().size()) {
-				deckCompleted++;
-			}
-		}
+        for (Deck d : allDecks) {
+            int cardMatch = 0;
+            for (Card c : d.getCards()) {
+                studiedCardLoop: for (StudiedCard scard : userStudiedCards) {
+                    if ((scard.getCardId() == c.getId())
+                            && (scard.getStudiedOn() >= startWeekTime
+                                    && scard.getStudiedOn() <= endWeekTime)) {
+                        cardMatch++;
+                        break studiedCardLoop;
+                    }
+                }
+            }
+            if (cardMatch == d.getCards().size()) {
+                deckCompleted++;
+            }
+        }
 
-		if (deckCompleted == 1) {
+        if (deckCompleted == 1) {
 //			u.setPoints(u.getPoints() + 300);
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 1, 2));
-		} else if (deckCompleted < 2) {
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
-		} else {
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 0, 2));
-		}
+            u.getObjectives().add(new Objective(
+                    "Mark All Cards in a Deck as Studied", 300, 1, 2));
+        } else if (deckCompleted < 2) {
+            u.getObjectives()
+                    .add(new Objective("Mark All Cards in a Deck as Studied",
+                            300, deckCompleted, 2));
+        } else {
+            u.getObjectives().add(new Objective(
+                    "Mark All Cards in a Deck as Studied", 300, 0, 2));
+        }
 
-		System.out.println(u.getObjectives());
-		us.updateUser(u);
+        System.out.println(u.getObjectives());
+        us.updateUser(u);
 
-	}
-	
-	@Override
-	public void getMarkTwoStudiedDeck(User u) {
-		List<Deck> allDecks = ds.getAllDecks();
-		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
+    }
 
-		long currentTime = new Date().getTime();
-		long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
-		long endWeekTime = startWeekTime + WEEKLY_MS;
+    @Override
+    public void getMarkAllCardsInDeckStudiedWeekly(User u) {
+        List<Deck> allDecks = ds.getAllDecks();
+        List<StudiedCard> userStudiedCards = scs
+                .getStudiedCardsByUser(u.getId());
 
-		int deckCompleted = 0;
+        long currentTime = new Date().getTime();
+        long startWeekTime = getWeekStart(WEEK_START_TIME, currentTime);
+        long endWeekTime = startWeekTime + WEEKLY_MS;
 
-		for (Deck d : allDecks) {
-			int cardMatch = 0;
-			for (Card c : d.getCards()) {
-				studiedCardLoop: for (StudiedCard scard : userStudiedCards) {
-					if ((scard.getCardId() == c.getId())
-							&& (scard.getStudiedOn() >= startWeekTime && scard.getStudiedOn() <= endWeekTime)) {
-						cardMatch++;
-						break studiedCardLoop;
-					}
-				}
-			}
-			if (cardMatch == d.getCards().size()) {
-				deckCompleted++;
-			}
-		}
+        int deckCompleted = 0;
 
-		if (deckCompleted == 1) {
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 1, 2));
-		} else if (deckCompleted < 2) {
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, deckCompleted, 2));
-		} else {
-			u.getObjectives().add(new Objective("Mark All Cards in Two Sets as Studied", 300, 0, 2));
-		}
+        for (Deck d : allDecks) {
+            int cardMatch = 0;
+            for (Card c : d.getCards()) {
+                studiedCardLoop: for (StudiedCard scard : userStudiedCards) {
+                    if ((scard.getCardId() == c.getId())
+                            && (scard.getStudiedOn() >= startWeekTime
+                                    && scard.getStudiedOn() <= endWeekTime)) {
+                        cardMatch++;
+                        break studiedCardLoop;
+                    }
+                }
+            }
+            if (cardMatch == d.getCards().size()) {
+                deckCompleted++;
+            }
+        }
 
-	}
+        if (deckCompleted == 1) {
+            u.getObjectives().add(new Objective(
+                    "Mark All Cards in Two Sets as Studied", 300, 1, 2));
+        } else if (deckCompleted < 2) {
+            u.getObjectives()
+                    .add(new Objective("Mark All Cards in Two Sets as Studied",
+                            300, deckCompleted, 2));
+        } else {
+            u.getObjectives().add(new Objective(
+                    "Mark All Cards in Two Sets as Studied", 300, 0, 2));
+        }
 
-	@Override
-	public void setMarkFiveCardsDaily(int userId) {
-		User u = us.getUser(userId);
-		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
-		long midnight = getMidnight();
+    }
 
-		int studiedCardCount = 0;
+    @Override
+    public void setMarkFiveCardsDaily(int userId) {
+        User u = us.getUser(userId);
+        List<StudiedCard> userStudiedCards = scs
+                .getStudiedCardsByUser(u.getId());
+        long midnight = getMidnight();
 
-		for (StudiedCard scard : userStudiedCards) {
-			if (scard.getStudiedOn() >= midnight && scard.getStudiedOn() <= midnight + DAILY_MS) {
-				studiedCardCount++;
-			}
-		}
+        int studiedCardCount = 0;
 
-		if (studiedCardCount == 5) {
-			u.setPoints(u.getPoints() + 50);
-			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, 5, 5));
-		}  else {
-			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
-		}
+        for (StudiedCard scard : userStudiedCards) {
+            if (scard.getStudiedOn() >= midnight
+                    && scard.getStudiedOn() <= midnight + DAILY_MS) {
+                studiedCardCount++;
+            }
+        }
 
-		us.updateUser(u);
+        if (studiedCardCount == 5) {
+            u.setPoints(u.getPoints() + 50);
+            u.getObjectives()
+                    .add(new Objective("Mark 5 Cards as Studied", 50, 5, 5));
+        } else {
+            u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50,
+                    studiedCardCount, 5));
+        }
 
-	}
-	
-	@Override
-	public void getMarkFiveCardsDaily(User u) {
-		List<StudiedCard> userStudiedCards = scs.getStudiedCardsByUser(u.getId());
-		long midnight = getMidnight();
+        us.updateUser(u);
 
-		int studiedCardCount = 0;
+    }
 
-		for (StudiedCard scard : userStudiedCards) {
-			if (scard.getStudiedOn() >= midnight && scard.getStudiedOn() <= midnight + DAILY_MS) {
-				studiedCardCount++;
-			}
-		}
+    @Override
+    public void getMarkFiveCardsDaily(User u) {
+        List<StudiedCard> userStudiedCards = scs
+                .getStudiedCardsByUser(u.getId());
+        long midnight = getMidnight();
 
-		if (studiedCardCount == 5) {
-			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, 5, 5));
-		}  else {
-			u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50, studiedCardCount, 5));
-		}		
-	}
+        int studiedCardCount = 0;
 
-	@Override
-	public void setRateADeckDaily(int userId) {
-		User u = us.getUser(userId);
-		List<Rating> userRatings = rs.getRatingByUserId(u.getId());
+        for (StudiedCard scard : userStudiedCards) {
+            if (scard.getStudiedOn() >= midnight
+                    && scard.getStudiedOn() <= midnight + DAILY_MS) {
+                studiedCardCount++;
+            }
+        }
 
-		long midnight = getMidnight();
+        if (studiedCardCount == 5) {
+            u.getObjectives()
+                    .add(new Objective("Mark 5 Cards as Studied", 50, 5, 5));
+        } else {
+            u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50,
+                    studiedCardCount, 5));
+        }
+    }
 
-		int matchRating = 0;
+    @Override
+    public void setRateADeckDaily(int userId) {
+        User u = us.getUser(userId);
+        List<Rating> userRatings = rs.getRatingByUserId(u.getId());
 
-		for (Rating r : userRatings) {
-			if (r.getRatedOn() >= midnight && r.getRatedOn() <= midnight + DAILY_MS) {
-				matchRating++;
-			}
-		}
+        long midnight = getMidnight();
 
-		if (matchRating == 0) {
-			u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
-		} else if (matchRating == 1) {
-			u.setPoints(u.getPoints() + 20);
-			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
-		} else {
-			u.getObjectives().add(new Objective("Rate a Deck", 20, matchRating, 1));
-		}
+        int matchRating = 0;
 
-		us.updateUser(u);
+        for (Rating r : userRatings) {
+            if (r.getRatedOn() >= midnight
+                    && r.getRatedOn() <= midnight + DAILY_MS) {
+                matchRating++;
+            }
+        }
 
-	}
-	
-	@Override
-	public void getRateADeckDaily(User u) {
-		List<Rating> userRatings = rs.getRatingByUserId(u.getId());
+        if (matchRating == 0) {
+            u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
+        } else if (matchRating == 1) {
+            u.setPoints(u.getPoints() + 20);
+            u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
+        } else {
+            u.getObjectives()
+                    .add(new Objective("Rate a Deck", 20, matchRating, 1));
+        }
 
-		long midnight = getMidnight();
+        us.updateUser(u);
 
-		int matchRating = 0;
+    }
 
-		for (Rating r : userRatings) {
-			if (r.getRatedOn() >= midnight && r.getRatedOn() <= midnight + DAILY_MS) {
-				matchRating++;
-			}
-		}
+    @Override
+    public void getRateADeckDaily(User u) {
+        List<Rating> userRatings = rs.getRatingByUserId(u.getId());
 
-		if (matchRating == 0) {
-			u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
-		} else if (matchRating == 1) {
-			u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
-		} else {
-			u.getObjectives().add(new Objective("Rate a Deck", 20, matchRating, 1));
-		}
+        long midnight = getMidnight();
 
-	}
+        int matchRating = 0;
 
-	private long getMidnight() {
-		Calendar c = new GregorianCalendar();
-		c.set(Calendar.HOUR_OF_DAY, 0);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-		Date d1 = c.getTime();
-		return d1.getTime();
-	}
+        for (Rating r : userRatings) {
+            if (r.getRatedOn() >= midnight
+                    && r.getRatedOn() <= midnight + DAILY_MS) {
+                matchRating++;
+            }
+        }
 
-	private long getWeekStart(long startTime, long currentTime) {
-		while (startTime <= currentTime) {
-			startTime += WEEKLY_MS;
-			if (startTime > currentTime) {
-				return startTime -= WEEKLY_MS;
-			}
-		}
-		return startTime;
-	}
+        if (matchRating == 0) {
+            u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
+        } else if (matchRating == 1) {
+            u.getObjectives().add(new Objective("Rate a Deck", 20, 1, 1));
+        } else {
+            u.getObjectives()
+                    .add(new Objective("Rate a Deck", 20, matchRating, 1));
+        }
 
-	
+    }
 
-	
+    private long getMidnight() {
+        Calendar c = new GregorianCalendar();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        Date d1 = c.getTime();
+        return d1.getTime();
+    }
 
+    private long getWeekStart(long startTime, long currentTime) {
+        while (startTime <= currentTime) {
+            startTime += WEEKLY_MS;
+            if (startTime > currentTime) {
+                return startTime -= WEEKLY_MS;
+            }
+        }
+        return startTime;
+    }
 
 }

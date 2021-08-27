@@ -1,29 +1,23 @@
 package com.revature.overcharge.services;
 
-import java.util.List;
-
 import com.revature.overcharge.beans.Card;
-import com.revature.overcharge.beans.Deck;
-import com.revature.overcharge.beans.Objective;
 import com.revature.overcharge.beans.Rating;
-import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.User;
 
 public interface ObjectiveService {
 
     public User getAllObjectivesForUser(int id);
 
-    public void addCardObj(Card c);
-
-    public void addDeckObj(Deck d);
+    public void setAdd4CardsDaily(int deckId, Card c);
+    public void getAdd4CardsDaily(User u);
 
     public void loginObj(User user);
     
     public void setCreateADeckWeekly(int userId);
     public void getCreateADeckWeekly(User u);
     
-	public void setMarkTwoStudiedDeck(int userId);
-	public void getMarkTwoStudiedDeck(User u);
+	public void setMarkAllCardsInDeckStudiedWeekly(int userId);
+	public void getMarkAllCardsInDeckStudiedWeekly(User u);
 	
 	public void set5StarDeckWeekly(Rating r);
 	public void get5StarDeckWeekly(User user);

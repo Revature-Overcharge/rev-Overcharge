@@ -34,7 +34,6 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             d.setCreatedOn(new Date().getTime());
-            os.addDeckObj(d);
             return dr.save(d);
         }
     }
