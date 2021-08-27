@@ -97,12 +97,8 @@ export class HeaderComponent implements OnInit {
             this.loginPoints = true;
           }
 
-          if (this.user.username == "user"){
-            this.loginPoints = true;
-            console.log(this.loginPoints) 
-          }
-
           this.loginServ.setUsername(this.user.username);
+          window.localStorage.setItem("userID",String(response.id));
           console.log("logged in: ", this.user.username);
           this.sw1 = false;
           this.sw2 = true;
