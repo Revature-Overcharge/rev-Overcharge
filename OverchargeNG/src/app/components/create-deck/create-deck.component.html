@@ -3,17 +3,17 @@
         <div class="page__content shadow p-3 position-relative">
             <div class="page__content-data ">
 
-                <button class="btn btn-lg btn-outline-primary"
+                <button id="addeditcards" class="btn btn-lg btn-outline-primary"
                     (click)="open(content, card, 'lg')">
                     Add/Edit Cards
                 </button>
-                <button class="btn btn-lg btn-outline-primary"
+                <button id="create-button" class="btn btn-lg btn-outline-primary"
                     (click)="createDeck()">
                     Create Deck
                 </button>
-
+                <br><br>
                 <div class="form-floating mb-3">
-                    <input [(ngModel)]="title" type="text" class="form-control" id="floatingInputValue" placeholder="Java Basics">
+                    <input  id="decktitle" [(ngModel)]="title" type="text" class="form-control" id="floatingInputValue" placeholder="Java Basics">
                     <label for="floatingInput">Deck Title</label>
                 </div>
 
@@ -66,14 +66,14 @@
                                     <i class="fa fa-trash fa-2x"></i>    
                                   </td>    
                                     <td>    
-                                      <input [(ngModel)]="dynamicArray[i].question" class="form-control" type="text" />    
+                                      <input id="cardquestion" [(ngModel)]="dynamicArray[i].question" class="form-control" type="text" />    
                                     </td>    
                                     <td>    
-                                      <input [(ngModel)]="dynamicArray[i].answer" class="form-control" type="text" />    
+                                      <input id="cardanswer" [(ngModel)]="dynamicArray[i].answer" class="form-control" type="text" />    
                                     </td>       
                                 </tr>    
                                 <tr>    
-                                  <td (click)="addRow()">    
+                                  <td id="addrow" (click)="addRow()">    
                                     <i class="fa fa-plus fa-2x"></i>    
                                   </td>    
                                 </tr>    
@@ -81,7 +81,7 @@
                         </table>    
                       </div> 
                       <div class="modal-footer">
-                        <button type="button"
+                        <button id="savebutton" type="button"
                             class="btn btn-outline-dark"
                             (click)="modal.close('Save click')">
                             Save
