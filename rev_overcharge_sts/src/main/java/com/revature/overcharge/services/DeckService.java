@@ -23,4 +23,6 @@ public interface DeckService {
 
     public Deck updateDeckAndCards(Deck newDeck);
 
+	public Deck getDeck(int userId, int deckId);
+
 }

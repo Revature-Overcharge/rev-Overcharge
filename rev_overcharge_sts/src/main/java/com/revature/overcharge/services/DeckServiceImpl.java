@@ -1,5 +1,6 @@
 package com.revature.overcharge.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.repositories.DeckRepo;
 
 @Service
@@ -26,6 +28,9 @@ public class DeckServiceImpl implements DeckService {
 
     @Autowired
     ObjectiveService os;
+    
+    @Autowired
+    StudiedCardService scs;
 
     @Override
     public Deck addDeck(Deck d) {
@@ -126,5 +131,32 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
+
+	@Override
+	public Deck getDeck(int userId, int deckId) {
+		if (dr.existsById(deckId)) {
+			Deck d = dr.findById(deckId).get();
+			if (userId != 0) {
+				List<StudiedCard> studiedCards = scs.getStudiedCardsByUser(userId);
+				
+				List<Card> cards = new ArrayList<Card>();
+				
+				for (Card c : d.getCards()) {
+					for (StudiedCard sc : studiedCards) {
+						if (c.getId() == sc.getCardId()) {
+							cards.add(c);
+						}
+					}
+				}
+				for (Card card : cards) {
+					d.getCards().remove(card);
+				}
+			}
+            return d;
+        } else {
+            log.warn("Deck id is not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+	}
 
 }

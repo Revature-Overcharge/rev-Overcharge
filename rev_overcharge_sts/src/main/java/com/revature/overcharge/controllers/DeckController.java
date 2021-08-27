@@ -32,6 +32,12 @@ public class DeckController {
     public Deck getDeck(@PathVariable("id") int id) {
         return ds.getDeck(id);
     }
+    
+    @GetMapping(value = "users/{uId}/decks/{id}")
+    public Deck getDeck(@PathVariable("uId") int userId, @PathVariable("id") int deckId) {
+    	
+        return ds.getDeck(userId, deckId);
+    }
 
     @GetMapping(value = "/decks")
     public List<Deck> getAllDecks() {
