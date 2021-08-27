@@ -6,7 +6,6 @@ export class User {
     last_login_on: number;
    
   
-   
     constructor(id: number,username: string, password: string,  objective_points: number, last_login_on: number){
         this.id = id || -1;
         this.username = username;

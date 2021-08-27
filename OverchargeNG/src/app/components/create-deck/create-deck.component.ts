@@ -78,6 +78,7 @@ export class CreateDeckComponent implements OnInit {
       alert("Please log in before creating a deck");
     } 
     else {
+      this.deck.title = this.title;
       this.deckHttp.addDeck(this.deck).subscribe(
         (response) => {
           console.log(response);
