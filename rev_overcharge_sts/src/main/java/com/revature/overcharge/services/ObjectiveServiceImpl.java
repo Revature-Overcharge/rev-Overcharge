@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,9 +19,6 @@ import com.revature.overcharge.beans.User;
 
 @Service
 public class ObjectiveServiceImpl implements ObjectiveService {
-
-    private static final Logger log = Logger
-            .getLogger(ObjectiveServiceImpl.class);
 
     @Autowired
     private DeckService ds;
@@ -43,19 +39,17 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Override
     public User getAllObjectivesForUser(int id) {
         User u = us.getUser(id);
-        getRateADeckDaily(u);
         getAdd4CardsDaily(u);
+        getRateADeckDaily(u);
         getMarkFiveCardsDaily(u);
         getCreateADeckWeekly(u);
-        get5StarDeckWeekly(u);
         getMarkAllCardsInDeckStudiedWeekly(u);
-        System.out.println(u);
+        get5StarDeckWeekly(u);
         return u;
     }
 
     @Override
     public void setAdd4CardsDaily(int deckId, Card c) {
-
         int pointsToAward = 50;
         int progressPercentage = 0;
         double countForGoal = 4;
@@ -63,11 +57,16 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         long midnight = getMidnight();
 
         User creator = ds.getDeck(deckId).getCreator();
-        List<Deck> decks = ds.getDecksByCreatorId(creator.getId());
+        List<Deck> decks = new ArrayList<Deck>();
+
+        try {
+            decks = ds.getDecksByCreatorId(creator.getId());
+        } catch (ResponseStatusException e) {
+            return;
+        }
 
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
-            log.info(cards);
             for (Card card : cards) {
                 if (card.getDeck() != null && card.getCreatedOn() > midnight) {
                     progressPercentage += (int) 100 / countForGoal;
@@ -89,7 +88,14 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
         long midnight = getMidnight();
 
-        List<Deck> decks = ds.getDecksByCreatorId(u.getId());
+        List<Deck> decks = new ArrayList<Deck>();
+
+        try {
+            decks = ds.getDecksByCreatorId(u.getId());
+        } catch (ResponseStatusException e) {
+            u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
+            return;
+        }
 
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
@@ -114,7 +120,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         long midnight = getMidnight();
         if (midnight >= user.getLastLogin()) {
             user.setPoints(user.getPoints() + 10);
-            user.getObjectives().add(new Objective("Daily Login", 10, 100, 1));
+            user.getObjectives().add(new Objective("Daily Login", 10, 1, 1));
         }
     }
 
@@ -131,7 +137,6 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         try {
             decks = ds.getDecksByCreatorId(u.getId());
         } catch (ResponseStatusException e) {
-            u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
             return;
         }
         int qualifiedDecks = 0;
@@ -145,13 +150,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
         if (qualifiedDecks == 1) {
             u.setPoints(u.getPoints() + 100);
-            u.getObjectives().add(new Objective("Create a Deck", 100, 100, 1));
-        } else {
-            u.getObjectives().add(new Objective("Create a Deck", 100,
-                    (qualifiedDecks / 1 * 100), 1));
+            us.updateUser(u);
         }
-
-        us.updateUser(u);
     }
 
     @Override
@@ -177,13 +177,12 @@ public class ObjectiveServiceImpl implements ObjectiveService {
                 qualifiedDecks++;
             }
         }
-
         if (qualifiedDecks == 1) {
             u.getObjectives().add(new Objective("Create a Deck", 100, 100, 1));
         } else {
-            u.getObjectives().add(new Objective("Create a Deck", 100,
-                    (qualifiedDecks / 1 * 100), 1));
+            u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
         }
+
     }
 
     @Override
@@ -209,9 +208,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         // if get one 5 star rating
         if (match == 1) {
             u.setPoints(u.getPoints() + 300);
+            us.updateUser(u);
         }
 
-        us.updateUser(u);
     }
 
     @Override
@@ -226,8 +225,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         try {
             decks = ds.getDecksByCreatorId(u.getId());
         } catch (ResponseStatusException e) {
-            u.getObjectives()
-                    .add(new Objective("Get 5 Star Rating", 300, 0, 1));
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, 0, 1));
             return;
         }
 
@@ -245,17 +244,15 @@ public class ObjectiveServiceImpl implements ObjectiveService {
                 }
             }
         }
+
         if (matchedDeck == 1) {
-//			u.setPoints(u.getPoints() + 300);
-            u.getObjectives()
-                    .add(new Objective("Get 5 Star Rating", 300, 100, 1));
-        } else if (matchedDeck > 1) {
-            u.getObjectives().add(new Objective("Get 5 Star Rating", 300,
-                    (matchedDeck / 1 * 100), 1));
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, 100, 1));
         } else {
-            u.getObjectives()
-                    .add(new Objective("Get 5 Star Rating", 300, 0, 1));
+            u.getObjectives().add(new Objective(
+                    "Get a Five Star Rating on a Deck", 300, 0, 1));
         }
+
     }
 
     @Override
@@ -289,17 +286,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         }
 
         if (deckCompleted == 1) {
-//			u.setPoints(u.getPoints() + 300);
-            u.getObjectives().add(new Objective("Master 2 Sets", 300, 50, 2));
-        } else if (deckCompleted < 2) {
-            u.getObjectives().add(new Objective("Master 2 Sets", 300,
-                    (deckCompleted / 2 * 100), 2));
-        } else {
-            u.getObjectives().add(new Objective("Master 2 Sets", 300, 0, 2));
+            u.setPoints(u.getPoints() + 300);
+            us.updateUser(u);
         }
-
-        System.out.println(u.getObjectives());
-        us.updateUser(u);
 
     }
 
@@ -333,12 +322,11 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         }
 
         if (deckCompleted == 1) {
-            u.getObjectives().add(new Objective("Master 2 Sets", 300, 50, 2));
-        } else if (deckCompleted < 2) {
-            u.getObjectives().add(new Objective("Master 2 Sets", 300,
-                    (deckCompleted / 2 * 100), 2));
+            u.getObjectives().add(new Objective(
+                    "Mark All Cards in Two Sets as Studied", 300, 100, 1));
         } else {
-            u.getObjectives().add(new Objective("Master 2 Sets", 300, 0, 2));
+            u.getObjectives().add(new Objective(
+                    "Mark All Cards in Two Sets as Studied", 300, 0, 1));
         }
 
     }
@@ -361,13 +349,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
         if (studiedCardCount == 5) {
             u.setPoints(u.getPoints() + 50);
-            u.getObjectives().add(new Objective("Master 5 cards", 50, 100, 5));
-        } else {
-            u.getObjectives().add(new Objective("Master 5 cards", 50,
-                    (studiedCardCount / 5 * 100), 5));
+            us.updateUser(u);
         }
-
-        us.updateUser(u);
 
     }
 
@@ -377,7 +360,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
                 .getStudiedCardsByUser(u.getId());
         long midnight = getMidnight();
 
-        double studiedCardCount = 0;
+        int studiedCardCount = 0;
 
         for (StudiedCard scard : userStudiedCards) {
             if (scard.getStudiedOn() >= midnight
@@ -386,8 +369,14 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        u.getObjectives().add(new Objective("Master 5 cards", 50,
-                (int) (studiedCardCount / 5 * 100), 5));
+        if (studiedCardCount >= 5) {
+            u.getObjectives()
+                    .add(new Objective("Mark 5 Cards as Studied", 50, 100, 5));
+        } else {
+            u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50,
+                    (int) (studiedCardCount / 5.0 * 100), 5));
+        }
+
     }
 
     @Override
@@ -406,17 +395,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        if (matchRating == 0) {
-            u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
-        } else if (matchRating == 1) {
+        if (matchRating == 1) {
             u.setPoints(u.getPoints() + 20);
-            u.getObjectives().add(new Objective("Rate a Deck", 20, 100, 1));
-        } else {
-            u.getObjectives().add(new Objective("Rate a Deck", 20,
-                    (matchRating / 1 * 100), 1));
+            us.updateUser(u);
         }
-
-        us.updateUser(u);
 
     }
 
@@ -435,13 +417,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        if (matchRating == 0) {
-            u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
-        } else if (matchRating == 1) {
+        if (matchRating == 1) {
             u.getObjectives().add(new Objective("Rate a Deck", 20, 100, 1));
         } else {
-            u.getObjectives().add(new Objective("Rate a Deck", 20,
-                    (matchRating / 1 * 100), 1));
+            u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
         }
 
     }
