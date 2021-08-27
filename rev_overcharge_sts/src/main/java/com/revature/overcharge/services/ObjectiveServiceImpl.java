@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,6 +20,9 @@ import com.revature.overcharge.beans.User;
 
 @Service
 public class ObjectiveServiceImpl implements ObjectiveService {
+
+    private static final Logger log = Logger
+            .getLogger(ObjectiveServiceImpl.class);
 
     @Autowired
     private DeckService ds;
@@ -51,7 +55,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
     @Override
     public void setAdd4CardsDaily(int deckId, Card c) {
-        String name = "Create 4 Cards";
+
         int pointsToAward = 50;
         int progressPercentage = 0;
         double countForGoal = 4;
@@ -63,8 +67,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
+            log.info(cards);
             for (Card card : cards) {
-                if (card.getCreatedOn() > midnight) {
+                if (card.getDeck() != null && card.getCreatedOn() > midnight) {
                     progressPercentage += (int) 100 / countForGoal;
                 }
             }
