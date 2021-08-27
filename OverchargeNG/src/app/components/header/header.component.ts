@@ -34,11 +34,7 @@ export class HeaderComponent implements OnInit {
   constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal, private objData: ObjectivesService) { }
 
   ngOnInit(): void { 
-    this.objData.getObjectives().subscribe((response) => {
-      this.loggedInUser = response;
-      console.log(this.loggedInUser.points);
-      this.objList = this.loggedInUser.objectives;
-    });
+    this.updateObjValues();
   }
 
   toggleSidebar(): void {
@@ -56,7 +52,13 @@ export class HeaderComponent implements OnInit {
     this.responseMessage = "Logging out";
   }
 
-  
+  updateObjValues(){
+    this.objData.getObjectives().subscribe((response) => {
+      this.loggedInUser = response;
+      console.log(this.loggedInUser.points);
+      this.objList = this.loggedInUser.objectives;
+    });
+  }
 
 
   open(content:any) {

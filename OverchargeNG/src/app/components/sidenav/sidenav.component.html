@@ -8,6 +8,12 @@
     <ngb-toast *ngIf="loginPoints" [autohide]="true" [delay]="5000" (hidden)="loginPoints=false">
       Received +10 points for Logging In!
     </ngb-toast>
+
+    <!-- <div>
+      <ngb-toast *ngIf="variable" [autohide]="true" [delay]="5000" (hidden)="variable=false">
+        More points for stuff...
+      </ngb-toast>
+    </div> -->
   
     <a id="home" mat-list-item routerLinkActive="list-item-active" routerLink = "/home">
       <mat-icon>home</mat-icon> Home
