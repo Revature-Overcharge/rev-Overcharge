@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,10 @@ public class CardController {
     @Autowired
     CardService cs;
 
-    @PostMapping(value = "/cards", consumes = "application/json",
+    @PostMapping(value = "/decks/{id}/cards", consumes = "application/json",
             produces = "application/json")
-    public Card addCard(@RequestBody Card c) {
-        return cs.addCard(c);
+    public Card addCard(@PathVariable("id") int deckId, @RequestBody Card c) {
+        return cs.addCard(deckId, c);
     }
 
     @GetMapping(value = "/cards/{id}")
@@ -39,6 +40,11 @@ public class CardController {
     @GetMapping(value = "/decks/{id}/cards")
     public List<Card> getCardsByDeckId(@PathVariable("id") int id) {
         return cs.getCardsByDeckId(id);
+    }
+    
+    @DeleteMapping(value = "/cards/{id}")
+    public boolean deleteCard(@PathVariable("id") int id) {
+    	return cs.deleteCard(id);
     }
 
 }

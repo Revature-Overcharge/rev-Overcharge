@@ -12,12 +12,17 @@ export class RatingService {
   constructor(private http:HttpClient) { }
 
   addRating(rating: Rating) : Observable<Rating>{
-    return this.http.post<Rating>(`http://localhost:8080/ratings`, rating, {responseType: "json", headers: this.headers} );
+    return this.http.post<Rating>(`http://localhost:8081/ratings`, rating, {responseType: "json", headers: this.headers} );
 
   }
  
   getRatings(): Observable<Rating[]>{
-    return this.http.get<Rating[]>(`http://localhost:8080/ratings`);
+    return this.http.get<Rating[]>(`http://localhost:8081/ratings`);
+
+  }
+
+  getRatingsByIds(user_id:number,deck_id:number): Observable<Rating[]>{
+    return this.http.get<Rating[]>(`http://localhost:8081/ratings?userId=` + user_id+ '&deckId=' + deck_id);
 
   }
 }
