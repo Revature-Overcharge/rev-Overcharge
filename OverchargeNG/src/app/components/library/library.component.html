@@ -14,6 +14,7 @@
                   <th>Deck Title</th>
                   <th>Deck Author</th>
                   <th>Edit Deck</th>
+                  <th>Study Deck</th>
                 </tr>
                 <tr *ngFor="let deck of deckList">
                   <td>{{deck.title}}</td>
@@ -22,6 +23,11 @@
                     <button class="btn btn-lg btn-outline-primary"
                     (click)="open(content, card, 'lg', deck)">
                     add/edit cards
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-lg btn-outline-primary" (click)="getDeckId(deck.id)" routerLink="/cardrunner">
+                      Study
                     </button>
                   </td>
                 </tr>
