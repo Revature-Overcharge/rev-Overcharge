@@ -1,85 +1,143 @@
 package com.revature.overcharge.services;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertThrows;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
+import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.beans.StudiedCard;
+import com.revature.overcharge.beans.User;
+import com.revature.overcharge.repositories.CardRepo;
 
-import com.revature.overcharge.beans.Card;
-
-
-
-
-
-
-
-@SpringBootTest(
-        classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
+@SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
 public class CardServiceTests {
 
-    @Autowired
-    public CardService cs;
-    
+	@Autowired
+	public CardService cs;
+	@MockBean
+	CardRepo cr;
 
-    @Test
-    void addCardTest() {
-        Card newCard1 = new Card(null, null, null);
-        assertNotNull(cs.addCard(0, newCard1));
-        Card newCard = new Card(1, null, null, null);
-        assertThrows(ResponseStatusException.class, () -> {
-            cs.addCard(0, newCard);
-        });
-		Card card = new Card("question", "answer", 87687687L);
+	@Test
+	void addCardTest() {
+		// Card(String question, String answer, Long createdOn)
+		// Card(int id, Deck deck, String question, String answer, Long createdOn)
+		Deck deck = new Deck();
+		// List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
+		Card card = new Card("whats your name", "my name is ahmed", null);
+		// Card(int id, Deck deck, String question, String answer, Long createdOn)
+		Mockito.when(cr.save(card)).thenReturn(new Card(1, deck, "whats your name", "my name is ahmed", null));
 
-		card = cs.addCard(0, card);
-		System.out.println(card);
-				
-		Assertions.assertNotEquals(0, card.getId());
-		Assertions.assertEquals("question", card.getQuestion());
-    }
-
-    @Test
-    void getCardTest() {
-		Card card = new Card(1, "question", "answer", 8796986L);
-		Optional<Card> optionI = Optional.of(card);
+		card = cs.addCard(1, card);
+		
+		Assertions.assertEquals("whats your name", card.getQuestion());
+	}
 	
-			
-		Assertions.assertEquals(1, optionI.get().getId());
-    }
+	@Test
+	void addCardFailure() {
+		Deck deck = new Deck();
+		Card card = new Card("whats your name", "my name is ahmed", null);
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
 
-    @Test
-    void updateCardTest() {
-		Card card = new Card(1, "question", "answer", 987987L);
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.addCard(1, card);
+        });
+	}
+
+	@Test
+	void getCardTest() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		Mockito.when(cr.findById(card.getId())).thenReturn(Optional.of(card));;
 		
+		cs.getCard(card.getId());
+		
+		Assertions.assertEquals("my name is ahmed", card.getAnswer());
+	}
+	
+	@Test
+	void getCardFailure() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.getCard(card.getId());
+        });
+	}
+
+	@Test
+	void updateCardTest() {
+
+//		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
+		Card card = new Card(1, null, "whats your lastNameAH", "my name is Elhewazy", null);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		Mockito.when(cr.save(card)).thenReturn(new Card(1, null, "whats your lastName", "my name is Elhewazy", null));
 		card = cs.updateCard(card);
-		Assertions.assertEquals(1, card.getId());
-		Assertions.assertEquals("question", card.getQuestion());
-    }
-
-    @Test
-    void deleteCardTest() {
-		Card card = new Card("question", "answer", 987987L);
-		card = cs.addCard(0, card);
+		Assertions.assertEquals("whats your lastName", card.getQuestion());
+		Assertions.assertEquals("my name is Elhewazy", card.getAnswer());
+	}
+	
+	@Test
+	void updateCardFailure() {
+		Card card = new Card(1, null, "whats your lastNameAH", "my name is Elhewazy", null);
 		
-		boolean ret = cs.deleteCard(card.getId());
-		Assertions.assertTrue(ret);
-    }
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.updateCard(card);
+        });
+	}
 
-    @Test
-    void getCardsByDeckIdTest() {
-        assertFalse(true);
-    }
+	@Test
+	void deleteCardTest() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+
+		Mockito.when(cr.existsById(card.getId())).thenReturn(true);
+		
+		Assertions.assertEquals(cs.deleteCard(card.getId()), true);
+	}
+	
+	@Test
+	void deleteCardFailure() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		
+		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
+		
+        assertThrows(ResponseStatusException.class, () -> {
+            cs.deleteCard(card.getId());
+        });
+	}
+	
+	@Test
+	void getAllCardsTest() {
+		Deck deck = new Deck();
+		Card card = new Card(1, "whats your name", "my name is ahmed", null);
+		List<Card> cList = new ArrayList<Card>();
+		cList.add(card);
+		
+		Mockito.when(cr.findAll()).thenReturn(cList);
+		
+		Assertions.assertNotNull(cList);
+	}
 
 }
-

@@ -24,20 +24,20 @@
     
     <div id="timer_buttons_container">
         <div id="countdown_nav" class="btn-group">
-            <button (click)="cd.begin()" class="btn btn-sm">
+            <button id="playTimer" (click)="cd.begin()" class="btn btn-sm">
                 <mat-icon >play_arrow</mat-icon>Play</button>
-            <button (click)="cd.pause()" class="btn btn-sm">
+            <button id="pauseTimer" (click)="cd.pause()" class="btn btn-sm">
                 <mat-icon>pause</mat-icon>Pause</button>
-            <button (click)="cd.restart()" class="btn btn-sm">
+            <button id="resetTimer" (click)="cd.restart()" class="btn btn-sm">
                 <mat-icon>replay</mat-icon>Reset</button>
         </div>
         <br />
         <div id="countdown_options" class="btn-group">
-            <button (click)="setCustomTime()" class="btn btn-sm">
+            <button id="setTimer" (click)="setCustomTime()" class="btn btn-sm">
                 <mat-icon>create</mat-icon>Set Timer</button>
-            <button (click)="toggleMode()" class="btn btn-sm">
+            <button id="modeToggle" (click)="toggleMode()" class="btn btn-sm">
                 <mat-icon>cached</mat-icon>Change Mode</button>
-            <button (click)="toggleInput()" type="checkbox" class="btn btn-sm">
+            <button id="timerInputToggle" (click)="toggleInput()" type="checkbox" class="btn btn-sm">
                 <mat-icon>pages</mat-icon>Toggle Input</button>
         </div>
     </div>
