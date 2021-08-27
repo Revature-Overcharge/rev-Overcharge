@@ -4,6 +4,10 @@
     </div>
     <mat-divider></mat-divider>
     <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+
+    <ngb-toast *ngIf="loginPoints" [autohide]="true" [delay]="5000" (hidden)="loginPoints=false">
+      Received +10 points for Logging In!
+    </ngb-toast>
   
     <a id="home" mat-list-item routerLinkActive="list-item-active" routerLink = "/home">
       <mat-icon>home</mat-icon> Home

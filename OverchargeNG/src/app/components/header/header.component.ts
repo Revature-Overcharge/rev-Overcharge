@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
+import { Objective } from 'src/app/models/objective';
 
 @Component({
   selector: 'app-header',
@@ -14,26 +15,9 @@ export class HeaderComponent implements OnInit {
   
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
-  value: number;
-  progressBar: string;
-  dailyObj = this.objData.loginObj;
-  nameObj = this.dailyObj.name;
-  pointsObj = this.dailyObj.pointsToAward;
-
-  nameObj2 = this.objData.dailyObj2.name;
-  pointsObj2 = this.objData.dailyObj2.pointsToAward;
-
-  nameObj3 = this.objData.dailyObj3.name;
-  pointsObj3 = this.objData.dailyObj3.pointsToAward;
-
-  nameObj4 = this.objData.weeklyObj.name;
-  pointsObj4 = this.objData.weeklyObj.pointsToAward;
-
-  nameObj5 = this.objData.weeklyObj2.name;
-  pointsObj5 = this.objData.weeklyObj2.pointsToAward;
-
-  nameObj6 = this.objData.weeklyObj3.name;
-  pointsObj6 = this.objData.weeklyObj3.pointsToAward;
+  loggedInUser: User;
+  objList: Objective[] = [];
+  progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
 
   responseMessage: string = '';
   loggedIn : boolean;
@@ -50,11 +34,11 @@ export class HeaderComponent implements OnInit {
   constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal, private objData: ObjectivesService) { }
 
   ngOnInit(): void { 
-    this.updateValue();
-
-    if (this.value == 100){
-      this.progressBar = "progress-bar";
-    }
+    this.objData.getObjectives().subscribe((response) => {
+      this.loggedInUser = response;
+      console.log(this.loggedInUser.points);
+      this.objList = this.loggedInUser.objectives;
+    });
   }
 
   toggleSidebar(): void {
@@ -70,12 +54,6 @@ export class HeaderComponent implements OnInit {
     this.loggedIn = !this.loggedIn;
     this.loginServ.setUsername('Guest');
     this.responseMessage = "Logging out";
-  }
-  
-  updateValue(){
- 
-    this.value = this.objData.getValue();
-    this.progressBar = this.objData.getProgressBar();
   }
 
   

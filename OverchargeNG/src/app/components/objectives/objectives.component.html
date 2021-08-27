@@ -2,47 +2,36 @@
     <div class="d-flex page__box p-3 mt-2">Objectives</div>
     <div class="page__content shadow p-3 position-relative">
       <div class="page__content-data">
+        <div *ngIf="!loggedIn" style="text-align: center; margin-top: 100px;"><b>Login to See Objectives and Get Some Points!</b></div>
+      <div *ngIf="loggedIn">
         <div>
-            <button (click)="checkValue()">+</button> (Button for Testing purposes)
-
             <div style="float: right;">
               <b>You have {{userPointCount}} points!</b>
-            </div>
+            </div><br>
         <p><b>Daily</b></p>
         <ul>
           <!-- The errors are from the interpolation in the progress bar stuff, but it still works fine-->
-            <li> {{nameObj}} <p style="float: right; margin: 0px;">+{{pointsObj}} points</p> </li>
+          <div *ngFor="let obj of objList.slice(0,2)">
+            <li> {{obj.name}} <p style="float: right; margin: 0px;">+{{obj.pointsToAward}} points</p> </li>
                 <div class="progress">
-                    <div class={{progressBar}} role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{value1}}%"></div>
+                    <div class={{progressBar}} role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
                   </div>
-            <li> {{nameObj2}} <p style="float: right; margin: 0px;">+{{pointsObj2}} points</p> </li>
-            <div class="progress">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-              </div>
-            <li> {{nameObj3}} <p style="float: right; margin: 0px;">+{{pointsObj3}} points</p> </li>
-            <div class="progress">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-              </div>
+            </div>
         </ul>
          </div><br>
 
          <div>
         <p><b>Weekly</b></p>
         <ul>
-            <li> {{nameObj4}} <p style="float: right; margin: 0px;">+{{pointsObj4}} points</p> </li> 
-            <div class="progress">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-              </div>
-            <li> {{nameObj5}} <p style="float: right; margin: 0px;">+{{pointsObj5}} points</p> </li>
-            <div class="progress">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-              </div>
-            <li> {{nameObj6}} <p style="float: right; margin: 0px;">+{{pointsObj6}} points</p> </li> 
-            <div class="progress">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-              </div>
+          <div *ngFor="let obj of objList.slice(2,5)">
+            <li> {{obj.name}} <p style="float: right; margin: 0px;">+{{obj.pointsToAward}} points</p> </li>
+                <div class="progress">
+                    <div class={{progressBar}} role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+                  </div>
+            </div>
         </ul>
         </div>
+      </div>
       </div>
     </div>
   </div>

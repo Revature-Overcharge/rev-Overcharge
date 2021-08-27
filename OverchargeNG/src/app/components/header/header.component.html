@@ -8,60 +8,41 @@
           <input type="search" class="form-control" id="searchBar" placeholder="Search for a Set">
         </div> 
 
-          <ngb-toast *ngIf="loginPoints" [autohide]="true" [delay]="3000" (hidden)="loginPoints=false">
-            I am TOAST!
-          </ngb-toast>
 
         <ng-template #popContent>
-  <div style="float: left; margin-right: 10px; border-right: 2px solid black;">
-      <p style="margin-right: 80px; margin-bottom: 5px;"><b><u>Daily</u></b></p>
-      <ul style="padding: 0;">
-        <!-- The errors are from the interpolation in the progress bar stuff, but it still works fine-->
-        <li style="margin-right: 5px;"> <i>{{nameObj}}</i> </li> 
-              <div class="progress" style="margin-right: 10px;">
-                  <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
+          <div *ngIf="!loggedIn"><b>Login to See Objectives to get Points!</b></div>
+    <div *ngIf="loggedIn">
+      <div style="float: left; margin-right: 10px; border-right: 2px solid black;">
+          <p style="margin-right: 60px; margin-bottom: 5px;"><b><u>Daily</u></b></p>
+          <ul style="padding: 0;">
+            <div *ngFor="let obj of objList.slice(0,2)">
+            <!-- The errors are from the interpolation in the progress bar stuff, but it still works fine-->
+            <li style="margin-right: 5px;"> <i>{{obj.name}}</i> </li> 
+                  <div class="progress" style="margin-right: 10px;">
+                      <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressCount}}%"></div>
+                    </div>
+                    <p><b>+{{obj.pointsToAward}} points</b></p>
+            </div>
+          </ul>
+        </div>
+          
+          <div style="float: right;">
+          <p style="margin-right: 40px; margin-bottom: 5px;"><b><u>Weekly</u></b></p>
+          <ul style="padding: 0;">
+            <div *ngFor="let obj of objList.slice(2,5)">
+            <li> <i>{{obj.name}}</i></li>
+              <div class="progress">
+                  <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressCount}}%"></div>
                 </div>
-                <p><b>+{{pointsObj}} points</b></p>
+                <p><b>+{{obj.pointsToAward}} points</b></p> 
+            </div>
+          </ul>
+        </div>
+      </div>
+  </ng-template>
 
-              <li style="margin-right: 5px;"> <i>{{nameObj2}}</i> </li>
-          <div class="progress" style="margin-right: 10px;">
-              <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-            </div>
-            <p><b>+{{pointsObj2}} points</b></p>
-
-          <li style="margin-right: 5px;"> <i>{{nameObj3}}</i></li>
-          <div class="progress" style="margin-right: 10px;">
-              <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-            </div>
-            <p><b>+{{pointsObj3}} points</b></p>
-      </ul>
-       </div>
-       
-       <div style="float: right;">
-      <p style="margin-right: 60px; margin-bottom: 5px;"><b><u>Weekly</u></b></p>
-      <ul style="padding: 0;">
-        <li> <i>{{nameObj4}}</i></li>
-          <div class="progress">
-              <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-            </div>
-            <p><b>+{{pointsObj4}} points</b></p> 
-
-            <li> <i>{{nameObj5}}</i> </li>
-          <div class="progress">
-              <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-            </div>
-            <p><b>+{{pointsObj5}} points</b></p> 
-            
-            <li> <i>{{nameObj6}}</i></li>
-          <div class="progress">
-              <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{value}}%"></div>
-            </div>
-            <p><b>+{{pointsObj6}} points</b></p> 
-      </ul>
-      </div></ng-template>
-
-        <div style="background-color: black; float: right;" >
-          <button type="button" class="btn btn-outline-secondary mr-2" popoverTitle="Objectives" [ngbPopover]="popContent" (click)="updateValue()">Objectives</button>
+        <div style="background-color: gray; float: right;" >
+          <button type="button" class="btn btn-outline-secondary mr-2" popoverTitle="Objectives" [ngbPopover]="popContent"><p style="color: black; margin: 0px;">Objectives</p></button>
           </div><br>
 
 
