@@ -107,4 +107,9 @@ saveDeck(deckArray: Array<Card>) {
     this.cardService.deleteCard(this.deletedCards[i]).subscribe();
   }
 }
+
+getDeckId(id: number) {
+  //save the deck id to local storage
+  window.localStorage.setItem("deckID", id.toString());
+}
 }

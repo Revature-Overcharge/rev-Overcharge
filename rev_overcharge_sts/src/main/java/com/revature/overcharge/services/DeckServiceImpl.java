@@ -94,13 +94,18 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             log.info(d);
+            System.out.println("deck is here");
+
             Deck addedDeck = addDeck(d);
-            for (Card c : d.getCards()) {
+            
+        	for (Card c : d.getCards()) {
                 addedDeck = getDeck(addedDeck.getId());
                 c.setDeck(addedDeck);
                 cs.addCard(addedDeck.getId(), c);
             }
+        	
             os.setCreateADeckWeekly(d.getCreator().getId());
+
             addedDeck = getDeck(addedDeck.getId());
             log.info(addedDeck);
             return addedDeck;

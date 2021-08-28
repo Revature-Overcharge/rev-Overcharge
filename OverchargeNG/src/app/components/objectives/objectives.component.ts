@@ -24,11 +24,13 @@ export class ObjectivesComponent implements OnInit {
 
     this.loggedIn = this.user.loggedIn;
 
+
     this.objData.getObjectives().subscribe((response) => {
       this.loggedInUser = response;
       console.log(this.loggedInUser.points);
       this.objList = this.loggedInUser.objectives;
       this.userPointCount = this.loggedInUser.points;
+      console.log(this.objList);
     });
 
     if (this.user.getUsername() == 'Guest'){
