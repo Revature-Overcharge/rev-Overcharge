@@ -177,7 +177,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
                 qualifiedDecks++;
             }
         }
-        if (qualifiedDecks == 1) {
+        if (qualifiedDecks > 0) {
             u.getObjectives().add(new Objective("Create a Deck", 100, 100, 1));
         } else {
             u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
@@ -245,7 +245,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        if (matchedDeck >= 1) {
+        if (matchedDeck > 0) {
             u.getObjectives().add(new Objective(
                     "Get a Five Star Rating on a Deck", 300, 100, 1));
         } else {
@@ -321,7 +321,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        if (deckCompleted == 1) {
+        if (deckCompleted > 0) {
             u.getObjectives().add(new Objective(
                     "Mark All Cards in Two Sets as Studied", 300, 100, 1));
         } else {
@@ -417,7 +417,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        if (matchRating == 1) {
+        if (matchRating > 0) {
             u.getObjectives().add(new Objective("Rate a Deck", 20, 100, 1));
         } else {
             u.getObjectives().add(new Objective("Rate a Deck", 20, 0, 1));
