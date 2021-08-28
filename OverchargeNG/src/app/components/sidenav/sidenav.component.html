@@ -30,11 +30,11 @@
   <a id="createNavLink" mat-list-item routerLinkActive="list-item-active" routerLink="/create">
     <mat-icon>create</mat-icon> Create Sets
   </a>
-  <a id="timerNavLink" mat-list-item routerLinkActive="list-time-active" (click)="showTimer()">
+  <a id="timerNavLink" mat-list-item routerLinkActive="list-item-active" (click)="showTimer()">
     <mat-icon>timer</mat-icon> Timer
     <span id="timerStatus" *ngIf="timerBool == true || timer.status != 'Inactive'">: {{timer.status}}</span>
   </a>
-  <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click)="open(content)" routerLink="/library">
+  <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click)="open(loginModal)" routerLink="/library">
     <mat-icon>login</mat-icon> Log In
   </a>
 
@@ -45,7 +45,8 @@
 
 </mat-nav-list>
 
-<ng-template #content let-modal>
+<modal-login #loginModal></modal-login>
+<!-- <ng-template #content let-modal>
   <div class="modal-header">
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
@@ -78,4 +79,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->

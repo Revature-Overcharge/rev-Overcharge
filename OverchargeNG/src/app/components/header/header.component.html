@@ -75,13 +75,13 @@
                   <mat-icon>account_circle</mat-icon>
                   User Profile 
                 </button> -->
-              <button id="logoutHeaderBtn" (click)="logout(); open(content)" mat-menu-item routerLink="/library">
+              <button id="logoutHeaderBtn" (click)="logout()" mat-menu-item routerLink="/library">
                 <mat-icon>exit_to_app</mat-icon>
                 Logout
               </button>
             </div>
             <div *ngIf="!loggedIn">
-              <button id="loginHeaderBtn" mat-menu-item (click)="open(content)" routerLink="/library">
+              <button id="loginHeaderBtn" mat-menu-item (click)="open(loginModal)" routerLink="/library">
                 <mat-icon>login</mat-icon>
                 Login
               </button>
@@ -93,7 +93,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<ng-template #content let-modal>
+<modal-login #loginModal></modal-login>
+<!-- <ng-template #content let-modal>
   <div class="modal-header" id="modal">
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
@@ -126,4 +127,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->

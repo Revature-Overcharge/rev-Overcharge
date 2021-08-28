@@ -7,6 +7,8 @@ import { TimerComponent } from './components/timer/timer.component';
 import { LibraryComponent } from './components/library/library.component';
 import { ObjectivesComponent } from './components/objectives/objectives.component';
 import { CardrunnerComponent } from './components/card-runner/card-runner.component';
+import { CreateDeckComponent } from './components/create-deck/create-deck.component';
+import { LoginComponent } from './components/login/login.component';
 
 //Modules
 import { HttpClientModule } from '@angular/common/http';
@@ -23,7 +25,6 @@ import { MatListModule } from '@angular/material/list';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreateDeckComponent } from './components/create-deck/create-deck.component';
 
 //Services
 import { ObjectivesService } from './services/objectives.service';
@@ -36,7 +37,7 @@ import { ObjectivesService } from './services/objectives.service';
     HeaderComponent,
     SidenavComponent,
     HomeComponent,
-    
+    LoginComponent,
     TimerComponent,
     CardrunnerComponent,
     LibraryComponent,
