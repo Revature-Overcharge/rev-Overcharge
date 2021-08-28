@@ -1,8 +1,8 @@
 Feature: Create a Deck
 
 Scenario: 
-	Given Has nagivated to the website
-	Given User Logs in
+	Given User has nagivated to the website
+	Given User has logged in
 	When User navigates to the library section in side nav
 	Then User has option to click card runner
 	Then User traverses a deck

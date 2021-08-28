@@ -6,17 +6,17 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.revature.overcharge.pages.CreateDeck;
+import com.revature.overcharge.pages.CardTraversal;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
+@CucumberOptions(features = "src/test/resources", glue = "com.revature.overcharge.steps")
 public class CardTraversalRunner {
 
 	public static WebDriver driver;
-	public static CreateDeck createDeck;
+	public static CardTraversal cardTraversal;
 	
 	@BeforeClass
 	public static void setUp() {
@@ -24,7 +24,7 @@ public class CardTraversalRunner {
 		System.setProperty("webdriver.chrome.driver", path);
 		
 		driver = new ChromeDriver();
-		createDeck = new CreateDeck(driver);
+		cardTraversal = new CardTraversal(driver);
 	}
 	
 	@AfterClass
