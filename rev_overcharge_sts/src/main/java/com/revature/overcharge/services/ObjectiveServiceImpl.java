@@ -101,7 +101,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             List<Card> cards = deck.getCards();
             for (Card card : cards) {
                 if (card.getQuestion() != null && card.getDeck() != null && card.getCreatedOn() > midnight) {
-                    progressPercentage += 100 / countForGoal;
+                    progressPercentage += 100.0 / countForGoal;
                 }
             }
         }
