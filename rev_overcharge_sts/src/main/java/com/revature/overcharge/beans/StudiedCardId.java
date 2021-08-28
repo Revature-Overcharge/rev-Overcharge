@@ -8,39 +8,45 @@ import org.apache.log4j.Logger;
 @SuppressWarnings("serial")
 public class StudiedCardId implements Serializable {
 
-    private static final Logger log = Logger.getLogger(StudiedCardId.class);
+	private static final Logger log = Logger.getLogger(StudiedCardId.class);
 
-    private int userId;
+	private int userId;
 
-    private int cardId;
+	private int cardId;
 
-    public StudiedCardId() {
-        super();
-    }
+	public StudiedCardId(int userId, int cardId) {
+		super();
+		this.userId = userId;
+		this.cardId = cardId;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public StudiedCardId() {
+		super();
+	}
 
-    public int getCardId() {
-        return cardId;
-    }
+	public int getUserId() {
+		return userId;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(cardId, userId);
-    }
+	public int getCardId() {
+		return cardId;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        StudiedCardId other = (StudiedCardId) obj;
-        return cardId == other.cardId && userId == other.userId;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(cardId, userId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StudiedCardId other = (StudiedCardId) obj;
+		return cardId == other.cardId && userId == other.userId;
+	}
 
 }

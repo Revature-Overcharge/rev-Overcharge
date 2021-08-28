@@ -54,8 +54,9 @@ public answer:string = '';
 
   ngOnInit(): void {
     this.user_id = Number(window.localStorage.getItem("userID"));
+    this.deck_id = Number(window.localStorage.getItem("deckID"));
 
-    this.dshttp.getDeckById(1).subscribe(
+    this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
 
         this.creator_id = Response1.creator.id;
