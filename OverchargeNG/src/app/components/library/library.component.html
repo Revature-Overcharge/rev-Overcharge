@@ -19,23 +19,23 @@
                   <tr>
                     <th scope="col">Deck Title</th>
                     <th scope="col">Deck Author</th>
-                    <th scope="col">Edit Deck</th>
                     <th scope="col">Study Deck</th>
+                    <th scope="col">Edit Deck</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let deck of deckList">
                     <td>{{deck.title}}</td>
                     <td>{{deck.creator.username}}</td>
+                    <td>
+                      <button class="btn btn-lg btn-outline-primary" (click)="getDeckId(deck.id)" routerLink="/cardrunner">
+                        Study
+                      </button>
+                    </td>
                     <td *ngIf="curUser == deck.creator.username">
                       <button class="btn btn-lg btn-outline-primary"
                       (click)="open(content, card, 'lg', deck)">
                       add/edit cards
-                      </button>
-                    </td>
-                    <td>
-                      <button class="btn btn-lg btn-outline-primary" (click)="getDeckId(deck.id)" routerLink="/cardrunner">
-                        Study
                       </button>
                     </td>
                   </tr>
