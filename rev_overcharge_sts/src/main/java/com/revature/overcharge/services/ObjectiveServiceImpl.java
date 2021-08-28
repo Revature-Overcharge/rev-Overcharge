@@ -68,7 +68,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
             for (Card card : cards) {
-                if (card.getDeck() != null && card.getCreatedOn() > midnight) {
+                if (card.getQuestion() != null && card.getDeck() != null  && card.getCreatedOn() > midnight) {
                     progressPercentage += (int) 100 / countForGoal;
                 }
             }
@@ -100,7 +100,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
             for (Card card : cards) {
-                if (card.getCreatedOn() > midnight) {
+                if (card.getQuestion() != null && card.getDeck() != null && card.getCreatedOn() > midnight) {
                     progressPercentage += 100 / countForGoal;
                 }
             }
@@ -196,7 +196,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         int match = 0;
 
         List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
-
+        
         for (Rating rating : ratings) {
             if ((rating.getRatedOn() >= startWeekTime
                     && rating.getRatedOn() <= endWeekTime)
@@ -245,7 +245,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             }
         }
 
-        if (matchedDeck == 1) {
+        if (matchedDeck >= 1) {
             u.getObjectives().add(new Objective(
                     "Get a Five Star Rating on a Deck", 300, 100, 1));
         } else {
