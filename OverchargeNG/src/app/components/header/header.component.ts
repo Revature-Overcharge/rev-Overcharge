@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ObjectivesService } from 'src/app/services/objectives.service';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
+import { Objective } from 'src/app/models/objective';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +12,16 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
-  changeText: any;
-  newText:string = "Daily and Weekly Challenges...";
+  loggedInUser: User;
+  objList: Objective[] = [];
+  progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
+
   responseMessage: string = '';
   loggedIn : boolean;
+  loginPoints: boolean;
   closeResult = '';
   username: string = '';
   password: string = '';
@@ -25,9 +31,11 @@ export class HeaderComponent implements OnInit {
   sw3: boolean = false;
   modalRef: any;
 
-  constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal) { }
+  constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal, private objData: ObjectivesService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.updateObjValues();
+  }
 
   toggleSidebar(): void {
     this.toggleSidebarForMe.emit();
@@ -44,7 +52,13 @@ export class HeaderComponent implements OnInit {
     this.responseMessage = "Logging out";
   }
 
-  
+  updateObjValues(){
+    this.objData.getObjectives().subscribe((response) => {
+      this.loggedInUser = response;
+      console.log(this.loggedInUser.points);
+      this.objList = this.loggedInUser.objectives;
+    });
+  }
 
 
   open(content:any) {
@@ -77,8 +91,14 @@ export class HeaderComponent implements OnInit {
       (response) => {
         if (response) {
           this.user = response;
+          console.log(this.user);
+
+          if(this.user.objectives.length != 0){
+            this.loginPoints = true;
+          }
 
           this.loginServ.setUsername(this.user.username);
+          window.localStorage.setItem("userID",String(response.id));
           console.log("logged in: ", this.user.username);
           this.sw1 = false;
           this.sw2 = true;

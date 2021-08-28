@@ -19,40 +19,38 @@ import com.revature.overcharge.services.UserService;
 @RestController
 public class UserController {
 
-    @Autowired
-    UserService us;
+	@Autowired
+	UserService us;
 
-    @PostMapping(value = "/users", consumes = "application/json",
-            produces = "application/json")
-    public User addUser(@RequestBody User u) {
-        return us.addUser(u);
-    }
+	@PostMapping(value = "/users", consumes = "application/json", produces = "application/json")
+	public User addUser(@RequestBody User u) {
+		return us.addUser(u);
+	}
 
-    @GetMapping(value = "/users/{id}")
-    public User getUser(@PathVariable("id") int id) {
-        return us.getUser(id);
-    }
+	@GetMapping(value = "/users/{id}")
+	public User getUser(@PathVariable("id") int id) {
+		return us.getUser(id);
+	}
 
-    @GetMapping(value = "/users")
-    public List<User> getAllUsers() {
-        return us.getAllUsers();
-    }
+	@GetMapping(value = "/users")
+	public List<User> getAllUsers() {
+		System.out.println("something");
+		return us.getAllUsers();
+	}
 
-    @PutMapping(value = "/users/{id}", consumes = "application/json",
-            produces = "application/json")
-    public User updateUser(@PathVariable int id, @RequestBody User newUser) {
-        newUser.setId(id);
-        return us.updateUser(newUser);
-    }
+	@PutMapping(value = "/users/{id}", consumes = "application/json", produces = "application/json")
+	public User updateUser(@PathVariable int id, @RequestBody User newUser) {
+		newUser.setId(id);
+		return us.updateUser(newUser);
+	}
 
-    @DeleteMapping(value = "/users/{id}")
-    public boolean deleteUser(@PathVariable int id) {
-        return us.deleteUser(id);
-    }
+	@DeleteMapping(value = "/users/{id}")
+	public boolean deleteUser(@PathVariable int id) {
+		return us.deleteUser(id);
+	}
 
-    @PostMapping(value = "/login", consumes = "application/json",
-            produces = "application/json")
-    public User login(@RequestBody User u) {
-        return us.login(u);
-    }
+	@PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+	public User login(@RequestBody User u) {
+		return us.login(u);
+	}
 }

@@ -28,6 +28,7 @@ export class SidenavComponent implements OnInit {
   
   @ViewChild('timer')
   timer!: TimerComponent;
+  loginPoints: boolean;
   // @ViewChild('cd') 
   // countdown!: CountdownComponent;
   
@@ -80,10 +81,10 @@ export class SidenavComponent implements OnInit {
     }
   }
 
+  
 
 
   isGuest() :boolean {
-    console.log(this.loginServ.getUsername());
     return !this.loginServ.loggedIn;
   }
 
@@ -120,6 +121,12 @@ export class SidenavComponent implements OnInit {
         if (response) {
           this.user = response;
           console.log("Response : " + JSON.stringify(this.user.id));
+
+          console.log(response);
+          
+          if(response.objectives.length != 0){
+            this.loginPoints = true;
+          }
 
           this.loginServ.setUsername(this.user.username);
           console.log("logged in: ", this.user.username);

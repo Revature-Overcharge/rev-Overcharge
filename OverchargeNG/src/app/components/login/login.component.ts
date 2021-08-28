@@ -23,11 +23,12 @@ export class LoginComponent implements OnInit {
 
     console.log(this.username);
 
-    let loginAttempt = new User(this.username, this.password);
+    let loginAttempt = new User(0 , this.username, this.password, 0 , 100);
     this.loginServ.login(loginAttempt).subscribe(
       (response) => {
         if (response) {
           const user = response;
+          console.log("response");
 
           this.loginServ.setUsername(user.username);
           console.log("logged in: ", user.username);
@@ -62,6 +63,5 @@ export class LoginComponent implements OnInit {
       // }
     )
   }
-
 
 }
