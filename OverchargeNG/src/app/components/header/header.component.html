@@ -8,6 +8,9 @@
       <input type="search" class="form-control" id="searchBar" placeholder="Search for a Set">
     </div>
 
+    <ngb-toast *ngIf="loginPoints" [autohide]="true" [delay]="3000" (hidden)="loginPoints=false">
+      Received +10 points for Logging In!
+    </ngb-toast>
 
     <ng-template #popContent>
       <div *ngIf="!loggedIn"><b>Login to See Objectives to get Points!</b></div>
@@ -15,7 +18,7 @@
         <div style="float: left; margin-right: 10px; border-right: 2px solid black;">
           <p style="margin-right: 60px; margin-bottom: 5px;"><b><u>Daily</u></b></p>
           <ul style="padding: 0;">
-            <div *ngFor="let obj of objList.slice(0,2)">
+            <div *ngFor="let obj of objList.slice(0,3)">
               <!-- The errors are from the interpolation in the progress bar stuff, but it still works fine-->
               <li style="margin-right: 5px;"> <i>{{obj.name}}</i> </li>
               <div class="progress" *ngIf="obj.progressPercent<100" style="margin-right: 10px;">
@@ -32,7 +35,7 @@
         <div style="float: right;">
           <p style="margin-right: 40px; margin-bottom: 5px;"><b><u>Weekly</u></b></p>
           <ul style="padding: 0;">
-            <div *ngFor="let obj of objList.slice(2,5)">
+            <div *ngFor="let obj of objList.slice(3,6)">
               <li> <i>{{obj.name}}</i></li>
               <div class="progress" *ngIf="obj.progressPercent<100">
                 <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressPercent}}%"></div>

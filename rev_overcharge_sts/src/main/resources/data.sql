@@ -19,16 +19,16 @@ insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 16
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
-insert into ratings (user_id, deck_id, stars, rated_on) values (1, 1, 5, 1629316906000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (1, 1, 2, 1629316906000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (4, 1, 4, 1629317906000);
-insert into ratings (user_id, deck_id, stars, rated_on) values (5, 1, 5, 1629318906000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (5, 1, 3, 1629318906000);
 -- Ratings for deck 2 (Testing) from users 8, 9, 10
 insert into ratings (user_id, deck_id, stars, rated_on) values (8, 2, 3, 1629933179000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (9, 2, 3, 1629339843000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (10, 2, 2, 1629349843000);
 -- Ratings for deck 3 (Spring) from users 8, 9, 10
 insert into ratings (user_id, deck_id, stars, rated_on) values (8, 3, 1, 1629329843000);
-insert into ratings (user_id, deck_id, stars, rated_on) values (9, 3, 5, 1629933179000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (9, 3, 2, 1629933179000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (10, 3, 2, 1629349843000);
 
 -- Cards

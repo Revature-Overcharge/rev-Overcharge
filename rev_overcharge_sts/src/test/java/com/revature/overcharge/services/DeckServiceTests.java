@@ -10,7 +10,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
@@ -45,7 +44,7 @@ public class DeckServiceTests {
 
 		Assertions.assertEquals(1, deck.getId());
 	}
-	
+
 	@Test
 	void addDeckTestFailure() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -57,7 +56,7 @@ public class DeckServiceTests {
 			ds.addDeck(deck);
 		});
 	}
-	
+
 	@Test
 	void getAllDecksTest() {
 		List<Deck> dList = new ArrayList<Deck>();
@@ -67,12 +66,12 @@ public class DeckServiceTests {
 		Deck deck = new Deck(creator, "new deck2", null, card);
 		dList.add(deck);
 		Mockito.when(dr.findAll()).thenReturn(dList);
-		
+
 		dList = ds.getAllDecks();
-		
+
 		Assertions.assertNotNull(dList);
 	}
-	
+
 	@Test
 	void getDeckTest() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -84,10 +83,10 @@ public class DeckServiceTests {
 		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck));
 
 		deck = ds.getDeck(deck.getId());
-		
+
 		Assertions.assertEquals("new deck2", deck.getTitle());
 	}
-	
+
 	@Test
 	void getDeckTestFailure() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -116,10 +115,10 @@ public class DeckServiceTests {
 		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new deck3", null, card));
 
 		deck = ds.updateDeck(deck);
-		
+
 		Assertions.assertEquals("new deck3", deck.getTitle());
 	}
-	
+
 	@Test
 	void updateDeckTestFailure() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -129,7 +128,7 @@ public class DeckServiceTests {
 		Deck deck = new Deck(1, creator, "new deck3", null, card);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(false);
-		
+
 		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			ds.updateDeck(deck);
 		});
@@ -145,7 +144,7 @@ public class DeckServiceTests {
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
 		Assertions.assertEquals(ds.deleteDeck(deck.getId()), true);
 	}
-	
+
 	@Test
 	void deleteDeckFailure() {
 		User creator = new User("ahmed", "pass", null, null);
@@ -167,13 +166,13 @@ public class DeckServiceTests {
 		card.add(new Card("whats your name", "my name is ahmed", null));
 		Deck deck = new Deck(creator, "new deck2", null, card);
 		dList.add(deck);
-		Mockito.when(dr.findByCreatorId(creator.getId())).thenReturn(dList);
-		
+		// Mockito.when(dr.findByCreatorId(creator.getId())).thenReturn(dList);
+
 		dList = ds.getDecksByCreatorId(creator.getId());
-		
+
 		Assertions.assertNotNull(dList);
 	}
-	
+
 	@Test
 	void addDeckandCardsTest() {
 		User creator = new User(11, null, null, null, null);
@@ -181,7 +180,7 @@ public class DeckServiceTests {
 		cards.add(new Card("whats your name", "my name is ahmed", null));
 		cards.add(new Card("EUGH", "BLAUGH", null));
 		Deck deck = new Deck(creator, "new deck2", null, cards);
-		
+
 		deck = ds.addDeckAndCards(deck);
 	}
 

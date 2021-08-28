@@ -1,16 +1,16 @@
 export class Objective {
     name: string;
     pointsToAward: number;
+    countForGoal: number;
     progressPercent: number;
-    progressCount: number;
    
   
    
-    constructor(name: string, pointsToAward: number, countForGoal: number, progressCount: number){
+    constructor(name: string, pointsToAward: number, countForGoal: number, progressPercent: number){
         this.name = name;
         this.pointsToAward = pointsToAward;
-        this.progressPercent  = countForGoal;
-        this.progressCount = progressCount;
+        this.countForGoal  = countForGoal;
+        this.progressPercent = progressPercent;
        
     }
 }
