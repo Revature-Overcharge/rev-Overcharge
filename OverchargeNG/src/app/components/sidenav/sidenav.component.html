@@ -35,11 +35,7 @@
     <mat-icon>timer</mat-icon> Timer
     <span id="timerStatus" *ngIf="timerBool == true || timer.status != 'Inactive'">: {{timer.status}}</span>
   </a>
-<<<<<<< HEAD
-  <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click)="loginModal.open()" routerLink="/library">
-=======
   <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click) = "open(content)" routerLink="/library">
->>>>>>> 2eeac1aa4952875da31a0d3285abe98f1bcf909c
     <mat-icon>login</mat-icon> Log In
   </a>
 
