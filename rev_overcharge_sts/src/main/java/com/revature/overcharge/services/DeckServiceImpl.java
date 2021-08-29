@@ -82,7 +82,7 @@ public class DeckServiceImpl implements DeckService {
         if (dr.existsByCreatorId(creatorId)) {
             return dr.getByCreatorId(creatorId);
         } else {
-            log.warn("No deck found for given creator id");
+//            log.warn("No deck found for given creator id");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
