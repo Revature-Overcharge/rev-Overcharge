@@ -8,6 +8,9 @@
       <input type="search" class="form-control" id="searchBar" placeholder="Search for a Set">
     </div>
 
+    <ngb-toast *ngIf="loginPoints" [autohide]="true" [delay]="3000" (hidden)="loginPoints=false">
+      Received +10 points for Logging In!
+    </ngb-toast>
 
     <ng-template #popContent>
       <div *ngIf="!loggedIn"><b>Login to See Objectives to get Points!</b></div>
@@ -15,14 +18,14 @@
         <div style="float: left; margin-right: 10px; border-right: 2px solid black;">
           <p style="margin-right: 60px; margin-bottom: 5px;"><b><u>Daily</u></b></p>
           <ul style="padding: 0;">
-            <div *ngFor="let obj of objList.slice(0,2)">
+            <div *ngFor="let obj of objList.slice(0,3)">
               <!-- The errors are from the interpolation in the progress bar stuff, but it still works fine-->
               <li style="margin-right: 5px;"> <i>{{obj.name}}</i> </li>
-              <div class="progress" *ngIf="obj.progressCount<100" style="margin-right: 10px;">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressCount}}%"></div>
+              <div class="progress" *ngIf="obj.progressPercent<100" style="margin-right: 10px;">
+                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressPercent}}%"></div>
               </div>
-              <div class="progress" *ngIf="obj.progressCount>=100" style="margin-right: 10px;">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+              <div class="progress" *ngIf="obj.progressPercent>=100" style="margin-right: 10px;">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressPercent}}%"></div>
               </div>
               <p><b>+{{obj.pointsToAward}} points</b></p>
             </div>
@@ -32,13 +35,13 @@
         <div style="float: right;">
           <p style="margin-right: 40px; margin-bottom: 5px;"><b><u>Weekly</u></b></p>
           <ul style="padding: 0;">
-            <div *ngFor="let obj of objList.slice(2,5)">
+            <div *ngFor="let obj of objList.slice(3,6)">
               <li> <i>{{obj.name}}</i></li>
-              <div class="progress" *ngIf="obj.progressCount<100">
-                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressCount}}%"></div>
+              <div class="progress" *ngIf="obj.progressPercent<100">
+                <div class={{progressBar}} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressPercent}}%"></div>
               </div>
-              <div class="progress" *ngIf="obj.progressCount>=100">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressCount}}%"></div>
+              <div class="progress" *ngIf="obj.progressPercent>=100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:{{obj.progressPercent}}%"></div>
               </div>
               <p><b>+{{obj.pointsToAward}} points</b></p>
             </div>
@@ -58,27 +61,26 @@
       <ul class="row m-0 align-items-center">
         <li>
           <button id="menuBtn" mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
-
-            <!-- <img src="./assets/User.png" alt="userPic" class="user-image mr-1 p-2" /> -->
             <mat-icon>account_circle</mat-icon>
             {{ getUsername() }}
             <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
           </button>
 
           <mat-menu #menu="matMenu">
-            <!-- To Be Implemented wiht Login Functionality -->
+            
             <div *ngIf="loggedIn">
+              <!-- To Be Implemented with User Profile Functionality -->
               <!-- <button mat-menu-item routerLinkActive="list-item-active" routerLink="/profile"> 
                   <mat-icon>account_circle</mat-icon>
                   User Profile 
                 </button> -->
-              <button id="logoutHeaderBtn" (click)="logout(); open(content)" mat-menu-item routerLink="/library">
+              <button id="logoutHeaderBtn" (click)="logout()" mat-menu-item routerLink="/home">
                 <mat-icon>exit_to_app</mat-icon>
                 Logout
               </button>
             </div>
             <div *ngIf="!loggedIn">
-              <button id="loginHeaderBtn" mat-menu-item (click)="open(content)" routerLink="/library">
+              <button id="loginHeaderBtn" mat-menu-item (click)="loginModal.open()" routerLink="/library">
                 <mat-icon>login</mat-icon>
                 Login
               </button>
@@ -90,37 +92,4 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<ng-template #content let-modal>
-  <div class="modal-header" id="modal">
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-
-      <span aria-hidden="true">
-        X
-      </span>
-    </button>
-  </div>
-  <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2">Log in</div>
-    <div class="shadow p-3">
-      <div class="page__content-data">
-
-        <div class="d-grid gap-3 col-6 mx-auto text-center" id="box">
-          <div class="form-floating mb-3">
-            <input [(ngModel)]="username" id="inputUname" type="text" class="form-control">
-            <label for="floatingInput" style="color: black" class="blk">Username</label>
-          </div>
-          <div class="form-floating">
-            <input [(ngModel)]="password" id="inputPass" type="password" type="password" class="form-control">
-            <label for="floatingPassword" style="color: black" class="blk">Password</label>
-          </div>
-          <button (click)="login()" id="loginButton" style="background-color: gray;" class="btn-secondary btn-lg">Log in</button>
-          <br>
-          <label *ngIf="sw1" style="color: black">Incorrect credentials</label>
-          <label *ngIf="sw2" style="color: black">Success! Logging in...</label>
-          <label *ngIf="sw3" style="color: black">Login Error....</label>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</ng-template>
+<modal-login #loginModal></modal-login>

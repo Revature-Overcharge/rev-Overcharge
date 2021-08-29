@@ -54,7 +54,10 @@ button{
   }
 
   .cardText{
+    padding: 10px;
+    margin-top: 1em;
     font-size: 20px;
+    line-height: 30px;
   }
 
   #ratingcontainer{

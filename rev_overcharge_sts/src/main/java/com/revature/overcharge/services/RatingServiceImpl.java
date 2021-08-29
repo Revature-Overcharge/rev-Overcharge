@@ -17,18 +17,29 @@ import com.revature.overcharge.repositories.RatingRepo;
 public class RatingServiceImpl implements RatingService {
 
     private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
-
+    
     @Autowired
     RatingRepo rr;
+    
+    @Autowired
+    UserService us;
+    
+    @Autowired
+    DeckService ds;
     
     @Autowired
     ObjectiveService os;
 
     @Override
     public Rating saveRating(Rating r) {
+        if (r.getUserId() == ds.getDeck(r.getDeckId()).getCreator().getId()) {
+            log.warn("User can't rate their own deck.");
+            return r;
+        }
         r.setRatedOn(new Date().getTime());
         log.info(r.toString());
         r = rr.save(r);
+        os.setRateADeckDaily(r.getUserId());
         os.set5StarDeckWeekly(r);
         return r;
     }

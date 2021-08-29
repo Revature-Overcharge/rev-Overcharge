@@ -8,6 +8,7 @@ import { Rating } from 'src/app/models/rating';
 import { RatingService } from 'src/app/services/rating.service';
 import { Router } from '@angular/router';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
+
 @Component({
   selector: 'app-cardrunner',
   templateUrl: './card-runner.component.html',
@@ -25,37 +26,38 @@ import { HttpDeckService } from 'src/app/services/http-deck.service';
     ])
   ]
 })
+
 export class CardrunnerComponent implements OnInit {
   constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router) { }
-Cards: Card[] = [];
-CurrentCard: Card = new Card(1,'','',1);
-rating:Rating = new Rating(0,0,0,0);
-deck_id:number = 2;
-text:string = '';
-creator_id:number=0;
-user_id:number = 0;
-number_mastered = 0;
-number_total = 0;
-count = 0;
+  
+  Cards: Card[] = [];
+  CurrentCard: Card = new Card(1,'','',1);
+  rating:Rating = new Rating(0,0,0,0);
+  deck_id:number = 2;
+  text:string = '';
+  creator_id:number=0;
+  user_id:number = 0;
+  number_mastered = 0;
+  number_total = 0;
+  count = 0;
 
+  public crnt: number = 0;
 
-public crnt: number = 0;
+  public next: String = 'Next Question';
+  public unfinished: boolean = true;
+  public rate: boolean =false;
+  public finished:boolean = false;
+  public array:StudiedCard[] = [];
 
-
-public next: String = 'Next Question';
-public unfinished: boolean = true;
-public rate: boolean =false;
-public finished:boolean = false;
-public array:StudiedCard[] = [];
-
-public question:string = '';
-public answer:string = '';
+  public question:string = '';
+  public answer:string = '';
 
 
   ngOnInit(): void {
     this.user_id = Number(window.localStorage.getItem("userID"));
+    this.deck_id = Number(window.localStorage.getItem("deckID"));
 
-    this.dshttp.getDeckById(1).subscribe(
+    this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
 
         this.creator_id = Response1.creator.id;
@@ -72,7 +74,7 @@ public answer:string = '';
 
         let index:number = 0;
         console.log("Length before filtering : " + this.Cards.length)
-        outer :for(let card of this.Cards){
+        for(let card of this.Cards){
 
           for(let i:number =0;i<this.array.length;i++){
 
@@ -84,7 +86,7 @@ public answer:string = '';
           
            }
           }
-index++;
+        index++;
         }
         const filteredCards = this.Cards.filter(el => {
           return el != null;
@@ -101,28 +103,14 @@ index++;
       )
 
 
-     
-        
-  
-       
-      
-      
-
-     
   }
 
   public preprogress: number = 1/this.Cards.length*100;
-public progress:string = this.preprogress + '%';  
+  public progress:string = this.preprogress + '%';  
 
 
+  studied_card:StudiedCard = new StudiedCard(1,2,2);
 
-
-
-
-studied_card:StudiedCard = new StudiedCard(1,2,2);
-
-
- 
   flip: string = 'inactive';
 
   toggleFlip() {
@@ -261,14 +249,11 @@ studied_card:StudiedCard = new StudiedCard(1,2,2);
 
   markAsMastered(){
 
-  
-let userid: number = 0;
-userid = Number(window.localStorage.getItem("userID"));
+    let userid: number = 0;
+    userid = Number(window.localStorage.getItem("userID"));
 
-this.studied_card.cardId = this.CurrentCard.id;
-this.studied_card.userId = userid;
-
-
+    this.studied_card.cardId = this.CurrentCard.id;
+    this.studied_card.userId = userid;
 
     this.schttp.addStudiedCard(this.studied_card).subscribe(
       (Response)=>{
@@ -302,13 +287,10 @@ this.studied_card.userId = userid;
 
     }
     else{
-
       this.unfinished = false;
-   
-          
-          this.rate = true;
-       
-}}
+      this.rate = true; 
+    }
+  }
 
 returnToLibrary(){
   this.router.navigate(['/','library']);
