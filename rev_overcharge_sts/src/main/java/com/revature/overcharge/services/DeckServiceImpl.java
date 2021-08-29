@@ -26,6 +26,9 @@ public class DeckServiceImpl implements DeckService {
 
     @Autowired
     ObjectiveService os;
+    
+    @Autowired
+    RatingService rs;
 
     @Override
     public Deck addDeck(Deck d) {
@@ -50,7 +53,11 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public List<Deck> getAllDecks() {
-        return (List<Deck>) dr.findAll();
+        List<Deck> decks = (List<Deck>) dr.findAll();
+        for (Deck deck : decks) {
+            deck.setAvgRating(rs.calculateAvgRating(deck.getId()));
+        }
+        return decks;
     }
 
     @Override
@@ -97,13 +104,13 @@ public class DeckServiceImpl implements DeckService {
             System.out.println("deck is here");
 
             Deck addedDeck = addDeck(d);
-            
-        	for (Card c : d.getCards()) {
+
+            for (Card c : d.getCards()) {
                 addedDeck = getDeck(addedDeck.getId());
                 c.setDeck(addedDeck);
                 cs.addCard(addedDeck.getId(), c);
             }
-        	
+
             os.setCreateADeckWeekly(d.getCreator().getId());
 
             addedDeck = getDeck(addedDeck.getId());

@@ -17,16 +17,16 @@ import com.revature.overcharge.repositories.RatingRepo;
 public class RatingServiceImpl implements RatingService {
 
     private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
-    
+
     @Autowired
     RatingRepo rr;
-    
+
     @Autowired
     UserService us;
-    
+
     @Autowired
     DeckService ds;
-    
+
     @Autowired
     ObjectiveService os;
 
@@ -46,6 +46,7 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public List<Rating> getRatings(Integer userId, Integer deckId) {
+        log.info("getRatings for userId: " + userId + ", deckId: " + deckId);
         List<Rating> ratings;
         if (userId != null) {
             if (deckId != null) {
@@ -59,12 +60,14 @@ public class RatingServiceImpl implements RatingService {
         } else {
             ratings = (List<Rating>) rr.findAll();
         }
-        if (!ratings.isEmpty()) {
-            return ratings;
-        } else {
-            log.warn("User id and/or deck id are not found on any ratings in database");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        return ratings;
+//        if (!ratings.isEmpty()) {
+//            return ratings;
+//        } else {
+//            log.warn(
+//                    "User id and/or deck id are not found on any ratings in database");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
     }
 
     @Override
@@ -73,29 +76,27 @@ public class RatingServiceImpl implements RatingService {
             rr.deleteById(rId);
             return true;
         } else {
-            log.warn("User id and deck id are not found on any ratings in database");
+            log.warn(
+                    "User id and deck id are not found on any ratings in database");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
-	@Override
-	public List<Rating> getAllRatings() {
-		return (List<Rating>) rr.findAll();
-	}
+    @Override
+    public Rating updateRating(Rating r) {
+        return rr.save(r);
+    }
 
-	@Override
-	public List<Rating> getRatingsByDeckId(int deckId) {
-		return (List<Rating>) rr.findByDeckId(deckId);
-	}
-
-	@Override
-	public Rating updateRating(Rating r) {
-		return rr.save(r);
-	}
-
-	@Override
-	public List<Rating> getRatingByUserId(int userId) {
-		return rr.getByUserId(userId);
-	}
+    @Override
+    public Double calculateAvgRating(int deckId) {
+        List<Rating> deckRatings = getRatings(null, deckId);
+        double sum = 0.0;
+        if (deckRatings.isEmpty())
+            return null;
+        for (Rating rating : deckRatings) {
+            sum += rating.getStars();
+        }
+        return sum / deckRatings.size();
+    }
 
 }
