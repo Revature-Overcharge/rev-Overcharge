@@ -5,6 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * 
+ * @author Jordan Hupp
+ *
+ * This class represents a widget in the sidenav.
+ *
+ */
 public class TimerWidget extends PageFrame {
 	
 	@FindBy(id = "timerStatus")
@@ -41,5 +48,4 @@ public class TimerWidget extends PageFrame {
 		super(driver);
 		PageFactory.initElements(driver, this);
 	}
-
 }
