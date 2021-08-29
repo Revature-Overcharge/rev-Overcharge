@@ -1,14 +1,21 @@
 <ng-template #loginModal>
-    <div class="modal-header" id="modal">
-        <button type="button" class="close" aria-label="Close" (click)="close()">
 
+    <div class="modal-header" id="modal">
+
+        <button type="button" class="close" aria-label="Close" (click)="close()">
         <span aria-hidden="true">
             X
         </span>
         </button>
     </div>
+
     <div class="container-fluid page modal-body">
         <div class="d-flex page__box p-3 mt-2">Log in</div>
+
+        <ngb-toast id="toastMessage" *ngIf="loginPoints" [autohide]="true" [delay]="5000" (hidden)="loginPoints=false">
+            <b>Received +10 points for Logging In!</b>
+        </ngb-toast>
+
         <div class="shadow p-3">
         <div class="page__content-data">
 

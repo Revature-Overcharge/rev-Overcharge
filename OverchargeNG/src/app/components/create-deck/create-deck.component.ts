@@ -23,6 +23,7 @@ export class CreateDeckComponent implements OnInit {
 
   title = '';
 
+  deckMessage: boolean;
   closeResult = '';
   card: Card = new Card(0, "", "", 0);
   newDynamic: any = {};  
@@ -78,6 +79,7 @@ export class CreateDeckComponent implements OnInit {
       alert("Please log in before creating a deck");
     } 
     else {
+      this.deckMessage = true;
       this.deck.title = this.title;
       this.deckHttp.addDeck(this.deck).subscribe(
         (response) => {

@@ -4,13 +4,18 @@
             <div class="page__content-data ">
 
                 <button id="addeditcards" class="btn btn-lg btn-outline-primary"
-                    (click)="open(content, card, 'lg')">
+                    (click)="open(content, card, 'lg')" style="float:left;">
                     Add/Edit Cards
                 </button>
                 <button id="create-button" class="btn btn-lg btn-outline-primary"
-                    (click)="createDeck()">
+                    (click)="createDeck()" style=float:left;>
                     Create Deck
                 </button>
+
+                <ngb-toast id="toastMessage" *ngIf="deckMessage" [autohide]="true" [delay]="3000" (hidden)="deckMessage=false">
+                    <b>Created a Deck!</b>
+                </ngb-toast>
+
                 <br><br>
                 <div class="form-floating mb-3">
                     <input  id="decktitle" [(ngModel)]="title" type="text" class="form-control" id="floatingInputValue" placeholder="Java Basics">

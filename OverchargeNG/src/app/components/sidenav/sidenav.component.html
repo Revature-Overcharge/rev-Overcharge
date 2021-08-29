@@ -4,23 +4,13 @@
   </div>
   <mat-divider></mat-divider>
   <h2 matSubheader class="mt-2">APPLICATIONS</h2>
-
-  <ngb-toast *ngIf="loginPoints" [autohide]="true" [delay]="5000" (hidden)="loginPoints=false">
-    Received +10 points for Logging In!
-  </ngb-toast>
-
-  <!-- <div>
-      <ngb-toast *ngIf="variable" [autohide]="true" [delay]="5000" (hidden)="variable=false">
-        More points for stuff...
-      </ngb-toast>
-    </div> -->
   
   <a id="homeNavLink" mat-list-item routerLinkActive="list-item-active" routerLink="/home">
     <mat-icon>home</mat-icon> Home
   </a>
 
 
-  <a id="libararyNavLink" mat-list-item routerLinkActive="list-item-active" routerLink="/library">
+  <a id="libraryNavLink" mat-list-item routerLinkActive="list-item-active" routerLink="/library">
     <mat-icon>book</mat-icon> Library
   </a>
 
@@ -35,7 +25,7 @@
     <mat-icon>timer</mat-icon> Timer
     <span id="timerStatus" *ngIf="timerBool == true || timer.status != 'Inactive'">: {{timer.status}}</span>
   </a>
-  <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click)="loginModal.open()" routerLink="/library">
+  <a id="loginNavLink" *ngIf="isGuest()" mat-list-item (click)="loginModal.open()" routerLink="/home">
     <mat-icon>login</mat-icon> Log In
   </a>
 
