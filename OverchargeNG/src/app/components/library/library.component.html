@@ -12,36 +12,6 @@
   <div id="time_header" class="d-flex page__box p-3 mt-2">Library</div>
   <div class="page__content shadow p-3 position-relative">
     <div class="page__content-data ">
-      <div id="tableContainer">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Deck Title</th>
-              <th scope="col">Deck Author</th>
-              <th scope="col">Edit Deck</th>
-              <th scope="col">Study Deck</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let deck of deckList">
-              <td>{{deck.title}}</td>
-              <td>{{deck.creator.username}}</td>
-              <td *ngIf="curUser == deck.creator.username">
-                <button class="btn btn-lg btn-outline-primary" (click)="open(content, card, 'lg', deck)">
-                  add/edit cards
-                </button>
-              </td>
-              <td>
-                <button class="btn btn-lg btn-outline-primary" (click)="getDeckId(deck.id)" routerLink="/cardrunner">
-                  Study
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-<<<<<<< HEAD
             <div id="tableContainer">
               <table class="table table-striped">
                 <thead>
@@ -71,14 +41,14 @@
                 </tbody>
               </table>
             </div>
-=======
+      
       <ng-template #content let-modal>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">
             Add/Edit Cards
           </h4>
           <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
->>>>>>> 051a1ebe59fb62221db0f8bebe60dd3d0bdab6c4
+
 
             <span aria-hidden="true">
               X
