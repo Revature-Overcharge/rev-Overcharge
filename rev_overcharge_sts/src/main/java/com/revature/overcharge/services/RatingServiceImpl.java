@@ -46,13 +46,11 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public List<Rating> getRatings(Integer userId, Integer deckId) {
-        log.info("getRatings for userId: " + userId + ", deckId: " + deckId);
         List<Rating> ratings;
         if (userId != null) {
             if (deckId != null) {
                 ratings = rr.getByUserIdAndDeckId(userId, deckId);
             } else {
-                log.info("Getting by user id");
                 ratings = rr.getByUserId(userId);
             }
         } else if (deckId != null) {
@@ -61,13 +59,6 @@ public class RatingServiceImpl implements RatingService {
             ratings = (List<Rating>) rr.findAll();
         }
         return ratings;
-//        if (!ratings.isEmpty()) {
-//            return ratings;
-//        } else {
-//            log.warn(
-//                    "User id and/or deck id are not found on any ratings in database");
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        }
     }
 
     @Override

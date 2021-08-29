@@ -26,7 +26,7 @@ public class DeckServiceImpl implements DeckService {
 
     @Autowired
     ObjectiveService os;
-    
+
     @Autowired
     RatingService rs;
 
@@ -100,9 +100,6 @@ public class DeckServiceImpl implements DeckService {
             log.warn("Deck id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
-            log.info(d);
-            System.out.println("deck is here");
-
             Deck addedDeck = addDeck(d);
 
             for (Card c : d.getCards()) {
