@@ -1,9 +1,6 @@
 package com.revature.overcharge.runners;
 
-import java.util.concurrent.TimeUnit;
-
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -16,22 +13,17 @@ import io.cucumber.junit.Cucumber;
 public abstract class Runner {
 	
 	public static WebDriver driver;
-//	public static PageFrame genericPage;
 	
 	@BeforeClass
 	public static void setup() {
-		//TODO Ensure the correct setup
+		// Input your filepath for your WebDriver executable
 		String filePath = "C:/Users/jehup/Desktop/Revature Desktop";
 		
+		// Comment out the setup that you do not use.
 		driver = chromeSetup(filePath+"/chromedriver.exe");
-//		driver = firefoxSetup(filePath+"/file name.exe");
+//		driver = firefoxSetup(filePath+"/geckodriver.exe");
 		
 		
-	}
-	
-	@Before
-	public static void beforeTest() {
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@AfterClass

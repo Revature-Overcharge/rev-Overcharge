@@ -13,12 +13,10 @@ import io.cucumber.junit.CucumberOptions;
 			glue = {"com.revature.overcharge.steps", "TimerSteps"})
 public class TimerRunner extends Runner {
 
-	//TODO Add specific pages to the specific runner if needed.
 	public static TimerWidget timer;
 	
 	@BeforeClass
 	public static void specificSetup() {
-		// Make sure that super setup is also running...?
 		timer = new TimerWidget(driver);
 	}
 }
