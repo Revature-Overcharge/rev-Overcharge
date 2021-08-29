@@ -1,26 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'modal-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+@Injectable()
 export class LoginComponent implements OnInit {
+  @ViewChild('loginModal') private modalContent: TemplateRef<LoginComponent>;
+  private modalRef: NgbModalRef
   
   username: string = '';
   password: string = '';
   responseMessage: string = '';
   responseAttempted: boolean = false;
   loginPoints: boolean = false;
-  modalRef: any;
 
   constructor(private loginServ: LoginService, private modalServ: NgbModal, private router: Router) { }
 
   ngOnInit(): void { }
+
+  open(){
+    this.modalRef = this.modalServ.open(this.modalContent);
+    this.modalRef.result.then();
+  }
+
+  close() {
+    this.modalRef.close();
+  }
+
+  dismiss() {
+    this.modalRef.dismiss();
+  }
 
   login() {
 
@@ -54,23 +69,6 @@ export class LoginComponent implements OnInit {
         console.log("Login Error...");
         this.setResponseMessage("error");
       }
-
-        //  const user = response;
-        //  console.log(user);
-
-        //  if(user.username == this.username && user.password == this.password) {
-        //   console.log("Success! Logging in...");
-        //   this.responseMessage = "Success! Logging in...";
-        //   localStorage.setItem("username", user.username);
-        //   window.setTimeout(()=>{
-        //     location.reload();
-        //  }, 1500);
-
-        //  }else {  
-        //    console.log("Incorrect credentials");
-        //    this.responseMessage = "Incorrect credentials";
-        // }
-      // }
     )
   }
 
@@ -79,6 +77,9 @@ export class LoginComponent implements OnInit {
     switch (input) {
       case "success":
         this.responseMessage = "Success! Logging in...";
+        window.setTimeout(() => {
+          this.close();
+        }, 1500);
         break;
       case "fail":
         this.responseMessage = "Incorrect credentials";
