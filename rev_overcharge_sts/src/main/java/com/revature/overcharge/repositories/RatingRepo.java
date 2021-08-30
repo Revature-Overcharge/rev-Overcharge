@@ -21,14 +21,4 @@ public interface RatingRepo extends CrudRepository<Rating, RatingId> {
     
     public List<Rating> findByDeckId(int deckId);
     
-    /*
-     * List<Rating> findByUserId(int userId);
-     * 
-     * List<Rating> findByDeckId(int deckId);
-     * 
-     * public Rating findByUserIdAndDeckId(int userId, int deckId);
-     * 
-     * boolean deleteByUserIdAndDeckId(int userId, int deckId);
-     */
-
 }

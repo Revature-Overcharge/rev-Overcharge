@@ -12,7 +12,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
+@CucumberOptions(features = "src/test/resources/com/revature/overcharge/features/CreateDeck.feature", glue = {"com.revature.overcharge.steps", "CreateDeckSteps"})
 public class CreateDeckRunner {
 
 	public static WebDriver driver;

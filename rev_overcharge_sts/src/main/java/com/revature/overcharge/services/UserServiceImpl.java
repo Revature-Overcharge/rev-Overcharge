@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepo ur;
-    
+
     @Autowired
     ObjectiveService os;
 
@@ -71,11 +71,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(User u) {
-        System.out.println(u);
+        log.info(u);
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
             os.loginObj(user);
-        	user.setLastLogin(new Date().getTime());
+            user.setLastLogin(new Date().getTime());
             user = ur.save(user);
             return user;
         } else {
@@ -83,7 +83,5 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
-    
-    
 
 }
