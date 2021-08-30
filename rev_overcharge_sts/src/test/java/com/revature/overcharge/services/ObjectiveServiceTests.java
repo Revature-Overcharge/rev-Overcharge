@@ -211,7 +211,7 @@ public class ObjectiveServiceTests {
 		
 		os.get5StarDeckWeekly(u);
 		List<Objective> objectives = u.getObjectives();	
-		assertEquals("Get a Five Star Rating on a Deck", objectives.get(0).getName());
+		assertEquals("Get a 5 Star Rating", objectives.get(0).getName());
 
 	}
 	
@@ -268,7 +268,7 @@ public class ObjectiveServiceTests {
 		
 		os.getMarkAllCardsInDeckStudiedWeekly(u);
 		List<Objective> objectives = u.getObjectives();	
-		assertEquals("Mark All Cards in Two Sets as Studied", objectives.get(0).getName());
+		assertEquals("Master a Deck", objectives.get(0).getName());
 		
 	}
 	
@@ -335,7 +335,7 @@ public class ObjectiveServiceTests {
 		
 		os.getMarkFiveCardsDaily(u);
 		List<Objective> objectives = u.getObjectives();	
-		assertEquals("Mark 5 Cards as Studied", objectives.get(0).getName());
+		assertEquals("Master 5 Cards", objectives.get(0).getName());
 		
 	}
 	
