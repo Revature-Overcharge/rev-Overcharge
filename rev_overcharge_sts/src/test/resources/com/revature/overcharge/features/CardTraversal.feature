@@ -1,4 +1,4 @@
-Feature: Create a Deck
+Feature: Card Traversal
 
 Scenario: 
 	Given User has nagivated to the website

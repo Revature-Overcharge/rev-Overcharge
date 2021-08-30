@@ -12,7 +12,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources", glue = "com.revature.overcharge.steps")
+@CucumberOptions(features = "src/test/resources/com/revature/overcharge/features/CardTraversal.feature", glue = {"com.revature.overcharge.steps", "CardTraversalSteps"})
 public class CardTraversalRunner {
 
 	public static WebDriver driver;
