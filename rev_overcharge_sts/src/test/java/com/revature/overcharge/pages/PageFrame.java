@@ -5,9 +5,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * 
+ * @author Jordan Hupp
+ * 
+ * This class populates web elements for all links in the sidenav and header.
+ * Extend this class as needed for other pages on the site.
+ *
+ */
 public class PageFrame {
-	public WebDriver driver;
-	public String url = "http://localhost:4200";
+	
+	protected WebDriver driver;
+	protected String url = "http://localhost:4200";
 	
 	//Specific SideNav and Header elements
 	@FindBy(id = "homeNavLink")
@@ -40,5 +49,13 @@ public class PageFrame {
 	public PageFrame(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+	}
+	
+	public void navigateTo(String url) {
+		driver.get(url);
+	}
+	
+	public String getURL() {
+		return this.url;
 	}
 }

@@ -27,10 +27,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     private UserService us;
 
     @Autowired
-    RatingService rs;
+    private RatingService rs;
 
     @Autowired
-    StudiedCardService scs;
+    private StudiedCardService scs;
 
     private long WEEK_START_TIME = 1_627_898_400_000L;
     private int WEEKLY_MS = 604_800_000;
@@ -39,9 +39,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Override
     public User getAllObjectivesForUser(int id) {
         User u = us.getUser(id);
-        getAdd4CardsDaily(u);
         getRateADeckDaily(u);
         getMarkFiveCardsDaily(u);
+        getAdd4CardsDaily(u);
         getCreateADeckWeekly(u);
         getMarkAllCardsInDeckStudiedWeekly(u);
         get5StarDeckWeekly(u);
@@ -68,7 +68,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
             for (Card card : cards) {
-                if (card.getQuestion() != null && card.getDeck() != null  && card.getCreatedOn() > midnight) {
+                if (card.getQuestion() != null && card.getDeck() != null
+                        && card.getCreatedOn() > midnight) {
                     progressPercentage += (int) 100 / countForGoal;
                 }
             }
@@ -93,15 +94,16 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         try {
             decks = ds.getDecksByCreatorId(u.getId());
         } catch (ResponseStatusException e) {
-            u.getObjectives().add(new Objective("Create a Deck", 100, 0, 1));
+            u.getObjectives().add(new Objective("Create 4 Cards", 100, 0, 1));
             return;
         }
 
         for (Deck deck : decks) {
             List<Card> cards = deck.getCards();
             for (Card card : cards) {
-                if (card.getQuestion() != null && card.getDeck() != null && card.getCreatedOn() > midnight) {
-                    progressPercentage += 100 / countForGoal;
+                if (card.getQuestion() != null && card.getDeck() != null
+                        && card.getCreatedOn() > midnight) {
+                    progressPercentage += 100.0 / countForGoal;
                 }
             }
         }
@@ -121,6 +123,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         if (midnight >= user.getLastLogin()) {
             user.setPoints(user.getPoints() + 10);
             user.getObjectives().add(new Objective("Daily Login", 10, 1, 1));
+            us.updateUser(user);
         }
     }
 
@@ -196,7 +199,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         int match = 0;
 
         List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
-        
+
         for (Rating rating : ratings) {
             if ((rating.getRatedOn() >= startWeekTime
                     && rating.getRatedOn() <= endWeekTime)
@@ -225,8 +228,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         try {
             decks = ds.getDecksByCreatorId(u.getId());
         } catch (ResponseStatusException e) {
-            u.getObjectives().add(new Objective(
-                    "Get a Five Star Rating on a Deck", 300, 0, 1));
+            u.getObjectives()
+                    .add(new Objective("Get a 5 Star Rating", 300, 0, 1));
             return;
         }
 
@@ -246,11 +249,11 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         }
 
         if (matchedDeck > 0) {
-            u.getObjectives().add(new Objective(
-                    "Get a Five Star Rating on a Deck", 300, 100, 1));
+            u.getObjectives()
+                    .add(new Objective("Get a 5 Star Rating", 300, 100, 1));
         } else {
-            u.getObjectives().add(new Objective(
-                    "Get a Five Star Rating on a Deck", 300, 0, 1));
+            u.getObjectives()
+                    .add(new Objective("Get a 5 Star Rating", 300, 0, 1));
         }
 
     }
@@ -322,11 +325,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         }
 
         if (deckCompleted > 0) {
-            u.getObjectives().add(new Objective(
-                    "Mark All Cards in Two Sets as Studied", 300, 100, 1));
+            u.getObjectives().add(new Objective("Master a Deck", 300, 100, 1));
         } else {
-            u.getObjectives().add(new Objective(
-                    "Mark All Cards in Two Sets as Studied", 300, 0, 1));
+            u.getObjectives().add(new Objective("Master a Deck", 300, 0, 1));
         }
 
     }
@@ -370,10 +371,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         }
 
         if (studiedCardCount >= 5) {
-            u.getObjectives()
-                    .add(new Objective("Mark 5 Cards as Studied", 50, 100, 5));
+            u.getObjectives().add(new Objective("Master 5 Cards", 50, 100, 5));
         } else {
-            u.getObjectives().add(new Objective("Mark 5 Cards as Studied", 50,
+            u.getObjectives().add(new Objective("Master 5 Cards", 50,
                     (int) (studiedCardCount / 5.0 * 100), 5));
         }
 

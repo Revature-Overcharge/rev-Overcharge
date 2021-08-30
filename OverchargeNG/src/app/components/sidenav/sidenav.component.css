@@ -26,6 +26,7 @@
 
 .mat-list-item:hover {
   color: #f2f5f7 !important;
+  text-decoration: none;
 }
 
 .mat-list-item ::ng-deep .mat-list-item-content {

@@ -18,12 +18,10 @@ import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.User;
 
-
-@SpringBootTest(
-        classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
+@SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
 public class ObjectiveServiceTests {
-	
+
 	@Autowired
     private ObjectiveService os;
 	
