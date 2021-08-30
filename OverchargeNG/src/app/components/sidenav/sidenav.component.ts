@@ -84,7 +84,11 @@ export class SidenavComponent implements OnInit {
 
   isGuest() :boolean {
     console.log(this.loginServ.getUsername());
-    return !this.loginServ.loggedIn;
+    if (localStorage.getItem("username") === "Guest") {
+      return true;
+    } else{
+      return false;
+    }
   }
 
   open(content:any) {

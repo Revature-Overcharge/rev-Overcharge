@@ -33,13 +33,22 @@ export class HeaderComponent implements OnInit {
     this.toggleSidebarForMe.emit();
   }
 
+    isGuest() :boolean {
+    console.log(this.loginServ.getUsername());
+    if (localStorage.getItem("username") === "Guest") {
+      return true;
+    } else{
+      return false;
+    }
+  }
+
   getUsername(): string {
-    this.loggedIn = this.loginServ.loggedIn;
+    this.loggedIn = !this.isGuest();
     return this.loginServ.getUsername();
   }
 
   logout(): void {
-    this.loggedIn = !this.loggedIn;
+    this.loggedIn = this.isGuest();
     this.loginServ.setUsername('Guest');
     this.responseMessage = "Logging out";
   }
