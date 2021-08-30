@@ -38,8 +38,8 @@ Feature: Objectives
     Given User has not rated a deck, has a deck, and is logged in
     And User clicks on Library
     And User clicks Study on a deck they own
-    And User goes through a deck
-    And User rates the deck 5 stars
+    And User goes through the deck
+    And User rates the same deck 5 stars
     When User clicks the objective topnav
     Then Tab shows Rate a Deck incomplete
     And Tab shows Get a 5 Star Rating incomplete
@@ -67,9 +67,8 @@ Feature: Objectives
     And User adds 2 cards
     When User clicks the Objectives topnav
     Then Tab shows Create 4 Cards as halfway
-    When User clicks on Library
-    And User clicks add/edit cards
-    And User adds 2 cards
+    When User clicks add/edit cards again
+    And User adds 2 more cards
     And User clicks the Objectives topnav
     Then Tab shows Create 4 Cards complete
     When User clicks the Objectives sidenav

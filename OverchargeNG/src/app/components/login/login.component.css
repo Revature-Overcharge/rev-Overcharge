@@ -5,3 +5,13 @@ label {
 button {
     background-color: gray;
 }
+
+#toastMessage{
+    background-color: green;
+    color: white; 
+    text-align: center; 
+    float: left; 
+    max-width: 75%; 
+    font-size: large;
+    margin-left: 10%;
+}
