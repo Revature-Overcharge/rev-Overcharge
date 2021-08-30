@@ -25,9 +25,12 @@ public class ObjectivesWeekly5And6Steps {
 	public static CardTraversal cardPage = ObjectivesWeekly5And6Runner.cardPage;
 	
 	@Given("User is on homepage")
-	public void user_is_on_homepage() {
+	public void user_is_on_homepage() throws InterruptedException {
 		String url = "http://localhost:4200";
 		driver.get(url);
+//		String urlDeployed = "http://overcharge.s3-website.us-east-1.amazonaws.com/";
+//		driver.get(urlDeployed);
+		Thread.sleep(1000);
 	}
 
 	@When("User clicks the login")
