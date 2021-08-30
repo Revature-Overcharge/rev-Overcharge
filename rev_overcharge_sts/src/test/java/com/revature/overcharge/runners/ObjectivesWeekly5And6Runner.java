@@ -33,8 +33,7 @@ public class ObjectivesWeekly5And6Runner {
 		driver = new ChromeDriver();
 		objectivesPage = new Objectives(driver);
 		libraryPage = new LibraryPage(driver);
-		cardPage = new CardTraversal(driver);
-				
+		cardPage = new CardTraversal(driver);		
 		
 	}
 

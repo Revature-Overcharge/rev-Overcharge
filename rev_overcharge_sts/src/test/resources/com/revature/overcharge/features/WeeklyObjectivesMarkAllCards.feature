@@ -18,7 +18,7 @@ Feature: WeeklyObjectives
     
   Scenario: User goes through a deck
   	Given User on the card page
-  	When User goes through all the cards and clicked mastered
+  	When User goes through all the cards and clicks mastered
   	
   Scenario: User objectives for marked all cards is complete
   	When User clicks on the objectives page

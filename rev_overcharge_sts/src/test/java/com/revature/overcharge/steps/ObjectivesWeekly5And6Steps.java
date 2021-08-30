@@ -167,8 +167,8 @@ public class ObjectivesWeekly5And6Steps {
 
 	}
 	
-	@When("User goes through all the cards and clicked mastered")
-	public void user_goes_through_all_the_cards_and_clicked_mastered() throws InterruptedException {
+	@When("User goes through all the cards and clicks mastered")
+	public void user_goes_through_all_the_cards_and_clicks_mastered() throws InterruptedException {
 		for (int i=0; i<19; i++) {
 			cardPage.mastered.click();
 		    Thread.sleep(300);
@@ -179,7 +179,7 @@ public class ObjectivesWeekly5And6Steps {
 	
 	@Then("Wait for some time to explain")
 	public void wait_for_some_time_to_explain() throws InterruptedException {
-	    Thread.sleep(7000);
+	    Thread.sleep(6000);
 	}
 
 
