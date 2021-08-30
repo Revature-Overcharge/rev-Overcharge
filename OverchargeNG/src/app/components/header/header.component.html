@@ -1,26 +1,15 @@
 <div class="container-fluid">
   <mat-toolbar>
     <mat-toolbar-row>
-      <div class="col">
+      <div class="col" style="min-width: fit-content">
         <button mat-icon-button (click)="toggleSidebar()">
           <mat-icon class="align-middle">menu</mat-icon>
         </button>
       </div>
 
-      <div class="col">
-        <ngb-toast
-          *ngIf="loginPoints"
-          [autohide]="true"
-          [delay]="3000"
-          (hidden)="loginPoints = false"
-        >
-          Received +10 points for Logging In!
-        </ngb-toast>
-      </div>
-
       <ng-template #popContent>
         <div *ngIf="!loggedIn">
-          <b>Login to See Objectives and Get Some Points!</b>
+          <b>Login to See Objectives to get Points!</b>
         </div>
         <div *ngIf="loggedIn">
           <div
@@ -45,7 +34,9 @@
                   style="margin-right: 10px"
                 >
                   <div
-                    class="{{ progressBar }}"
+                    class="
+                      progress-bar progress-bar-striped progress-bar-animated
+                    "
                     role="progressbar"
                     aria-valuenow="50"
                     aria-valuemin="0"
@@ -85,7 +76,9 @@
                 </li>
                 <div class="progress" *ngIf="obj.progressPercent < 100">
                   <div
-                    class="{{ progressBar }}"
+                    class="
+                      progress-bar progress-bar-striped progress-bar-animated
+                    "
                     role="progressbar"
                     aria-valuenow="50"
                     aria-valuemin="0"
@@ -111,26 +104,27 @@
           </div>
         </div>
       </ng-template>
-      <div class="col">
+
+      <div>
         <button
+          id="objectivesBtn"
           type="button"
           class="btn btn-outline-secondary"
-          style="background-color: #474c55; float: right"
           [ngbPopover]="popContent"
+          style="background-color: #474c55"
         >
-          <p style="color: white; margin: 0px" (click)="updateObjValues()">
+          <p style="color: #ffffff; margin: 0px" (click)="updateObjValues()">
             Objectives
           </p>
         </button>
       </div>
 
-      <div class="col">
+      <div class="col" style="max-width: fit-content">
         <button
           id="menuBtn"
           mat-button
           [matMenuTriggerFor]="menu"
-          class="user mt-1 d-flex align-items-center"
-          style="margin: auto"
+          class="user mt-2 d-flex align-items-center"
         >
           <mat-icon>account_circle</mat-icon>
           {{ getUsername() }}
@@ -141,9 +135,9 @@
           <div *ngIf="loggedIn">
             <!-- To Be Implemented with User Profile Functionality -->
             <!-- <button mat-menu-item routerLinkActive="list-item-active" routerLink="/profile"> 
-                    <mat-icon>account_circle</mat-icon>
-                    User Profile 
-                  </button> -->
+                  <mat-icon>account_circle</mat-icon>
+                  User Profile 
+                </button> -->
             <button
               id="logoutHeaderBtn"
               (click)="logout()"
@@ -159,7 +153,7 @@
               id="loginHeaderBtn"
               mat-menu-item
               (click)="loginModal.open()"
-              routerLink="/library"
+              routerLink="/home"
             >
               <mat-icon>login</mat-icon>
               Login

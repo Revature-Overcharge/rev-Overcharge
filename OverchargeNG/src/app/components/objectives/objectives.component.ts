@@ -11,8 +11,6 @@ import { ObjectivesService } from 'src/app/services/objectives.service';
 })
 export class ObjectivesComponent implements OnInit {
 
-  
-  progressBar: string = "progress-bar progress-bar-striped progress-bar-animated";
   userPointCount: number;
   loggedInUser: User;
   objList: Objective[] = [];
@@ -32,9 +30,5 @@ export class ObjectivesComponent implements OnInit {
       this.userPointCount = this.loggedInUser.points;
       console.log(this.objList);
     });
-
-    if (this.user.getUsername() == 'Guest'){
-      this.userPointCount = 0;
-    }
   }
 }

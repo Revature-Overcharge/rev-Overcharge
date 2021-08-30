@@ -56,7 +56,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
         long midnight = getMidnight();
 
-        User creator = ds.getDeck(deckId).getCreator();
+        User creator = us.getUser(ds.getDeck(deckId).getCreator().getId());
         List<Deck> decks = new ArrayList<Deck>();
 
         try {
