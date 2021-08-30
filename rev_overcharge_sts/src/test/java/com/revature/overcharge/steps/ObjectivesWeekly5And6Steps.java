@@ -9,20 +9,20 @@ import org.openqa.selenium.WebDriver;
 import com.revature.overcharge.pages.CardTraversal;
 import com.revature.overcharge.pages.LibraryPage;
 import com.revature.overcharge.pages.Objectives;
-import com.revature.overcharge.runners.ObjectivesWeekly5StarRuner;
+import com.revature.overcharge.runners.ObjectivesWeekly5And6Runner;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class ObjectivesWeekly5StarSteps {
+public class ObjectivesWeekly5And6Steps {
 	
 	
-	public static WebDriver driver = ObjectivesWeekly5StarRuner.driver;
+	public static WebDriver driver = ObjectivesWeekly5And6Runner.driver;
 	
-	public static Objectives objectives = ObjectivesWeekly5StarRuner.objectivesPage;
-	public static LibraryPage libraryPage = ObjectivesWeekly5StarRuner.libraryPage;
-	public static CardTraversal cardPage = ObjectivesWeekly5StarRuner.cardPage;
+	public static Objectives objectives = ObjectivesWeekly5And6Runner.objectivesPage;
+	public static LibraryPage libraryPage = ObjectivesWeekly5And6Runner.libraryPage;
+	public static CardTraversal cardPage = ObjectivesWeekly5And6Runner.cardPage;
 	
 	@Given("User is on homepage")
 	public void user_is_on_homepage() {
@@ -150,7 +150,7 @@ public class ObjectivesWeekly5StarSteps {
 	}
 	
 	
-	// Testing for mark all completed deck
+	// Testing for mark all cards in a complete deck
 	
 	@When("User enters in a different username and password")
 	public void user_enters_in_a_different_username_and_password() {
@@ -173,6 +173,7 @@ public class ObjectivesWeekly5StarSteps {
 			cardPage.mastered.click();
 		    Thread.sleep(300);
 		}
+		Thread.sleep(1000);
 	   
 	}
 	
