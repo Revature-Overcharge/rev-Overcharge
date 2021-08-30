@@ -348,7 +348,7 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Rate a Deck incomplete")
 	public void tab_shows_rate_a_deck_incomplete() {
-		assertEquals(0, objectives.rateDeckProgressBar.getText());
+		assertEquals("0", objectives.rateDeckProgressBar.getText());
 
 		try {
 			Thread.sleep(2000);
@@ -361,7 +361,7 @@ public class ObjectivesSteps {
 	public void tab_shows_get_a_star_rating_incomplete(Integer int1) {
 		int1 = 5;
 
-		assertEquals(0, objectives.fiveStarRatingProgressBar.getText());
+		assertEquals("0", objectives.fiveStarRatingProgressBar.getText());
 
 		try {
 			Thread.sleep(2000);
@@ -383,7 +383,7 @@ public class ObjectivesSteps {
 
 	@Then("Objectives show Rate a Deck incomplete")
 	public void objectives_show_rate_a_deck_incomplete() {
-		assertEquals(0, objectives.rateDeckProgressBar.getText());
+		assertEquals("0", objectives.rateDeckProgressBar.getText());
 
 		try {
 			Thread.sleep(2000);
@@ -396,7 +396,7 @@ public class ObjectivesSteps {
 	public void objectives_show_get_a_star_rating_incomplete(Integer int1) {
 		int1 = 5;
 
-		assertEquals(0, objectives.fiveStarRatingProgressBar.getText());
+		assertEquals("0", objectives.fiveStarRatingProgressBar.getText());
 
 		try {
 			Thread.sleep(2000);
