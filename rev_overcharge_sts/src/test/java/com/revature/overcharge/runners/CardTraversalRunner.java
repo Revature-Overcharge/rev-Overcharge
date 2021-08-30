@@ -20,7 +20,7 @@ public class CardTraversalRunner {
 	
 	@BeforeClass
 	public static void setUp() {
-		String path = "C:/Sts_Workspace/ChromeDriver/chromedriver.exe";
+		String path = "C:/Users/jehup/Desktop/Revature Desktop/chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", path);
 		
 		driver = new ChromeDriver();

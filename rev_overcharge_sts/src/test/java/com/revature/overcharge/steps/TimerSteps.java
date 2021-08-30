@@ -22,8 +22,8 @@ public class TimerSteps {
 	private static WebDriverWait wait = new WebDriverWait(driver, 10);
 	private static TimerWidget timer = TimerRunner.timer;
 
-    @Given("^User has navigated to the website$")
-    public void user_has_navigated_to_the_website() throws Throwable {
+    @Given("^User has navigated to the website for timer$")
+    public void user_has_navigated_to_the_website_for_timer() throws Throwable {
     	timer.navigateTo(timer.getURL());
     }
     
@@ -49,8 +49,8 @@ public class TimerSteps {
     	assertEquals(css,timer.timerContainer.getCssValue("display"));
     }
 
-    @When("^User clicks \"([^\"]*)\"$")
-    public void user_clicks_something(String button) throws Throwable {
+    @When("^User clicks \"([^\"]*)\"$ on timer")
+    public void user_clicks_something_on_timer(String button) throws Throwable {
     	switch (button) {
 		case "Timer":
 			timer.timerLink.click();
@@ -78,9 +78,9 @@ public class TimerSteps {
 
     @When("^Timer display is \"([^\"]*)\"$")
     public void timer_display_is_something(String display) throws Throwable {
-    	user_clicks_something("Display Input");
+    	user_clicks_something_on_timer("Display Input");
     	user_inputs_and("0", "1");
-    	user_clicks_something("Play");
+    	user_clicks_something_on_timer("Play");
     	wait.withTimeout(Duration.ofMinutes(1)).until(
     			ExpectedConditions.attributeToBe(timer.display, "innerText", display));
     	
@@ -125,7 +125,7 @@ public class TimerSteps {
 
     @And("^Timer mode is \"([^\"]*)\"$")
     public void timer_mode_is_something(String initMode) throws Throwable {    	
-    	if (initMode == "Break") user_clicks_something("Change Mode");
+    	if (initMode == "Break") user_clicks_something_on_timer("Change Mode");
     	ExpectedConditions.attributeToBe(timer.mode, "innerText", initMode);
     	wait.withTimeout(Duration.ofSeconds(1));
     }

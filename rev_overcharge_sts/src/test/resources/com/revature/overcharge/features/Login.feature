@@ -1,14 +1,14 @@
 Feature: Login
 
 Background:
-	Given User has nagivated to the website
+	Given User has nagivated to the website for login
 
 Scenario: User opens modal from sidenav
-	When User clicks "Sidenav Login"
+	When User clicks "Sidenav Login" for login
 	Then Login modal is displayed
 
 Scenario: User opens modal from header
-	When User clicks "Header Login"
+	When User clicks "Header Login" for login
 	Then Login modal is displayed
 
 Scenario: Successful Login
@@ -31,13 +31,13 @@ Scenario: Login error
 
 Scenario: Logout
 	Given User is logged in
-	When User clicks "Logout"
+	When User clicks "Logout" for login
 	Then Username is removed
 	And Login buttons appear
 	And User is redirected
 
 Scenario: Exit Modal
-	Given User opens login modal
-	When User clicks "Exit"
+	Given User opens the login modal
+	When User clicks "Exit" for login
 	Then Modal closes
 	

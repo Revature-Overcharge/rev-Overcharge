@@ -2,7 +2,6 @@ package com.revature.overcharge.steps;
 
 import java.time.Duration;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,8 +23,8 @@ public class LoginSteps {
 	private static PageFrame page = LoginRunner.page;
 	private static LoginModal modal = LoginRunner.modal;
 
-    @Given("^User has nagivated to the website$")
-    public void user_has_nagivated_to_the_website() throws Throwable {
+    @Given("^User has nagivated to the website for login$")
+    public void user_has_nagivated_to_the_website_for_login() throws Throwable {
         page.navigateTo(page.getURL());
     }
 
@@ -37,31 +36,38 @@ public class LoginSteps {
 
     @Given("^User is logged in$")
     public void user_is_logged_in() throws Throwable {
-    	//TODO Finish this
         user_opens_the_login_modal();
+        user_logs_in_with_something_credentials("valid");
+        username_is_displayed();
         
     }
 
-    @When("^User clicks \"([^\"]*)\"$")
-    public void user_clicks_something(String button) throws Throwable {
+    @When("^User clicks \"([^\"]*)\" for login$")
+    public void user_clicks_something_for_login(String button) throws Throwable {
         switch (button) {
         case "Sidenav Login":
         	page.loginNav.click();
         	break;
         case "Header Login":
+        	page.menuBtn.click();
+        	wait.withTimeout(Duration.ofSeconds(1));
         	page.loginHeader.click();
         	break;
         case "Logout":
+        	page.menuBtn.click();
+        	wait.withTimeout(Duration.ofSeconds(1));
         	page.logoutBtn.click();
         	break;
         case "Login":
         	modal.loginButton.click();
+        	Thread.sleep(1000);
+        	user_clicks_something_for_login("Exit");
         	break;
         case "Exit":
         	modal.exitButton.click();
         	break;
         }
-        wait.withTimeout(Duration.ofSeconds(1));
+        Thread.sleep(1000);
     }
 
     @When("^User logs in with \"([^\"]*)\" credentials$")
@@ -78,18 +84,20 @@ public class LoginSteps {
         	username = "username";
         	password = "password";
         	break;
+        case "error":
+        	// Attempted login with empty strings will produce an error
+        	break;
         }
     	modal.usernameInput.sendKeys(username);
     	modal.passwordInput.sendKeys(password);
-    	user_clicks_something("Login");
-    	wait.withTimeout(Duration.ofSeconds(1));
+    	user_clicks_something_for_login("Login");
+    	Thread.sleep(1000);
     	
     }
 
     @When("^User produces a login error$")
     public void user_produces_a_login_error() throws Throwable {
-    	//TODO
-        throw new PendingException();
+    	user_logs_in_with_something_credentials("error");
     }
 
     @Then("^Login modal is displayed$")
@@ -99,6 +107,7 @@ public class LoginSteps {
 
     @Then("^Modal displays \"([^\"]*)\" message$")
     public void modal_displays_something_message(String msgType) throws Throwable {
+    	Thread.sleep(3000);
         String message = "";
         
         switch (msgType) {

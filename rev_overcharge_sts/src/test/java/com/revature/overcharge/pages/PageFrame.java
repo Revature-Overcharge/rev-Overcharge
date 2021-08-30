@@ -32,7 +32,7 @@ public class PageFrame {
 	@FindBy(id = "loginNavLink")
 	public WebElement loginNav;
 	
-	@FindBy(id = "menuHeaderBtn")
+	@FindBy(id = "menuBtn")
 	public WebElement menuBtn;
 	@FindBy(id = "logoutHeaderBtn")
 	public WebElement logoutBtn;
