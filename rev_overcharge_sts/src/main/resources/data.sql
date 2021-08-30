@@ -15,7 +15,7 @@ insert into users (id, username, password, points, last_login) values (11, 'user
 -- Decks
 insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906000);
 insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843000);
-insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 1629329843000);
+insert into decks (id, creator_id, title, created_on) values (3, 5, 'Spring', 1629329843000);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
