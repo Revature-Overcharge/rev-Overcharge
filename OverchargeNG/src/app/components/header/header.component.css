@@ -38,4 +38,10 @@ button {
   flex: 1 1 auto;
 }
 
+div.col {
+  padding: 0;
+}
 
+div.container-fluid {
+  padding: 0 12px;
+}

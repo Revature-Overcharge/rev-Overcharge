@@ -16,12 +16,8 @@ export class HeaderComponent implements OnInit {
 
   loggedInUser: User;
   objList: Objective[] = [];
-  progressBar: string =
-    'progress-bar progress-bar-striped progress-bar-animated';
-
   responseMessage: string = '';
-  loggedIn: boolean;
-  loginPoints: boolean;
+  loggedIn : boolean;
 
   constructor(
     private loginServ: LoginService,
@@ -61,7 +57,6 @@ export class HeaderComponent implements OnInit {
   updateObjValues() {
     this.objData.getObjectives().subscribe((response) => {
       this.loggedInUser = response;
-      console.log(this.loggedInUser.points);
       this.objList = this.loggedInUser.objectives;
     });
   }
