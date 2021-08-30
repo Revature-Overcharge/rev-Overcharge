@@ -42,7 +42,7 @@ public class RatingServiceImpl implements RatingService {
         r.setRatedOn(new Date().getTime());
         log.info(r.toString());
         r = rr.save(r);
-        os.setRateADeckDaily(r.getUserId());
+        os.setRateADeckDaily(r.getUserId(), r);
         os.set5StarDeckWeekly(r);
         return r;
     }
