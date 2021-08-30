@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
         this.responseMessage = "Success! Logging in...";
         window.setTimeout(() => {
           this.close();
-        }, 1500);
+        }, 2000);
         break;
       case "fail":
         this.responseMessage = "Incorrect credentials";
