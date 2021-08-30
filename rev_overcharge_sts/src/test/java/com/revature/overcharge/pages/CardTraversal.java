@@ -57,7 +57,7 @@ public class CardTraversal {
 	@FindBy(id = "menuBtn")
 	public WebElement userNameBtn;
 	
-	@FindBy(className = "h3")
+	@FindBy(className = "page__content-data")
 	public WebElement homePageTitle;
 	
 	public CardTraversal(WebDriver driver) {
