@@ -20,14 +20,23 @@ public class CardServiceImpl implements CardService {
     @Autowired
     CardRepo cr;
 
+    @Autowired
+    ObjectiveService os;
+    
+    @Autowired
+    DeckService ds;
+    
     @Override
-    public Card addCard(Card c) {
+    public Card addCard(int deckId, Card c) {
         if (cr.existsById(c.getId())) {
             log.warn("Card id is invalid for add");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
+            c.setDeck(ds.getDeck(deckId));
             c.setCreatedOn(new Date().getTime());
-            return cr.save(c);
+            c = cr.save(c);
+            os.setAdd4CardsDaily(deckId, c);
+            return c;
         }
     }
 
@@ -47,18 +56,18 @@ public class CardServiceImpl implements CardService {
             return cr.save(newCard);
         } else {
             log.warn("Card id is invalid for update");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
     public boolean deleteCard(int id) {
-        try {
+        if (cr.existsById(id)) {
             cr.deleteById(id);
             return true;
-        } catch (IllegalArgumentException e) {
-            log.warn(e);
-            return false;
+        } else {
+            log.warn("Card id is invalid for delete");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -67,7 +76,7 @@ public class CardServiceImpl implements CardService {
         if (cr.existsByDeckId(deckId)) {
             return cr.findByDeckId(deckId);
         } else {
-            log.warn("No cards exist by given deck id");
+            log.warn("There are no cards for the given deck id");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 

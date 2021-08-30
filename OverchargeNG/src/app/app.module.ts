@@ -3,10 +3,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LibraryComponent } from './components/library/library.component';
+import { ObjectivesComponent } from './components/objectives/objectives.component';
 import { CardrunnerComponent } from './components/card-runner/card-runner.component';
+import { CreateDeckComponent } from './components/create-deck/create-deck.component';
+import { LoginComponent } from './components/login/login.component';
 
 //Modules
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Services
+import { ObjectivesService } from './services/objectives.service';
 
 //Pipes
 
@@ -37,7 +40,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     TimerComponent,
     CardrunnerComponent,
-    LibraryComponent
+    LibraryComponent,
+    ObjectivesComponent,
+    CreateDeckComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [ObjectivesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

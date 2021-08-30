@@ -16,9 +16,9 @@
   border-top-width: 2px;
   border-color: white;
 }
-
+/*94a3b8*/
 .mat-list-item {
-  color: #94a3b8 !important;
+  color: #B9B9BA !important;
   font-size: 0.8rem;
   height: 44px !important;
   margin-bottom: 4px;
@@ -26,6 +26,7 @@
 
 .mat-list-item:hover {
   color: #f2f5f7 !important;
+  text-decoration: none;
 }
 
 .mat-list-item ::ng-deep .mat-list-item-content {
@@ -34,7 +35,7 @@
 }
 
 .mat-list-item ::ng-deep .mat-list-item-content:hover {
-  background: #2c3344 !important;
+  background: #2d3136 !important;
 }
 
 .list-item-active {
@@ -42,7 +43,7 @@
 }
 
 .list-item-active ::ng-deep .mat-list-item-content {
-  background: #2c3344 !important;
+  background: #2d3136 !important;
 }
 
 .mat-subheader {

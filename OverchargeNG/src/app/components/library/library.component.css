@@ -1,0 +1,14 @@
+#tableContainer {
+  border: 5px solid #f26925;
+  border-radius: 5px;
+}
+
+div#table_card {
+  min-width: fit-content;
+}
+
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+}

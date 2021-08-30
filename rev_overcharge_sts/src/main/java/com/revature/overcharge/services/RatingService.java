@@ -3,19 +3,18 @@ package com.revature.overcharge.services;
 import java.util.List;
 
 import com.revature.overcharge.beans.Rating;
+import com.revature.overcharge.beans.RatingId;
 
 public interface RatingService {
 
-    public Rating addRating(Rating r);
+    public Rating saveRating(Rating r);
 
-    public Rating getRatingByUserIdAndDeckId(int userId, int deckId);
+    public List<Rating> getRatings(Integer userId, Integer deckId);
 
-    public Rating updateRating(Rating newRating);
+    public Rating updateRating(Rating r);
 
-    public boolean deleteRatingByUserIdAndDeckId(int userId, int deckId);
+    public boolean deleteRating(RatingId rId);
 
-    public List<Rating> getRatingsByUserId(int userId);
-
-    public List<Rating> getRatingsByDeckId(int deckId);
+    public Double calculateAvgRating(int deckId);
 
 }

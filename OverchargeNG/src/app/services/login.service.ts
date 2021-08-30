@@ -10,14 +10,13 @@ export class LoginService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   loggedIn: boolean = false;
-
   
 
   constructor(private http: HttpClient) { }
 
   login(user: User): Observable<User> {
     // console.log("Attempting login: ",user);
-    return this.http.post<User>(`http://localhost:8080/login`, user, {responseType: "json", headers: this.headers} );
+    return this.http.post<User>(`http://localhost:8081/login`, user, {responseType: "json", headers: this.headers} );
   }
 
   getUsername(): string {
@@ -38,5 +37,4 @@ export class LoginService {
     }
     localStorage.setItem("username", username);
   }
-
 }

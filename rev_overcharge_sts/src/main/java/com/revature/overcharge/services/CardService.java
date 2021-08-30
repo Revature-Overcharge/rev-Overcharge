@@ -6,7 +6,7 @@ import com.revature.overcharge.beans.Card;
 
 public interface CardService {
 
-    public Card addCard(Card f);
+    public Card addCard(int deckId, Card f);
 
     public Card getCard(int id);
 

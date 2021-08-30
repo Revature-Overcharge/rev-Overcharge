@@ -1,5 +1,6 @@
 package com.revature.overcharge.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,7 +25,6 @@ public class User {
 
     private String username;
 
-    
     private String password;
 
     private Integer points;
@@ -38,9 +38,8 @@ public class User {
     private List<Deck> createdDecks;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
     @Transient
-    private List<Rating> ratings;
+    private List<Objective> objectives = new ArrayList<Objective>();
 
     public User() {
         super();
@@ -63,6 +62,17 @@ public class User {
         this.password = password;
         this.points = points;
         this.lastLogin = lastLogin;
+    }
+
+    public User(int id, String username, String password, Integer points,
+            Long lastLogin, List<Objective> objectives) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.points = points;
+        this.lastLogin = lastLogin;
+        this.objectives = objectives;
     }
 
     public int getId() {
@@ -113,12 +123,12 @@ public class User {
         this.createdDecks = createdDecks;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
+    public List<Objective> getObjectives() {
+        return objectives;
     }
 
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
+    public void setObjectives(List<Objective> objectives) {
+        this.objectives = objectives;
     }
 
     @Override

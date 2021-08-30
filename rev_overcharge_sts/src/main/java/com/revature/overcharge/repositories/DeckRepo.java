@@ -10,6 +10,8 @@ import com.revature.overcharge.beans.Deck;
 @Repository
 public interface DeckRepo extends CrudRepository<Deck, Integer> {
 
-    List<Deck> findByCreatorId(int creatorId);
+    public boolean existsByCreatorId(int creatorId);
+    
+    public List<Deck> getByCreatorId(int creatorId);
 
 }

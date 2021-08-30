@@ -14,8 +14,6 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "decks")
 public class Deck {
@@ -34,42 +32,29 @@ public class Deck {
     @Column(name = "created_on")
     private Long createdOn;
 
+    @Transient
+    private Double avgRating;
+
     @OneToMany(mappedBy = "deck")
     @Transient
     private List<Card> cards;
-
-    @OneToMany(mappedBy = "deck")
-    @JsonIgnore
-    @Transient
-    private List<Rating> ratings;
 
     public Deck() {
         super();
     }
 
-    public Deck(User creator, String title, Long createdOn) {
-        super();
-        this.title = title;
-        this.createdOn = createdOn;
-    }
-    
-    public Deck(int id, User creator, String title) {
-        super();
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-    }
-
-    public Deck(int id, User creator, String title, Long createdOn) {
-        super();
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-    }
-
     public Deck(User creator, String title, Long createdOn, List<Card> cards) {
         super();
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
+    }
+
+    public Deck(int id, User creator, String title, Long createdOn,
+            List<Card> cards) {
+        super();
+        this.id = id;
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
@@ -104,6 +89,14 @@ public class Deck {
         return createdOn;
     }
 
+    public Double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(Double avgRating) {
+        this.avgRating = avgRating;
+    }
+
     public void setCreatedOn(Long createdOn) {
         this.createdOn = createdOn;
     }
@@ -116,18 +109,11 @@ public class Deck {
         this.cards = cards;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
-
     @Override
     public String toString() {
         return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
-                + ", createdOn=" + createdOn + "]";
+                + ", createdOn=" + createdOn + ", avgRating=" + avgRating
+                + "]";
     }
 
 }

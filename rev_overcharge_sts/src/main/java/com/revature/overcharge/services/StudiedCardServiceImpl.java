@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.StudiedCardId;
@@ -25,31 +27,44 @@ public class StudiedCardServiceImpl implements StudiedCardService {
 
     @Autowired
     CardService cs;
+    
+    @Autowired
+    ObjectiveService os;
 
     @Override
     public StudiedCard addStudiedCard(StudiedCard sc) {
         if (scr.existsByUserIdAndCardId(sc.getUserId(), sc.getCardId())) {
             log.warn("This card is already marked as studied by this user");
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             sc.setStudiedOn(new Date().getTime());
             log.info(sc.toString());
-            return scr.save(sc);
+            sc = scr.save(sc);
+            os.setMarkFiveCardsDaily(sc.getUserId());
+            os.setMarkAllCardsInDeckStudiedWeekly(sc.getUserId());
+            return sc;
         }
     }
 
     @Override
     public List<StudiedCard> getStudiedCards(Integer userId, Integer cardId) {
+        List<StudiedCard> studiedCards;
         if (userId != null) {
             if (cardId != null) {
-                return scr.getByUserIdAndCardId(userId, cardId);
+                studiedCards = scr.getByUserIdAndCardId(userId, cardId);
             } else {
-                return scr.getByUserId(userId);
+                studiedCards = scr.getByUserId(userId);
             }
         } else if (cardId != null) {
-            return scr.getByCardId(cardId);
+            studiedCards = scr.getByCardId(cardId);
         } else {
-            return (List<StudiedCard>) scr.findAll();
+            studiedCards = (List<StudiedCard>) scr.findAll();
+        }
+        if (!studiedCards.isEmpty()) {
+            return studiedCards;
+        } else {
+            log.warn("User id and/or card id are not found on any ratings in database");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -59,9 +74,19 @@ public class StudiedCardServiceImpl implements StudiedCardService {
             scr.deleteById(scId);
             return true;
         } else {
-            log.warn("userId and cardId are invalid for delete");
-            return false;
+            log.warn("User id and card id are invalid for delete");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+	@Override
+	public List<StudiedCard> getStudiedCardsByUser(Integer userId) {
+		return scr.getByUserId(userId);
+	}
+
+	@Override
+	public StudiedCard updateCard(StudiedCard sc) {
+		return scr.save(sc);
+	}
 
 }
