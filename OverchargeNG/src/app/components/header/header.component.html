@@ -35,9 +35,23 @@
               <div class="progress" *ngIf="obj.progressPercent<100">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{obj.progressPercent}}%"></div>
               </div>
-            </ul>
-          </div>
+              <div class="progress" *ngIf="obj.progressPercent >= 100">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="0"
+                  aria-valuemin="0"
+                  aria-valuemax="1"
+                  style="width:{{ obj.progressPercent }}%"
+                ></div>
+              </div>
+              <p>
+                <b>+{{ obj.pointsToAward }} points</b>
+              </p>
+            </div>
+          </ul>
         </div>
+      </div>
     </ng-template>
 
     <div style="background-color: #474C55; float: right;">
