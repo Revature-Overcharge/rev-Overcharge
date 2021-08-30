@@ -300,8 +300,8 @@ public class ObjectiveServiceTests {
 		}
 		
 		int createDeckPoints = 100;
-		int mark5CardsPoints = 50;
-		
+		int mark5CardsPoints = 100;
+				
 		assertEquals(createDeckPoints + mark5CardsPoints, u.getPoints());
 		
 	}
