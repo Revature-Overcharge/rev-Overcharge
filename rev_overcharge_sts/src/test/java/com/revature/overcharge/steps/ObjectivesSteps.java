@@ -29,7 +29,7 @@ public class ObjectivesSteps {
 
 	@Given("User is not logged in")
 	public void user_is_not_logged_in() {
-		assertEquals("Guest", objectives.userBtn.getText());
+		assertEquals("account_circle Guest", objectives.userBtn.getText());
 
 		try {
 			Thread.sleep(2000);
@@ -307,6 +307,34 @@ public class ObjectivesSteps {
 		}
 	}
 
+	@Given("User goes through the deck")
+	public void user_goes_through_the_deck() {
+		for (int i = 0; i < 15; i++) {
+			objectives.nextQuestionBtn.click();
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Given("User rates the same deck {int} stars")
+	public void user_rates_the_same_deck_stars(Integer int1) {
+		int1 = 5;
+
+		objectives.starFive.click();
+
+		objectives.submitRatingBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@When("User clicks the objective topnav")
 	public void user_clicks_the_objective_topnav() {
 		objectives.topNavBtn.click();
@@ -320,7 +348,7 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Rate a Deck incomplete")
 	public void tab_shows_rate_a_deck_incomplete() {
-		objectives.tabBtn.click();
+		assertEquals(0, objectives.rateDeckProgressBar.getText());
 
 		try {
 			Thread.sleep(2000);
@@ -379,7 +407,26 @@ public class ObjectivesSteps {
 
 	@Given("User is logged in")
 	public void user_is_logged_in() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.loginTab.click();
+
+		objectives.inputUname.sendKeys("tholburn7" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.inputPass.sendKeys("2E2LGtacW" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.loginButton.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -389,17 +436,41 @@ public class ObjectivesSteps {
 
 	@Given("User clicks Mark as Mastered for {int} cards")
 	public void user_clicks_mark_as_mastered_for_cards(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 4;
+
+		objectives.libraryTab.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		objectives.firstStudyBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < 5; i++) {
+			objectives.masterBtn.click();
+
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Then("Tab shows Master {int} Cards almost filled")
 	public void tab_shows_master_cards_almost_filled(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 5;
+
+		objectives.topNavBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -409,7 +480,9 @@ public class ObjectivesSteps {
 
 	@When("User clicks Mark as Mastered for {int} more card")
 	public void user_clicks_mark_as_mastered_for_more_card(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 1;
+
+		objectives.masterBtn.click();
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -419,7 +492,10 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Master {int} Cards complete")
 	public void tab_shows_master_cards_complete(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 5;
+
+		objectives.topNavBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -429,7 +505,9 @@ public class ObjectivesSteps {
 
 	@Then("Objectives show Master {int} Cards complete")
 	public void objectives_show_master_cards_complete(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 5;
+
+		objectives.tabBtn.click();
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -439,7 +517,26 @@ public class ObjectivesSteps {
 
 	@Given("User that has a deck is logged in")
 	public void user_that_has_a_deck_is_logged_in() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.loginTab.click();
+
+		objectives.inputUname.sendKeys("snassey1" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.inputPass.sendKeys("CwQOZeX" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.loginButton.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -449,19 +546,73 @@ public class ObjectivesSteps {
 
 	@Given("User clicks add\\/edit cards")
 	public void user_clicks_add_edit_cards() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.libraryTab.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		objectives.addEditBtn.click();
 	}
 
 	@Given("User adds {int} cards")
 	public void user_adds_cards(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 2;
+
+		objectives.addCardBtn.click();
+
 		try {
 			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.questionInput.sendKeys("question" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.answerInput.sendKeys("answer" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.addCardBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.questionInput2.sendKeys("question?" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.answerInput2.sendKeys("answer!" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.saveBtn.click();
+
+		try {
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -469,7 +620,10 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Create {int} Cards as halfway")
 	public void tab_shows_create_cards_as_halfway(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 4;
+
+		objectives.topNavBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -477,9 +631,10 @@ public class ObjectivesSteps {
 		}
 	}
 
-	@When("User clicks on Library")
-	public void user_clicks_on_library1() {
-		// Write code here that turns the phrase above into concrete actions
+	@When("User clicks add\\/edit cards again")
+	public void user_clicks_add_edit_cards_again() {
+		objectives.addEditBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -487,21 +642,60 @@ public class ObjectivesSteps {
 		}
 	}
 
-	@When("User clicks add\\/edit cards")
-	public void user_clicks_add_edit_cards1() {
-		// Write code here that turns the phrase above into concrete actions
+	@When("User adds {int} more cards")
+	public void user_adds_more_cards(Integer int1) {
+		objectives.addCardBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
 
-	@When("User adds {int} cards")
-	public void user_adds_cards1(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.questionInput3.sendKeys("question!" + "\n");
+
 		try {
 			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.answerInput3.sendKeys("answer?" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.addCardBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.questionInput4.sendKeys("questions" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.answerInput4.sendKeys("answers" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.saveBtn.click();
+
+		try {
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -509,7 +703,10 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Create {int} Cards complete")
 	public void tab_shows_create_cards_complete(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 4;
+
+		objectives.topNavBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -519,7 +716,10 @@ public class ObjectivesSteps {
 
 	@Then("Objectives show Create {int} Cards complete")
 	public void objectives_show_create_cards_complete(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
+		int1 = 4;
+
+		objectives.tabBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -529,7 +729,8 @@ public class ObjectivesSteps {
 
 	@Given("User clicks on Create \\(should change to Deck rather than Sets)")
 	public void user_clicks_on_create_should_change_to_deck_rather_than_sets() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.createDeckTab.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -539,7 +740,16 @@ public class ObjectivesSteps {
 
 	@Given("User Creates a Deck")
 	public void user_creates_a_deck() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.deckTitleInput.sendKeys("Title" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.createDeckBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -549,7 +759,8 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Create a Deck complete")
 	public void tab_shows_create_a_deck_complete() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.topNavBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -559,7 +770,8 @@ public class ObjectivesSteps {
 
 	@Then("Objectives show Create a Deck complete")
 	public void objectives_show_create_a_deck_complete() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.tabBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -569,17 +781,45 @@ public class ObjectivesSteps {
 
 	@Given("User clicks Mark as Mastered for all cards")
 	public void user_clicks_mark_as_mastered_for_all_cards() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.libraryTab.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		objectives.secondStudyBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < 21; i++) {
+			objectives.masterBtn.click();
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Given("User rates the deck")
 	public void user_rates_the_deck() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.starFive.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.submitRatingBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -589,7 +829,8 @@ public class ObjectivesSteps {
 
 	@Then("Tab shows Master a Deck complete")
 	public void tab_shows_master_a_deck_complete() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.topNavBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -599,7 +840,8 @@ public class ObjectivesSteps {
 
 	@Then("Objectives show Master a Deck complete")
 	public void objectives_show_master_a_deck_complete() {
-		// Write code here that turns the phrase above into concrete actions
+		objectives.tabBtn.click();
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {

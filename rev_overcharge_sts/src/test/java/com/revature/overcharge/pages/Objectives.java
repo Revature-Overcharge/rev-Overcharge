@@ -60,14 +60,50 @@ public class Objectives {
 	@FindBy(xpath = "/html/body/app-root/mat-drawer-container/mat-drawer-content/app-objectives/div/div[2]/div/div/div[1]/ul/div[1]/div")
 	public WebElement rateDeckProgressBar;
 
-	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[2]/td[3]/button")
-	public WebElement secondStudyBtn1;
+	@FindBy(id = "mastered")
+	public WebElement masterBtn;
 
-	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[2]/td[3]/button")
-	public WebElement secondStudyBtn2;
+	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[1]/td[4]/button")
+	public WebElement addEditBtn;
 
-	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[2]/td[3]/button")
-	public WebElement secondStudyBtn3;
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[14]/td/i")
+	public WebElement addCardBtn;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[15]/td[2]/input")
+	public WebElement questionInput;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[15]/td[3]/input")
+	public WebElement answerInput;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[16]/td[2]/input")
+	public WebElement questionInput2;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[16]/td[3]/input")
+	public WebElement answerInput2;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[17]/td[2]/input")
+	public WebElement questionInput3;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[17]/td[3]/input")
+	public WebElement answerInput3;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[18]/td[2]/input")
+	public WebElement questionInput4;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[18]/td[3]/input")
+	public WebElement answerInput4;
+
+	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[3]/button")
+	public WebElement saveBtn;
+
+	@FindBy(id = "createNavLink")
+	public WebElement createDeckTab;
+
+	@FindBy(id = "floatingInputValue")
+	public WebElement deckTitleInput;
+
+	@FindBy(id = "create-button")
+	public WebElement createDeckBtn;
 
 	public Objectives(WebDriver driver) {
 		this.driver = driver;

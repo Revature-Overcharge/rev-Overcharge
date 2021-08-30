@@ -12,7 +12,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
+@CucumberOptions(features = "src/test/resources", glue = { "com.revature.overcharge.steps", "ObjectivesSteps" })
 public class ObjectivesRunner {
 
 	public static WebDriver driver;
