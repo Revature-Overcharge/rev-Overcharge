@@ -1,5 +1,6 @@
 package com.revature.overcharge.services;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import com.revature.overcharge.repositories.RatingRepo;
 public class RatingServiceImpl implements RatingService {
 
     private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
+
+    private static final DecimalFormat df = new DecimalFormat("#.##");
 
     @Autowired
     RatingRepo rr;
@@ -87,7 +90,7 @@ public class RatingServiceImpl implements RatingService {
         for (Rating rating : deckRatings) {
             sum += rating.getStars();
         }
-        return sum / deckRatings.size();
+        return Math.round((sum * 100 / deckRatings.size())) / 100.0;
     }
 
 }
