@@ -198,7 +198,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         long endWeekTime = startWeekTime + WEEKLY_MS;
         int match = 0;
 
-        List<Rating> ratings = rs.getRatingsByDeckId(d.getId());
+        List<Rating> ratings = rs.getRatings(null, d.getId());
 
         for (Rating rating : ratings) {
             if ((rating.getRatedOn() >= startWeekTime
@@ -233,7 +233,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
             return;
         }
 
-        List<Rating> ratings = rs.getAllRatings();
+        List<Rating> ratings = rs.getRatings(null, null);
         int matchedDeck = 0;
 
         for (Deck d : decks) {
@@ -382,7 +382,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Override
     public void setRateADeckDaily(int userId) {
         User u = us.getUser(userId);
-        List<Rating> userRatings = rs.getRatingByUserId(u.getId());
+        List<Rating> userRatings = rs.getRatings(u.getId(), null);
 
         long midnight = getMidnight();
 
@@ -404,7 +404,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
     @Override
     public void getRateADeckDaily(User u) {
-        List<Rating> userRatings = rs.getRatingByUserId(u.getId());
+        List<Rating> userRatings = rs.getRatings(u.getId(), null);
 
         long midnight = getMidnight();
 

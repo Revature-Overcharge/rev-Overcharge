@@ -1,29 +1,32 @@
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ObjectivesService } from 'src/app/services/objectives.service';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
 import { Objective } from 'src/app/models/objective';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
   loggedInUser: User;
   objList: Objective[] = [];
-
   responseMessage: string = '';
   loggedIn : boolean;
 
-  constructor(private loginServ: LoginService, private router: Router, private modalService: NgbModal, private objData: ObjectivesService) { }
+  constructor(
+    private loginServ: LoginService,
+    private router: Router,
+    private modalService: NgbModal,
+    private objData: ObjectivesService
+  ) {}
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.updateObjValues();
   }
 
@@ -39,10 +42,10 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.loggedIn = !this.loggedIn;
     this.loginServ.setUsername('Guest');
-    this.responseMessage = "Logging out";
+    this.responseMessage = 'Logging out';
   }
 
-  updateObjValues(){
+  updateObjValues() {
     this.objData.getObjectives().subscribe((response) => {
       this.loggedInUser = response;
       this.objList = this.loggedInUser.objectives;
