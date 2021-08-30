@@ -1,5 +1,10 @@
 Feature: WeeklyObjectives
   As a user I want to see my objectives updating properly when I complete them
+  
+  Scenario: A User should log out
+  	When User taps on their username
+  	When User taps on the logout button
+  	Then User should logout and be at homepage
     
   Scenario: A random user is logged in
     Given User is on homepage

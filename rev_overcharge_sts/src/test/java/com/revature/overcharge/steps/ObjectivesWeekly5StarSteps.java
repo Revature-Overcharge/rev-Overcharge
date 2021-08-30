@@ -175,7 +175,7 @@ public class ObjectivesWeekly5StarSteps {
 	
 	@Then("Wait for some time to explain")
 	public void wait_for_some_time_to_explain() throws InterruptedException {
-	    Thread.sleep(10000);
+	    Thread.sleep(7000);
 	}
 
 
