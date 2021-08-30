@@ -49,7 +49,7 @@ public class TimerSteps {
     	assertEquals(css,timer.timerContainer.getCssValue("display"));
     }
 
-    @When("^User clicks \"([^\"]*)\"$ on timer")
+    @When("^User clicks \"([^\"]*)\" on timer$")
     public void user_clicks_something_on_timer(String button) throws Throwable {
     	switch (button) {
 		case "Timer":

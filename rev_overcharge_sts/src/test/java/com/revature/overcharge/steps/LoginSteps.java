@@ -2,6 +2,7 @@ package com.revature.overcharge.steps;
 
 import java.time.Duration;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,7 +11,6 @@ import com.revature.overcharge.pages.LoginModal;
 import com.revature.overcharge.pages.PageFrame;
 import com.revature.overcharge.runners.LoginRunner;
 
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -26,12 +26,14 @@ public class LoginSteps {
     @Given("^User has nagivated to the website for login$")
     public void user_has_nagivated_to_the_website_for_login() throws Throwable {
         page.navigateTo(page.getURL());
+        Thread.sleep(2000);
     }
 
     @Given("^User opens the login modal$")
     public void user_opens_the_login_modal() throws Throwable {
         page.loginNav.click();
         wait.withTimeout(Duration.ofSeconds(1));
+        Thread.sleep(2000);
     }
 
     @Given("^User is logged in$")
@@ -60,14 +62,14 @@ public class LoginSteps {
         	break;
         case "Login":
         	modal.loginButton.click();
-        	Thread.sleep(1000);
+        	Thread.sleep(2000);
         	user_clicks_something_for_login("Exit");
         	break;
         case "Exit":
         	modal.exitButton.click();
         	break;
         }
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
 
     @When("^User logs in with \"([^\"]*)\" credentials$")
@@ -91,7 +93,7 @@ public class LoginSteps {
     	modal.usernameInput.sendKeys(username);
     	modal.passwordInput.sendKeys(password);
     	user_clicks_something_for_login("Login");
-    	Thread.sleep(1000);
+    	Thread.sleep(2000);
     	
     }
 
@@ -107,7 +109,7 @@ public class LoginSteps {
 
     @Then("^Modal displays \"([^\"]*)\" message$")
     public void modal_displays_something_message(String msgType) throws Throwable {
-    	Thread.sleep(3000);
+    	Thread.sleep(2000);
         String message = "";
         
         switch (msgType) {
@@ -145,6 +147,8 @@ public class LoginSteps {
         ExpectedConditions.invisibilityOf(page.loginNav);
         ExpectedConditions.invisibilityOf(page.loginHeader);
         ExpectedConditions.visibilityOf(page.logoutBtn);
+        
+        user_clicks_something_for_login("Logout");
     }
 
     @And("^User is redirected$")

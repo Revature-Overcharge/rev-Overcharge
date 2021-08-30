@@ -16,8 +16,8 @@ Scenario: Successful Login
 	When User logs in with "valid" credentials
 	Then Modal displays "Success" message
 	And Username is displayed
-	And Login buttons disappear
 	And User is redirected
+	And Login buttons disappear
 	
 Scenario: Invalid Login
 	Given User opens the login modal
