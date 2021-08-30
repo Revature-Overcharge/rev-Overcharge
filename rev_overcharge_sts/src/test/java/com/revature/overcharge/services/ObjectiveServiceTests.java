@@ -361,7 +361,6 @@ public class ObjectiveServiceTests {
 		rs.saveRating(r);
 		
 		int ratingPoints = 20;
-
 		assertEquals(ratingPoints, ratingUser.getPoints());
 		
 	}

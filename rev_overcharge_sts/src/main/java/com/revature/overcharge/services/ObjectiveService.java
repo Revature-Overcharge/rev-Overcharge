@@ -30,7 +30,7 @@ public interface ObjectiveService {
 
     public void getMarkFiveCardsDaily(User u);
 
-    public void setRateADeckDaily(int userId, Rating currentRating);
+    public void setRateADeckDaily(int userId);
 
     public void getRateADeckDaily(User u);
 

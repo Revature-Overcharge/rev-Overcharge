@@ -380,7 +380,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     }
 
     @Override
-    public void setRateADeckDaily(int userId, Rating currentRating) {
+    public void setRateADeckDaily(int userId) {
    
         User u = us.getUser(userId);
         List<Rating> userRatings = rs.getRatings(u.getId(), null);
@@ -391,7 +391,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
         for (Rating r : userRatings) {
             if (r.getRatedOn() >= midnight
-                    && r.getRatedOn() <= midnight + DAILY_MS && r != currentRating) {
+                    && r.getRatedOn() <= midnight + DAILY_MS ) {
                 matchRating++;
             }
         }
