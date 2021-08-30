@@ -29,22 +29,24 @@
 
 <div class="container-fluid page">
   <div id="time_header" class="d-flex page__box p-3 mt-2">Library</div>
-  <div class="page__content shadow p-3 position-relative">
+  <div id="table_card" class="page__content shadow p-3 position-relative">
     <div class="page__content-data">
       <div id="tableContainer">
-        <table class="table table-striped">
+        <table class="table table-striped m-0">
           <thead>
             <tr>
-              <th scope="col">Deck Title</th>
-              <th scope="col">Deck Author</th>
-              <th scope="col">Study Deck</th>
-              <th scope="col">Edit Deck</th>
+              <th scope="col align-middle">Deck Title</th>
+              <th scope="col align-middle">Deck Author</th>
+              <th scope="col align-middle">Avg Rating</th>
+              <th scope="col align-middle">Study Deck</th>
+              <th scope="col align-middle">Edit Deck</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let deck of deckList">
-              <td>{{ deck.title }}</td>
-              <td>{{ deck.creator.username }}</td>
+              <td class="align-middle">{{ deck.title }}</td>
+              <td class="align-middle">{{ deck.creator.username }}</td>
+              <td class="align-middle">{{ deck.avgRating }}</td>
               <td>
                 <button
                   class="btn btn-lg btn-outline-primary"
