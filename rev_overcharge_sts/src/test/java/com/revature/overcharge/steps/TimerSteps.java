@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,15 +18,13 @@ import io.cucumber.java.en.When;
 
 public class TimerSteps {
 	
-	final static Logger log = Logger.getLogger(TimerSteps.class);
-	
-	public static WebDriver driver = TimerRunner.driver;
-	public static WebDriverWait wait = new WebDriverWait(driver, 10);
-	public static TimerWidget timer = TimerRunner.timer;
+	private static WebDriver driver = TimerRunner.driver;
+	private static WebDriverWait wait = new WebDriverWait(driver, 10);
+	private static TimerWidget timer = TimerRunner.timer;
 
     @Given("^User has navigated to the website$")
     public void user_has_navigated_to_the_website() throws Throwable {
-    	driver.get(timer.url);
+    	timer.navigateTo(timer.getURL());
     }
     
     @Given("^User shows Timer$")

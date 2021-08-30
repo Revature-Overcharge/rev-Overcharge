@@ -1,5 +1,6 @@
 package com.revature.overcharge.services;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,14 +19,32 @@ public class RatingServiceImpl implements RatingService {
 
     private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
 
+    private static final DecimalFormat df = new DecimalFormat("#.##");
+
     @Autowired
     RatingRepo rr;
 
+    @Autowired
+    UserService us;
+
+    @Autowired
+    DeckService ds;
+
+    @Autowired
+    ObjectiveService os;
+
     @Override
     public Rating saveRating(Rating r) {
+        if (r.getUserId() == ds.getDeck(r.getDeckId()).getCreator().getId()) {
+            log.warn("User can't rate their own deck.");
+            return r;
+        }
         r.setRatedOn(new Date().getTime());
         log.info(r.toString());
-        return rr.save(r);
+        r = rr.save(r);
+        os.setRateADeckDaily(r.getUserId());
+        os.set5StarDeckWeekly(r);
+        return r;
     }
 
     @Override
@@ -35,7 +54,6 @@ public class RatingServiceImpl implements RatingService {
             if (deckId != null) {
                 ratings = rr.getByUserIdAndDeckId(userId, deckId);
             } else {
-                log.info("Getting by user id");
                 ratings = rr.getByUserId(userId);
             }
         } else if (deckId != null) {
@@ -43,12 +61,7 @@ public class RatingServiceImpl implements RatingService {
         } else {
             ratings = (List<Rating>) rr.findAll();
         }
-        if (!ratings.isEmpty()) {
-            return ratings;
-        } else {
-            log.warn("User id and/or deck id are not found on any ratings in database");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        return ratings;
     }
 
     @Override
@@ -57,9 +70,27 @@ public class RatingServiceImpl implements RatingService {
             rr.deleteById(rId);
             return true;
         } else {
-            log.warn("User id and deck id are not found on any ratings in database");
+            log.warn(
+                    "User id and deck id are not found on any ratings in database");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public Rating updateRating(Rating r) {
+        return rr.save(r);
+    }
+
+    @Override
+    public Double calculateAvgRating(int deckId) {
+        List<Rating> deckRatings = getRatings(null, deckId);
+        double sum = 0.0;
+        if (deckRatings.isEmpty())
+            return null;
+        for (Rating rating : deckRatings) {
+            sum += rating.getStars();
+        }
+        return Math.round((sum * 100 / deckRatings.size())) / 100.0;
     }
 
 }

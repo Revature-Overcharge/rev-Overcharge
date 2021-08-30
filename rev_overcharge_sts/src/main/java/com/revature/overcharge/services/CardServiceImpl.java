@@ -19,10 +19,13 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     CardRepo cr;
+
+    @Autowired
+    ObjectiveService os;
     
     @Autowired
     DeckService ds;
-
+    
     @Override
     public Card addCard(int deckId, Card c) {
         if (cr.existsById(c.getId())) {
@@ -31,7 +34,9 @@ public class CardServiceImpl implements CardService {
         } else {
             c.setDeck(ds.getDeck(deckId));
             c.setCreatedOn(new Date().getTime());
-            return cr.save(c);
+            c = cr.save(c);
+            os.setAdd4CardsDaily(deckId, c);
+            return c;
         }
     }
 

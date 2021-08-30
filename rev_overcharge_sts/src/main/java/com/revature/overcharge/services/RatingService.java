@@ -7,12 +7,14 @@ import com.revature.overcharge.beans.RatingId;
 
 public interface RatingService {
 
-//    public Rating addRating(Rating r);
-
     public Rating saveRating(Rating r);
 
     public List<Rating> getRatings(Integer userId, Integer deckId);
 
+    public Rating updateRating(Rating r);
+
     public boolean deleteRating(RatingId rId);
+
+    public Double calculateAvgRating(int deckId);
 
 }

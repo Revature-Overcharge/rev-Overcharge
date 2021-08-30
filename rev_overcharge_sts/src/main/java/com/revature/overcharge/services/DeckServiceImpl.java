@@ -17,12 +17,18 @@ import com.revature.overcharge.repositories.DeckRepo;
 public class DeckServiceImpl implements DeckService {
 
     private static final Logger log = Logger.getLogger(DeckServiceImpl.class);
-
+    
     @Autowired
     DeckRepo dr;
 
     @Autowired
     CardService cs;
+
+    @Autowired
+    ObjectiveService os;
+
+    @Autowired
+    RatingService rs;
 
     @Override
     public Deck addDeck(Deck d) {
@@ -47,7 +53,11 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public List<Deck> getAllDecks() {
-        return (List<Deck>) dr.findAll();
+        List<Deck> decks = (List<Deck>) dr.findAll();
+        for (Deck deck : decks) {
+            deck.setAvgRating(rs.calculateAvgRating(deck.getId()));
+        }
+        return decks;
     }
 
     @Override
@@ -76,7 +86,12 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public List<Deck> getDecksByCreatorId(int creatorId) {
-        return dr.findByCreatorId(creatorId);
+        if (dr.existsByCreatorId(creatorId)) {
+            return dr.getByCreatorId(creatorId);
+        } else {
+//            log.warn("No deck found for given creator id");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -86,10 +101,17 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             Deck addedDeck = addDeck(d);
+
             for (Card c : d.getCards()) {
+                addedDeck = getDeck(addedDeck.getId());
+                c.setDeck(addedDeck);
                 cs.addCard(addedDeck.getId(), c);
             }
+
+            os.setCreateADeckWeekly(d.getCreator().getId());
+
             addedDeck = getDeck(addedDeck.getId());
+            log.info(addedDeck);
             return addedDeck;
         }
     }
