@@ -22,14 +22,14 @@ Feature: WeeklyObjectives
   	Then User should logout and be at homepage
   	
   Scenario: The creator of deck three is logged in
-    Given User is on homepage
-    When User clicks the login
-    When User enters in their username and password
-    When User clicks submit
+    Given Creator user is on homepage
+    When Creator user clicks the login
+    When Creator user enters in their username and password
+    When Creator user clicks submit
     
   Scenario: The creator of deck three sees a their get five star rating fulfiled
   	When User clicks on the objectives page
-  	Then User will see 
+  	Then User will see completed objectives
   
   	
   

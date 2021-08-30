@@ -14,7 +14,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/com/revature/overcharge/features/WeeklyObjectives.feature",  glue = { "com.revature.overcharge.steps", "ObjectivesWeekly5StarSteps" })
+@CucumberOptions(features = "src/test/resources",  glue = { "com.revature.overcharge.steps", "ObjectivesWeekly5StarSteps" })
 public class ObjectivesWeekly5StarRuner {
 	
 	public static WebDriver driver;

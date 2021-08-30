@@ -18,6 +18,9 @@ public class LibraryPage {
 	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[3]/td[4]/button")
 	public WebElement thirdDeck;
 
+	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[2]/td[4]/button")
+	public WebElement secondDeck;
+
 	
 	public LibraryPage(WebDriver driver) {
 		this.driver = driver;

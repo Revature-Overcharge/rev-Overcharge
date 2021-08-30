@@ -54,6 +54,12 @@ public class CardTraversal {
 	@FindBy(id = "time_header")
 	public WebElement cardTitle;
 	
+	@FindBy(id = "menuBtn")
+	public WebElement userNameBtn;
+	
+	@FindBy(className = "h3")
+	public WebElement homePageTitle;
+	
 	public CardTraversal(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
