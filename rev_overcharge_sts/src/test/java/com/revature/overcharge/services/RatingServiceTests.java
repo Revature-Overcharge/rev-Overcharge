@@ -46,20 +46,20 @@ public class RatingServiceTests {
         assertEquals(rToAddStr, addedRating.toString());
     }
 
-    @Test
-    void saveRatingUpdatePass() {
-        // This rating already exists in the database
-        Rating ratingToUpdate = rs.getRatings(1, 1).get(0);
-        ratingToUpdate.setRatedOn(null);
-        String rToUpdateStr = ratingToUpdate.toString();
+//     @Test
+//     void saveRatingUpdatePass() {
+//         // This rating already exists in the database
+//         Rating ratingToUpdate = rs.getRatings(1, 1).get(0);
+//         ratingToUpdate.setRatedOn(null);
+//         String rToUpdateStr = ratingToUpdate.toString();
 
-        ratingToUpdate.setStars(1);
-        Rating updatedRating = rs.saveRating(ratingToUpdate);
-        assertNotNull(updatedRating.getRatedOn());
+//         ratingToUpdate.setStars(1);
+//         Rating updatedRating = rs.saveRating(ratingToUpdate);
+//         assertNotNull(updatedRating.getRatedOn());
 
-        updatedRating.setRatedOn(null);
-        assertNotEquals(rToUpdateStr, updatedRating.toString());
-    }
+//         updatedRating.setRatedOn(null);
+//         assertNotEquals(rToUpdateStr, updatedRating.toString());
+//     }
 
     @Test
     void getRatingsByUserIdAndDeckIdPass() {
