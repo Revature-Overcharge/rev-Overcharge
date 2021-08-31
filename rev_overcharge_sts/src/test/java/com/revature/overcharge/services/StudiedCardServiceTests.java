@@ -24,18 +24,18 @@ class StudiedCardServiceTests {
 	@MockBean
 	StudiedCardRepo scr;
 
-	@Test
-	void testAddStudiedCard() {
-		StudiedCard studiedcard = new StudiedCard(0, 0, null);
+// 	@Test
+// 	void testAddStudiedCard() {
+// 		StudiedCard studiedcard = new StudiedCard(0, 0, null);
 
-		Mockito.when(scr.save(studiedcard)).thenReturn(new StudiedCard(0, 0, null));
-		studiedcard = scs.addStudiedCard(studiedcard);
+// 		Mockito.when(scr.save(studiedcard)).thenReturn(new StudiedCard(0, 0, null));
+// 		studiedcard = scs.addStudiedCard(studiedcard);
 
-		Assertions.assertEquals(0, studiedcard.getCardId());
-		Assertions.assertEquals(0, studiedcard.getUserId());
-		Assertions.assertNotEquals(1, studiedcard.getCardId());
-		Assertions.assertNotEquals(1, studiedcard.getUserId());
-	}
+// 		Assertions.assertEquals(0, studiedcard.getCardId());
+// 		Assertions.assertEquals(0, studiedcard.getUserId());
+// 		Assertions.assertNotEquals(1, studiedcard.getCardId());
+// 		Assertions.assertNotEquals(1, studiedcard.getUserId());
+// 	}
 
 	@Test
 	void testGetStudiedCards() {
