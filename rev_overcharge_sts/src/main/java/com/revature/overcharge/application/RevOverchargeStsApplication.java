@@ -15,6 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableJpaRepositories("com.revature.overcharge.repositories")
 public class RevOverchargeStsApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(RevOverchargeStsApplication.class, args);
+    }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -25,10 +29,6 @@ public class RevOverchargeStsApplication {
                 ;
             }
         };
-
-            public static void main(String[] args) {
-        SpringApplication.run(RevOverchargeStsApplication.class, args);
-    }
 }
     
 }
