@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   }
 
     isGuest() :boolean {
-    console.log(this.loginServ.getUsername());
+    // console.log(this.loginServ.getUsername());
     if (localStorage.getItem("username") === "Guest") {
       return true;
     } else{
