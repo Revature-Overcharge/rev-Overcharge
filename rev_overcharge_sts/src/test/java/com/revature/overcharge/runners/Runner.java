@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 public abstract class Runner {
