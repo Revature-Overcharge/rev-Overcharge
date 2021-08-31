@@ -20,28 +20,28 @@ public class CardController {
 
     @Autowired
     CardService cs;
-
+    @CrossOrigin
     @PostMapping(value = "/decks/{id}/cards", consumes = "application/json",
             produces = "application/json")
     public Card addCard(@PathVariable("id") int deckId, @RequestBody Card c) {
         return cs.addCard(deckId, c);
     }
-
+    @CrossOrigin
     @GetMapping(value = "/cards/{id}")
     public Card getCard(@PathVariable("id") int id) {
         return cs.getCard(id);
     }
-
+    @CrossOrigin
     @GetMapping(value = "/cards")
     public List<Card> getAllCards() {
         return cs.getAllCards();
     }
-
+    @CrossOrigin
     @GetMapping(value = "/decks/{id}/cards")
     public List<Card> getCardsByDeckId(@PathVariable("id") int id) {
         return cs.getCardsByDeckId(id);
     }
-    
+    @CrossOrigin
     @DeleteMapping(value = "/cards/{id}")
     public boolean deleteCard(@PathVariable("id") int id) {
     	return cs.deleteCard(id);

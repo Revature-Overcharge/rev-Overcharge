@@ -26,6 +26,7 @@ public class StudiedCardController {
     @Autowired
     StudiedCardService scs;
 
+    @CrossOrigin
     @PostMapping(value = "/studied_cards", consumes = "application/json",
             produces = "application/json")
     public StudiedCard addStudiedCard(@RequestBody StudiedCard sc) {
@@ -33,6 +34,7 @@ public class StudiedCardController {
         return scs.addStudiedCard(sc);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/studied_cards")
     public List<StudiedCard> getStudiedCards(
             @RequestParam(required = false) Integer userId,
@@ -40,6 +42,7 @@ public class StudiedCardController {
         return scs.getStudiedCards(userId, cardId);
     }
 
+    @CrossOrigin
     @DeleteMapping(value = "/studied_cards")
     public boolean deleteStudiedCard(@RequestBody StudiedCardId scId) {
         return scs.deleteStudiedCard(scId);

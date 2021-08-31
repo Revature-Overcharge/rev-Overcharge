@@ -22,33 +22,39 @@ public class UserController {
 	@Autowired
 	UserService us;
 
+	@CrossOrigin
 	@PostMapping(value = "/users", consumes = "application/json", produces = "application/json")
 	public User addUser(@RequestBody User u) {
 		return us.addUser(u);
 	}
 
+	@CrossOrigin
 	@GetMapping(value = "/users/{id}")
 	public User getUser(@PathVariable("id") int id) {
 		return us.getUser(id);
 	}
 
+	@CrossOrigin
 	@GetMapping(value = "/users")
 	public List<User> getAllUsers() {
 		System.out.println("something");
 		return us.getAllUsers();
 	}
 
+	@CrossOrigin
 	@PutMapping(value = "/users/{id}", consumes = "application/json", produces = "application/json")
 	public User updateUser(@PathVariable int id, @RequestBody User newUser) {
 		newUser.setId(id);
 		return us.updateUser(newUser);
 	}
 
+	@CrossOrigin
 	@DeleteMapping(value = "/users/{id}")
 	public boolean deleteUser(@PathVariable int id) {
 		return us.deleteUser(id);
 	}
 
+	@CrossOrigin
 	@PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
 	public User login(@RequestBody User u) {
 		return us.login(u);
