@@ -292,7 +292,7 @@ public class ObjectiveServiceTests {
 		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
 		d = ds.addDeckAndCards(d);
 		
-		for (int i=0; i>5; i++) {
+		for (int i=0; i<5; i++) {
 			Card c = d.getCards().get(i);
 			StudiedCard sc = new StudiedCard(u.getId(), c.getId(), currentTime);
 			scs.addStudiedCard(sc);
@@ -300,8 +300,8 @@ public class ObjectiveServiceTests {
 		}
 		
 		int createDeckPoints = 100;
-		int mark5CardsPoints = 50;
-		
+		int mark5CardsPoints = 100;
+				
 		assertEquals(createDeckPoints + mark5CardsPoints, u.getPoints());
 		
 	}
@@ -326,7 +326,7 @@ public class ObjectiveServiceTests {
 		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
 		d = ds.addDeckAndCards(d);
 		
-		for (int i=0; i>5; i++) {
+		for (int i=0; i<5; i++) {
 			Card c = d.getCards().get(i);
 			StudiedCard sc = new StudiedCard(u.getId(), c.getId(), currentTime);
 			scs.addStudiedCard(sc);
@@ -361,7 +361,6 @@ public class ObjectiveServiceTests {
 		rs.saveRating(r);
 		
 		int ratingPoints = 20;
-
 		assertEquals(ratingPoints, ratingUser.getPoints());
 		
 	}
@@ -387,10 +386,17 @@ public class ObjectiveServiceTests {
 		Rating r = new Rating(ratingUser.getId(), d.getId(), 5, currentTime);
 		rs.saveRating(r);
 		
-		os.getRateADeckDaily(u);
-		List<Objective> objectives = u.getObjectives();	
+		os.getRateADeckDaily(ratingUser);
+		List<Objective> objectives = ratingUser.getObjectives();	
 		assertEquals("Rate a Deck", objectives.get(0).getName());
 		
+	}
+	
+	@Test
+	void getAllObjectivesForUserTest() {
+		User user = createNewUser("user14");
+		os.getAllObjectivesForUser(user.getId());
+		assertEquals(0, user.getPoints());;
 	}
 	
 	private User createNewUser(String username) {

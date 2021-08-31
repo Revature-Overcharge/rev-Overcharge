@@ -41,6 +41,15 @@ public class RatingServiceImpl implements RatingService {
         }
         r.setRatedOn(new Date().getTime());
         log.info(r.toString());
+        
+        List<Rating> userRatings = getRatings(r.getUserId(), null);
+
+        for (Rating rating : userRatings) {
+            if (rating.getDeckId() == r.getDeckId() && rating.getUserId() == r.getUserId()) {
+            	return r;
+            }
+        }
+        
         r = rr.save(r);
         os.setRateADeckDaily(r.getUserId());
         os.set5StarDeckWeekly(r);

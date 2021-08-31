@@ -1,10 +1,8 @@
 Feature: Objectives
   I want to see objectives in the objectives tab and through sidebar nav
   
-  Background:
-    Given User is viewing the app
-    
   Scenario: Guest wants to see Objectives
+  	Given User is viewing the app
     Given User is not logged in
     When User clicks the Objectives topnav
     Then Message to login in shown at top
@@ -75,8 +73,7 @@ Feature: Objectives
     Then Objectives show Create 4 Cards complete
   
   Scenario: User wants to Create a Deck
-    Given User is logged in
-    And User clicks on Create (should change to Deck rather than Sets)
+    Given User clicks on Create (should change to Deck rather than Sets)
     And User Creates a Deck
     When User clicks the Objectives topnav
     Then Tab shows Create a Deck complete
@@ -84,8 +81,7 @@ Feature: Objectives
     Then Objectives show Create a Deck complete
   
   Scenario: User wants to Master a Deck
-    Given User is logged in
-    And User clicks on Library
+    Given User clicks on Library
     And User clicks Study
     And User clicks Mark as Mastered for all cards
     And User rates the deck
