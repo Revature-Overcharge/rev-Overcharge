@@ -1,22 +1,21 @@
-.flex-container {
-    display: flex;
-    border: 2px solid black;
-    border-radius: 8px;
-    padding: 0.5em;
-    margin-bottom: 1em;
+div#page_card {
+  padding: 18px;
 }
 
-.flex-child {
-    flex: 1;
-}  
+.row {
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  min-width: fit-content;
+}
 
 img {
-    width: 350px;
-    height: auto;
+  width: 350px;
+  height: auto;
 }
 
-.rightImg{
-    width: 350px;
-    height: auto;
-    float:right;
+.rightImg {
+  width: 350px;
+  height: auto;
 }
