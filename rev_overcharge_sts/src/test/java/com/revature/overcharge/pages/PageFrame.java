@@ -1,4 +1,4 @@
-package com.revature.overcharge.pages;
+                 package com.revature.overcharge.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,28 +21,21 @@ public class PageFrame {
 	//Specific SideNav and Header elements
 	@FindBy(id = "homeNavLink")
 	public WebElement homeLink;
-	
 	@FindBy(id = "libraryNavLink")
 	public WebElement libraryLink;
-	
 	@FindBy(id = "objectiveNavLink")
 	public WebElement objectiveLink;
-	
 	@FindBy(id = "createNavLink")
 	public WebElement createLink;
-	
 	@FindBy(id = "timerNavLink")
 	public WebElement timerLink;
-	
 	@FindBy(id = "loginNavLink")
 	public WebElement loginNav;
 	
-	@FindBy(id = "menuHeaderBtn")
+	@FindBy(id = "menuBtn")
 	public WebElement menuBtn;
-	
 	@FindBy(id = "logoutHeaderBtn")
 	public WebElement logoutBtn;
-	
 	@FindBy(id = "loginHeaderBtn")
 	public WebElement loginHeader;
 	

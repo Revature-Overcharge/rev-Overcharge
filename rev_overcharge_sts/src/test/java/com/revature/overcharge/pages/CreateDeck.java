@@ -24,9 +24,6 @@ public class CreateDeck {
 	@FindBy(id = "createNavLink")
 	public WebElement createset;
 	
-//	@FindBy(id = "decktitle")
-//	public WebElement decktitle;
-	
 	@FindBy(id = "floatingInputValue")
 	public WebElement floatingInputValue;
 	

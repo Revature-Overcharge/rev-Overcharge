@@ -6,25 +6,25 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.revature.overcharge.pages.CreateDeck;
+import com.revature.overcharge.pages.CardTraversal;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
+@CucumberOptions(features = "src/test/resources/com/revature/overcharge/features/CardTraversal.feature", glue = {"com.revature.overcharge.steps", "CardTraversalSteps"})
 public class CardTraversalRunner {
 
 	public static WebDriver driver;
-	public static CreateDeck createDeck;
+	public static CardTraversal cardTraversal;
 	
 	@BeforeClass
 	public static void setUp() {
-		String path = "C:/Sts_Workspace/ChromeDriver/chromedriver.exe";
+		String path = "C:/Users/jehup/Desktop/Revature Desktop/chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", path);
 		
 		driver = new ChromeDriver();
-		createDeck = new CreateDeck(driver);
+		cardTraversal = new CardTraversal(driver);
 	}
 	
 	@AfterClass

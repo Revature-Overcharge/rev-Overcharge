@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
           this.loginServ.setUsername(user.username);
           console.log("logged in: ", user.username);
-          this.router.navigateByUrl("/home");
+          this.router.navigateByUrl("/library");
           this.setResponseMessage("success");
           window.localStorage.setItem("userID",String(user.id));
           // window.setTimeout(() => {
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
         this.responseMessage = "Success! Logging in...";
         window.setTimeout(() => {
           this.close();
-        }, 1500);
+        }, 2000);
         break;
       case "fail":
         this.responseMessage = "Incorrect credentials";
