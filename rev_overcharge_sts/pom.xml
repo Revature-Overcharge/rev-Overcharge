@@ -18,7 +18,6 @@
 		<java.version>1.8</java.version>
 		<sonar.organization>revature-overcharge</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<skipTests>true</skipTests>
 	</properties>
 	<dependencies>
 		<dependency>
