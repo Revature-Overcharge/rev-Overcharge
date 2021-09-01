@@ -10,12 +10,11 @@ div#page_card {
   min-width: fit-content;
 }
 
-img {
-  width: 350px;
-  height: auto;
+.col {
+  text-align: center;
 }
 
-.rightImg {
+img {
   width: 350px;
   height: auto;
 }
