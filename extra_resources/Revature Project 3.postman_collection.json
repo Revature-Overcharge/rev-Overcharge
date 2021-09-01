@@ -1,0 +1,2157 @@
+{
+	"info": {
+		"_postman_id": "23485f7f-5a49-40f2-83be-f1747500f340",
+		"name": "Revature Project 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "Get Card 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('{\"id\":1,\"question\":\"A _______ is the term used for a Jenkins build workflow that you configure for a project.\",\"answer\":\"Job\",\"createdOn\":1629315687000}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cards/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Card 100 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cards/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cards in Deck 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"createdOn\":1629315775000},{\"id\":4,\"question\":\"What are advantages of DevOps?\",\"answer\":\"Faster code delivery\",\"createdOn\":1629315794000},{\"id\":5,\"question\":\"What does the AWS S3 service provide?\",\"answer\":\"Persistent storage\",\"createdOn\":1629315613000},{\"id\":6,\"question\":\"What does the acronym AMI mean?\",\"answer\":\"Amazon Machine Image\",\"createdOn\":1629315840000},{\"id\":7,\"question\":\"What is the default location of your local repository?\",\"answer\":\"userhome/.m2/repository\",\"createdOn\":1629315549000},{\"id\":8,\"question\":\"What is Maven?\",\"answer\":\" A build automation and project management tool\",\"createdOn\":1629315825000},{\"id\":9,\"question\":\"POM stands for:\",\"answer\":\"Project Object Model\",\"createdOn\":1629315697000},{\"id\":10,\"question\":\"Which AWS service creates a virtual machine in the cloud?\",\"answer\":\"EC2\",\"createdOn\":1629315596000},{\"id\":11,\"question\":\"Which AWS service provides DNS translation?\",\"answer\":\"Ro');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks/1/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cards in Deck 100 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks/100/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"100",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(',\"answer\":\"Project Object Model\",\"createdOn\":1629315697000},{\"id\":10,\"question\":\"Which AWS service creates a virtual machine in the cloud?\",\"answer\":\"EC2\",\"createdOn\":1629315596000},{\"id\":11,\"question\":\"Which AWS service provides DNS translation?\",\"answer\":\"Route 53\",\"createdOn\":1629315991000},{\"id\":12,\"question\":\"Which service is a type of storage container for data in AWS?\",\"answer\":\"S3\",\"createdOn\":1629315671000},{\"id\":13,\"question\":\"T/F: Stopping an instance will delete the instance and disassociate any data storage volumes and delete them as well.\",\"answer\":\"False\",\"createdOn\":1629315966000},{\"id\":14,\"question\":\"AWS VPC stands for?\",\"answer\":\"Virtual Private Cloud\",\"createdOn\":1629315865000},{\"id\":15,\"question\":\"What does BDD stand for?\",\"answer\":\"Behavior-driven development\",\"createdOn\":1629315695000},{\"id\":16,\"question\":\"What is step definition in Cucumber?\",\"answer\":\"Code implementation of the feature file\",\"createdOn\":1629315633000},{\"id\":17,\"question\":\"What is the language used in a feature file?\",\"answer\":\"Gherkin\",\"createdOn\":162931');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"question\":\"What is java?\",\"answer\":\"a programming language\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": \"What is java?\",\r\n    \"answer\": \"a programming language\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/decks/1/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Card Existing Id FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400: Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":400,\"error\":\"Bad Request\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"question\": \"2 + 2 = ___\",\r\n    \"answer\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/decks/1/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Card 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"id\":3,\"question\":\"Do it?\",\"answer\":\"It do!\",\"createdOn\":1629315775000}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"question\": \"Do it?\",\r\n    \"answer\": \"It do!\",\r\n    \"createdOn\": 1629315775000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Card 100 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400: Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":400,\"error\":\"Bad Request\",\"path\":\"/cards\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 100,\r\n    \"question\": \"For EC2, which instance state will completely remove the instance and its backing store?\",\r\n    \"answer\": \"Terminate\",\r\n    \"createdOn\": 1629315775000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('true');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cards/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card 2 Again FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cards/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cards",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deck",
+			"item": [
+				{
+					"name": "Get Deck 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(':6,\"question\":\"What does the acronym AMI mean?\",\"answer\":\"Amazon Machine Image\",\"createdOn\":1629315840000},{\"id\":7,\"question\":\"What is the default location of your local repository?\",\"answer\":\"userhome/.m2/repository\",\"createdOn\":1629315549000},{\"id\":8,\"question\":\"What is Maven?\",\"answer\":\" A build automation and project management tool\",\"createdOn\":1629315825000},{\"id\":9,\"question\":\"POM stands for:\",\"answer\":\"Project Object Model\",\"createdOn\":1629315697000},{\"id\":10,\"question\":\"Which AWS service creates a virtual machine in the cloud?\",\"answer\":\"EC2\",\"createdOn\":1629315596000},{\"id\":11,\"question\":\"Which AWS service provides DNS translation?\",\"answer\":\"Route 53\",\"createdOn\":1629315991000},{\"id\":12,\"question\":\"Which service is a type of storage container for data in AWS?\",\"answer\":\"S3\",');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deck 100 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Decks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('steridge2\",\"password\":\"APU1yVAJO9W\",\"points\":52,\"lastLogin\":1629315843000,\"objectives\":[]},\"title\":\"Spring\",\"createdOn\":1629329843000,\"avgRating\":1.67,\"cards\":[{\"id\":34,\"question\":\"What annotation in Spring MVC is used in REST to define the URI where resource can be accessed?\",\"answer\":\"RequestMapping\",\"createdOn\":1629315720000},{\"id\":35,\"question\":\"_____ advice executes regardless of the means by which a join point exits (normal or exceptional return).\",\"answer\":\"After\",\"createdOn\":1629315579000},{\"id\":36,\"question\":\"What is the current core container in Spring?\",\"answer\":\"cras\",\"createdOn\":1629315756000},{\"id\":37,\"question\":\"The Spring Web MVC framework is designed around a _____ that handles all the HTTP requests and responses\",\"answer\":\"DispatcherServlet\",\"createdOn\":1629315541000},{\"id\":38,\"question\":\"What are the different types of Advice?\",\"answer\":\"after, after throwing, after returning, around, before\",\"createdOn\":1629315646000},{\"id\":39,\"question\":\"What do you mean by Aspect?\",\"answer\":\"A modularization of a concern that cuts across multiple objects\",\"createdOn\":1629315815000},{\"id\":40,\"question\":\"What do you mean by Advice?\",\"answer\":\"Action taken at a particular join point\",\"createdOn\":1629315989000},{\"id\":41,\"question\":\"What are the scopes of a Spring bean?\",\"answer\":\"Singleton, Prototype, Session, Global Session, Request\",\"createdOn\":1629315726000},{\"id\":42,\"question\":\"The ____ takes the request and calls the appropriate service methods based on used GET or POST method.\",\"answer\":\"Controller\",\"createdOn\":1629315979000},{\"id\":43,\"question\":\"ApplicationContext will pre-instantiate beans with the ________ bean scope\",\"answer\":\"Singleton\",\"createdOn\":1629315945000},{\"id\":44,\"question\":\"_____ advice surrounds a join point such as a method invocation. This is the most powerful kind of advice.\",\"answer\":\"Around\",\"createdOn\":1629315767000},{\"id\":45,\"question\":\"____ advice executes after a join point completes normally: for example, if a method returns without throwing an exception.\",\"answer\":\"After returning\",\"createdOn\":1629315540000},{\"id\":46,\"question\":\"____ advice executes before a join point, but does not have the ability to prevent execution flow proceeding to the join point (unless it throws an exception).\",\"answer\":\"Before\",\"createdOn\":1629315737000},{\"id\":47,\"question\":\"_____ advice executes if a method exits by throwing an exception.\"');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Deck And Cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"avgRating\":null,\"cards\":[{\"id\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"creator\": {\r\n        \"id\": 2\r\n    },\r\n    \"title\": \"Ndfsfa\",\r\n    \"cards\": [\r\n        {\r\n            \"question\": \"questisdf deck 5\",\r\n            \"answer\": \"answer 1\"\r\n        },\r\n        {\r\n            \"question\": \"question sdf deck 5\",\r\n            \"answer\": \"answer 2\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/decks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Deck 1 Title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"title\":\"New Title\",');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"New Title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/decks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deck 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('true');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deck 1 Again FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/decks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Objective",
+			"item": [
+				{
+					"name": "Get User 1 Objectives",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"id\":1,\"username\":\"mclapston0\",\"password\":\"kGex8fqXt8\",\"points\":89,\"lastLogin\":1629315831000,\"objectives\":[{\"name\":\"Rate a Deck\",\"pointsToAward\":20,\"progressPercent\":0,\"countForGoal\":1},{\"name\":\"Master 5 Cards\",\"pointsToAward\":50,\"progressPercent\":0,\"countForGoal\":5},{\"name\":\"Create 4 Cards\",\"pointsToAward\":100,\"progressPercent\":0,\"countForGoal\":1},{\"name\":\"Create a Deck\",\"pointsToAward\":100,\"progressPercent\":0,\"countForGoal\":1},{\"name\":\"Master a Deck\",\"pointsToAward\":300,\"progressPercent\":0,\"countForGoal\":1},{\"name\":\"Get a 5 Star Rating\",\"pointsToAward\":300,\"progressPercent\":0,\"countForGoal\":1}]}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/users/1/objectives",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"1",
+								"objectives"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rating",
+			"item": [
+				{
+					"name": "Get All Ratings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":8,\"deckId\":2,\"stars\":3,\"ratedOn\":1629933179000},{\"userId\":9,\"deckId\":2,\"stars\":3,\"ratedOn\":1629339843000},{\"userId\":10,\"deckId\":2,\"stars\":2,\"ratedOn\":1629349843000},{\"userId\":8,\"deckId\":3,\"stars\":1,\"ratedOn\":1629329843000},{\"userId\":9,\"deckId\":3,\"stars\":2,\"ratedOn\":1629933179000},{\"userId\":10,\"deckId\":3,\"stars\":2,\"ratedOn\":1629349843000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rating by User 9 Deck 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":9,\"deckId\":2,\"stars\":3,\"ratedOn\":1629339843000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings?userId=9&deckId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "9"
+								},
+								{
+									"key": "deckId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rating by User 900 Deck 200 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings?userId=900&deckId=200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "900"
+								},
+								{
+									"key": "deckId",
+									"value": "200"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ratings for Deck 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":8,\"deckId\":2,\"stars\":3,\"ratedOn\":1629933179000},{\"userId\":9,\"deckId\":2,\"stars\":3,\"ratedOn\":1629339843000},{\"userId\":10,\"deckId\":2,\"stars\":2,\"ratedOn\":1629349843000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings?deckId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "deckId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ratings for Deck 200 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings?deckId=200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "deckId",
+									"value": "200"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ratings by User 9",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":9,\"deckId\":2,\"stars\":3,\"ratedOn\":1629339843000},{\"userId\":9,\"deckId\":3,\"stars\":2,\"ratedOn\":1629933179000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings?userId=9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ratings by User 900 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ratings?userId=900",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "900"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Rating User 6 Deck 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"userId\":6,\"deckId\":3,\"stars\":5,\"ratedOn\":');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 6,\r\n    \"deckId\": 3,\r\n    \"stars\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Replace Rating User 6 Deck 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"userId\":6,\"deckId\":3,\"stars\":1,\"ratedOn\":');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 6,\r\n    \"deckId\": 3,\r\n    \"stars\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Rating User 8 Deck 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('true');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 8,\r\n    \"deckId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Rating Again FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 8,\r\n    \"deckId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Studied Card",
+			"item": [
+				{
+					"name": "Get Studied Card User 3 Card 35",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":3,\"cardId\":35,\"studiedOn\":1629315720000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards?userId=3&cardId=35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3"
+								},
+								{
+									"key": "cardId",
+									"value": "35"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Studied Cards User 300 Card 350 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\",\"path\":\"/studied_cards\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards?userId=300&cardId=350",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "300"
+								},
+								{
+									"key": "cardId",
+									"value": "350"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Studied Cards User 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is contains string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":3,\"cardId\":35,\"studiedOn\":1629315720000},{\"userId\":3,\"cardId\":36,\"studiedOn\":1629316720000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards?userId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Studied Cards User 300 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\",\"path\":\"/studied_cards\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards?userId=300",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "300"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Studied Cards Card 35",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is contains string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":3,\"cardId\":35,\"studiedOn\":1629315720000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards?cardId=35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							],
+							"query": [
+								{
+									"key": "cardId",
+									"value": "35"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Studied Cards Card 350 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\",\"path\":\"/studied_cards\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards?cardId=350",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							],
+							"query": [
+								{
+									"key": "cardId",
+									"value": "350"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Studied Cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is contains string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"userId\":4,\"cardId\":3,\"studiedOn\":1629318687000},{\"userId\":1,\"cardId\":3,\"studiedOn\":1629935035000},{\"userId\":4,\"cardId\":17,\"studiedOn\":1629315814000},{\"userId\":4,\"cardId\":18,\"studiedOn\":1629316814000},{\"userId\":3,\"cardId\":35,\"studiedOn\":1629315720000},{\"userId\":3,\"cardId\":36,\"studiedOn\":1629316720000}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/studied_cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Studied Card User 5 Card 43",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"userId\":5,\"cardId\":43,\"studiedOn\"');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 5,\r\n    \"cardId\": 43\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/studied_cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Studied Card Again FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400: Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":400,\"error\":\"Bad Request\",\"path\":\"/studied_cards\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 5,\r\n    \"cardId\": 43\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/studied_cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Studied Card User 3 Card 36",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('true');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 3,\r\n    \"cardId\": 36\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/studied_cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Studied Card Again FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\",\"path\":\"/studied_cards\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 3,\r\n    \"cardId\": 36\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/studied_cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"studied_cards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"id\":3,\"username\":\"jbolsteridge2\",\"password\":\"APU1yVAJO9W\",\"points\":352,\"lastLogin\":1629315843000,\"objectives\":[]}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 100 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\",\"path\":\"/users/100\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/users/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body contains string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('[{\"id\":1,\"username\":\"mclapston0\",\"password\":\"kGex8fqXt8\",\"points\":89,\"lastLogin\":1629315831000,\"objectives\":[]},{\"id\":2,\"username\":\"snassey1\",\"password\":\"CwQOZeX\",\"points\":168,\"lastLogin\":1629315706000,\"objectives\":[]},{\"id\":3,\"username\":\"jbolsteridge2\",\"password\":\"APU1yVAJO9W\",\"points\":352,\"lastLogin\":1629315843000,\"objectives\":[]},{\"id\":4,\"username\":\"kdarco3\",\"password\":\"dJMNV7\",\"points\":67,\"lastLogin\":1629315937000,\"objectives\":[]},{\"id\":5,\"username\":\"nriseborough4\",\"password\":\"js9Gzq4X8\",\"points\":60,\"lastLogin\":1629315680000,\"objectives\":[]},{\"id\":6,\"username\":\"wblackley5\",\"password\":\"D2BNKoim\",\"points\":26,\"lastLogin\":1629315786000,\"objectives\":[]},{\"id\":7,\"username\":\"cdavydoch6\",\"password\":\"N63aKnQ72N\",\"points\":84,\"lastLogin\":1629315784000,\"objectives\":[]},{\"id\":8,\"username\":\"tholburn7\",\"password\":\"2E2LGtacW\",\"points\":49,\"lastLogin\":1629315622000,\"objectives\":[]},{\"id\":9,\"username\":\"vguerrin8\",\"password\":\"dwCCrw\",\"points\":14,\"lastLogin\":1629315698000,\"objectives\":[]},{\"id\":10,\"username\":\"lelvy9\",\"password\":\"6PbDEWA5yo\",\"points\":26,\"lastLogin\":1629315695000,\"objectives\":[]},{\"id\":11,\"username\":\"user\",\"password\":\"pass\",\"points\":26,\"lastLogin\":1629315455000,\"objectives\":[]}]');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Hello",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"id\":12,\"username\":\"Hello\",\"password\":\"There\",\"points\":null,\"lastLogin\":null,\"objectives\":[]}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Hello\",\r\n    \"password\": \"There\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Existing Username FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":500,\"error\":\"Internal Server Error\",\"path\":\"/users\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Hello\",\r\n    \"password\": \"There\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User 3 Points",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"id\":3,\"username\":\"jbolsteridge2\",\"password\":\"APU1yVAJO9W\",\"points\":152,\"lastLogin\":1629315843000,\"objectives\":[]}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"username\": \"jbolsteridge2\",\r\n    \"password\": \"APU1yVAJO9W\",\r\n    \"points\": 152,\r\n    \"lastLogin\": 1629315843000,\r\n    \"objectives\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User 100 FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400: Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":400,\"error\":\"Bad Request\",\"path\":\"/users/100\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 100,\r\n    \"username\": \"jbolsteridge2\",\r\n    \"password\": \"APU1yVAJO9W\",\r\n    \"points\": 152,\r\n    \"lastLogin\": 1629315843000,\r\n    \"objectives\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('true');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User 2 Again FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404: Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":404,\"error\":\"Not Found\",\"path\":\"/users/2\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body contains string before date\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('{\"id\":11,\"username\":\"user\",\"password\":\"pass\",\"points\":36,\"lastLogin\":');\r",
+									"});\r",
+									"pm.test(\"Body contains string after date\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"objectives\":[{\"name\":\"Daily Login\",\"pointsToAward\":10,\"progressPercent\":1,\"countForGoal\":1}]}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Bad Username FAIL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400: Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include('\"status\":400,\"error\":\"Bad Request\",\"path\":\"/login\"}');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"no\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
