@@ -12,7 +12,9 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources")
+@CucumberOptions(
+		features = "src/test/resources/com/revature/overcharge/features/CreateDeck.feature", 
+		glue = {"com.revature.overcharge.steps", "CreateDeckSteps"})
 public class CreateDeckRunner {
 
 	public static WebDriver driver;
@@ -20,7 +22,7 @@ public class CreateDeckRunner {
 	
 	@BeforeClass
 	public static void setUp() {
-		String path = "C:/Sts_Workspace/ChromeDriver/chromedriver.exe";
+		String path = "C:/Users/jehup/Desktop/Revature Desktop/chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", path);
 		
 		driver = new ChromeDriver();
