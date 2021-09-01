@@ -34,7 +34,6 @@ public class UserController {
 
 	@GetMapping(value = "/users")
 	public List<User> getAllUsers() {
-		System.out.println("something");
 		return us.getAllUsers();
 	}
 

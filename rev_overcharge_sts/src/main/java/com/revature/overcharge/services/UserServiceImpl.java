@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
             ur.deleteById(id);
             return true;
         } else {
-            log.warn("Deck id is invalid for delete");
+            log.warn("User id is invalid for delete");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
