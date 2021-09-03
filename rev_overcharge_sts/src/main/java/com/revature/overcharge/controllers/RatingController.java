@@ -32,6 +32,7 @@ public class RatingController {
 //        return rs.addRating(r);
 //    }
 
+    @CrossOrigin
     @PostMapping(value = "/ratings", consumes = "application/json",
             produces = "application/json")
     public Rating saveRating(@RequestBody Rating r) {
@@ -39,6 +40,7 @@ public class RatingController {
         return rs.saveRating(r);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/ratings")
     public List<Rating> getRatings(
             @RequestParam(required = false) Integer userId,
@@ -46,6 +48,7 @@ public class RatingController {
         return rs.getRatings(userId, deckId);
     }
 
+    @CrossOrigin
     @DeleteMapping(value = "/ratings")
     public boolean deleteRating(@RequestBody RatingId rId) {
         return rs.deleteRating(rId);

@@ -24,8 +24,8 @@ public class RevOverchargeStsApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/*").allowedOrigins("http://localhost:4200/").allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE")
-                        .allowedHeaders("*").allowCredentials(false).maxAge(3600);
+                registry.addMapping("/*").allowedOrigins("http://overcharge.s3-website.us-east-1.amazonaws.com/").allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE")
+                        .allowedHeaders("*").allowCredentials(false).maxAge(8600);
                 ;
             }
         };

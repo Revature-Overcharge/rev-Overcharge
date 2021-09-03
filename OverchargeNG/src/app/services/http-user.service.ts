@@ -13,6 +13,6 @@ export class HttpUserService {
   private postHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User> ('http://localhost:8081/users/' + id);
+    return this.http.get<User> ('http://34.203.28.82:8081/users/' + id);
   }
 }

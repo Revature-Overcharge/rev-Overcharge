@@ -21,18 +21,20 @@ public class DeckController {
 
     @Autowired
     DeckService ds;
-
+    @CrossOrigin
     @PostMapping(value = "/decks", consumes = "application/json",
             produces = "application/json")
     public Deck addDeck(@RequestBody Deck d) {
         return ds.addDeckAndCards(d);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/decks/{id}")
     public Deck getDeck(@PathVariable("id") int id) {
         return ds.getDeck(id);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/decks")
     public List<Deck> getAllDecks() {
         return ds.getAllDecks();
@@ -40,6 +42,7 @@ public class DeckController {
 
     // If wanting to only update the deck title, expecting a lighter JSON in
     // body
+    @CrossOrigin
     @PutMapping(value = "/decks/{id}", consumes = "application/json",
             produces = "application/json")
     public Deck updateDeck(@PathVariable int id, @RequestBody Deck newDeck) {
@@ -49,6 +52,7 @@ public class DeckController {
 
     // If wanting to update deck title as well as cards, expecting a more full
     // JSON in body
+    @CrossOrigin
     @PutMapping(value = "/decks/{id}/cards", consumes = "application/json",
             produces = "application/json")
     public Deck updateDeckAndCards(@PathVariable int id,
@@ -57,6 +61,7 @@ public class DeckController {
         return ds.updateDeckAndCards(newDeck);
     }
 
+    @CrossOrigin
     @DeleteMapping(value = "/decks/{id}")
     public boolean deleteDeck(@PathVariable("id") int id) {
         return ds.deleteDeck(id);

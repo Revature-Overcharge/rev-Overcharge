@@ -16,6 +16,7 @@ public class ObjectiveController {
     @Autowired
     ObjectiveService os;
 
+    @CrossOrigin
     @GetMapping(value = "/users/{id}/objectives")
     public User getAllObjectivesForUser(
             @PathVariable("id") String id) {
