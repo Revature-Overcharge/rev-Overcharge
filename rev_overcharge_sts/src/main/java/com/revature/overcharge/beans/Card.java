@@ -29,7 +29,7 @@ public class Card {
 	private String question;
 
 	private String answer;
-
+ 
 	@Column(name = "created_on")
 	private Long createdOn;
 
