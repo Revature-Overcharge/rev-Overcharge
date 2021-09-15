@@ -38,27 +38,35 @@ public class Deck {
     @OneToMany(mappedBy = "deck")
     @Transient
     private List<Card> cards;
+    
+    @OneToMany(mappedBy = "deck")
+    @Transient
+    private List<Feedback> feedback;
+
 
     public Deck() {
         super();
     }
 
-    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
+    public Deck(User creator, String title, Long createdOn, List<Card> cards, List<Feedback> feedback) {
         super();
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
         this.cards = cards;
+        this.feedback = feedback;
+    
     }
 
     public Deck(int id, User creator, String title, Long createdOn,
-            List<Card> cards) {
+            List<Card> cards, List<Feedback> feedback) {
         super();
         this.id = id;
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
         this.cards = cards;
+        this.feedback = feedback;
     }
 
     public int getId() {
@@ -108,8 +116,17 @@ public class Deck {
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
+    
+    
+    public List<Feedback> getFeedback() {
+		return feedback;
+	}
 
-    @Override
+	public void setFeedback(List<Feedback> feedback) {
+		this.feedback = feedback;
+	}
+
+	@Override
     public String toString() {
         return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
                 + ", createdOn=" + createdOn + ", avgRating=" + avgRating

@@ -61,7 +61,7 @@ public class ObjectiveServiceTests {
 		Card c2 = new Card("question2", "answer2", currentTime);
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u, "Deck 2", currentTime, cards);
+		Deck d = new Deck(u, "Deck 2", currentTime, cards, null);
 		d = ds.addDeck(d);
 		
 		Card c3 = new Card("question3", "answer3", currentTime);
@@ -88,7 +88,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2, c3, c4);
 		
-		Deck d = new Deck(u, "Deck 2", currentTime, cards);
+		Deck d = new Deck(u, "Deck 2", currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		int deckPoints = 100;
@@ -112,7 +112,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2, c3, c4);
 		
-		Deck d = new Deck(u, "Deck 2", currentTime, cards);
+		Deck d = new Deck(u, "Deck 2", currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		os.getAdd4CardsDaily(u);
@@ -134,7 +134,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1);
 		
-		Deck d = new Deck(u, "Deck 2", currentTime, cards);
+		Deck d = new Deck(u, "Deck 2", currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		int deckPoints = 100;
 		System.out.println(u);
@@ -153,7 +153,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1);
 		
-		Deck d = new Deck(u, "Deck 2", currentTime, cards);
+		Deck d = new Deck(u, "Deck 2", currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		os.getCreateADeckWeekly(u);
@@ -177,7 +177,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u2, "New Deck for " + "user7", currentTime, cards);
+		Deck d = new Deck(u2, "New Deck for " + "user7", currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		Rating r = new Rating(u.getId(), d.getId(), 5, currentTime);
@@ -203,7 +203,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u2, "New Deck for " + "user8", currentTime, cards);
+		Deck d = new Deck(u2, "New Deck for " + "user8", currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		Rating r = new Rating(u.getId(), d.getId(), 5, currentTime);
@@ -228,7 +228,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		for (Card c : d.getCards()) {
@@ -257,7 +257,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		for (Card c : d.getCards()) {
@@ -289,7 +289,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2, c3, c4, c5, c6);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		for (int i=0; i<5; i++) {
@@ -323,7 +323,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2, c3, c4, c5, c6);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		for (int i=0; i<5; i++) {
@@ -354,7 +354,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		Rating r = new Rating(ratingUser.getId(), d.getId(), 5, currentTime);
@@ -380,7 +380,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		
 		Rating r = new Rating(ratingUser.getId(), d.getId(), 5, currentTime);
@@ -415,7 +415,7 @@ public class ObjectiveServiceTests {
 
 		List<Card> cards = Arrays.asList(c1, c2);
 		
-		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards);
+		Deck d = new Deck(u, "New Deck for " + username, currentTime, cards, null);
 		d = ds.addDeckAndCards(d);
 		return u;
 	}
