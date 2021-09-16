@@ -59,22 +59,24 @@ public class Deck {
         super();
     }
 
-    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
+    public Deck(User creator, String title, Long createdOn, List<Card> cards, Set<TechTag> tags) {
         super();
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
         this.cards = cards;
+        this.tags = tags;
     }
 
     public Deck(int id, User creator, String title, Long createdOn,
-            List<Card> cards) {
+            List<Card> cards, Set<TechTag> tags) {
         super();
         this.id = id;
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
         this.cards = cards;
+        this.tags = tags;
     }
     
 
@@ -126,11 +128,17 @@ public class Deck {
         this.cards = cards;
     }
 
-    @Override
-    public String toString() {
-        return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
-                + ", createdOn=" + createdOn + ", avgRating=" + avgRating
-                + "]";
-    }
+    public Set<TechTag> getTags() {
+		return tags;
+	}
 
+	public void setTags(Set<TechTag> tags) {
+		this.tags = tags;
+	}
+
+	@Override
+	public String toString() {
+		return "Deck [id=" + id + ", creator=" + creator + ", title=" + title + ", createdOn=" + createdOn
+				+ ", avgRating=" + avgRating + ", cards=" + cards + ", tags=" + tags + "]";
+	}
 }
