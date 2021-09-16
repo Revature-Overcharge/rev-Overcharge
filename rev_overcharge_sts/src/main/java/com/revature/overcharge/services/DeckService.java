@@ -15,6 +15,8 @@ public interface DeckService {
     public boolean deleteDeck(int id);
 
     public List<Deck> getDecksByCreatorId(int creatorId);
+    
+    public List<Deck> getDecksByTagId(int tagId);
 
     public List<Deck> getAllDecks();
 

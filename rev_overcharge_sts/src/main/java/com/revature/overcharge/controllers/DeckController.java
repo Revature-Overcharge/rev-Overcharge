@@ -2,7 +2,10 @@ package com.revature.overcharge.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.overcharge.beans.Deck;
@@ -21,6 +25,9 @@ public class DeckController {
 
     @Autowired
     DeckService ds;
+    
+    @Autowired
+	private HttpServletRequest request;
 
     @PostMapping(value = "/decks", consumes = "application/json",
             produces = "application/json")
@@ -31,6 +38,10 @@ public class DeckController {
     @GetMapping(value = "/decks/{id}")
     public Deck getDeck(@PathVariable("id") int id) {
         return ds.getDeck(id);
+    }
+    @GetMapping(path ="/decks", produces = "application/json")
+    public ResponseEntity<Object> getDecksByTagId(@RequestParam(name="tagId") int tagId){
+    	return ds.getDecksByTagId(tagId);
     }
 
     @GetMapping(value = "/decks")

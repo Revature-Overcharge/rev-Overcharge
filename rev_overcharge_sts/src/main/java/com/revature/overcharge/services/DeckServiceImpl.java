@@ -93,6 +93,15 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+    @Override
+    public List<Deck> getDecksByTagId(int tagId){
+    	List<Deck> decks = dr.getByTagId(tagId);
+    	if(decks == null) {
+    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    	} else {
+    		return decks;
+    	}
+    }
 
     @Override
     public Deck addDeckAndCards(Deck d) {
