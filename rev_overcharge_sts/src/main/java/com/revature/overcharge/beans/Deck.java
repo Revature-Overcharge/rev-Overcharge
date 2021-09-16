@@ -1,18 +1,25 @@
 package com.revature.overcharge.beans;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
+
 
 @Entity
 @Table(name = "decks")
@@ -28,6 +35,7 @@ public class Deck {
     private User creator;
 
     private String title;
+    
 
     @Column(name = "created_on")
     private Long createdOn;
@@ -38,6 +46,14 @@ public class Deck {
     @OneToMany(mappedBy = "deck")
     @Transient
     private List<Card> cards;
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(
+			name = "deck_tag", 
+			joinColumns = { @JoinColumn(name = "deck_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+	)
+    private Set<TechTag> tags = new HashSet<>();
 
     public Deck() {
         super();
@@ -60,6 +76,7 @@ public class Deck {
         this.createdOn = createdOn;
         this.cards = cards;
     }
+    
 
     public int getId() {
         return id;

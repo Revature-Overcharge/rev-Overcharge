@@ -1,0 +1,60 @@
+package com.revature.overcharge.beans;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "techtag")
+public class TechTag {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private int id;
+	
+	@Column (name = "tag")
+	private String tag;
+	
+	@ManyToMany(mappedBy = "tags")
+    private Set<Deck> decks = new HashSet<>();
+	
+
+	public TechTag() {
+		super();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public Set<Deck> getDecks() {
+		return decks;
+	}
+
+	public void setDecks(Set<Deck> decks) {
+		this.decks = decks;
+	}
+	
+	
+
+}
