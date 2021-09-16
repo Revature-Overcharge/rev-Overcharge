@@ -31,6 +31,9 @@ public class Deck {
 
     @Column(name = "created_on")
     private Long createdOn;
+    
+    @Column(name = "status")
+    private int status;
 
     @Transient
     private Double avgRating;
@@ -58,8 +61,7 @@ public class Deck {
     
     }
 
-    public Deck(int id, User creator, String title, Long createdOn,
-            List<Card> cards, List<Feedback> feedback) {
+    public Deck(int id, User creator, String title, Long createdOn, List<Card> cards, List<Feedback> feedback) {
         super();
         this.id = id;
         this.creator = creator;
@@ -96,6 +98,14 @@ public class Deck {
     public Long getCreatedOn() {
         return createdOn;
     }
+    
+    public int getStatus() {
+    	return status;
+    }
+    
+    public void setStatus(int status) {
+    	this.status = status;
+    }
 
     public Double getAvgRating() {
         return avgRating;
@@ -130,7 +140,7 @@ public class Deck {
     public String toString() {
         return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
                 + ", createdOn=" + createdOn + ", avgRating=" + avgRating
-                + "]";
+                +  ", status " + status + "]";
     }
 
 }

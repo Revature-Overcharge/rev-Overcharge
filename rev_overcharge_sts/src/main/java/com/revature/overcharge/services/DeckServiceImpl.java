@@ -11,6 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.exception.AlreadyApprovedException;
+import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.repositories.DeckRepo;
 
 @Service
@@ -37,6 +39,7 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             d.setCreatedOn(new Date().getTime());
+            d.setStatus(1);
             return dr.save(d);
         }
     }
@@ -65,6 +68,7 @@ public class DeckServiceImpl implements DeckService {
         if (dr.existsById(newDeck.getId())) {
             Deck d = dr.findById(newDeck.getId()).get();
             d.setTitle(newDeck.getTitle());
+            d.setStatus(1);
             return dr.save(d);
         } else {
             log.warn("Deck id is invalid for update");
@@ -135,5 +139,22 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
+
+	@Override
+	public Deck deckApproval(int id, int status) throws BadParameterException, AlreadyApprovedException {
+		
+		if(status != 2 && status != 3) {
+			throw new BadParameterException("Invalid input for deck status");
+		}
+		
+		Deck d = dr.findById(id).get();
+		
+		if(d.getStatus() != 1) {
+			throw new AlreadyApprovedException("You can't change the status of a deck that isn't pending");
+		}
+		
+		d.setStatus(status);
+		return d;
+	}
 
 }
