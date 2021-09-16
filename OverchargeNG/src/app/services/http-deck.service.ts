@@ -20,6 +20,10 @@ export class HttpDeckService {
     return this.http.get<Deck> ('http://localhost:8081/decks/' + id);
   }
 
+  getDeckByTagId(id: number): Observable<Deck[]> {
+    return this.http.get<Deck[]>(`http://localhost:8081/decksByTag?tagId=${id}`);
+  }
+
   getDeckByTitle(title: string): Observable<Deck> {
     return this.http.get<Deck> ('http://localhost:8081/decks/title?' + title);
   }

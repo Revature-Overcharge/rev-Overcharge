@@ -134,8 +134,10 @@
       </ng-template>
     </div>
     <div>
-      <select name="Tags" id="tag">Tech Tags</select>
-      <button name="filterButton" id="filterButton">Filter</button>
+      <select [(ngModel)]= "filterChoice" name="Tags" id="tag" >
+        <option *ngFor="let t of tags" [value] ="t.id">{{t.tag}}</option>
+      </select>
+      <button name="filterButton" id="filterButton" (click)="getFilteredList()">Filter</button>
     </div>
   </div>
   

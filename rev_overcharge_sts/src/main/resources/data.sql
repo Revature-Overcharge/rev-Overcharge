@@ -22,8 +22,8 @@ insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 16
 
 --deck_tag
 insert into deck_tag(id, deck_id, tag_id) values ( 1, 1, 1);
-insert into deck_tag(id, deck_id, tag_id) values ( 2, 2, 2);
-insert into deck_tag(id, deck_id, tag_id) values ( 3, 3, 3);
+insert into deck_tag(id, deck_id, tag_id) values ( 2, 2, 3);
+insert into deck_tag(id, deck_id, tag_id) values ( 3, 3, 2);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5

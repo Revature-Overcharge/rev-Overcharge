@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Deck } from 'src/app/models/deck';
+import { Tag } from 'src/app/models/tag';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
+import { HttpTagService } from 'src/app/services/http-tag.service';
 
 @Component({
   selector: 'app-library',
@@ -21,11 +23,15 @@ export class LibraryComponent implements OnInit {
   addedCards: Card[] = [];
   deletedCards: number[] = [];
 
+  tags: Tag[] =[];
+  filterChoice: number = 0;
+
   //this array should be populated by the deck that is selected
   dynamicArray: Card[]= []; 
   newDynamic: any;
   ngOnInit(): void {   
-      this.displayAllDecks(); 
+      this.displayAllDecks();
+      this.getAllTags(); 
       this.curUser = localStorage.getItem("username");
       console.log(this.curUser);
   } 
@@ -33,7 +39,7 @@ export class LibraryComponent implements OnInit {
 
 closeResult = '';
 
-constructor(private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService) {}
+constructor(private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService) {}
 
 
 addRow() {    
@@ -54,6 +60,17 @@ deleteRow(index: any) {
       return true;  
   }  
 } 
+getAllTags(){
+  this.tagHttp.getAllTags().subscribe((data) =>{
+    this.tags = data;
+  })
+}
+getFilteredList(){
+  this.deckHttp.getDeckByTagId(this.filterChoice).subscribe((data) =>{
+    this.deckList = data;
+
+  })
+}
 
   displayAllDecks() {
     this.deckHttp.getAllDecks().subscribe(
