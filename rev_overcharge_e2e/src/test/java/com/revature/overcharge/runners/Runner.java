@@ -17,7 +17,7 @@ public abstract class Runner {
 	@BeforeClass
 	public static void setup() {
 		// Input your filepath for your WebDriver executable
-		String filePath = "C:/Users/jehup/Desktop/Revature Desktop";
+		String filePath = "C:/SeleniumStuff/chromedriver_win32";
 		
 		// Comment out the setup that you do not use.
 		driver = chromeSetup(filePath+"/chromedriver.exe");
