@@ -53,6 +53,7 @@ public class DeckServiceImpl implements DeckService {
 
     @Override
     public List<Deck> getAllDecks() {
+    	System.out.println("Inside getAllDecks");
         List<Deck> decks = (List<Deck>) dr.findAll();
         for (Deck deck : decks) {
             deck.setAvgRating(rs.calculateAvgRating(deck.getId()));
@@ -96,6 +97,7 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public List<Deck> getDecksByTagId(int tagId){
     	List<Deck> decks = dr.getByTagId(tagId);
+    	System.out.println("Inside getDecksByTagID-tagID: " + tagId);
     	if(decks == null) {
     		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     	} else {
