@@ -10,6 +10,7 @@ CREATE TABLE users (
     username    varchar(255) UNIQUE,
     password    varchar(255),
     points      int,
+    role        varchar(255),
     last_login  bigint,
     PRIMARY KEY (id)
 );
@@ -19,6 +20,7 @@ CREATE TABLE decks (
     creator_id  int,
     title       varchar(255),
     created_on  bigint,
+    status      int,
     PRIMARY KEY (id),
     FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE SET NULL
 );

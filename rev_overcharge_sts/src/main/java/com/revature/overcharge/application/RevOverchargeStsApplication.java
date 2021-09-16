@@ -15,20 +15,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableJpaRepositories("com.revature.overcharge.repositories")
 public class RevOverchargeStsApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RevOverchargeStsApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(RevOverchargeStsApplication.class, args);
+	}
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/*").allowedOrigins("http://localhost:4200/").allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE")
-                        .allowedHeaders("*").allowCredentials(false).maxAge(3600);
-                ;
-            }
-        };
-}
-    
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/*").allowedOrigins("http://localhost:4200/")
+						.allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE").allowedHeaders("*")
+						.allowCredentials(false).maxAge(3600);
+				;
+			}
+		};
+	}
+
 }

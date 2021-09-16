@@ -39,6 +39,9 @@ public class Deck {
 
     @Column(name = "created_on")
     private Long createdOn;
+    
+    @Column(name = "status")
+    private int status;
 
     @Transient
     private Double avgRating;
@@ -106,6 +109,14 @@ public class Deck {
 
     public Long getCreatedOn() {
         return createdOn;
+    }
+    
+    public int getStatus() {
+    	return status;
+    }
+    
+    public void setStatus(int status) {
+    	this.status = status;
     }
 
     public Double getAvgRating() {
