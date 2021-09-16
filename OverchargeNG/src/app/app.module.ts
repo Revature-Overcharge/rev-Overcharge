@@ -28,7 +28,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Services
 import { ObjectivesService } from './services/objectives.service';
-import { FeedbackComponent } from './components/feedback/feedback.component';
 
 //Pipes
 
@@ -43,8 +42,7 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
     CardrunnerComponent,
     LibraryComponent,
     ObjectivesComponent,
-    CreateDeckComponent,
-    FeedbackComponent
+    CreateDeckComponent
   ],
   imports: [
     BrowserModule,
