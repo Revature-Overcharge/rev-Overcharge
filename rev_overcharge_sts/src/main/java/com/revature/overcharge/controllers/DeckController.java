@@ -41,7 +41,7 @@ public class DeckController {
     }
     @GetMapping(path ="/decks", produces = "application/json")
     public ResponseEntity<Object> getDecksByTagId(@RequestParam(name="tagId") int tagId){
-    	return ds.getDecksByTagId(tagId);
+    	return ResponseEntity.status(200).body(ds.getDecksByTagId(tagId));
     }
 
     @GetMapping(value = "/decks")
