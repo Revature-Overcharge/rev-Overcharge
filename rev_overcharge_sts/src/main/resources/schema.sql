@@ -26,8 +26,7 @@ CREATE TABLE decks (
 CREATE TABLE tags (
     id          IDENTITY,
     tag         varchar(255),
-    PRIMARY KEY (id),
-   
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE deck_tag (

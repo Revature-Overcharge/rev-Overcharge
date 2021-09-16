@@ -11,11 +11,19 @@ insert into users (id, username, password, points, last_login) values (8, 'tholb
 insert into users (id, username, password, points, last_login) values (9, 'vguerrin8', 'dwCCrw', 14, 1629315698000);
 insert into users (id, username, password, points, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1629315695000);
 insert into users (id, username, password, points, last_login) values (11, 'user', 'pass', 26, 1629315455000);
-
+-- Tags
+insert into tags  (id, tag) values (1, 'DevOps');
+insert into tags  (id, tag) values (2, 'Spring');
+insert into tags  (id, tag) values (3, 'Testing');
 -- Decks
 insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906000);
 insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843000);
 insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 1629329843000);
+
+--deck_tag
+insert into deck_tag(id, deck_id, tag_id) values ( 1, 1, 1);
+insert into deck_tag(id, deck_id, tag_id) values ( 2, 2, 2);
+insert into deck_tag(id, deck_id, tag_id) values ( 3, 3, 3);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
