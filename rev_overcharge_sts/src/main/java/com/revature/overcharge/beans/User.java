@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -30,7 +29,7 @@ public class User {
 
 	private Integer points;
 
-//	private String role;
+	private int role;
 
 	@Column(name = "last_login")
 	private Long lastLogin;
@@ -48,32 +47,32 @@ public class User {
 		super();
 	}
 
-	public User(String username, String password, Integer points, Long lastLogin) { //string role,
+	public User(String username, String password, Integer points, int role, Long lastLogin) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.points = points;
-//		this.role = role;
+		this.role = role;
 		this.lastLogin = lastLogin;
 	}
 
-	public User(int id, String username, String password, Integer points, Long lastLogin) { //String role,
+	public User(int id, String username, String password, Integer points, int role, Long lastLogin) { 
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.points = points;
-//		this.role = role;
+		this.role = role;
 		this.lastLogin = lastLogin;
 	}
 
-	public User(int id, String username, String password, Integer points, Long lastLogin, List<Objective> objectives) { // String role, 
+	public User(int id, String username, String password, Integer points, Long lastLogin, int role, List<Objective> objectives) { 
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.points = points;
-//		this.role = role;
+		this.role = role;
 		this.lastLogin = lastLogin;
 		this.objectives = objectives;
 	}
@@ -111,13 +110,13 @@ public class User {
 	}
 	
 	
-//	public String getRole() {
-//		return role;
-//	}
-//
-//	public void setRole(String role) {
-//		this.role = role;
-//	}
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
 
 	public Long getLastLogin() {
 		return lastLogin;
@@ -145,10 +144,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", points=" + points + ", lastLogin=" + lastLogin + "]";
-		//+ ", role="+ role +
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", points=" + points + ", role="+ role + ", lastLogin=" + lastLogin + "]";
 	}
-
-
 
 }

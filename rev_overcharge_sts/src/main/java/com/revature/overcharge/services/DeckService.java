@@ -3,6 +3,8 @@ package com.revature.overcharge.services;
 import java.util.List;
 
 import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.exception.AlreadyApprovedException;
+import com.revature.overcharge.exception.BadParameterException;
 
 public interface DeckService {
 
@@ -21,5 +23,7 @@ public interface DeckService {
     public Deck addDeckAndCards(Deck d);
 
     public Deck updateDeckAndCards(Deck newDeck);
+
+	public Deck deckApproval(int id, int status) throws BadParameterException, AlreadyApprovedException;
 
 }

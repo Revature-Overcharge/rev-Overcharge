@@ -1,21 +1,21 @@
 
 -- Users
-insert into users (id, username, password, points, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1629315831000);
-insert into users (id, username, password, points, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 1629315706000);
-insert into users (id, username, password, points, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 1629315843000);
-insert into users (id, username, password, points, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 1629315937000);
-insert into users (id, username, password, points, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 1629315680000);
-insert into users (id, username, password, points, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 1629315786000);
-insert into users (id, username, password, points, last_login) values (7, 'cdavydoch6', 'N63aKnQ72N', 84, 1629315784000);
-insert into users (id, username, password, points, last_login) values (8, 'tholburn7', '2E2LGtacW', 49, 1629315622000);
-insert into users (id, username, password, points, last_login) values (9, 'vguerrin8', 'dwCCrw', 14, 1629315698000);
-insert into users (id, username, password, points, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1629315695000);
-insert into users (id, username, password, points, last_login) values (11, 'user', 'pass', 26, 1629315455000);
+insert into users (id, username, password, points, role, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1, 1629315831000);
+insert into users (id, username, password, points, role, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 2, 1629315706000);
+insert into users (id, username, password, points, role, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 2, 1629315843000);
+insert into users (id, username, password, points, role, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 2, 1629315937000);
+insert into users (id, username, password, points, role, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 2, 1629315680000);
+insert into users (id, username, password, points, role, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 2, 1629315786000);
+insert into users (id, username, password, points, role, last_login) values (7, 'cdavydoch6', 'N63aKnQ72N', 84, 2, 1629315784000);
+insert into users (id, username, password, points, role, last_login) values (8, 'tholburn7', '2E2LGtacW', 49, 2, 1629315622000);
+insert into users (id, username, password, points, role, last_login) values (9, 'vguerrin8', 'dwCCrw', 14, 2, 1629315698000);
+insert into users (id, username, password, points, role, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 2, 1629315695000);
+insert into users (id, username, password, points, role, last_login) values (11, 'user', 'pass', 26, 2, 1629315455000);
 
 -- Decks
-insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906000);
-insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843000);
-insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 1629329843000);
+insert into decks (id, creator_id, title, created_on, status) values (1, 2, 'DevOps', 1629315906000, 1);
+insert into decks (id, creator_id, title, created_on, status) values (2, 3, 'Testing', 1629319843000, 2);
+insert into decks (id, creator_id, title, created_on, status) values (3, 3, 'Spring', 1629329843000, 3);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
