@@ -12,9 +12,18 @@ insert into users (id, username, password, points, last_login) values (9, 'vguer
 insert into users (id, username, password, points, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1629315695000);
 insert into users (id, username, password, points, last_login) values (11, 'user', 'pass', 26, 1629315455000);
 -- Tags
-insert into tags  (id, tag) values (1, 'DevOps');
-insert into tags  (id, tag) values (2, 'Spring');
-insert into tags  (id, tag) values (3, 'Testing');
+
+insert into tags  (id, tag) values (1, 'Jenkins');
+insert into tags  (id, tag) values (2, 'AWS');
+insert into tags  (id, tag) values (3, 'Maven');
+insert into tags  (id, tag) values (4, 'JUnit');
+insert into tags  (id, tag) values (5, 'Cucumber');
+insert into tags  (id, tag) values (6, 'Gherkin');
+insert into tags  (id, tag) values (7, 'Spring MVC');
+insert into tags  (id, tag) values (8, 'Spring AOP');
+
+
+
 -- Decks
 insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906000);
 insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843000);
@@ -22,8 +31,13 @@ insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 16
 
 --deck_tag
 insert into deck_tag(id, deck_id, tag_id) values ( 1, 1, 1);
-insert into deck_tag(id, deck_id, tag_id) values ( 2, 2, 3);
-insert into deck_tag(id, deck_id, tag_id) values ( 3, 3, 2);
+insert into deck_tag(id, deck_id, tag_id) values ( 2, 1, 2);
+insert into deck_tag(id, deck_id, tag_id) values ( 3, 1, 3);
+insert into deck_tag(id, deck_id, tag_id) values ( 4, 2, 4);
+insert into deck_tag(id, deck_id, tag_id) values ( 5, 2, 5);
+insert into deck_tag(id, deck_id, tag_id) values ( 6, 2, 6);
+insert into deck_tag(id, deck_id, tag_id) values ( 7, 3, 7);
+insert into deck_tag(id, deck_id, tag_id) values ( 8, 3, 8);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
