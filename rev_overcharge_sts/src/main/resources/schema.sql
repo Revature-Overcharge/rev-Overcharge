@@ -10,7 +10,7 @@ CREATE TABLE users (
     username    varchar(255) UNIQUE,
     password    varchar(255),
     points      int,
-    role        varchar(255),
+    role        int,
     last_login  bigint,
     PRIMARY KEY (id)
 );

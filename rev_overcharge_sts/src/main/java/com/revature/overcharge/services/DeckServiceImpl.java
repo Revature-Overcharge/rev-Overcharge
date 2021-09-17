@@ -58,13 +58,26 @@ public class DeckServiceImpl implements DeckService {
     }
 
     @Override
-    public List<Deck> getAllDecks() {
-    	System.out.println("Inside getAllDecks");
-        List<Deck> decks = (List<Deck>) dr.findAll();
-        for (Deck deck : decks) {
-            deck.setAvgRating(rs.calculateAvgRating(deck.getId()));
-        }
-        return decks;
+	public List<Deck> getAllDecks() {
+		List<Deck> decks = (List<Deck>) dr.findAll();
+		for (Deck deck : decks) {
+			deck.setAvgRating(rs.calculateAvgRating(deck.getId()));
+			//log.debug("getAllDecks(): setAvgRating: [" + deck.toString() + "]");
+		}
+		List<Deck> sortedDecks = sortDeckDescending(decks);
+		return sortedDecks;
+	}
+    
+    @Override
+    public List<Deck> getDecksByTagId(int tagId){
+    	List<Deck> decks = dr.getByTagId(tagId);
+    	for (Deck deck : decks) {
+			deck.setAvgRating(rs.calculateAvgRating(deck.getId()));
+			//log.debug("getAllDecks(): setAvgRating: [" + deck.toString() + "]");	
+  
+    	}
+    	List<Deck> sortedDecks = sortDeckDescending(decks);
+    	return sortedDecks;
     }
 
     @Override
@@ -101,16 +114,7 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-    @Override
-    public List<Deck> getDecksByTagId(int tagId){
-    	List<Deck> decks = dr.getByTagId(tagId);
-    	System.out.println("Inside getDecksByTagID-tagID: " + tagId);
-    	if(decks == null) {
-    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-    	} else {
-    		return decks;
-    	}
-    }
+    
 
     @Override
     public Deck addDeckAndCards(Deck d) {
@@ -129,7 +133,7 @@ public class DeckServiceImpl implements DeckService {
             os.setCreateADeckWeekly(d.getCreator().getId());
 
             addedDeck = getDeck(addedDeck.getId());
-            log.info(addedDeck);
+            log.info(addedDeck.toString());
             return addedDeck;
         }
     }
@@ -169,6 +173,16 @@ public class DeckServiceImpl implements DeckService {
 		
 		d.setStatus(status);
 		return d;
+	}
+
+	@Override
+	public List<Deck> sortDeckDescending(List<Deck> decks) {
+		// code inspired by:
+		// https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
+		List<Deck> sortedDecks = decks.stream().sorted(Comparator.comparing(Deck::getAvgRating).reversed())
+				.collect(Collectors.toList());
+		//log.debug("sortDeckDescending(): sortedDecks: [" + sortedDecks.toString() + "]");
+		return sortedDecks;
 	}
 
 }
