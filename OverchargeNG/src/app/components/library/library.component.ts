@@ -47,7 +47,8 @@ addRow() {
   this.dynamicArray.push(this.newDynamic);    
   console.log(this.dynamicArray);  
   return true;  
-}  
+}
+  
 
 deleteRow(index: any) {  
   if(this.dynamicArray.length ==1) {    

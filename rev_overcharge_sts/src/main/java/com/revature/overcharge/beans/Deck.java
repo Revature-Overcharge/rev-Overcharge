@@ -70,6 +70,13 @@ public class Deck {
         this.cards = cards;
         this.tags = tags;
     }
+    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
+        super();
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
+    }
 
     public Deck(int id, User creator, String title, Long createdOn,
             List<Card> cards, Set<TechTag> tags) {
@@ -80,6 +87,15 @@ public class Deck {
         this.createdOn = createdOn;
         this.cards = cards;
         this.tags = tags;
+    }
+    public Deck(int id, User creator, String title, Long createdOn,
+            List<Card> cards) {
+        super();
+        this.id = id;
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
     }
     
 

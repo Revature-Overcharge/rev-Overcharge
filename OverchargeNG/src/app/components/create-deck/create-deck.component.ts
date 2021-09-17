@@ -5,6 +5,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
 import { HttpUserService } from 'src/app/services/http-user.service';
 import { User } from 'src/app/models/user';
+import { Tag } from 'src/app/models/tag';
+import { HttpTagService } from 'src/app/services/http-tag.service';
 
 @Component({
   selector: 'app-create-deck',
@@ -13,12 +15,13 @@ import { User } from 'src/app/models/user';
 })
 export class CreateDeckComponent implements OnInit {
 
-  constructor(private modalService: NgbModal, private deckHttp: HttpDeckService, private userHttp: HttpUserService) { }
+  constructor(private tagHttp: HttpTagService,private modalService: NgbModal, private deckHttp: HttpDeckService, private userHttp: HttpUserService) { }
 
   ngOnInit(): void {  
       this.newDynamic = {title1: "", title2: ""};  
-      this.dynamicArray.push(this.newDynamic);
+      this.dynamicArrayCard.push(this.newDynamic);
       this.getUser();
+      this.getAllTags(); 
   }
 
   title = '';
@@ -27,27 +30,50 @@ export class CreateDeckComponent implements OnInit {
   closeResult = '';
   card: Card = new Card(0, "", "", 0);
   newDynamic: any = {};  
-  dynamicArray: Array<Card> = []; 
+  dynamicArrayCard: Array<Card> = [];
+  dynamicArrayTag: Array<Tag> = [];  
   user: User;
   deck: Deck;
+  tags: Tag[] =[];
 
-  addRow() {    
+  getAllTags(){
+    this.tagHttp.getAllTags().subscribe((data) =>{
+      this.tags = data;
+    })
+  }
+
+  addRowCard() {    
     this.newDynamic = {title1: "", title2: ""};  
-    this.dynamicArray.push(this.newDynamic);    
-    console.log(this.dynamicArray);  
+    this.dynamicArrayCard.push(this.newDynamic);    
+    console.log(this.dynamicArrayCard);  
     return true;  
-  }  
+  }
+  addRowTag() {    
+    this.newDynamic = {'id':0};  
+    this.dynamicArrayTag.push(this.newDynamic);    
+    console.log(this.dynamicArrayTag);  
+    return true;  
+  }    
   
-  deleteRow(index: any) {  
-    if(this.dynamicArray.length ==1) {    
+  deleteRowCard(index: any) {  
+    if(this.dynamicArrayCard.length ==1) {    
         return false;  
     } else {  
-        this.dynamicArray.splice(index, 1);    
+        this.dynamicArrayCard.splice(index, 1);    
+        return true;  
+    }  
+  }
+  deleteRowTag(index: any) {  
+    if(this.dynamicArrayTag.length ==1) {    
+        return false;  
+    } else {  
+        this.dynamicArrayTag.splice(index, 1);    
         return true;  
     }  
   }
 
-  open(content: any, card: Card, size: any) {
+
+  openCards(content: any, card: Card, size: any) {
     this.card = card;
   
     this.modalService.open(content,
@@ -58,6 +84,18 @@ export class CreateDeckComponent implements OnInit {
       `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+  openTags(content: any, size: any) {
+  
+    this.modalService.open(content,
+    {ariaLabelledBy: 'modal-basic-title', size: size}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    this.closeResult =
+      `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -81,6 +119,8 @@ export class CreateDeckComponent implements OnInit {
     else {
       this.deckMessage = true;
       this.deck.title = this.title;
+      this.deck.tags = this.dynamicArrayTag
+      console.log(this.deck.tags);
       this.deckHttp.addDeck(this.deck).subscribe(
         (response) => {
           console.log(response);
@@ -93,7 +133,7 @@ export class CreateDeckComponent implements OnInit {
     this.userHttp.getUserById(Number(localStorage.getItem("userID"))).subscribe(
       (response) => {
         this.user = response;
-        this.deck = new Deck(0, this.user,this.title, 0, this.dynamicArray);
+        this.deck = new Deck(0, this.user,this.title, 0, this.dynamicArrayCard);
       }
     )
   }
