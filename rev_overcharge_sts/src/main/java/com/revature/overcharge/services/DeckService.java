@@ -17,6 +17,8 @@ public interface DeckService {
     public List<Deck> getDecksByCreatorId(int creatorId);
 
     public List<Deck> getAllDecks();
+    
+    public List<Deck> sortDeckDescending(List<Deck> decks);
 
     public Deck addDeckAndCards(Deck d);
 

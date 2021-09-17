@@ -10,12 +10,14 @@ insert into users (id, username, password, points, last_login) values (7, 'cdavy
 insert into users (id, username, password, points, last_login) values (8, 'tholburn7', '2E2LGtacW', 49, 1629315622000);
 insert into users (id, username, password, points, last_login) values (9, 'vguerrin8', 'dwCCrw', 14, 1629315698000);
 insert into users (id, username, password, points, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1629315695000);
-insert into users (id, username, password, points, last_login) values (11, 'user', 'pass', 26, 1629315455000);
+insert into users (id, username, password, points, last_login) values (11, 'tw8253', 'p123456', 62, 1629315455500);
+insert into users (id, username, password, points, last_login) values (12, 'user', 'pass', 26, 1629315455000);
 
 -- Decks
 insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906000);
 insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843000);
 insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 1629329843000);
+insert into decks (id, creator_id, title, created_on) values (4, 11, 'Java', 1629329843000);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
@@ -30,6 +32,13 @@ insert into ratings (user_id, deck_id, stars, rated_on) values (10, 2, 2, 162934
 insert into ratings (user_id, deck_id, stars, rated_on) values (8, 3, 1, 1629329843000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (9, 3, 2, 1629933179000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (10, 3, 2, 1629349843000);
+-- Ratings for deck 4 (Java) from users 5, 6, 8, 9
+insert into ratings (user_id, deck_id, stars, rated_on) values (5, 4, 4, 1629329843000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (6, 4, 5, 1629329843000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (8, 4, 4, 1629329843000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (9, 4, 5, 1629329843000);
+
+
 
 -- Cards
 -- DevOps: created by user 2
