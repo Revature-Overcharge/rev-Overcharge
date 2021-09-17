@@ -12,15 +12,15 @@ export class FeedbackService {
 
   private postHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  getCardsByDeckId(id: number): Observable<Feedback[]>{
+  getFeedbacksByDeckId(id: number): Observable<Feedback[]>{
     return this.http.get<Feedback[]>('http://localhost:8081/decks/' + id + '/feedbacks');
   }
 
-  addCard(id: number, feedback: Feedback): Observable<Feedback>{
-    return this.http.post<Feedback>('http://localhost:8081/decks/' + id + '/cards', Feedback, { headers: this.postHeaders});
+  addFeedbacks(id: number, feedback: Feedback): Observable<Feedback>{
+    return this.http.post<Feedback>('http://localhost:8081/decks/' + id + '/feedbacks', Feedback, { headers: this.postHeaders});
   }
 
-  deleteCard(id: number): Observable<boolean>{
+  deleteFeebacks(id: number): Observable<boolean>{
     return this.http.delete<boolean>('http://localhost:8081/feedbacks/' + id);
   }
 }
