@@ -35,11 +35,11 @@ public class DeckServiceTests {
 		// User(String username, String password, Integer points, Long lastLogin)
 //		int points = 100;
 //		Integer point = (Integer) points;
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
-		Deck deck = new Deck(creator, "new deck", null, card);
+		Deck deck = new Deck(creator, "new deck", null, card, null);
 		// Deck(int id, User creator, String title, Long createdOn, List<Card> cards)
-		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new page", null, card));
+		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new page", null, card, null));
 		deck = ds.addDeck(deck);
 
 		Assertions.assertEquals(1, deck.getId());
@@ -47,9 +47,9 @@ public class DeckServiceTests {
 
 	@Test
 	void addDeckTestFailure() {
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
-		Deck deck = new Deck(creator, "new deck", null, card);
+		Deck deck = new Deck(creator, "new deck", null, card, null);
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
 
 		Assertions.assertThrows(ResponseStatusException.class, () -> {
@@ -60,10 +60,10 @@ public class DeckServiceTests {
 	@Test
 	void getAllDecksTest() {
 		List<Deck> dList = new ArrayList<Deck>();
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
-		Deck deck = new Deck(creator, "new deck2", null, card);
+		Deck deck = new Deck(creator, "new deck2", null, card, null);
 		dList.add(deck);
 		Mockito.when(dr.findAll()).thenReturn(dList);
 
@@ -74,10 +74,10 @@ public class DeckServiceTests {
 
 	@Test
 	void getDeckTest() {
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
-		Deck deck = new Deck(creator, "new deck2", null, card);
+		Deck deck = new Deck(creator, "new deck2", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
 		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck));
@@ -89,10 +89,10 @@ public class DeckServiceTests {
 
 	@Test
 	void getDeckTestFailure() {
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
-		Deck deck = new Deck(creator, "new deck2", null, card);
+		Deck deck = new Deck(creator, "new deck2", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(false);
 
@@ -104,15 +104,15 @@ public class DeckServiceTests {
 	@Test
 	void updateDeckTest() {
 //User creator, String title, Long createdOn, List<Card> cards
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
 
-		Deck deck = new Deck(1, creator, "new deck3", null, card);
+		Deck deck = new Deck(1, creator, "new deck3", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
 		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck));
-		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new deck3", null, card));
+		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new deck3", null, card, null));
 
 		deck = ds.updateDeck(deck);
 
@@ -121,11 +121,11 @@ public class DeckServiceTests {
 
 	@Test
 	void updateDeckTestFailure() {
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
 
-		Deck deck = new Deck(1, creator, "new deck3", null, card);
+		Deck deck = new Deck(1, creator, "new deck3", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(false);
 
@@ -136,10 +136,10 @@ public class DeckServiceTests {
 
 	@Test
 	void deleteDeckTest() {
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
-		Deck deck = new Deck(1, creator, "new deck", null, card);
+		Deck deck = new Deck(1, creator, "new deck", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
 		Assertions.assertEquals(ds.deleteDeck(deck.getId()), true);
@@ -147,10 +147,10 @@ public class DeckServiceTests {
 
 	@Test
 	void deleteDeckFailure() {
-		User creator = new User("ahmed", "pass", null, null);
+		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
 		card.add(new Card("whats your name", "my name is ahmed", null));
-		Deck deck = new Deck(1, creator, "new deck", null, card);
+		Deck deck = new Deck(1, creator, "new deck", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(false);
 		Assertions.assertThrows(ResponseStatusException.class, () -> {

@@ -33,6 +33,12 @@ public class TechTag {
 	public TechTag() {
 		super();
 	}
+	
+	
+	public TechTag(String tag) {
+		this.tag = tag;
+	}
+	
 
 	public int getId() {
 		return id;
