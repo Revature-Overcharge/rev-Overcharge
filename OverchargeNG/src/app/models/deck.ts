@@ -9,7 +9,7 @@ export class Deck {
   createdOn: number;
   cards: Array<Card>;
   avgRating: any;
-  feedbacks: Array<Feedback>;
+  feedback: Array<Feedback>;
 
   constructor(
     id: number,
@@ -18,7 +18,7 @@ export class Deck {
     createdOn: number,
     cards: Array<Card>,
     avgRating?: number,
-    feedbacks?: Array<Feedback>
+    feedback?: Array<Feedback>
   ) {
     this.id = id;
     this.creator = creator;
@@ -26,6 +26,6 @@ export class Deck {
     this.createdOn = createdOn;
     this.cards = cards;
     this.avgRating = avgRating;
-    //this.feedbacks = feedbacks;
+    this.feedback = feedback!;
   }
 }

@@ -8,6 +8,7 @@ import { Rating } from 'src/app/models/rating';
 import { RatingService } from 'src/app/services/rating.service';
 import { Router } from '@angular/router';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
+import { Feedback } from 'src/app/models/feedback';
 
 @Component({
   selector: 'app-cardrunner',
@@ -31,6 +32,7 @@ export class CardrunnerComponent implements OnInit {
   constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router) { }
   
   Cards: Card[] = [];
+  Feedbacks: Feedback[] = [];
   CurrentCard: Card = new Card(1,'','',1);
   rating:Rating = new Rating(0,0,0,0);
   deck_id:number = 2;
@@ -48,7 +50,7 @@ export class CardrunnerComponent implements OnInit {
   public rate: boolean =false;
   public finished:boolean = false;
   public array:StudiedCard[] = [];
-
+  public feedbackContent:String = '';
   public question:string = '';
   public answer:string = '';
 
@@ -59,18 +61,20 @@ export class CardrunnerComponent implements OnInit {
 
     this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
-
+        console.log(Response1);
+        console.log(Response1.feedback);
+        console.log(Response1.cards)
         this.creator_id = Response1.creator.id;
         this.Cards= Response1.cards;
         this.question = this.Cards[this.crnt].question;
         this.answer = this.Cards[this.crnt].answer;
         this.CurrentCard = this.Cards[this.crnt];
         this.number_total = this.Cards.length;
-      
-    
+        this.Feedbacks = Response1.feedback;
         this.schttp.getStudiedCardsByUser(11).subscribe(
           (Response2)=>{
             this.array = Response2;
+            console.log(this.Feedbacks);
 
         let index:number = 0;
         console.log("Length before filtering : " + this.Cards.length)
@@ -83,7 +87,6 @@ export class CardrunnerComponent implements OnInit {
              this.count++;
              console.log("deletion should occur");
              delete this.Cards[index];
-          
            }
           }
         index++;
@@ -247,6 +250,14 @@ export class CardrunnerComponent implements OnInit {
     this.router.navigate(['/','library']);
   }
 
+  submitFeedback(){
+    /*   let userid: number = 0;
+      userid = Number(window.localStorage.getItem("userID"));
+      console.log("userID taken from storage : " + userid);
+      this.rating.userId = userid; */
+
+  }
+  
   markAsMastered(){
 
     let userid: number = 0;
