@@ -37,6 +37,7 @@
             <tr>
               <th scope="col align-middle">Deck Title</th>
               <th scope="col align-middle">Deck Author</th>
+              <th scope="col align-middle">Tech-Stack</th>
               <th scope="col align-middle">Average Rating</th>
               <th scope="col align-middle">Study Deck</th>
               <th scope="col align-middle">Edit Deck</th>
@@ -46,6 +47,7 @@
             <tr *ngFor="let deck of deckList">
               <td class="align-middle">{{ deck.title }}</td>
               <td class="align-middle">{{ deck.creator.username }}</td>
+              <td class="align-middle">{{ deck.tags }}</td>
               <td class="align-middle">{{ deck.avgRating }}</td>
 
               <td>
