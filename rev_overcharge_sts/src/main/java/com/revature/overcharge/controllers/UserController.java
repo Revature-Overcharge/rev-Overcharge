@@ -58,33 +58,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Object> login(@RequestBody User u) {
-
-		try {
-			User user = this.us.login(u.getUsername(), u.getPassword());
-
-			HttpSession session = request.getSession(true);
-
-			if (session.getAttribute("currentUser") != null) {
-				return ResponseEntity.status(400).body("You are already logged in!");
-			}
-
-			session.setAttribute("currentUser", user);
-			return ResponseEntity.status(200).body(user);
-		} catch (BadParameterException e) {
-			return ResponseEntity.status(400).body(e.getMessage());
-		}
-	}
-
-	@PostMapping(value = "/logout")
-	public ResponseEntity<Object> logout() {
-		HttpSession session = request.getSession(false);
-
-		if (session == null || session.getAttribute("currentUser") == null) {
-			return ResponseEntity.status(400).body("You are not logged in!");
-		}
-
-		session.invalidate();
-		return ResponseEntity.status(200).body("You have logged out successfully");
+	public User login(@RequestBody User u) {
+		return us.login(u);
 	}
 }
