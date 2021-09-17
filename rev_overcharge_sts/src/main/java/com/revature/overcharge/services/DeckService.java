@@ -21,6 +21,8 @@ public interface DeckService {
     public List<Deck> getDecksByTagId(int tagId);
 
     public List<Deck> getAllDecks();
+    
+    public List<Deck> sortDeckDescending(List<Deck> decks);
 
     public Deck addDeckAndCards(Deck d);
 

@@ -3,12 +3,8 @@ package com.revature.overcharge.beans;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.apache.log4j.Logger;
-
 @SuppressWarnings("serial")
 public class StudiedCardId implements Serializable {
-
-	private static final Logger log = Logger.getLogger(StudiedCardId.class);
 
 	private int userId;
 

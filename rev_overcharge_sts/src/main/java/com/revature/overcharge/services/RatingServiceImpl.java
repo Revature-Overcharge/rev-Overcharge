@@ -4,7 +4,8 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import com.revature.overcharge.repositories.RatingRepo;
 @Service
 public class RatingServiceImpl implements RatingService {
 
-    private static final Logger log = Logger.getLogger(RatingServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(RatingServiceImpl.class);
 
     private static final DecimalFormat df = new DecimalFormat("#.##");
 
