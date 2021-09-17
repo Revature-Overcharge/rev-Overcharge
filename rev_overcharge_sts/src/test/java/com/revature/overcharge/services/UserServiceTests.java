@@ -29,8 +29,8 @@ class UserServiceTests {
 
 	@Test
 	void testAddUser() {
-		User user = new User("test", "test", 0, null);
-		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, null));
+		User user = new User("test", "test", 0, 0, null);
+		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, 0, null));
 
 		user = us.addUser(user);
 
@@ -42,7 +42,7 @@ class UserServiceTests {
 
 	@Test
 	void addUserFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
 
 		assertThrows(ResponseStatusException.class, () -> {
@@ -52,7 +52,7 @@ class UserServiceTests {
 
 	@Test
 	void testGetUser() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
 		Mockito.when(ur.findById(user.getId())).thenReturn(Optional.of(user));
@@ -67,7 +67,7 @@ class UserServiceTests {
 
 	@Test
 	void getCardFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(false);
 
@@ -78,7 +78,7 @@ class UserServiceTests {
 
 	@Test
 	void testGetAllUsers() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 		List<User> list = new ArrayList<User>();
 		list.add(user);
 
@@ -89,10 +89,10 @@ class UserServiceTests {
 
 	@Test
 	void testUpdateUser() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
-		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, null));
+		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, 0, null));
 		user = us.updateUser(user);
 		Assertions.assertEquals("test", user.getUsername());
 		Assertions.assertEquals("test", user.getPassword());
@@ -102,7 +102,7 @@ class UserServiceTests {
 
 	@Test
 	void updateCardFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(false);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -112,7 +112,7 @@ class UserServiceTests {
 
 	@Test
 	void testDeleteUser() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
 
@@ -121,7 +121,7 @@ class UserServiceTests {
 
 	@Test
 	void deleteCardFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(false);
 
