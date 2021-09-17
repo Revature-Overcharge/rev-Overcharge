@@ -47,7 +47,7 @@
             <tr *ngFor="let deck of deckList">
               <td class="align-middle">{{ deck.title }}</td>
               <td class="align-middle">{{ deck.creator.username }}</td>
-              <td class="align-middle">{{ deck.tags }}</td>
+              <td class="align-middle"><p *ngFor="let tag of deck.tags">{{ tag.tag }}</p></td>
               <td class="align-middle">{{ deck.avgRating }}</td>
 
               <td>
