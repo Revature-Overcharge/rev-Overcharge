@@ -4,6 +4,9 @@ import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
+import { FeedbackService } from '../../services/feedback.service';
+import { Feedback } from '../../models/feedback';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-library',
@@ -21,6 +24,16 @@ export class LibraryComponent implements OnInit {
   addedCards: Card[] = [];
   deletedCards: number[] = [];
 
+  //For Feedback
+  feedbackList: Feedback[] = [];
+  displayFeedback: boolean = false;
+  deckTitle: string = '';
+
+  //For errors
+  showfeedbackErrorMessage: boolean = false;
+  feedbackErrorMessage: string = '';
+
+
   //this array should be populated by the deck that is selected
   dynamicArray: Card[]= []; 
   newDynamic: any;
@@ -33,7 +46,7 @@ export class LibraryComponent implements OnInit {
 
 closeResult = '';
 
-constructor(private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService) {}
+constructor(private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService, private fbhttp: FeedbackService) {}
 
 
 addRow() {    
@@ -111,5 +124,22 @@ saveDeck(deckArray: Array<Card>) {
 getDeckId(id: number) {
   //save the deck id to local storage
   window.localStorage.setItem("deckID", id.toString());
+}
+
+//Feedback Functions
+
+openFeedback(deckID: number, deckName: string) {
+  this.showfeedbackErrorMessage = false;
+  this.deckTitle = deckName;
+  this.fbhttp.getFeedbacksByDeckId(deckID).subscribe((response) => {
+      this.feedbackList = response;
+  },
+  (err: HttpErrorResponse) => {
+    this.showfeedbackErrorMessage = true;
+    this.feedbackErrorMessage = "There is currently no feedback available";
+  });
+
+  this.displayFeedback = !this.displayFeedback;
+
 }
 }
