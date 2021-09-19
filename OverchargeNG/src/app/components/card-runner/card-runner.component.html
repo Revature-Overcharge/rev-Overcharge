@@ -76,6 +76,12 @@
         <span [ngClass]="class4" (click)="ratingStars(4)"></span>
         <span id="star5" [ngClass]="class5" (click)="ratingStars(5)"></span>
       </div>
+      
+      <div>
+        <input type="text" placeholder="Please enter any feedback you have for the author!" [(ngModel)]="fbContent">
+        <span>{{ fbContent }}</span>
+      </div>
+
       <button
         id="submitrating"
         type="button"

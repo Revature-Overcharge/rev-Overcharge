@@ -17,7 +17,7 @@ export class FeedbackService {
   }
 
   addFeedbacks(id: number, feedback: Feedback): Observable<Feedback>{
-    return this.http.post<Feedback>('http://localhost:8081/decks/' + id + '/feedbacks', Feedback, { headers: this.postHeaders});
+    return this.http.post<Feedback>('http://localhost:8081/decks/' + id + '/feedbacks', feedback, { headers: this.postHeaders});
   }
 
   deleteFeebacks(id: number): Observable<boolean>{

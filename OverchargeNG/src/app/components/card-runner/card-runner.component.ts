@@ -8,7 +8,8 @@ import { Rating } from 'src/app/models/rating';
 import { RatingService } from 'src/app/services/rating.service';
 import { Router } from '@angular/router';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
-
+import { Feedback } from '../../models/feedback';
+import { FeedbackService } from '../../services/feedback.service';
 @Component({
   selector: 'app-cardrunner',
   templateUrl: './card-runner.component.html',
@@ -28,7 +29,7 @@ import { HttpDeckService } from 'src/app/services/http-deck.service';
 })
 
 export class CardrunnerComponent implements OnInit {
-  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router) { }
+  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router, private fbhttp: FeedbackService) { }
   
   Cards: Card[] = [];
   CurrentCard: Card = new Card(1,'','',1);
@@ -40,6 +41,11 @@ export class CardrunnerComponent implements OnInit {
   number_mastered = 0;
   number_total = 0;
   count = 0;
+
+  //new declarations
+  feedback: Feedback = new Feedback('');
+  fbContent: string = '';
+  //end of new declarations
 
   public crnt: number = 0;
 
@@ -243,6 +249,18 @@ export class CardrunnerComponent implements OnInit {
         console.log("Rating response : " + JSON.stringify(Response));
       }
     )
+    
+    // Feedback Submission 
+    this.feedback.createdOn = new Date().getDate();
+    this.feedback.content = this.fbContent;
+
+    if (this.fbContent !== '') {
+      this.fbhttp.addFeedbacks(this.deck_id, this.feedback).subscribe(
+        (response)=> {
+          console.log("Feedback added: " + JSON.stringify(response));
+        }
+      )
+    }
 
     this.router.navigate(['/','library']);
   }
