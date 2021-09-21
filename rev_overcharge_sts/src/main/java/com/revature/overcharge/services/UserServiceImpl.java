@@ -73,7 +73,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(User u) {
-        log.info(u);
         if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
             User user = ur.findByUsername(u.getUsername());
             os.loginObj(user);
