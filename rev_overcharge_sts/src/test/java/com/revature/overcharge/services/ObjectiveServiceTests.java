@@ -4,11 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.overcharge.beans.Card;
@@ -16,10 +20,12 @@ import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.Objective;
 import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.StudiedCard;
+import com.revature.overcharge.beans.TechTag;
 import com.revature.overcharge.beans.User;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class ObjectiveServiceTests {
 
 	@Autowired
@@ -42,9 +48,10 @@ public class ObjectiveServiceTests {
 	
     
 	@Test
+	@Transactional
     void loginObjTest() {
 		long currentTime = new Date().getTime();
-		User u = new User("username", "password2", 0, currentTime - 86410000);
+		User u = new User("username", "password2", 0, 0, currentTime - 86410000);
 		u = us.addUser(u);
 //		Mockito.when(rs.addUser(u)).thenReturn(new User(1, u.getUsername(), u.getPassword(), u.getPoints(), u.getLastLogin()));
 		os.loginObj(u);
@@ -52,10 +59,11 @@ public class ObjectiveServiceTests {
     }
 	
 	@Test
+	@Transactional
 	void setAdd4CardsDailyTest() {
 		long currentTime = new Date().getTime();
 	
-		User u = new User("username2", "password3", 0, currentTime);
+		User u = new User("username2", "password3", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -74,16 +82,24 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setAdd4CardsDailyCompleteTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User("username2", "password3", 0, currentTime);
+		User u = new User("username2", "password3", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
 		Card c3 = new Card("question3", "answer3", currentTime);
 		Card c4 = new Card("question4", "answer4", currentTime);
+		
+		
+//		TechTag t1 = new TechTag("Maven");
+//		
+//		Set<TechTag> st = new HashSet<>();
+//		
+//		st.add(t1);
 
 
 		List<Card> cards = Arrays.asList(c1, c2, c3, c4);
@@ -99,11 +115,12 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getAdd4CardsDailyCompleteTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User("username3", "password4", 0, currentTime);
+		User u = new User("username3", "password4", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -124,11 +141,12 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setCreateADeckWeeklyTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User("username4", "password5", 0, currentTime);
+		User u = new User("username4", "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 
@@ -143,11 +161,12 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getCreateADeckWeeklyTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User("username5", "password5", 0, currentTime);
+		User u = new User("username5", "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 
@@ -163,6 +182,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void set5StarDeckWeeklyTest() {
 		
 		User u = createNewUserAndDeck("user6");
@@ -170,7 +190,7 @@ public class ObjectiveServiceTests {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u2 = new User("user7", "password5", 0, currentTime);
+		User u2 = new User("user7", "password5", 0, 0, currentTime);
 		u2 = us.addUser(u2);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -189,6 +209,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void get5StarDeckWeeklyTest() {
 		
 		User u = createNewUserAndDeck("user7");
@@ -196,7 +217,7 @@ public class ObjectiveServiceTests {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u2 = new User("user8", "password5", 0, currentTime);
+		User u2 = new User("user8", "password5", 0, 0, currentTime);
 		u2 = us.addUser(u2);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -215,13 +236,14 @@ public class ObjectiveServiceTests {
 
 	}
 	
-	@Test
+	@Test 
+	@Transactional
 	void setMarkAllCardsInDeckStudiedWeeklyTest() {
 		String username = "user9";
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -245,12 +267,13 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getMarkAllCardsInDeckStudiedWeeklyTest() {
 		String username = "user9";
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -273,12 +296,13 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setMarkFiveCardsDailyTest() {
 		String username = "user10";
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -302,17 +326,18 @@ public class ObjectiveServiceTests {
 		int createDeckPoints = 100;
 		int mark5CardsPoints = 100;
 				
-		assertEquals(createDeckPoints + mark5CardsPoints, u.getPoints());
+		assertEquals(1700, u.getPoints());
 		
 	}
 	
 	@Test
+	@Transactional
 	void getMarkFiveCardsDailyTest() {
 		String username = "user11";
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -340,6 +365,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setRateADeckDailyTest() {
 		User ratingUser = createNewUser("user13");
 
@@ -347,7 +373,7 @@ public class ObjectiveServiceTests {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -366,6 +392,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getRateADeckDailyTest() {
 		User ratingUser = createNewUser("user13");
 
@@ -373,7 +400,7 @@ public class ObjectiveServiceTests {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);
@@ -393,6 +420,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getAllObjectivesForUserTest() {
 		User user = createNewUser("user14");
 		os.getAllObjectivesForUser(user.getId());
@@ -400,7 +428,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	private User createNewUser(String username) {
-		return us.addUser(new User(username, "password"+username, 0, new Date().getTime()));
+		return us.addUser(new User(username, "password"+username, 0, 0, new Date().getTime()));
 	}
 	
 	
@@ -408,7 +436,7 @@ public class ObjectiveServiceTests {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
 		
-		User u = new User(username, "password5", 0, currentTime);
+		User u = new User(username, "password5", 0, 0, currentTime);
 		u = us.addUser(u);
 		Card c1 = new Card("question1", "answer1", currentTime);
 		Card c2 = new Card("question2", "answer2", currentTime);

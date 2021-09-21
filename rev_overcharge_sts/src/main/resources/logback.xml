@@ -1,0 +1,73 @@
+<configuration>
+
+	<appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{dd MMM yyyy - HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="myFileAppender" class="ch.qos.logback.core.FileAppender">
+		<file>mylogfile.log</file>
+		<append>true</append>
+		<encoder>
+			<pattern>%d{dd MMM yyyy - HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- A logging solution is found at: 
+		https://stackoverflow.com/questions/11121846/how-to-configure-logback-for-package 
+		This allows for package level logging so everything is not logged at INFO or higher-->
+
+	<!-- Turn on specific debugging levels for our program packages -->
+	<!--  When using this notation we can level the root log level at INFO to filter -->
+	<!--  out library packages lower log levels such as debug and trace. -->
+	<logger name="com.revature.overcharge.application" level="TRACE" />
+	<logger name="com.revature.overcharge.beans" level="TRACE" />
+	<logger name="com.revature.overcharge.controllers" level="TRACE" />
+	<logger name="com.revature.overcharge.repositories" level="TRACE" />
+	<logger name="com.revature.overcharge.services" level="TRACE" />
+	<logger name="com.revature.overcharge.pages" level="TRACE" />
+	<logger name="com.revature.overcharge.runners" level="TRACE" />
+	<logger name="com.revature.overcharge.steps" level="TRACE" />
+	
+
+	<root level="INFO">
+		<!-- We need to configure what appenders our logger should be using -->
+		<appender-ref ref="myConsoleAppender" />
+		<appender-ref ref="myFileAppender" />
+	</root>
+	
+	
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

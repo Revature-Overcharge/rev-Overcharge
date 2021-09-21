@@ -12,8 +12,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
@@ -23,6 +26,7 @@ import com.revature.overcharge.repositories.CardRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class CardServiceTests {
 
 	@Autowired
@@ -31,6 +35,7 @@ public class CardServiceTests {
 	CardRepo cr;
 
 	@Test
+	@Transactional
 	void addCardTest() {
 		// Card(String question, String answer, Long createdOn)
 		// Card(int id, Deck deck, String question, String answer, Long createdOn)
@@ -46,6 +51,7 @@ public class CardServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void addCardFailure() {
 		Deck deck = new Deck();
 		Card card = new Card("whats your name", "my name is ahmed", null);
@@ -57,6 +63,7 @@ public class CardServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void getCardTest() {
 		Deck deck = new Deck();
 		Card card = new Card(1, "whats your name", "my name is ahmed", null);
@@ -70,6 +77,7 @@ public class CardServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getCardFailure() {
 		Deck deck = new Deck();
 		Card card = new Card(1, "whats your name", "my name is ahmed", null);
@@ -82,6 +90,7 @@ public class CardServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void updateCardTest() {
 
 //		List<StudiedCard> studiedCards = new ArrayList<StudiedCard>();
@@ -95,6 +104,7 @@ public class CardServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void updateCardFailure() {
 		Card card = new Card(1, null, "whats your lastNameAH", "my name is Elhewazy", null);
 		
@@ -105,6 +115,7 @@ public class CardServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void deleteCardTest() {
 		Deck deck = new Deck();
 		Card card = new Card(1, "whats your name", "my name is ahmed", null);
@@ -115,6 +126,7 @@ public class CardServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void deleteCardFailure() {
 		Deck deck = new Deck();
 		Card card = new Card(1, "whats your name", "my name is ahmed", null);
@@ -127,6 +139,7 @@ public class CardServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getAllCardsTest() {
 		Deck deck = new Deck();
 		Card card = new Card(1, "whats your name", "my name is ahmed", null);

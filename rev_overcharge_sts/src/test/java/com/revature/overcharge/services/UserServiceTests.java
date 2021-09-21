@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,6 +22,7 @@ import com.revature.overcharge.repositories.UserRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 class UserServiceTests {
 
 	@Autowired
@@ -28,9 +31,10 @@ class UserServiceTests {
 	UserRepo ur;
 
 	@Test
+	@Transactional
 	void testAddUser() {
-		User user = new User("test", "test", 0, null);
-		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, null));
+		User user = new User("test", "test", 0, 0, null);
+		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, 0, null));
 
 		user = us.addUser(user);
 
@@ -41,8 +45,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void addUserFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
 
 		assertThrows(ResponseStatusException.class, () -> {
@@ -51,8 +56,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void testGetUser() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
 		Mockito.when(ur.findById(user.getId())).thenReturn(Optional.of(user));
@@ -66,8 +72,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void getCardFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(false);
 
@@ -77,8 +84,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void testGetAllUsers() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 		List<User> list = new ArrayList<User>();
 		list.add(user);
 
@@ -88,11 +96,12 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void testUpdateUser() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
-		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, null));
+		Mockito.when(ur.save(user)).thenReturn(new User("test", "test", 0, 0, null));
 		user = us.updateUser(user);
 		Assertions.assertEquals("test", user.getUsername());
 		Assertions.assertEquals("test", user.getPassword());
@@ -101,8 +110,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void updateCardFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(false);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -111,8 +121,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void testDeleteUser() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(true);
 
@@ -120,8 +131,9 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void deleteCardFailure() {
-		User user = new User("test", "test", 0, null);
+		User user = new User("test", "test", 0, 0, null);
 
 		Mockito.when(ur.existsById(user.getId())).thenReturn(false);
 
@@ -131,6 +143,7 @@ class UserServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void testLogin() {
 		Assertions.assertEquals(0, 0);
 
