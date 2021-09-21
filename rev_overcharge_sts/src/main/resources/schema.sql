@@ -25,6 +25,14 @@ CREATE TABLE decks (
     FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
+CREATE TABLE feedbacks (
+    id          IDENTITY,
+    deck_id     int,
+    content     varchar(255),
+    created_on  bigint,
+    FOREIGN KEY (deck_id) REFERENCES decks(id) ON DELETE CASCADE
+);
+
 CREATE TABLE tags (
     id          IDENTITY,
     tag         varchar(255),

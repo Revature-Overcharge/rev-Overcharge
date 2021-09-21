@@ -11,7 +11,7 @@ import com.revature.overcharge.beans.Feedback;
 @Repository
 public interface FeedbackRepo extends CrudRepository<Feedback, Integer>{
 
-	  public boolean existsByDeckId(int deckId);
+	   public boolean existsByDeckId(int deckId);
 
-	  public List<Feedback> findByDeckIdOrderByCreatedOnDesc(int deckId);
+	   public List<Feedback> findByDeckIdOrderByCreatedOnDesc(int deckId);
 }

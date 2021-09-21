@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table
+@Table(name = "feedbacks")
 public class Feedback {
 
 	@Id
@@ -31,7 +31,7 @@ public class Feedback {
 	@Column(name = "created_on")
 	private Long createdOn;
 	
-	@Column(name = "feedback_content")
+	@Column(name = "content")
 	private String content;
 
 	
