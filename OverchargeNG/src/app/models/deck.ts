@@ -1,5 +1,6 @@
 import { User } from 'src/app/models/user';
 import { Card } from './card';
+import { Tag } from './tag';
 
 export class Deck {
   id: number;
@@ -7,6 +8,7 @@ export class Deck {
   title: string;
   createdOn: number;
   cards: Array<Card>;
+  tags: Array<Tag>;
   avgRating: any;
 
   constructor(

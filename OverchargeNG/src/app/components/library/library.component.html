@@ -37,6 +37,7 @@
             <tr>
               <th scope="col align-middle">Deck Title</th>
               <th scope="col align-middle">Deck Author</th>
+              <th scope="col align-middle">Tech-Stack</th>
               <th scope="col align-middle">Average Rating</th>
               <th scope="col align-middle">Study Deck</th>
               <th scope="col align-middle">Edit Deck</th>
@@ -46,7 +47,9 @@
             <tr *ngFor="let deck of deckList">
               <td class="align-middle">{{ deck.title }}</td>
               <td class="align-middle">{{ deck.creator.username }}</td>
+              <td class="align-middle"><p *ngFor="let tag of deck.tags">{{ tag.tag }}</p></td>
               <td class="align-middle">{{ deck.avgRating }}</td>
+
               <td>
                 <button id="cardrunner"
                   class="btn btn-lg btn-outline-primary"
@@ -133,5 +136,12 @@
         </div>
       </ng-template>
     </div>
+    <div>
+      <select [(ngModel)]= "filterChoice" name="Tags" id="tag" >
+        <option *ngFor="let t of tags" [value] ="t.id">{{t.tag}}</option>
+      </select>
+      <button name="filterButton" id="filterButton" (click)="getFilteredList()">Filter</button>
+    </div>
   </div>
+  
 </div>

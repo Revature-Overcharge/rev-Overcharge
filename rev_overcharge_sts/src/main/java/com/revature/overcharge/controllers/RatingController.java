@@ -2,7 +2,9 @@ package com.revature.overcharge.controllers;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,35 +22,35 @@ import com.revature.overcharge.services.RatingService;
 @RestController
 public class RatingController {
 
-    private static final Logger log = Logger.getLogger(RatingController.class);
+	private static final Logger log = LoggerFactory.getLogger(RatingController.class);
 
-    @Autowired
-    RatingService rs;
+	@Autowired
+	RatingService rs;
 
-//    @PostMapping(value = "/ratings", consumes = "application/json",
-//            produces = "application/json")
-//    public Rating addRating(@RequestBody Rating r) {
-//        log.info("Adding Rating");
-//        return rs.addRating(r);
-//    }
+	//    @PostMapping(value = "/ratings", consumes = "application/json",
+	//            produces = "application/json")
+	//    public Rating addRating(@RequestBody Rating r) {
+	//        log.info("Adding Rating");
+	//        return rs.addRating(r);
+	//    }
 
-    @PostMapping(value = "/ratings", consumes = "application/json",
-            produces = "application/json")
-    public Rating saveRating(@RequestBody Rating r) {
-        log.info("Saving Rating");
-        return rs.saveRating(r);
-    }
+	@PostMapping(value = "/ratings", consumes = "application/json",
+			produces = "application/json")
+	public Rating saveRating(@RequestBody Rating r) {
+		log.info("Saving Rating");
+		return rs.saveRating(r);
+	}
 
-    @GetMapping(value = "/ratings")
-    public List<Rating> getRatings(
-            @RequestParam(required = false) Integer userId,
-            @RequestParam(required = false) Integer deckId) {
-        return rs.getRatings(userId, deckId);
-    }
+	@GetMapping(value = "/ratings")
+	public List<Rating> getRatings(
+			@RequestParam(required = false) Integer userId,
+			@RequestParam(required = false) Integer deckId) {
+		return rs.getRatings(userId, deckId);
+	}
 
-    @DeleteMapping(value = "/ratings")
-    public boolean deleteRating(@RequestBody RatingId rId) {
-        return rs.deleteRating(rId);
-    }
+	@DeleteMapping(value = "/ratings")
+	public boolean deleteRating(@RequestBody RatingId rId) {
+		return rs.deleteRating(rId);
+	}
 
 }

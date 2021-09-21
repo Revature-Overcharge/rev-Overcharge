@@ -3,19 +3,21 @@ package com.revature.overcharge.services;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.User;
+import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.repositories.UserRepo;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Logger log = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     UserRepo ur;
@@ -70,17 +72,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(User u) {
-        log.info(u);
-        if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
-            User user = ur.findByUsername(u.getUsername());
+    public User login(String username, String password) throws BadParameterException {
+        log.info(username + " " + password);
+        if (ur.existsByUsernameAndPassword(username, password)) {
+            User user = ur.findByUsername(username);
             os.loginObj(user);
             user.setLastLogin(new Date().getTime());
             user = ur.save(user);
             return user;
         } else {
-            log.warn("Username and password are incorrect");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            log.warn("Incorrect credentials provided");
+            throw new BadParameterException("Incorrect credentials provided");
         }
     }
 

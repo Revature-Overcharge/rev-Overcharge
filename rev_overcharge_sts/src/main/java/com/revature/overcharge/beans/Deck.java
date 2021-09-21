@@ -1,18 +1,25 @@
 package com.revature.overcharge.beans;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
+
 
 @Entity
 @Table(name = "decks")
@@ -28,9 +35,13 @@ public class Deck {
     private User creator;
 
     private String title;
+    
 
     @Column(name = "created_on")
     private Long createdOn;
+    
+    @Column(name = "status")
+    private int status;
 
     @Transient
     private Double avgRating;
@@ -38,11 +49,27 @@ public class Deck {
     @OneToMany(mappedBy = "deck")
     @Transient
     private List<Card> cards;
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(
+			name = "deck_tag", 
+			joinColumns = { @JoinColumn(name = "deck_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+	)
+    private Set<TechTag> tags = new HashSet<>();
 
     public Deck() {
         super();
     }
 
+    public Deck(User creator, String title, Long createdOn, List<Card> cards, Set<TechTag> tags) {
+        super();
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
+        this.tags = tags;
+    }
     public Deck(User creator, String title, Long createdOn, List<Card> cards) {
         super();
         this.creator = creator;
@@ -52,6 +79,16 @@ public class Deck {
     }
 
     public Deck(int id, User creator, String title, Long createdOn,
+            List<Card> cards, Set<TechTag> tags) {
+        super();
+        this.id = id;
+        this.creator = creator;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.cards = cards;
+        this.tags = tags;
+    }
+    public Deck(int id, User creator, String title, Long createdOn,
             List<Card> cards) {
         super();
         this.id = id;
@@ -60,6 +97,7 @@ public class Deck {
         this.createdOn = createdOn;
         this.cards = cards;
     }
+    
 
     public int getId() {
         return id;
@@ -88,6 +126,14 @@ public class Deck {
     public Long getCreatedOn() {
         return createdOn;
     }
+    
+    public int getStatus() {
+    	return status;
+    }
+    
+    public void setStatus(int status) {
+    	this.status = status;
+    }
 
     public Double getAvgRating() {
         return avgRating;
@@ -109,11 +155,21 @@ public class Deck {
         this.cards = cards;
     }
 
-    @Override
-    public String toString() {
-        return "Deck [id=" + id + ", creator=" + creator + ", title=" + title
-                + ", createdOn=" + createdOn + ", avgRating=" + avgRating
-                + "]";
-    }
+    public Set<TechTag> getTags() {
+		return tags;
+	}
 
+	public void setTags(Set<TechTag> tags) {
+		this.tags = tags;
+	}
+	
+	public void addTags(TechTag tag) {
+		this.tags.add(tag);
+	}
+
+	@Override
+	public String toString() {
+		return "Deck [id=" + id + ", creator=" + creator + ", title=" + title + ", createdOn=" + createdOn
+				+ ", avgRating=" + avgRating + ", cards=" + cards + ", tags=" + tags + "]";
+	}
 }

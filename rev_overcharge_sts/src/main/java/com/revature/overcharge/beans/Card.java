@@ -29,7 +29,7 @@ public class Card {
 	private String question;
 
 	private String answer;
-
+ 
 	@Column(name = "created_on")
 	private Long createdOn;
 
@@ -103,7 +103,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", deck=" + deck + ", question=" + question + ", answer=" + answer + ", createdOn="
+		return "Card [id=" + id + ", question=" + question + ", answer=" + answer + ", createdOn="
 				+ createdOn + "]";
 	}
 
