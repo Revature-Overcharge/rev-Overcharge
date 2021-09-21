@@ -41,8 +41,6 @@ public class DeckController {
 		Deck deck =ds.setDeckTags(id, deckTagsDTO);
 		
 		return ResponseEntity.status(200).body("it worked");
-		//ds.setDeckTags(id, deckTagsDTO
-		//@RequestBody DeckTagsDTO deckTagsDTO
 		
 	}	
 

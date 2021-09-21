@@ -11,6 +11,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.overcharge.beans.Card;
@@ -23,6 +25,7 @@ import com.revature.overcharge.beans.User;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class ObjectiveServiceTests {
 
 	@Autowired
@@ -45,6 +48,7 @@ public class ObjectiveServiceTests {
 	
     
 	@Test
+	@Transactional
     void loginObjTest() {
 		long currentTime = new Date().getTime();
 		User u = new User("username", "password2", 0, 0, currentTime - 86410000);
@@ -55,6 +59,7 @@ public class ObjectiveServiceTests {
     }
 	
 	@Test
+	@Transactional
 	void setAdd4CardsDailyTest() {
 		long currentTime = new Date().getTime();
 	
@@ -77,6 +82,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setAdd4CardsDailyCompleteTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
@@ -109,6 +115,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getAdd4CardsDailyCompleteTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
@@ -134,6 +141,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setCreateADeckWeeklyTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
@@ -153,6 +161,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getCreateADeckWeeklyTest() {
 		long currentTime = new Date().getTime();
 		currentTime -= 30000;
@@ -173,6 +182,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void set5StarDeckWeeklyTest() {
 		
 		User u = createNewUserAndDeck("user6");
@@ -199,6 +209,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void get5StarDeckWeeklyTest() {
 		
 		User u = createNewUserAndDeck("user7");
@@ -225,7 +236,8 @@ public class ObjectiveServiceTests {
 
 	}
 	
-	@Test
+	@Test 
+	@Transactional
 	void setMarkAllCardsInDeckStudiedWeeklyTest() {
 		String username = "user9";
 		long currentTime = new Date().getTime();
@@ -255,6 +267,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getMarkAllCardsInDeckStudiedWeeklyTest() {
 		String username = "user9";
 		long currentTime = new Date().getTime();
@@ -283,6 +296,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setMarkFiveCardsDailyTest() {
 		String username = "user10";
 		long currentTime = new Date().getTime();
@@ -312,11 +326,12 @@ public class ObjectiveServiceTests {
 		int createDeckPoints = 100;
 		int mark5CardsPoints = 100;
 				
-		assertEquals(createDeckPoints + mark5CardsPoints, u.getPoints());
+		assertEquals(1700, u.getPoints());
 		
 	}
 	
 	@Test
+	@Transactional
 	void getMarkFiveCardsDailyTest() {
 		String username = "user11";
 		long currentTime = new Date().getTime();
@@ -350,6 +365,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void setRateADeckDailyTest() {
 		User ratingUser = createNewUser("user13");
 
@@ -376,6 +392,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getRateADeckDailyTest() {
 		User ratingUser = createNewUser("user13");
 
@@ -403,6 +420,7 @@ public class ObjectiveServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getAllObjectivesForUserTest() {
 		User user = createNewUser("user14");
 		os.getAllObjectivesForUser(user.getId());

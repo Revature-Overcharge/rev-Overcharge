@@ -10,6 +10,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
@@ -19,7 +22,8 @@ import com.revature.overcharge.repositories.CardRepo;
 import com.revature.overcharge.repositories.DeckRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
-
+@Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class DeckServiceTests {
 
 	@Autowired
@@ -30,6 +34,7 @@ public class DeckServiceTests {
 	CardRepo cr;
 
 	@Test
+	@Transactional
 	void addDeckTest() {
 		// Deck( User creator, String title, Long createdOn, List<Card> cards)
 		// User(String username, String password, Integer points, Long lastLogin)
@@ -46,6 +51,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void addDeckTestFailure() {
 		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
@@ -58,6 +64,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void getAllDecksTest() {
 		List<Deck> dList = new ArrayList<Deck>();
 		User creator = new User("ahmed", "pass", null, 0, null);
@@ -73,6 +80,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void getDeckTest() {
 		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
@@ -88,6 +96,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void getDeckTestFailure() {
 		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
@@ -102,6 +111,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void updateDeckTest() {
 //User creator, String title, Long createdOn, List<Card> cards
 		User creator = new User("ahmed", "pass", null, 0, null);
@@ -120,6 +130,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void updateDeckTestFailure() {
 		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
@@ -135,6 +146,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void deleteDeckTest() {
 		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
@@ -146,6 +158,7 @@ public class DeckServiceTests {
 	}
 
 	@Test
+	@Transactional
 	void deleteDeckFailure() {
 		User creator = new User("ahmed", "pass", null, 0, null);
 		List<Card> card = new ArrayList<Card>();
