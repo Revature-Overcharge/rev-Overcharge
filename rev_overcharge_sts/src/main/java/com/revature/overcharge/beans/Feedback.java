@@ -28,10 +28,6 @@ public class Feedback {
 	@JsonIgnore
 	private Deck deck;
 	
-	@ManyToOne
-    @JoinColumn(name = "creator_id")
-    private User creator;
-	
 	@Column(name = "created_on")
 	private Long createdOn;
 	
@@ -46,31 +42,20 @@ public class Feedback {
 
 	
 	
-	public Feedback(int id, Deck deck, User creator, Long createdOn, String content) {
+	public Feedback(int id, Deck deck, Long createdOn, String content) {
 		super();
 		this.id = id;
 		this.deck = deck;
-		this.creator = creator;
 		this.createdOn = createdOn;
 		this.content = content;
 	}
 
-	public Feedback(Deck deck, User creator, Long createdOn, String content) {
+	public Feedback(Deck deck, Long createdOn, String content) {
 		super();
 		this.deck = deck;
-		this.creator = creator;
 		this.createdOn = createdOn;
 		this.content = content;
 	}
-
-	public Feedback(User creator, Long createdOn, String content) {
-		super();
-		this.creator = creator;
-		this.createdOn = createdOn;
-		this.content = content;
-	}
-
-
 
 	public Feedback(Long createdOn, String content) {
 		super();
@@ -104,18 +89,6 @@ public class Feedback {
 
 
 
-	public User getCreator() {
-		return creator;
-	}
-
-
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-
-
 	public Long getCreatedOn() {
 		return createdOn;
 	}
@@ -142,7 +115,7 @@ public class Feedback {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(content, createdOn, creator, deck, id);
+		return Objects.hash(content, createdOn, deck, id);
 	}
 
 
@@ -157,16 +130,17 @@ public class Feedback {
 			return false;
 		Feedback other = (Feedback) obj;
 		return Objects.equals(content, other.content) && Objects.equals(createdOn, other.createdOn)
-				&& Objects.equals(creator, other.creator) && Objects.equals(deck, other.deck) && id == other.id;
+				&& Objects.equals(deck, other.deck) && id == other.id;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Feedback [id=" + id + ", deck=" + deck + ", creator=" + creator + ", createdOn=" + createdOn
-				+ ", content=" + content + "]";
+		return "Feedback [id=" + id + ", deck=" + deck + ", createdOn=" + createdOn + ", content=" + content + "]";
 	}
-	
+
+
+
 	
 }
