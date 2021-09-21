@@ -19,6 +19,10 @@ public class TagServiceImpl implements TagService {
 	@Autowired
 	TagRepo tr;
 	
+	public TagServiceImpl(TagRepo tr2) {
+		this.tr = tr2;
+	}
+
 	@Override
     public List<TechTag> getAllTags() {
     	System.out.println("Inside getAllDecks");

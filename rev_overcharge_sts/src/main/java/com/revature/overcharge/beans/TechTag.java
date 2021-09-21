@@ -20,6 +20,7 @@ public class TechTag {
 	
 	
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false)
@@ -74,6 +75,49 @@ public class TechTag {
 	@Override
 	public String toString() {
 		return "TechTag [id=" + id + ", tag=" + tag + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((decks == null) ? 0 : decks.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		TechTag other = (TechTag) obj;
+		if (decks == null) {
+			if (other.decks != null) {
+				return false;
+			}
+		} else if (!decks.equals(other.decks)) {
+			return false;
+		}
+		if (id != other.id) {
+			return false;
+		}
+		if (tag == null) {
+			if (other.tag != null) {
+				return false;
+			}
+		} else if (!tag.equals(other.tag)) {
+			return false;
+		}
+		return true;
 	}
 	
 	
