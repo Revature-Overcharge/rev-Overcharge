@@ -9,6 +9,7 @@ import { FeedbackService } from '../../services/feedback.service';
 import { Feedback } from '../../models/feedback';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-library',
@@ -25,6 +26,7 @@ export class LibraryComponent implements OnInit {
   curDeck: Deck;
   addedCards: Card[] = [];
   deletedCards: number[] = [];
+  updateCard: any[] = [];
 
   //For Feedback
   feedbackList: Feedback[] = [];
@@ -121,6 +123,8 @@ private getDismissReason(reason: any): string {
 
 saveDeck(deckArray: Array<Card>) {
   this.addedCards = [];
+
+  
   for (let i = 0; i < this.curDeck.cards.length; i++) {
     if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
       this.addedCards.push(this.curDeck.cards[i]);
@@ -133,6 +137,10 @@ saveDeck(deckArray: Array<Card>) {
   for(let i = 0; i < this.deletedCards.length; i++) {
     this.cardService.deleteCard(this.deletedCards[i]).subscribe();
   }
+  // for (let i = 0; i < this.curDeck.cards.length; i++) {
+  //   if(this.curDeck.cards[i].id > 0 && this.curDeck.cards[i].question != "") {
+  //     this.cardService.updateCard(i,this.curDeck.cards[i]).subscribe();
+  //   }}
 }
 
 getDeckId(id: number) {

@@ -18,7 +18,7 @@ import com.revature.overcharge.beans.Rating;
 import com.revature.overcharge.beans.RatingId;
 import com.revature.overcharge.services.RatingService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class RatingController {
 

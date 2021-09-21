@@ -21,7 +21,7 @@ import com.revature.overcharge.beans.User;
 import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.services.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class UserController {
 

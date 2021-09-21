@@ -23,4 +23,8 @@ export class CardService {
   deleteCard(id: number): Observable<boolean>{
     return this.http.delete<boolean>('http://localhost:8081/cards/' + id);
   }
+  updateCard(id: number, card: Card): Observable<Card>{
+    console.log("before the return");
+    return this.http.put<Card>('http://localhost:8081/cards/', card);
+}
 }

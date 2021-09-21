@@ -73,7 +73,7 @@ export class CardrunnerComponent implements OnInit {
         this.CurrentCard = this.Cards[this.crnt];
         this.number_total = this.Cards.length;
         this.Feedbacks = Response1.feedback;
-        this.schttp.getStudiedCardsByUser(11).subscribe(
+        this.schttp.getStudiedCardsByUser(this.user_id).subscribe(
           (Response2)=>{
             this.array = Response2;
             console.log(this.Feedbacks);
