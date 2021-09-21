@@ -133,8 +133,6 @@ public class CardServiceTests {
 
 		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
 		
-		Mockito.when(cr.existsById(card.getId())).thenReturn(false);
-		
         assertThrows(ResponseStatusException.class, () -> {
             cs.deleteCard(card.getId());
         });

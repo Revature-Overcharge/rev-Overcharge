@@ -5,6 +5,9 @@ import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
+import { FeedbackService } from '../../services/feedback.service';
+import { Feedback } from '../../models/feedback';
+import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
 
 @Component({
@@ -23,44 +26,50 @@ export class LibraryComponent implements OnInit {
   addedCards: Card[] = [];
   deletedCards: number[] = [];
 
+  //For Feedback
+  feedbackList: Feedback[] = [];
+  displayFeedback: boolean = false;
+  deckTitle: string = '';
+
+  //For errors
+  showfeedbackErrorMessage: boolean = false;
+  feedbackErrorMessage: string = '';
+
   tags: Tag[] =[];
   filterChoice: number = 0;
 
   //this array should be populated by the deck that is selected
-  dynamicArray: Card[]= []; 
+  dynamicArray: Card[]= [];
   newDynamic: any;
-  ngOnInit(): void {   
+  ngOnInit(): void {
       this.displayAllDecks();
-      this.getAllTags(); 
+      this.getAllTags();
       this.curUser = localStorage.getItem("username");
-      console.log(this.curUser);
-  } 
+  }
 
 
 closeResult = '';
 
-constructor(private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService) {}
+constructor(private tagHttp: HttpTagService, private modalService: NgbModal, private deckHttp: HttpDeckService, private cardService: CardService, private fbhttp: FeedbackService) {}
 
-
-addRow() {    
+addRow() {
   this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
-  this.dynamicArray.push(this.newDynamic);    
-  console.log(this.dynamicArray);  
-  return true;  
+  this.dynamicArray.push(this.newDynamic);
+  return true;
 }
-  
 
-deleteRow(index: any) {  
-  if(this.dynamicArray.length ==1) {    
-      return false;  
+
+deleteRow(index: any) {
+  if(this.dynamicArray.length ==1) {
+      return false;
   } else {
     if(this.dynamicArray[index].id != 0) {
-      this.deletedCards.push(this.dynamicArray[index].id); 
+      this.deletedCards.push(this.dynamicArray[index].id);
     }
       this.dynamicArray.splice(index, 1);
-      return true;  
-  }  
-} 
+      return true;
+  }
+}
 getAllTags(){
   this.tagHttp.getAllTags().subscribe((data) =>{
     this.tags = data;
@@ -129,5 +138,22 @@ saveDeck(deckArray: Array<Card>) {
 getDeckId(id: number) {
   //save the deck id to local storage
   window.localStorage.setItem("deckID", id.toString());
+}
+
+//Feedback Functions
+
+openFeedback(deckID: number, deckName: string) {
+  this.showfeedbackErrorMessage = false;
+  this.deckTitle = deckName;
+  this.fbhttp.getFeedbacksByDeckId(deckID).subscribe((response) => {
+      this.feedbackList = response;
+  },
+  (err: HttpErrorResponse) => {
+    this.showfeedbackErrorMessage = true;
+    this.feedbackErrorMessage = "There is currently no feedback available";
+  });
+
+  this.displayFeedback = !this.displayFeedback;
+
 }
 }

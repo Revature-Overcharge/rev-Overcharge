@@ -17,6 +17,6 @@ public interface UserService {
 
     public boolean deleteUser(int id);
 
-    public User login(String username, String password) throws BadParameterException ;
+    public User login(User u);
 
 }

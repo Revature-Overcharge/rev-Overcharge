@@ -50,6 +50,10 @@ public class Deck {
     @Transient
     private List<Card> cards;
     
+    @OneToMany(mappedBy = "deck")
+    @Transient
+    private List<Feedback> feedback;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(
 			name = "deck_tag", 
@@ -62,42 +66,14 @@ public class Deck {
         super();
     }
 
-    public Deck(User creator, String title, Long createdOn, List<Card> cards, Set<TechTag> tags) {
+    public Deck(User creator, String title, Long createdOn, List<Card> cards,  Set<TechTag> tags, List<Feedback> feedback) {
         super();
         this.creator = creator;
         this.title = title;
         this.createdOn = createdOn;
         this.cards = cards;
-        this.tags = tags;
+        this.feedback = feedback;
     }
-    public Deck(User creator, String title, Long createdOn, List<Card> cards) {
-        super();
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-        this.cards = cards;
-    }
-
-    public Deck(int id, User creator, String title, Long createdOn,
-            List<Card> cards, Set<TechTag> tags) {
-        super();
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-        this.cards = cards;
-        this.tags = tags;
-    }
-    public Deck(int id, User creator, String title, Long createdOn,
-            List<Card> cards) {
-        super();
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-        this.createdOn = createdOn;
-        this.cards = cards;
-    }
-    
 
     public int getId() {
         return id;
@@ -154,6 +130,15 @@ public class Deck {
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
+    
+    
+    public List<Feedback> getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(List<Feedback> feedback) {
+		this.feedback = feedback;
+	}
 
     public Set<TechTag> getTags() {
 		return tags;

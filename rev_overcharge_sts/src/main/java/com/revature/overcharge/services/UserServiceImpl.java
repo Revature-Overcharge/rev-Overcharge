@@ -72,17 +72,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String username, String password) throws BadParameterException {
-        log.info(username + " " + password);
-        if (ur.existsByUsernameAndPassword(username, password)) {
-            User user = ur.findByUsername(username);
+    public User login(User u) {
+        if (ur.existsByUsernameAndPassword(u.getUsername(), u.getPassword())) {
+            User user = ur.findByUsername(u.getUsername());
             os.loginObj(user);
             user.setLastLogin(new Date().getTime());
             user = ur.save(user);
             return user;
         } else {
-            log.warn("Incorrect credentials provided");
-            throw new BadParameterException("Incorrect credentials provided");
+            log.warn("Username and password are incorrect");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 

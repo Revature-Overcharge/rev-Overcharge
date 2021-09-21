@@ -8,7 +8,8 @@ import { Rating } from 'src/app/models/rating';
 import { RatingService } from 'src/app/services/rating.service';
 import { Router } from '@angular/router';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
-
+import { Feedback } from '../../models/feedback';
+import { FeedbackService } from '../../services/feedback.service';
 @Component({
   selector: 'app-cardrunner',
   templateUrl: './card-runner.component.html',
@@ -28,9 +29,10 @@ import { HttpDeckService } from 'src/app/services/http-deck.service';
 })
 
 export class CardrunnerComponent implements OnInit {
-  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router) { }
+  constructor(private schttp:StudiedcardService, private cshttp:CardService, private rshttp: RatingService,private dshttp:HttpDeckService, private router:Router, private fbhttp: FeedbackService) { }
   
   Cards: Card[] = [];
+  Feedbacks: Feedback[] = [];
   CurrentCard: Card = new Card(1,'','',1);
   rating:Rating = new Rating(0,0,0,0);
   deck_id:number = 2;
@@ -41,6 +43,11 @@ export class CardrunnerComponent implements OnInit {
   number_total = 0;
   count = 0;
 
+  //new declarations
+  feedback: Feedback = new Feedback('');
+  fbContent: string = '';
+  //end of new declarations
+
   public crnt: number = 0;
 
   public next: String = 'Next Question';
@@ -48,7 +55,7 @@ export class CardrunnerComponent implements OnInit {
   public rate: boolean =false;
   public finished:boolean = false;
   public array:StudiedCard[] = [];
-
+  public feedbackContent:String = '';
   public question:string = '';
   public answer:string = '';
 
@@ -59,18 +66,17 @@ export class CardrunnerComponent implements OnInit {
 
     this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
-
         this.creator_id = Response1.creator.id;
         this.Cards= Response1.cards;
         this.question = this.Cards[this.crnt].question;
         this.answer = this.Cards[this.crnt].answer;
         this.CurrentCard = this.Cards[this.crnt];
         this.number_total = this.Cards.length;
-
-    
+        this.Feedbacks = Response1.feedback;
         this.schttp.getStudiedCardsByUser(11).subscribe(
           (Response2)=>{
             this.array = Response2;
+            console.log(this.Feedbacks);
 
         let index:number = 0;
         console.log("Length before filtering : " + this.Cards.length)
@@ -83,7 +89,6 @@ export class CardrunnerComponent implements OnInit {
              this.count++;
              console.log("deletion should occur");
              delete this.Cards[index];
-          
            }
           }
         index++;
@@ -243,10 +248,23 @@ export class CardrunnerComponent implements OnInit {
         console.log("Rating response : " + JSON.stringify(Response));
       }
     )
+    
+    // Feedback Submission 
+    this.feedback.createdOn = new Date().getDate();
+    this.feedback.content = this.fbContent;
+
+    if (this.fbContent !== '') {
+      this.fbhttp.addFeedbacks(this.deck_id, this.feedback).subscribe(
+        (response)=> {
+          console.log("Feedback added: " + JSON.stringify(response));
+        }
+      )
+    }
 
     this.router.navigate(['/','library']);
   }
 
+  
   markAsMastered(){
 
     let userid: number = 0;
