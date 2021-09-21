@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,6 +23,7 @@ import com.revature.overcharge.repositories.FeedbackRepo;
 
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class FeedbackServiceTests {
 	
 	@Autowired
@@ -30,6 +33,7 @@ public class FeedbackServiceTests {
 	private FeedbackRepo fr;
 	
 	@Test
+	@Transactional
 	void addFeedbackTest() {
 		Deck deck = new Deck();
 		
@@ -56,6 +60,7 @@ public class FeedbackServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getFeedbackTest() {
 		Deck deck = new Deck();
 		Feedback feedback = new Feedback(1, deck, null, "my Feedback");
@@ -70,6 +75,7 @@ public class FeedbackServiceTests {
 	
 
 	@Test
+	@Transactional
 	void getFeedbackFailure() {
 
 		Mockito.when(fr.existsById(1)).thenReturn(false);
@@ -80,6 +86,7 @@ public class FeedbackServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void updateFeedbackTest() {
 		Feedback newFeedback = new Feedback(1, null, null, "my Feedback");
 		Mockito.when(fr.existsById(newFeedback.getId())).thenReturn(true);
@@ -94,6 +101,7 @@ public class FeedbackServiceTests {
 	
 
 	@Test
+	@Transactional
 	void updateFeedbackFailure() {
 		Feedback newFeedback = new Feedback(1, null, null, "my Feedback");
 		Mockito.when(fr.existsById(newFeedback.getId())).thenReturn(false);
@@ -104,6 +112,7 @@ public class FeedbackServiceTests {
 	
 
 	@Test
+	@Transactional
 	void deleteFeedbackTest() {
 		Deck deck = new Deck();
 		Feedback feedback = new Feedback(1, deck, null, "my Feedback");
@@ -112,6 +121,7 @@ public class FeedbackServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void deleteFeedbackFailure() {
 		Deck deck = new Deck();
 		Feedback feedback = new Feedback(1, deck, null, "my Feedback");
@@ -122,6 +132,7 @@ public class FeedbackServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void getFeedbacksByDeckTest() {
 		Deck deck = new Deck();
 		deck.setId(1);
@@ -131,7 +142,7 @@ public class FeedbackServiceTests {
 		fList.add(feedback1);
 		fList.add(feedback2);
 		Mockito.when(fr.existsByDeckId(1)).thenReturn(true);
-		Mockito.when(fr.findbyDeckIdOrderByCreatedOnDesc(1)).thenReturn(fList);
+		Mockito.when(fr.findByDeckIdOrderByCreatedOnDesc(1)).thenReturn(fList);
 		List<Feedback> actualList = fs.getFeedbacksByDeckId(1);
 		Assertions.assertEquals(fList, actualList);
 	}
@@ -146,6 +157,7 @@ public class FeedbackServiceTests {
 	
 	
 	@Test
+	@Transactional
 	void getAllFeedbacksTest() {
 		Deck deck = new Deck();
 		Feedback feedback1 = new Feedback(1, deck, null, "my Feedback");

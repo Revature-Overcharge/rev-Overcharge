@@ -71,7 +71,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public List<Feedback> getFeedbacksByDeckId(int deckId) {
 		if (fr.existsByDeckId(deckId)) {
-			return fr.findbyDeckIdOrderByCreatedOnDesc(deckId);
+			return fr.findByDeckIdOrderByCreatedOnDesc(deckId);
 		} else {
 			 log.warn("There are no cards for the given deck id");
 	            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
