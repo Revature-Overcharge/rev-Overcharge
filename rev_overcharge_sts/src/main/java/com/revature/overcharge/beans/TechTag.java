@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "decks" })
 public class TechTag {
 	
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false)
@@ -62,6 +64,11 @@ public class TechTag {
 
 	public void setDecks(Set<Deck> decks) {
 		this.decks = decks;
+	}
+	
+	@Override
+	public String toString() {
+		return "TechTag [id=" + id + ", tag=" + tag + "]";
 	}
 	
 	
