@@ -20,7 +20,7 @@ export class HttpDeckService {
     return this.http.get<Deck> ('http://localhost:8081/decks/' + id);
   }
 
-  getDeckByTagId(id: number): Observable<Deck[]> {
+  getDeckByTagId(id: number): Observable<Deck[]> { 
     return this.http.get<Deck[]>(`http://localhost:8081/decksByTag?tagId=${id}`);
   }
 
@@ -42,6 +42,12 @@ export class HttpDeckService {
 
   deleteDeck(id: number): Observable<boolean>{
     return this.http.delete<boolean>('http://localhost:8081/decks/' + id);
+  }
+  setDeckTags(id:number, tags:Number[]): Observable<Deck>{
+    return this.http.put<Deck>(`http://localhost:8081/setDeckTags/${id}`, {
+      'tagsId': tags
+  
+  }, { headers: this.postHeaders });
   }
 
 }

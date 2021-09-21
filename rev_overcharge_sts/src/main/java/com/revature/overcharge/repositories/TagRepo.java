@@ -6,4 +6,6 @@ import com.revature.overcharge.beans.TechTag;
 
 public interface TagRepo extends CrudRepository<TechTag, Integer>{
 
+	TechTag getById(int id);
+
 }

@@ -162,6 +162,10 @@ public class Deck {
 	public void setTags(Set<TechTag> tags) {
 		this.tags = tags;
 	}
+	
+	public void addTags(TechTag tag) {
+		this.tags.add(tag);
+	}
 
 	@Override
 	public String toString() {

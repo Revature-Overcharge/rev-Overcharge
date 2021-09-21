@@ -1,8 +1,12 @@
 package com.revature.overcharge.services;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -14,9 +18,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
+import com.revature.overcharge.beans.TechTag;
+import com.revature.overcharge.dto.DeckTagsDTO;
 import com.revature.overcharge.exception.AlreadyApprovedException;
 import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.repositories.DeckRepo;
+import com.revature.overcharge.repositories.TagRepo;
 
 @Service
 public class DeckServiceImpl implements DeckService {
@@ -34,6 +41,9 @@ public class DeckServiceImpl implements DeckService {
 
     @Autowired
     RatingService rs;
+    
+    @Autowired
+    TagRepo tr;
 
     @Override
     public Deck addDeck(Deck d) {
@@ -50,7 +60,7 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck getDeck(int id) {
         if (dr.existsById(id)) {
-            return dr.findById(id).get();
+            return dr.findById(id);
         } else {
             log.warn("Deck id is not found");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -83,7 +93,7 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeck(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            Deck d = dr.findById(newDeck.getId()).get();
+            Deck d = dr.findById(newDeck.getId());
             d.setTitle(newDeck.getTitle());
             d.setStatus(1);
             return dr.save(d);
@@ -123,6 +133,7 @@ public class DeckServiceImpl implements DeckService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         } else {
             Deck addedDeck = addDeck(d);
+            addedDeck.setAvgRating(0.0);
 
             for (Card c : d.getCards()) {
                 addedDeck = getDeck(addedDeck.getId());
@@ -141,7 +152,7 @@ public class DeckServiceImpl implements DeckService {
     @Override
     public Deck updateDeckAndCards(Deck newDeck) {
         if (dr.existsById(newDeck.getId())) {
-            Deck d = dr.findById(newDeck.getId()).get();
+            Deck d = dr.findById(newDeck.getId());
             d.setTitle(newDeck.getTitle());
             for (Card c : d.getCards()) {
                 for (Card c2 : newDeck.getCards()) {
@@ -165,7 +176,7 @@ public class DeckServiceImpl implements DeckService {
 			throw new BadParameterException("Invalid input for deck status");
 		}
 		
-		Deck d = dr.findById(id).get();
+		Deck d = dr.findById(id);
 		
 		if(d.getStatus() != 1) {
 			throw new AlreadyApprovedException("You can't change the status of a deck that isn't pending");
@@ -183,6 +194,21 @@ public class DeckServiceImpl implements DeckService {
 				.collect(Collectors.toList());
 		//log.debug("sortDeckDescending(): sortedDecks: [" + sortedDecks.toString() + "]");
 		return sortedDecks;
+	}
+
+	@Override
+	public Deck setDeckTags(int id, DeckTagsDTO deckTagsDTO) {
+		Deck deck = dr.findById(id);
+		System.out.println(deck);
+		for(int i =0; i< deckTagsDTO.getTagsId().size(); i++) {
+			TechTag tag = tr.getById(deckTagsDTO.getTagsId().get(i));
+			tag.addDeck(deck);
+			deck.addTags(tag);
+			tr.save(tag);
+		}
+		dr.save(deck);
+		
+		return deck;
 	}
 
 }

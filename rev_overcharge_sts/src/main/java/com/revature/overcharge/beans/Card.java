@@ -103,7 +103,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", deck=" + deck + ", question=" + question + ", answer=" + answer + ", createdOn="
+		return "Card [id=" + id + ", question=" + question + ", answer=" + answer + ", createdOn="
 				+ createdOn + "]";
 	}
 

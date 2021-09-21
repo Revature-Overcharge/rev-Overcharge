@@ -18,8 +18,8 @@ export class CreateDeckComponent implements OnInit {
   constructor(private tagHttp: HttpTagService,private modalService: NgbModal, private deckHttp: HttpDeckService, private userHttp: HttpUserService) { }
 
   ngOnInit(): void {  
-      this.newDynamic = {title1: "", title2: ""};  
-      this.dynamicArrayCard.push(this.newDynamic);
+      //this.newDynamic = {title1: "", title2: ""};  
+      //this.dynamicArrayCard.push(this.newDynamic);
       this.getUser();
       this.getAllTags(); 
   }
@@ -31,10 +31,12 @@ export class CreateDeckComponent implements OnInit {
   card: Card = new Card(0, "", "", 0);
   newDynamic: any = {};  
   dynamicArrayCard: Array<Card> = [];
-  dynamicArrayTag: Array<Tag> = [];  
+  dynamicArrayTag: Array<Number> = [];  
   user: User;
   deck: Deck;
   tags: Tag[] =[];
+  tagIds: Number[] = [];
+  cards: Card[] = [];
 
   getAllTags(){
     this.tagHttp.getAllTags().subscribe((data) =>{
@@ -43,13 +45,13 @@ export class CreateDeckComponent implements OnInit {
   }
 
   addRowCard() {    
-    this.newDynamic = {title1: "", title2: ""};  
+    this.newDynamic = {};  
     this.dynamicArrayCard.push(this.newDynamic);    
     console.log(this.dynamicArrayCard);  
     return true;  
   }
   addRowTag() {    
-    this.newDynamic = {'id':0};  
+    this.newDynamic = {};  
     this.dynamicArrayTag.push(this.newDynamic);    
     console.log(this.dynamicArrayTag);  
     return true;  
@@ -119,11 +121,22 @@ export class CreateDeckComponent implements OnInit {
     else {
       this.deckMessage = true;
       this.deck.title = this.title;
-      this.deck.tags = this.dynamicArrayTag
-      console.log(this.deck.tags);
+      for(let i = 0; i < this.dynamicArrayTag.length-1; i++){
+        this.tagIds.push(this.dynamicArrayTag[i]);
+
+      }
+      for(let i = 0; i < this.dynamicArrayCard.length-1; i++){
+        this.cards.push(this.dynamicArrayCard[i]);
+
+      }
+      this.deck.cards = this.cards;
+      console.log("tag ids to be added:" + this.tagIds);
       this.deckHttp.addDeck(this.deck).subscribe(
         (response) => {
-          console.log(response);
+          this.deckHttp.setDeckTags(response.id, this.tagIds).subscribe((data) => {
+            console.log("here");
+
+          })
         }
       )
     }

@@ -136,7 +136,7 @@
                   <i class="fa fa-trash fa-2x"></i>
                 </td>
                 <td>
-                  <select id="tag" [(ngModel)]="dynamicArrayTag[i].id" class="form-control">
+                  <select id="tag" [(ngModel)]="dynamicArrayTag[i]" class="form-control">
                     <option *ngFor="let t of tags" [value] ="t.id">{{t.tag}}</option>
                   </select>
               </tr>

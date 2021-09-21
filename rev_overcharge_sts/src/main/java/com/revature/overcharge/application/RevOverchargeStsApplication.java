@@ -26,7 +26,7 @@ public class RevOverchargeStsApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/*").allowedOrigins("http://localhost:4200/")
 						.allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE").allowedHeaders("*")
-						.allowCredentials(false).maxAge(3600);
+						.allowCredentials(true).maxAge(3600);
 				;
 			}
 		};

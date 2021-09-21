@@ -96,7 +96,7 @@ public class RatingServiceImpl implements RatingService {
         List<Rating> deckRatings = getRatings(null, deckId);
         double sum = 0.0;
         if (deckRatings.isEmpty())
-            return null;
+            return 0.0;
         for (Rating rating : deckRatings) {
             sum += rating.getStars();
         }

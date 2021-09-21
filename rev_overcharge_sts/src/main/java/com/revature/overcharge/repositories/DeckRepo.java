@@ -15,6 +15,8 @@ public interface DeckRepo extends CrudRepository<Deck, Integer> {
     
     public List<Deck> getByCreatorId(int creatorId);
     
+    public Deck findById(int deckId);
+    
     @Query (value = "Select d FROM Deck d"
     				+ " JOIN d.tags t"
     				+ " WHERE t.id = ?1"

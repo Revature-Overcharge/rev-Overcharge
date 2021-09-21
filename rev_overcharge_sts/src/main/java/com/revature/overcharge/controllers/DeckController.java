@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.User;
+import com.revature.overcharge.dto.DeckTagsDTO;
 import com.revature.overcharge.exception.AlreadyApprovedException;
 import com.revature.overcharge.exception.BadParameterException;
 import com.revature.overcharge.services.DeckService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 public class DeckController {
 
@@ -33,6 +34,17 @@ public class DeckController {
 
 	@Autowired
 	private HttpServletRequest request;
+	
+	@PutMapping(path = "/setDeckTags/{id}", produces = "application/json")
+	public ResponseEntity<Object> setDeckTags(@PathVariable("id") int id,@RequestBody DeckTagsDTO deckTagsDTO) {
+		System.out.println("Set Deck Tags Request Recieved...");
+		Deck deck =ds.setDeckTags(id, deckTagsDTO);
+		
+		return ResponseEntity.status(200).body("it worked");
+		//ds.setDeckTags(id, deckTagsDTO
+		//@RequestBody DeckTagsDTO deckTagsDTO
+		
+	}	
 
 	@PostMapping(value = "/decks", consumes = "application/json", produces = "application/json")
 	public Deck addDeck(@RequestBody Deck d) {
@@ -61,6 +73,8 @@ public class DeckController {
 		newDeck.setId(id);
 		return ds.updateDeck(newDeck);
 	}
+	
+	
 
 	// If wanting to update deck title as well as cards, expecting a more full
 	// JSON in body

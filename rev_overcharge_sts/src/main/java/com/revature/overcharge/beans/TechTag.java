@@ -64,6 +64,16 @@ public class TechTag {
 		this.decks = decks;
 	}
 	
+	public void addDeck(Deck deck) {
+		this.decks.add(deck);
+	}
+
+
+	@Override
+	public String toString() {
+		return "TechTag [id=" + id + ", tag=" + tag + "]";
+	}
+	
 	
 
 }

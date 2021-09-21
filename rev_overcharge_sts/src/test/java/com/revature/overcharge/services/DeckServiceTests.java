@@ -80,7 +80,7 @@ public class DeckServiceTests {
 		Deck deck = new Deck(creator, "new deck2", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
-		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck));
+		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
 
 		deck = ds.getDeck(deck.getId());
 
@@ -111,7 +111,7 @@ public class DeckServiceTests {
 		Deck deck = new Deck(1, creator, "new deck3", null, card, null);
 
 		Mockito.when(dr.existsById(deck.getId())).thenReturn(true);
-		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck));
+		Mockito.when(dr.findById(deck.getId())).thenReturn(Optional.of(deck).get());
 		Mockito.when(dr.save(deck)).thenReturn(new Deck(1, creator, "new deck3", null, card, null));
 
 		deck = ds.updateDeck(deck);
