@@ -45,7 +45,6 @@ export class LibraryComponent implements OnInit {
       this.displayAllDecks();
       this.getAllTags();
       this.curUser = localStorage.getItem("username");
-      console.log(this.curUser);
   }
 
 
@@ -56,7 +55,6 @@ constructor(private tagHttp: HttpTagService, private modalService: NgbModal, pri
 addRow() {
   this.newDynamic = {'id': 0, 'question':'', 'answer':'', 'createdOn':0};
   this.dynamicArray.push(this.newDynamic);
-  console.log(this.dynamicArray);
   return true;
 }
 

@@ -66,9 +66,6 @@ export class CardrunnerComponent implements OnInit {
 
     this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
-        console.log(Response1);
-        console.log(Response1.feedback);
-        console.log(Response1.cards)
         this.creator_id = Response1.creator.id;
         this.Cards= Response1.cards;
         this.question = this.Cards[this.crnt].question;
@@ -267,13 +264,6 @@ export class CardrunnerComponent implements OnInit {
     this.router.navigate(['/','library']);
   }
 
-  submitFeedback(){
-    /*   let userid: number = 0;
-      userid = Number(window.localStorage.getItem("userID"));
-      console.log("userID taken from storage : " + userid);
-      this.rating.userId = userid; */
-
-  }
   
   markAsMastered(){
 
