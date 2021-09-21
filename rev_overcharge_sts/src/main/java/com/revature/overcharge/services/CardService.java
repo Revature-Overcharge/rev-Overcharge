@@ -10,7 +10,7 @@ public interface CardService {
 
     public Card getCard(int id);
 
-    public Card updateCard(Card newCard);
+    public Card updateCard(int deckId, Card newCard);
 
     public boolean deleteCard(int id);
 
