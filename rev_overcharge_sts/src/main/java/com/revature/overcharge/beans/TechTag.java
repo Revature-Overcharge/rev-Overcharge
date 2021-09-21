@@ -32,6 +32,12 @@ public class TechTag {
     private Set<Deck> decks = new HashSet<>();
 	
 
+	@Override
+	public String toString() {
+		return "TechTag [id=" + id + ", tag=" + tag + "]";
+	}
+
+
 	public TechTag() {
 		super();
 	}

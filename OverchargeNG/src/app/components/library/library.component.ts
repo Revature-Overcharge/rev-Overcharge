@@ -1,5 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Deck } from 'src/app/models/deck';
+import { Tag } from 'src/app/models/tag';
 import { HttpDeckService } from 'src/app/services/http-deck.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
@@ -9,7 +11,7 @@ import { Feedback } from '../../models/feedback';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
 import { identifierModuleUrl } from '@angular/compiler';
-import { Tag } from 'src/app/models/tag';
+
 
 @Component({
   selector: 'app-library',
@@ -84,6 +86,7 @@ getFilteredList(){
 
   })
 }
+
 
   displayAllDecks() {
     this.deckHttp.getAllDecks().subscribe(
