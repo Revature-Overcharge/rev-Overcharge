@@ -64,6 +64,7 @@ export class CardrunnerComponent implements OnInit {
     this.user_id = Number(window.localStorage.getItem("userID"));
     this.deck_id = Number(window.localStorage.getItem("deckID"));
 
+    console.log("this.deck_id: ["+this.deck_id+"]");
     this.dshttp.getDeckById(this.deck_id).subscribe(
       (Response1)=>{
         this.creator_id = Response1.creator.id;
