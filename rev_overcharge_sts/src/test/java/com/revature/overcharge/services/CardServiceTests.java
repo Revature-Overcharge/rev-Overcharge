@@ -23,7 +23,6 @@ import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.repositories.CardRepo;
 
-@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @SpringBootTest(classes = com.revature.overcharge.application.RevOverchargeStsApplication.class)
 @Transactional
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)

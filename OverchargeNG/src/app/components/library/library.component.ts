@@ -179,18 +179,18 @@ getDeckId(id: number) {
 
 //Feedback Functions
 
-openFeedback(deckID: number, deckName: string) {
-  this.showfeedbackErrorMessage = false;
-  this.deckTitle = deckName;
-  this.fbhttp.getFeedbacksByDeckId(deckID).subscribe((response) => {
-      this.feedbackList = response;
-  },
-  (err: HttpErrorResponse) => {
-    this.showfeedbackErrorMessage = true;
-    this.feedbackErrorMessage = "There is currently no feedback available";
-  });
+  openFeedback(deckID: number, deckName: string) {
+    this.showfeedbackErrorMessage = false;
+    this.deckTitle = deckName;
+    this.fbhttp.getFeedbacksByDeckId(deckID).subscribe((response) => {
+        this.feedbackList = response;
+    },
+    (err: HttpErrorResponse) => {
+      this.showfeedbackErrorMessage = true;
+      this.feedbackErrorMessage = "There is currently no feedback available";
+    });
 
-  this.displayFeedback = !this.displayFeedback;
+    this.displayFeedback = true;
 
-}
+  }
 }

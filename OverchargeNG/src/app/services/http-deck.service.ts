@@ -57,9 +57,6 @@ export class HttpDeckService {
   }, { headers: this.postHeaders });
   }
 
-  getDeckByTagId(id: number): Observable<Deck[]> {
-    return this.http.get<Deck[]>(`http://localhost:8081/decksByTag?tagId=${id}`);
-  }
 
 }
 
