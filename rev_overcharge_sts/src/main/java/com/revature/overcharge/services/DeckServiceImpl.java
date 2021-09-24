@@ -45,7 +45,12 @@ public class DeckServiceImpl implements DeckService {
     @Autowired
     TagRepo tr;
 
-    @Override
+    public DeckServiceImpl(DeckRepo dr2, TagRepo tr2) {
+    	this.dr = dr2;
+    	this.tr = tr2;
+	}
+
+	@Override
     public Deck addDeck(Deck d) {
         if (dr.existsById(d.getId())) {
             log.warn("Deck id is invalid for add");
