@@ -2,7 +2,6 @@ package com.revature.overcharge.services;
 
 import static org.mockito.ArgumentMatchers.any;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -31,7 +30,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-
 import com.revature.overcharge.beans.Card;
 import com.revature.overcharge.beans.Deck;
 import com.revature.overcharge.beans.TechTag;
@@ -43,11 +41,8 @@ import com.revature.overcharge.repositories.TagRepo;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 @ExtendWith(MockitoExtension.class)
-public class TagServiceTests {
-
-	
+public class TagServiceTests {	
 	
 	@Mock
 	TagRepo tr;
@@ -62,7 +57,6 @@ public class TagServiceTests {
 	public TagServiceImpl ts;
 	
 	private AutoCloseable closeable;
-
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -112,12 +106,6 @@ public class TagServiceTests {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
 	@Test
 	public void test_setDeckTags_positive() throws SQLException {	
 		
@@ -148,9 +136,5 @@ public class TagServiceTests {
 		
 		assertEquals(deck, actual);
 	}
-	
-	
-	
-
 
 }

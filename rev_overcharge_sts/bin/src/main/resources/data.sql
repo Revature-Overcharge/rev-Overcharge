@@ -1,21 +1,46 @@
 
 -- Users
-insert into users (id, username, password, points, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1629315831000);
-insert into users (id, username, password, points, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 1629315706000);
-insert into users (id, username, password, points, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 1629315843000);
-insert into users (id, username, password, points, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 1629315937000);
-insert into users (id, username, password, points, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 1629315680000);
-insert into users (id, username, password, points, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 1629315786000);
-insert into users (id, username, password, points, last_login) values (7, 'cdavydoch6', 'N63aKnQ72N', 84, 1629315784000);
-insert into users (id, username, password, points, last_login) values (8, 'tholburn7', '2E2LGtacW', 49, 1629315622000);
-insert into users (id, username, password, points, last_login) values (9, 'vguerrin8', 'dwCCrw', 14, 1629315698000);
-insert into users (id, username, password, points, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1629315695000);
-insert into users (id, username, password, points, last_login) values (11, 'user', 'pass', 26, 1629315455000);
+insert into users (id, username, password, points, role, last_login) values (1, 'mclapston0', 'kGex8fqXt8', 89, 1, 1629315831000);
+insert into users (id, username, password, points, role, last_login) values (2, 'snassey1', 'CwQOZeX', 68, 2, 1629315706000);
+insert into users (id, username, password, points, role, last_login) values (3, 'jbolsteridge2', 'APU1yVAJO9W', 52, 1, 1629315843000);
+insert into users (id, username, password, points, role, last_login) values (4, 'kdarco3', 'dJMNV7', 67, 2, 1629315937000);
+insert into users (id, username, password, points, role, last_login) values (5, 'nriseborough4', 'js9Gzq4X8', 60, 1, 1629315680000);
+insert into users (id, username, password, points, role, last_login) values (6, 'wblackley5', 'D2BNKoim', 6, 1, 1629315786000);
+insert into users (id, username, password, points, role, last_login) values (7, 'cdavydoch6', 'N63aKnQ72N', 84, 2, 1629315784000);
+insert into users (id, username, password, points, role, last_login) values (8, 'tholburn7', '2E2LGtacW', 49, 1, 1629315622000);
+insert into users (id, username, password, points, role, last_login) values (9, 'vguerrin8', 'dwCCrw', 14, 2, 1629315698000);
+insert into users (id, username, password, points, role, last_login) values (10, 'lelvy9', '6PbDEWA5yo', 26, 1, 1629315695000);
+insert into users (id, username, password, points, role, last_login) values (11, 'tw8253', 'p123456', 62, 2,1629315455500);
+insert into users (id, username, password, points, role, last_login) values (12, 'user', 'pass', 26, 1, 1629315455000);
 
 -- Decks
-insert into decks (id, creator_id, title, created_on) values (1, 2, 'DevOps', 1629315906000);
-insert into decks (id, creator_id, title, created_on) values (2, 3, 'Testing', 1629319843000);
-insert into decks (id, creator_id, title, created_on) values (3, 3, 'Spring', 1629329843000);
+insert into decks (id, creator_id, title, created_on, status) values (1, 2, 'DevOps', 1629315906000, 1);
+insert into decks (id, creator_id, title, created_on, status) values (2, 3, 'Testing', 1629319843000, 2);
+insert into decks (id, creator_id, title, created_on, status) values (3, 3, 'Spring', 1629329843000, 3);
+insert into decks (id, creator_id, title, created_on, status) values (4, 11, 'Java', 1629329843000, 2);
+
+-- Tags
+
+insert into tags  (id, tag) values (1, 'Jenkins');
+insert into tags  (id, tag) values (2, 'AWS');
+insert into tags  (id, tag) values (3, 'Maven');
+insert into tags  (id, tag) values (4, 'JUnit');
+insert into tags  (id, tag) values (5, 'Cucumber');
+insert into tags  (id, tag) values (6, 'Gherkin');
+insert into tags  (id, tag) values (7, 'Spring MVC');
+insert into tags  (id, tag) values (8, 'Spring AOP');
+
+--deck_tag
+insert into deck_tag(id, deck_id, tag_id) values ( 1, 1, 1);
+insert into deck_tag(id, deck_id, tag_id) values ( 2, 1, 2);
+insert into deck_tag(id, deck_id, tag_id) values ( 3, 1, 3);
+insert into deck_tag(id, deck_id, tag_id) values ( 4, 2, 4);
+insert into deck_tag(id, deck_id, tag_id) values ( 5, 2, 5);
+insert into deck_tag(id, deck_id, tag_id) values ( 6, 2, 6);
+insert into deck_tag(id, deck_id, tag_id) values ( 7, 3, 7);
+insert into deck_tag(id, deck_id, tag_id) values ( 8, 3, 8);
+insert into deck_tag(id, deck_id, tag_id) values ( 9, 4, 2);
+insert into deck_tag(id, deck_id, tag_id) values ( 10, 3, 2);
 
 -- Ratings
 -- Ratings for deck 1 (DevOps) from users 1, 4, 5
@@ -30,6 +55,13 @@ insert into ratings (user_id, deck_id, stars, rated_on) values (10, 2, 2, 162934
 insert into ratings (user_id, deck_id, stars, rated_on) values (8, 3, 1, 1629329843000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (9, 3, 2, 1629933179000);
 insert into ratings (user_id, deck_id, stars, rated_on) values (10, 3, 2, 1629349843000);
+-- Ratings for deck 4 (Java) from users 5, 6, 8, 9
+insert into ratings (user_id, deck_id, stars, rated_on) values (5, 4, 4, 1629329843000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (6, 4, 5, 1629329843000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (8, 4, 4, 1629329843000);
+insert into ratings (user_id, deck_id, stars, rated_on) values (9, 4, 5, 1629329843000);
+
+
 
 -- Cards
 -- DevOps: created by user 2
@@ -120,6 +152,12 @@ insert into cards (id, deck_id, question, answer, created_on) values (48, 3, 'Th
 insert into cards (id, deck_id, question, answer, created_on) values (49, 3, 'True or False: Spring MVC can use HTML documents as views', 'True', 1629315719000);
 insert into cards (id, deck_id, question, answer, created_on) values (50, 3, 'T/F: A singleton bean returns a NEW instance every time the bean is retrieved from the Application Context?', 'False', 1629315787000);
 
+-- Feedback
+insert into feedbacks (id, deck_id, content, created_on) values (1, 3, 'my feedback', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (2, 1, 'Heyyy', 1629315719000);
+insert into feedbacks (id, deck_id, content, created_on) values (3, 2, 'Hello', 1629315989000);
+insert into feedbacks (id, deck_id, content, created_on) values (4, 3, 'The feedback', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (5, 3, '123"', 1629315720000);
 -- StudiedCards
 -- User 3 does not want to see cards 35, 36 anymore
 insert into studied_cards (user_id, card_id, studied_on) values (3, 35, 1629315720000);
