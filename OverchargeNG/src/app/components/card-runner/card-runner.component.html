@@ -67,20 +67,6 @@
       </button>
 
     </div>
-    <div *ngIf="rate">
-      <table class="table">
-        <tbody>
-          <ng-container *ngFor="let feedback of Feedbacks">
-            <tr>
-              <td style="text-align: center;">{{ feedback.content }}</td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-
-
-
 
     <div class="tp-wrapper" *ngIf="unfinished">
       <div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
