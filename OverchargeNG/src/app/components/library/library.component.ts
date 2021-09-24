@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Deck } from 'src/app/models/deck';
 import { Tag } from 'src/app/models/tag';
@@ -9,6 +10,8 @@ import { FeedbackService } from '../../services/feedback.service';
 import { Feedback } from '../../models/feedback';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTagService } from 'src/app/services/http-tag.service';
+import { identifierModuleUrl } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-library',
@@ -24,7 +27,9 @@ export class LibraryComponent implements OnInit {
   curUser: any;
   curDeck: Deck;
   addedCards: Card[] = [];
+  updateCards: Card[] = [];
   deletedCards: number[] = [];
+  updateCard: any[] = [];
 
   //For Feedback
   feedbackList: Feedback[] = [];
@@ -82,6 +87,7 @@ getFilteredList(){
   })
 }
 
+
   displayAllDecks() {
     this.deckHttp.getAllDecks().subscribe(
       (response) => {
@@ -120,19 +126,50 @@ private getDismissReason(reason: any): string {
 }
 
 saveDeck(deckArray: Array<Card>) {
+  console.log("saveDeck()");
   this.addedCards = [];
+  this.updateCards = [];
+ 
+ 
+ 
   for (let i = 0; i < this.curDeck.cards.length; i++) {
-    if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
+//    console.log("saveDeck(): i: [" + i + "]");
+//    if(this.curDeck.cards[i].id == 0 && this.curDeck.cards[i].question != "") {
+     if(this.curDeck.cards[i].question != "") {
+        console.log("saveDeck(): addedCards.push(this.curDeck.cards[" + i +"]): [" + this.curDeck.cards[i].question + "] id: [" + this.curDeck.cards[i].id + "]");
       this.addedCards.push(this.curDeck.cards[i]);
     }
   }
-  for(let i = 0; i < this.addedCards.length; i++){
-    let newCard = new Card(0, this.addedCards[i].question, this.addedCards[i].answer, 0);
-    this.cardService.addCard(this.curDeck.id, newCard).subscribe();
+
+
+  /*
+  for (let i = 0; i < this.curDeck.cards.length; i++) {
+    if(this.curDeck.cards[i].id > 0 && this.curDeck.cards[i].question != "") {
+      console.log("saveDeck(): updateCards.push(this.curDeck.cards[i]): [" + this.curDeck.cards[i].question + "]");
+      this.updateCards.push(this.curDeck.cards[i]);
+    }
   }
+*/
+
+
+  for(let i = 0; i < this.addedCards.length; i++){
+    let id = this.curDeck.cards[i].id;
+    if(id == 0){
+      console.log("card id is zero adding card.");
+      let newCard = new Card(0, this.addedCards[i].question, this.addedCards[i].answer, 0);
+      this.cardService.addCard(this.curDeck.id, newCard).subscribe();
+    } else {
+      console.log("card id is not zero updating card. this.curDeck.id: [" + this.curDeck.id + "]");
+      let newCard = new Card(id, this.addedCards[i].question, this.addedCards[i].answer, 0);
+      this.cardService.updateCard(this.curDeck.id, newCard).subscribe();
+  }
+
+  }
+ 
   for(let i = 0; i < this.deletedCards.length; i++) {
     this.cardService.deleteCard(this.deletedCards[i]).subscribe();
   }
+
 }
 
 getDeckId(id: number) {
@@ -142,18 +179,18 @@ getDeckId(id: number) {
 
 //Feedback Functions
 
-openFeedback(deckID: number, deckName: string) {
-  this.showfeedbackErrorMessage = false;
-  this.deckTitle = deckName;
-  this.fbhttp.getFeedbacksByDeckId(deckID).subscribe((response) => {
-      this.feedbackList = response;
-  },
-  (err: HttpErrorResponse) => {
-    this.showfeedbackErrorMessage = true;
-    this.feedbackErrorMessage = "There is currently no feedback available";
-  });
+  openFeedback(deckID: number, deckName: string) {
+    this.showfeedbackErrorMessage = false;
+    this.deckTitle = deckName;
+    this.fbhttp.getFeedbacksByDeckId(deckID).subscribe((response) => {
+        this.feedbackList = response;
+    },
+    (err: HttpErrorResponse) => {
+      this.showfeedbackErrorMessage = true;
+      this.feedbackErrorMessage = "There is currently no feedback available";
+    });
 
-  this.displayFeedback = !this.displayFeedback;
+    this.displayFeedback = true;
 
-}
+  }
 }

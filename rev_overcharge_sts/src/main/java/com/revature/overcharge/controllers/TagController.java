@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.overcharge.services.TagService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class TagController {
 	@Autowired

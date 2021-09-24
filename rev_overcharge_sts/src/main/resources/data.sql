@@ -153,11 +153,11 @@ insert into cards (id, deck_id, question, answer, created_on) values (49, 3, 'Tr
 insert into cards (id, deck_id, question, answer, created_on) values (50, 3, 'T/F: A singleton bean returns a NEW instance every time the bean is retrieved from the Application Context?', 'False', 1629315787000);
 
 -- Feedback
-insert into feedbacks (id, deck_id, content, created_on) values (1, 3, 'my feedback', 1629315720000);
-insert into feedbacks (id, deck_id, content, created_on) values (2, 1, 'Heyyy', 1629315719000);
-insert into feedbacks (id, deck_id, content, created_on) values (3, 2, 'Hello', 1629315989000);
-insert into feedbacks (id, deck_id, content, created_on) values (4, 3, 'The feedback', 1629315720000);
-insert into feedbacks (id, deck_id, content, created_on) values (5, 3, '123"', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (1, 3, 'The questions are not that challenging', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (2, 1, 'great set of questions', 1629315719000);
+insert into feedbacks (id, deck_id, content, created_on) values (3, 2, 'Could you add more?', 1629315989000);
+insert into feedbacks (id, deck_id, content, created_on) values (4, 3, 'very comprehensible', 1629315720000);
+insert into feedbacks (id, deck_id, content, created_on) values (5, 3, 'More testing questions please!', 1629315720000);
 -- StudiedCards
 -- User 3 does not want to see cards 35, 36 anymore
 insert into studied_cards (user_id, card_id, studied_on) values (3, 35, 1629315720000);

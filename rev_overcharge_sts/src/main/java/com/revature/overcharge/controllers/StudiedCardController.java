@@ -17,32 +17,32 @@ import com.revature.overcharge.beans.StudiedCard;
 import com.revature.overcharge.beans.StudiedCardId;
 import com.revature.overcharge.services.StudiedCardService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class StudiedCardController {
 
-    private static final Logger log = LoggerFactory.getLogger(StudiedCardController.class);
+	private static final Logger log = LoggerFactory.getLogger(StudiedCardController.class);
 
-    @Autowired
-    StudiedCardService scs;
+	@Autowired
+	StudiedCardService scs;
 
-    @PostMapping(value = "/studied_cards", consumes = "application/json",
-            produces = "application/json")
-    public StudiedCard addStudiedCard(@RequestBody StudiedCard sc) {
-        log.info("Adding studied card");
-        return scs.addStudiedCard(sc);
-    }
+	@PostMapping(value = "/studied_cards", consumes = "application/json", produces = "application/json")
+	public StudiedCard addStudiedCard(@RequestBody StudiedCard sc) {
+		log.info("Adding studied card");
+		return scs.addStudiedCard(sc);
+	}
 
-    @GetMapping(value = "/studied_cards")
-    public List<StudiedCard> getStudiedCards(
-            @RequestParam(required = false) Integer userId,
-            @RequestParam(required = false) Integer cardId) {
-        return scs.getStudiedCards(userId, cardId);
-    }
+	@GetMapping(value = "/studied_cards")
+	public List<StudiedCard> getStudiedCards(@RequestParam(required = false) Integer userId,
+			@RequestParam(required = false) Integer cardId) {
+		return scs.getStudiedCards(userId, cardId);
+	}
 
-    @DeleteMapping(value = "/studied_cards")
-    public boolean deleteStudiedCard(@RequestBody StudiedCardId scId) {
-        return scs.deleteStudiedCard(scId);
-    }
+	@DeleteMapping(value = "/studiedcards")
+	public boolean deleteStudiedCard(@RequestBody StudiedCardId scId) {
+		return scs.deleteStudiedCard(scId);
+	}
+	
+
 
 }

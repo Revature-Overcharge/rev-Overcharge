@@ -21,7 +21,6 @@
             <tr>
               <th scope="col align-middle">Deck Title</th>
               <th scope="col align-middle">Deck Author</th>
-              <th scope="col align-middle">Tech-Stack</th>
               <th scope="col align-middle">Average Rating</th>
               <th scope="col align-middle">Study Deck</th>
               <th scope="col align-middle">Edit Deck</th>
@@ -31,9 +30,7 @@
             <tr *ngFor="let deck of deckList">
               <td class="align-middle">{{ deck.title }}</td>
               <td class="align-middle">{{ deck.creator.username }}</td>
-              <td class="align-middle"><p *ngFor="let tag of deck.tags">{{ tag.tag }}</p></td>
               <td class="align-middle">{{ deck.avgRating }}</td>
-
               <td>
                 <button id="cardrunner" class="btn btn-lg btn-outline-primary" (click)="getDeckId(deck.id)"
                   routerLink="/cardrunner">
@@ -41,12 +38,13 @@
                 </button>
               </td>
               <td *ngIf="curUser == deck.creator.username">
-                <button class="btn btn-lg btn-outline-primary" (click)="open(content, card, 'lg', deck)">
+                <button class="btn btn-lg btn-outline-primary mr-2" (click)="open(content, card, 'lg', deck)">
                   add/edit cards
                 </button>
 
                 <!-- Feedback Button Here -->
-                <button class="btn btn-lg btn-outline-primary" (click)="openFeedback(deck.id, deck.title)">View
+                <button class="btn btn-lg btn-outline-primary" 
+                (click)="openFeedback(deck.id, deck.title)">View
                   Feedback</button>
               </td>
             </tr>
@@ -63,9 +61,7 @@
           <table class="table table-striped m-0">
             <thead>
               <tr>
-                <th></th>
-                <th scope="col align-middle">{{ deckTitle }}</th>
-                <th></th>
+                <th scope="col align-middle" colspan="3">Deck Title: <u>{{ deckTitle }}</u></th>
               </tr>
               <tr>
                 <th scope="col align-middle">Feed ID:</th>
@@ -124,19 +120,13 @@
           </table>
         </div>
         <div class="modal-footer">
-          <!-- This is where we need to save the cards, on click we should loop through the added cards and save them to the
+          <!-- This is where we need to save the cards, on click we should loop through the added cards and save them to the 
                     DB -->
           <button type="button" class="btn btn-outline-dark" (click)="modal.close(saveDeck(dynamicArray))">
             Save
           </button>
         </div>
       </ng-template>
-    </div>
-    <div>
-      <select [(ngModel)]= "filterChoice" name="Tags" id="tag" >
-        <option *ngFor="let t of tags" [value] ="t.id">{{t.tag}}</option>
-      </select>
-      <button name="filterButton" id="filterButton" (click)="getFilteredList()">Filter</button>
     </div>
   </div>
 </div>
