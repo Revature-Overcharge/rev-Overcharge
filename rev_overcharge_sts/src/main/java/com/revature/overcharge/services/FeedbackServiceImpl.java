@@ -23,6 +23,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Autowired
 	DeckService ds;
+	
+	public FeedbackServiceImpl(FeedbackRepo fr, DeckService ds) {
+		this.fr = fr;
+	}
 
 	@Override
 	public Feedback addFeedback(int deckId, Feedback f) {
