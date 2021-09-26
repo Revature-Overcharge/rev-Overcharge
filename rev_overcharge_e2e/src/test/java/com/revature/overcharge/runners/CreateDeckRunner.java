@@ -22,7 +22,7 @@ public class CreateDeckRunner {
 	
 	@BeforeClass
 	public static void setUp() {
-		String path = "C:/SeleniumStuff/chromedriver_win32/chromedriver.exe";
+		String path = "C:/Users/embehr/Downloads/chromedriver_win32/chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", path);
 		
 		driver = new ChromeDriver();

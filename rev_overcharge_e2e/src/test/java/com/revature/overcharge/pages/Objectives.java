@@ -45,7 +45,7 @@ public class Objectives {
 	@FindBy(id = "libraryNavLink")
 	public WebElement libraryTab;
 
-	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[1]/td[4]/button")
+	@FindBy(xpath = "/html/body/app-root/mat-drawer-container/mat-drawer-content/app-library/div/div[2]/div[1]/div[1]/table/tbody/tr[3]/td[5]/button")
 	public WebElement firstStudyBtn;
 
 	@FindBy(id = "nextquestion")
@@ -60,10 +60,10 @@ public class Objectives {
 	@FindBy(xpath = "/html/body/app-root/mat-drawer-container/mat-drawer-content/app-cardrunner/div/div[2]/div[3]/h2")
 	public WebElement finishDeckText;
 
-	@FindBy(id = "return")
+	@FindBy(id = "libraryNavLink")
 	public WebElement returnToLibrary;
 
-	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[2]/td[4]/button")
+	@FindBy(id = "cardrunner")
 	public WebElement secondStudyBtn;
 
 	@FindBy(xpath = "/html/body/app-root/mat-drawer-container/mat-drawer-content/app-objectives/div/div[2]/div/div/div[2]/ul/div[3]/div")
@@ -75,7 +75,7 @@ public class Objectives {
 	@FindBy(id = "mastered")
 	public WebElement masterBtn;
 
-	@FindBy(xpath = "//*[@id=\"tableContainer\"]/table/tbody/tr[1]/td[5]/button")
+	@FindBy(xpath = "//*[contains (text(), 'add/edit cards')]")
 	public WebElement addEditBtn;
 
 	@FindBy(xpath = "/html/body/ngb-modal-window/div/div/div[2]/table/tbody/tr[14]/td")

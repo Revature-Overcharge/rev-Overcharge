@@ -30,7 +30,7 @@ public class CreateDeck {
 	@FindBy(id = "addeditcards")
 	public WebElement addeditcards;
 	
-	@FindBy(id = "addrow")
+	@FindBy(id = "addrowCard")
 	public WebElement addrow;
 	
 	@FindBy(id = "cardquestion")
@@ -45,10 +45,7 @@ public class CreateDeck {
 	@FindBy(id = "create-button")
 	public WebElement createdeck;
 	
-
-
-	
-	@FindBy(id = "libararyNavLink")
+	@FindBy(id = "libraryNavLink")
 	public WebElement library;
 	
 	public CreateDeck(WebDriver driver) {

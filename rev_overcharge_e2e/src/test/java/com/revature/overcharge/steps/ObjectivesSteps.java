@@ -127,8 +127,55 @@ public class ObjectivesSteps {
 
 	@Given("User without a deck is logged in")
 	public void user_without_a_deck_is_logged_in() {
-		// assertEquals("account_circle\r\n" + "wblackley5\r\n" + "keyboard_arrow_down",
-		// objectives.userBtn.getText());
+		objectives.userBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.logoutBtn.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.loginTab.click();
+
+		for (int i = 0; i < 50; i++) {
+			objectives.inputUname.sendKeys(Keys.BACK_SPACE);
+		}
+
+		objectives.inputUname.sendKeys("tholburn7" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < 50; i++) {
+			objectives.inputPass.sendKeys(Keys.BACK_SPACE);
+		}
+
+		objectives.inputPass.sendKeys("2E2LGtacW" + "\n");
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		objectives.loginButton.click();
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Given("User clicks on Library")
@@ -155,7 +202,7 @@ public class ObjectivesSteps {
 
 	@Given("User goes through a deck")
 	public void user_goes_through_a_deck() {
-		for (int i = 0; i < 14; i++) {
+		for (int i = 0; i < 19; i++) {
 			objectives.nextQuestionBtn.click();
 
 			try {
@@ -169,7 +216,7 @@ public class ObjectivesSteps {
 	@Given("User rates the deck {int} stars")
 	public void user_rates_the_deck_stars(Integer int1) {
 		int1 = 5;
-
+		
 		objectives.starFive.click();
 
 		try {
@@ -474,7 +521,7 @@ public class ObjectivesSteps {
 		}
 	}
 
-	@Given("User is logged in")
+	@Given("User is logged in one")
 	public void user_is_logged_in() {
 
 		objectives.userBtn.click();
@@ -921,6 +968,7 @@ public class ObjectivesSteps {
 
 	@Given("User rates the deck")
 	public void user_rates_the_deck() {
+		objectives.nextQuestionBtn.click();
 		objectives.starFive.click();
 
 		try {

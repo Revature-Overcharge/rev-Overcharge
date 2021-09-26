@@ -34,3 +34,5 @@ build/
 
 ### log4j ###
 */log.txt
+/.metadata/
+/src/

@@ -24,9 +24,9 @@ public class CardTraversalSteps {
 	public void user_has_logged_in() throws InterruptedException {
 		cardTraversal.login.click();
 		Thread.sleep(3000);
-		cardTraversal.inputUname.sendKeys("user" + "\n");
+		cardTraversal.inputUname.sendKeys("user");
 		Thread.sleep(3000);
-		cardTraversal.inputPass.sendKeys("pass" + "\n");
+		cardTraversal.inputPass.sendKeys("pass");
 		Thread.sleep(3000);
 		cardTraversal.loginButton.click();
 		Thread.sleep(3000);
@@ -46,6 +46,7 @@ public class CardTraversalSteps {
 
 	@Then("User traverses a deck")
 	public void user_traverses_a_deck() throws InterruptedException {
+		// Need to traverse deck until there is no more questions
 		cardTraversal.nextquestion.click();
 		Thread.sleep(1000);
 		cardTraversal.nextquestion.click();

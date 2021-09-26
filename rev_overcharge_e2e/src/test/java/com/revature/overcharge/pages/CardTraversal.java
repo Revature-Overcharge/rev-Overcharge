@@ -21,7 +21,7 @@ public class CardTraversal {
 	@FindBy(id = "loginButton")
 	public WebElement loginButton;
 	
-	@FindBy(id = "libararyNavLink")
+	@FindBy(id = "libraryNavLink")
 	public WebElement library;
 	
 	@FindBy(id = "cardrunner")

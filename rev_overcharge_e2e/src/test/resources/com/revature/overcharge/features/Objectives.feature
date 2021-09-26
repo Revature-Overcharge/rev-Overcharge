@@ -46,7 +46,7 @@ Feature: Objectives
     And Objectives show Get a 5 Star Rating incomplete
     
   Scenario: User wants to Master 5 Cards
-    Given User is logged in
+    Given User is logged in one
     And User clicks on Library
     And User clicks Study
     And User clicks Mark as Mastered for 4 cards
@@ -80,12 +80,12 @@ Feature: Objectives
     When User clicks the Objectives sidenav
     Then Objectives show Create a Deck complete
   
-  Scenario: User wants to Master a Deck
-    Given User clicks on Library
-    And User clicks Study
-    And User clicks Mark as Mastered for all cards
-    And User rates the deck
-    When User clicks the Objectives topnav
-    Then Tab shows Master a Deck complete
-    When User clicks the Objectives sidenav
-    Then Objectives show Master a Deck complete
+#  Scenario: User wants to Master a Deck
+#    Given User clicks on Library
+#    And User clicks Study
+#    And User clicks Mark as Mastered for all cards
+#    And User rates the deck
+#    When User clicks the Objectives topnav
+#    Then Tab shows Master a Deck complete
+#    When User clicks the Objectives sidenav
+#    Then Objectives show Master a Deck complete
