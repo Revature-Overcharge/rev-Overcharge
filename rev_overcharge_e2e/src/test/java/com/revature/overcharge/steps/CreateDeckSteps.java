@@ -49,8 +49,11 @@ public class CreateDeckSteps {
 	public void user_enters_proper_values_to_create_a_deck() throws InterruptedException {
 		createDeck.addeditcards.click();
 		Thread.sleep(3000);
+		
+		createDeck.addrow.click();		
 		createDeck.addrow.click();
 		Thread.sleep(3000);
+		
 		createDeck.cardquestion.click();
 		Thread.sleep(3000);
 		createDeck.cardquestion.sendKeys("TestQuestion");
