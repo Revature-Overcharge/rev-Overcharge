@@ -23,7 +23,7 @@ public class ObjectivesRunner {
 	public static void setUp() {
 
 		// DON'T FORGET TO CHANGE PATH TO YOURS
-		String path = "C:/Users/embehr/Downloads/chromedriver_win32/chromedriver.exe";
+		String path = "C:/SeleniumStuff/chromedriver_win32/chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", path);
 
 		driver = new ChromeDriver();

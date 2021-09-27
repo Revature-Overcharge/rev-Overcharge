@@ -19,21 +19,21 @@ import io.cucumber.java.en.When;
 public class LoginSteps {
 	
 	private static WebDriver driver = LoginRunner.driver;
-	private static WebDriverWait wait = new WebDriverWait(driver, 10);
+	private static WebDriverWait wait = new WebDriverWait(driver, 1);
 	private static PageFrame page = LoginRunner.page;
 	private static LoginModal modal = LoginRunner.modal;
 
     @Given("^User has nagivated to the website for login$")
     public void user_has_nagivated_to_the_website_for_login() throws Throwable {
         page.navigateTo(page.getURL());
-        Thread.sleep(2000);
+        Thread.sleep(200);
     }
 
     @Given("^User opens the login modal$")
     public void user_opens_the_login_modal() throws Throwable {
         page.loginNav.click();
         wait.withTimeout(Duration.ofSeconds(1));
-        Thread.sleep(2000);
+        Thread.sleep(200);
     }
 
     @Given("^User is logged in$")
@@ -62,14 +62,14 @@ public class LoginSteps {
         	break;
         case "Login":
         	modal.loginButton.click();
-        	Thread.sleep(2000);
+        	Thread.sleep(200);
         	user_clicks_something_for_login("Exit");
         	break;
         case "Exit":
         	modal.exitButton.click();
         	break;
         }
-        Thread.sleep(2000);
+        Thread.sleep(200);
     }
 
     @When("^User logs in with \"([^\"]*)\" credentials$")
@@ -93,7 +93,7 @@ public class LoginSteps {
     	modal.usernameInput.sendKeys(username);
     	modal.passwordInput.sendKeys(password);
     	user_clicks_something_for_login("Login");
-    	Thread.sleep(2000);
+    	Thread.sleep(200);
     	
     }
 
@@ -109,7 +109,7 @@ public class LoginSteps {
 
     @Then("^Modal displays \"([^\"]*)\" message$")
     public void modal_displays_something_message(String msgType) throws Throwable {
-    	Thread.sleep(2000);
+    	Thread.sleep(200);
         String message = "";
         
         switch (msgType) {

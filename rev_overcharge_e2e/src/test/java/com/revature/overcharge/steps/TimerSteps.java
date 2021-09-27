@@ -1,6 +1,7 @@
 package com.revature.overcharge.steps;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 
 import java.time.Duration;
 
@@ -25,6 +26,7 @@ public class TimerSteps {
     @Given("^User has navigated to the website for timer$")
     public void user_has_navigated_to_the_website_for_timer() throws Throwable {
     	timer.navigateTo(timer.getURL());
+    	Thread.sleep(2000);
     }
     
     @Given("^User shows Timer$")
@@ -39,6 +41,7 @@ public class TimerSteps {
     	switch (visibility) {
 		case "On":
 			css = "block";
+			Thread.sleep(2000);
 			break;
 		case "Off":
 			css = "none";
@@ -46,7 +49,7 @@ public class TimerSteps {
 			wait.withTimeout(Duration.ofSeconds(1));
 			break;
     	}
-//    	assertEquals(css,timer.timerContainer.getCssValue("display"));
+    	assertEquals(css,timer.timerContainer.getCssValue("display"));
     }
 
     @When("^User clicks \"([^\"]*)\" on timer$")
@@ -54,23 +57,31 @@ public class TimerSteps {
     	switch (button) {
 		case "Timer":
 			timer.timerLink.click();
+			Thread.sleep(2000);
 			break;
 		case "Play":
 			timer.playTimer.click();
+			Thread.sleep(2000);
 			break;
 		case "Pause":
 			timer.playTimer.click();
+			Thread.sleep(2000);
 			timer.pauseTimer.click();
+			Thread.sleep(2000);
 			break;
 		case "Reset":
 			timer.playTimer.click();
+			Thread.sleep(2000);
 			timer.resetTimer.click();
+			Thread.sleep(2000);
 			break;
 		case "Change Mode":
 			timer.modeToggle.click();
+			Thread.sleep(2000);
 			break;
 		case "Display Input":
 			timer.inputToggle.click();
+			Thread.sleep(2000);
 			break;
     	}
     	wait.withTimeout(Duration.ofSeconds(1));
@@ -79,7 +90,9 @@ public class TimerSteps {
     @When("^Timer display is \"([^\"]*)\"$")
     public void timer_display_is_something(String display) throws Throwable {
     	user_clicks_something_on_timer("Display Input");
+    	Thread.sleep(2000);
     	user_inputs_and("0", "1");
+    	Thread.sleep(2000);
     	user_clicks_something_on_timer("Play");
     	wait.withTimeout(Duration.ofMinutes(1)).until(
     			ExpectedConditions.attributeToBe(timer.display, "innerText", display));
@@ -92,33 +105,39 @@ public class TimerSteps {
     	switch (visibility) {
 		case "On":
 			css = "block";
+			Thread.sleep(2000);
 			break;
 		case "Off":
 			css = "none";
+			Thread.sleep(2000);
 			break;
     	}
-//    	assertEquals(css,timer.timerContainer.getCssValue("display"));
+    	assertEquals(css,timer.timerContainer.getCssValue("display"));
     }
 
     @Then("^Timer status is \"([^\"]*)\"$")
     public void timer_status_is_something(String status) throws Throwable {
-//    	assertEquals(": "+status, timer.status.getText());
+    	assertEquals(": "+status, timer.status.getText());
     }
 
     @Then("^Timer mode changes to \"([^\"]*)\"$")
     public void timer_mode_changes_to_something(String finalMode) throws Throwable {
     	ExpectedConditions.attributeToBe(timer.mode, "innerText", finalMode);
+    	Thread.sleep(2000);
     }
 
     @Then("^Timer is set to (.+)$")
     public void timer_is_set_to(String newTime) throws Throwable {
     	ExpectedConditions.attributeToBe(timer.display, "innerText", newTime);
+    	Thread.sleep(2000);
     }
 
     @And("^User inputs (.+) and (.+)$")
     public void user_inputs_and(String hours, String minutes) throws Throwable {
     	timer.hoursInput.sendKeys(hours);
+    	Thread.sleep(2000);
     	timer.minInput.sendKeys(minutes);
+    	Thread.sleep(2000);
 	    timer.setTimer.click();
 	    wait.withTimeout(Duration.ofSeconds(1));
     }
