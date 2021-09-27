@@ -73,6 +73,16 @@ public class CardTraversalSteps {
 		Thread.sleep(1000);
 		cardTraversal.nextquestion.click();
 		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
+		cardTraversal.nextquestion.click();
+		Thread.sleep(1000);
 	}
 
 	@Then("User clicks finish set")
